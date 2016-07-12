@@ -13,9 +13,39 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+ 
+<script type="text/javascript">
+ 
+$(function() {
+ 
+$(window).scroll(function() {
+ 
+if($(this).scrollTop() != 0) {
+ 
+$('#toTop').fadeIn();
+ 
+} else {
+ 
+$('#toTop').fadeOut();
+ 
+}
+ 
+});
+ 
+$('#toTop').click(function() {
+ 
+$('body,html').animate({scrollTop:0},800);
+ 
+});
+ 
+});
+ 
+</script>
 </head>
 <body style="background: url(http://s001.radikal.ru/i195/1106/16/5c4c8889cc9d.jpg);">
     <header>
+       <div id="new">
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
                 <div class="row">
@@ -89,6 +119,7 @@
             </div>
         </div>
 </nav>
+       </div>
     </header>
     <!-- Content-->
     <div class="container">
@@ -138,5 +169,6 @@
    <footer class="label label-default text-center">
       <p>вфвфыв</p>
    </footer>
+   <div ID = "toTop" ><img src="http://realadmin.ru/assets/templates/main/images/ForNews/2014/10/up2.png" alt=""></div>
 </body>
 </html>
