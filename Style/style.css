@@ -5,7 +5,7 @@ background:#f7f7f7;
 text-align:center;
 padding:5px;
 position:fixed;
-bottom:10px; /* отступ кнопки от нижнего края страницы*/
+bottom:10px; 
 right:10px;
 cursor:pointer;
 display:none;
