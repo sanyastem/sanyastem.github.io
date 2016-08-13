@@ -1,9 +1,10 @@
 h1{
-	
+	color: rgba(0, 0, 0, .6);
 	text-shadow: 0 1px 0 #eee,0 2px 0 #000000;
 	text-align: center;
 }
 p{
-	text-shadow: 0 1px 0 #eee,0 2px 0 #000000;
+	color: rgba(0, 0, 0, .6);
+	text-shadow: 0 1px 0 #eee,0 1px 0 #000000;
 	text-align: center;
 }
