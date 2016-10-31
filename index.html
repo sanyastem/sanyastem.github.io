@@ -10,14 +10,17 @@
     
 <div id="hide" class="ball"></div>
 <div id="hide1" class="ball1"></div>
-    <div id="show">
+    <div id="show" style="display: none;">
    <h1>Данный сайт не работает</h1>
    <p>Извините за неудобства</p>      
     </div>
    <script type="text/javascript">
-          $("#show").fadeIn(10000);
-          $("#hide").fadeOut(6000);
-          $("#hide1").fadeOut(6000);    
+       window.onload = function() {
+            $("#hide").fadeOut();
+            $("#hide1").fadeOut(); 
+            $("#show").fadeIn();
+  };
+             
      </script>
 </body>  
 </html>
