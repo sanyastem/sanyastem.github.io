@@ -10,32 +10,51 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// Filter
-const filterBtns  = document.querySelectorAll('.filter-btn');
-const postCards   = document.querySelectorAll('.post-card');
-const noPostsMsg  = document.getElementById('no-posts');
-const postsCount  = document.getElementById('posts-count');
+// ========== Combined filter (category + difficulty) ==========
+const postCards  = document.querySelectorAll('.post-card');
+const noPostsMsg = document.getElementById('no-posts');
+const postsCount = document.getElementById('posts-count');
 
-filterBtns.forEach(btn => {
+let activeCategory   = 'all';
+let activeDifficulty = 'all';
+
+function applyFilter() {
+    let visible = 0;
+
+    postCards.forEach(card => {
+        const catMatch  = activeCategory   === 'all' || card.dataset.category   === activeCategory;
+        const diffMatch = activeDifficulty === 'all' || card.dataset.difficulty === activeDifficulty;
+        const show = catMatch && diffMatch;
+
+        card.style.display = show ? '' : 'none';
+        if (show) {
+            visible++;
+            card.classList.remove('visible');
+            setTimeout(() => card.classList.add('visible'), 50);
+        }
+    });
+
+    if (postsCount) postsCount.textContent = visible + ' ' + decline(visible);
+    if (noPostsMsg) noPostsMsg.style.display = visible === 0 ? 'block' : 'none';
+}
+
+// Category buttons
+document.querySelectorAll('#cat-bar .filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#cat-bar .filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        activeCategory = btn.dataset.filter;
+        applyFilter();
+    });
+});
 
-        const filter = btn.dataset.filter;
-        let visible = 0;
-
-        postCards.forEach(card => {
-            const match = filter === 'all' || card.dataset.category === filter;
-            card.style.display = match ? '' : 'none';
-            if (match) {
-                visible++;
-                card.classList.remove('visible');
-                setTimeout(() => card.classList.add('visible'), 50);
-            }
-        });
-
-        if (postsCount) postsCount.textContent = visible + ' ' + decline(visible);
-        if (noPostsMsg) noPostsMsg.style.display = visible === 0 ? 'block' : 'none';
+// Difficulty buttons
+document.querySelectorAll('#diff-bar .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('#diff-bar .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeDifficulty = btn.dataset.diff;
+        applyFilter();
     });
 });
 
@@ -50,7 +69,7 @@ document.querySelectorAll('.nav-link[data-filter]').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const filter = link.dataset.filter;
-        const btn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+        const btn = document.querySelector(`#cat-bar .filter-btn[data-filter="${filter}"]`);
         if (btn) { btn.click(); document.getElementById('posts')?.scrollIntoView({ behavior: 'smooth' }); }
     });
 });

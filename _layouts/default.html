@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% include head.html %}
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+        <ul class="nav-links">
+            <li><a href="/#posts" class="nav-link">Статьи</a></li>
+            <li><a href="/#posts" class="nav-link" data-filter="web">Web</a></li>
+            <li><a href="/#posts" class="nav-link" data-filter="devops">DevOps</a></li>
+            <li><a href="/#posts" class="nav-link" data-filter="git">Git</a></li>
+            <li><a href="/#posts" class="nav-link" data-filter="tools">Инструменты</a></li>
+        </ul>
+        <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+{{ content }}
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+            <p class="footer-copy">Пишу про разработку — коротко и по делу</p>
+        </div>
+    </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="/Scripts/script.js"></script>
+</body>
+</html>

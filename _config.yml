@@ -1,0 +1,18 @@
+title: sanyastem
+description: Блог разработчика — гайды по Web, DevOps, Git и инструментам
+url: "https://sanyastem.github.io"
+baseurl: ""
+
+permalink: /:categories/:slug/
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
