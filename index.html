@@ -2,25 +2,263 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Александр Рубис</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanyaStem — Digital Products</title>
     <link rel="stylesheet" href="Style/style.css">
-    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-<div id="hide" class="ball"></div>
-<div id="hide1" class="ball1"></div>
-    <div id="show" style="display: none;">
-   <h1>Данный сайт не работает</h1>
-   <p>Извините за неудобства</p>      
-    </div>
-   <script type="text/javascript">
-       window.onload = function() {
-            $("#hide").fadeOut();
-            $("#hide1").fadeOut(); 
-            $("#show").fadeIn();
-  };
-             
-     </script>
-</body>  
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">sanyastem<span class="accent">.</span></div>
+            <ul class="nav-links">
+                <li><a href="#products">Продукты</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#contact" class="nav-cta">Связаться</a></li>
+            </ul>
+            <button class="burger" id="burger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="grid-overlay"></div>
+            <div class="glow glow-1"></div>
+            <div class="glow glow-2"></div>
+        </div>
+        <div class="hero-content">
+            <span class="hero-badge">Digital Products</span>
+            <h1 class="hero-title">Инструменты для<br><span class="accent-text">разработчиков</span></h1>
+            <p class="hero-sub">Готовые шаблоны, UI-киты и инструменты, которые ускоряют разработку</p>
+            <div class="hero-actions">
+                <a href="#products" class="btn btn-primary">Смотреть продукты</a>
+                <a href="#about" class="btn btn-ghost">Узнать больше</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="scroll-indicator"></div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Каталог</span>
+                <h2 class="section-title">Наши продукты</h2>
+                <p class="section-sub">Всё, что нужно для быстрого старта проекта</p>
+            </div>
+
+            <div class="products-filter">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="ui">UI Kiты</button>
+                <button class="filter-btn" data-filter="template">Шаблоны</button>
+                <button class="filter-btn" data-filter="tool">Инструменты</button>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+
+                <div class="product-card" data-category="ui">
+                    <div class="card-badge">Популярное</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="3"/>
+                            <path d="M3 9h18M9 21V9"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Dark UI Kit</h3>
+                        <p class="card-desc">Комплект из 120+ тёмных компонентов для Figma и CSS. Готов к использованию в любом проекте.</p>
+                        <div class="card-tags">
+                            <span>Figma</span><span>CSS</span><span>120+ компонентов</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">
+                            <span class="price-old">$49</span>
+                            <span class="price-new">$29</span>
+                        </div>
+                        <button class="card-btn">Получить</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="template">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5z"/>
+                            <path d="M4 13a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6z"/>
+                            <path d="M16 13a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-6z"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Dev Dashboard</h3>
+                        <p class="card-desc">Шаблон административной панели с графиками, таблицами и аутентификацией. HTML + CSS + JS.</p>
+                        <div class="card-tags">
+                            <span>HTML</span><span>JS</span><span>Charts</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">
+                            <span class="price-new">$19</span>
+                        </div>
+                        <button class="card-btn">Получить</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tool">
+                    <div class="card-badge new">Новое</div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M8 9l3 3-3 3M13 15h3"/>
+                            <rect x="3" y="3" width="18" height="18" rx="3"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">CLI Boilerplate</h3>
+                        <p class="card-desc">Готовая структура CLI-приложения на Node.js с командами, флагами и красивым выводом.</p>
+                        <div class="card-tags">
+                            <span>Node.js</span><span>CLI</span><span>Open Source</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">
+                            <span class="price-free">Бесплатно</span>
+                        </div>
+                        <button class="card-btn card-btn-outline">Скачать</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="ui">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Landing Pack</h3>
+                        <p class="card-desc">5 готовых лендингов для IT-продуктов. Анимации, адаптивная вёрстка, быстрый старт.</p>
+                        <div class="card-tags">
+                            <span>5 шаблонов</span><span>Адаптив</span><span>Анимации</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">
+                            <span class="price-new">$39</span>
+                        </div>
+                        <button class="card-btn">Получить</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="template">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Portfolio Template</h3>
+                        <p class="card-desc">Минималистичный шаблон портфолио для разработчика. Тёмная тема, проекты, навыки, контакты.</p>
+                        <div class="card-tags">
+                            <span>HTML</span><span>CSS</span><span>Минимализм</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">
+                            <span class="price-new">$14</span>
+                        </div>
+                        <button class="card-btn">Получить</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tool">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">API Monitor</h3>
+                        <p class="card-desc">Простой инструмент для мониторинга REST API. Уведомления, статистика, история запросов.</p>
+                        <div class="card-tags">
+                            <span>REST</span><span>Мониторинг</span><span>JS</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">
+                            <span class="price-new">$24</span>
+                        </div>
+                        <button class="card-btn">Получить</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="section-tag">О нас</span>
+                    <h2 class="section-title">Делаем инструменты<br>для разработчиков</h2>
+                    <p>Мы создаём качественные цифровые продукты — от UI-китов до полноценных шаблонов. Всё, чтобы твой следующий проект стартовал быстрее.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-num">50+</span>
+                        <span class="stat-label">Продуктов</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">2K+</span>
+                        <span class="stat-label">Клиентов</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">4.9</span>
+                        <span class="stat-label">Рейтинг</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num">24/7</span>
+                        <span class="stat-label">Поддержка</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-card">
+                <div class="glow glow-contact"></div>
+                <span class="section-tag">Контакт</span>
+                <h2>Есть вопросы?</h2>
+                <p>Напишите нам — ответим в течение нескольких часов</p>
+                <a href="mailto:hello@sanyastem.dev" class="btn btn-primary">Написать письмо</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="nav-logo">sanyastem<span class="accent">.</span></div>
+                <p class="footer-copy">© 2025 sanyastem. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop" title="Наверх">↑</button>
+
+    <script src="Scripts/script.js"></script>
+</body>
 </html>
