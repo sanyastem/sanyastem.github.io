@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Docker для новичка: контейнеры за 10 минут — sanyastem</title>
+    <meta name="description" content="Что такое Docker-контейнер, зачем он нужен, первый docker run, Dockerfile и docker-compose — объясняем просто на реальном примере.">
+    <meta name="keywords" content="docker, контейнеры, dockerfile, docker-compose, docker для начинающих, devops, контейнеризация">
+    <meta name="author" content="sanyastem">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sanyastem.github.io/articles/docker-basics.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sanyastem.github.io/articles/docker-basics.html">
+    <meta property="og:title" content="Docker для новичка: контейнеры за 10 минут">
+    <meta property="og:description" content="Что такое контейнер, первый docker run и docker-compose на простом примере.">
+    <meta property="og:site_name" content="sanyastem">
+    <meta property="article:published_time" content="2025-02-01">
+    <meta property="article:tag" content="docker">
+    <meta property="article:tag" content="devops">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Docker для новичка: контейнеры за 10 минут">
+    <meta name="twitter:description" content="Что такое контейнер, первый docker run и docker-compose на простом примере.">
+
+    <link rel="stylesheet" href="../Style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+        <ul class="nav-links">
+            <li><a href="/#posts" class="nav-link">Статьи</a></li>
+        </ul>
+        <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<header class="article-hero">
+    <a href="/" class="article-back">Все статьи</a>
+    <div class="article-meta">
+        <span class="tag tag-devops">DevOps</span>
+        <span class="post-date">1 февраля 2025</span>
+        <span class="read-time">7 мин</span>
+    </div>
+    <h1 class="article-title">Docker для новичка: контейнеры за 10 минут</h1>
+    <p class="article-desc">«У меня работает» — это не ответ. Docker решает проблему окружения раз и навсегда: приложение работает одинаково на твоём ноутбуке, у коллеги и на сервере.</p>
+</header>
+
+<article class="article-body">
+
+    <h2>Что такое контейнер</h2>
+    <p>Контейнер — это изолированный процесс со своей файловой системой, зависимостями и настройками. В отличие от виртуальной машины, он не включает целую ОС — поэтому запускается за секунды и весит мегабайты, а не гигабайты.</p>
+    <p>Аналогия: контейнер — как zip-архив с приложением и всем необходимым для его запуска.</p>
+
+    <h2>Установка</h2>
+    <p>Скачай <strong>Docker Desktop</strong> с официального сайта. Он включает Docker Engine, CLI и GUI. После установки проверь:</p>
+
+    <div class="code-block"><pre><span class="cmd">docker --version</span>
+<span class="comment"># Docker version 27.x.x</span>
+
+<span class="cmd">docker run hello-world</span>
+<span class="comment"># Если видишь "Hello from Docker!" — всё работает</span></pre></div>
+
+    <h2>Основные команды</h2>
+
+    <div class="code-block"><pre><span class="comment"># Запустить контейнер (скачает образ если нет локально)</span>
+<span class="cmd">docker run nginx</span>
+
+<span class="comment"># Запустить в фоне (-d) и пробросить порт (-p)</span>
+<span class="cmd">docker run -d -p 8080:80 nginx</span>
+<span class="comment"># Теперь открой http://localhost:8080</span>
+
+<span class="comment"># Список запущенных контейнеров</span>
+<span class="cmd">docker ps</span>
+
+<span class="comment"># Остановить контейнер</span>
+<span class="cmd">docker stop &lt;container_id&gt;</span>
+
+<span class="comment"># Список образов</span>
+<span class="cmd">docker images</span></pre></div>
+
+    <h2>Dockerfile — свой образ</h2>
+    <p>Dockerfile — это инструкция по сборке образа. Пример для простого Node.js приложения:</p>
+
+    <div class="code-block"><pre><span class="comment"># Берём базовый образ</span>
+<span class="keyword">FROM</span> node:20-alpine
+
+<span class="comment"># Рабочая директория внутри контейнера</span>
+<span class="keyword">WORKDIR</span> /app
+
+<span class="comment"># Копируем package.json и ставим зависимости</span>
+<span class="keyword">COPY</span> package*.json ./
+<span class="keyword">RUN</span> npm install
+
+<span class="comment"># Копируем весь код</span>
+<span class="keyword">COPY</span> . .
+
+<span class="comment"># Открываем порт</span>
+<span class="keyword">EXPOSE</span> 3000
+
+<span class="comment"># Команда запуска</span>
+<span class="keyword">CMD</span> [<span class="string">"node"</span>, <span class="string">"index.js"</span>]</pre></div>
+
+    <div class="code-block"><pre><span class="comment"># Собрать образ</span>
+<span class="cmd">docker build -t my-app .</span>
+
+<span class="comment"># Запустить</span>
+<span class="cmd">docker run -p 3000:3000 my-app</span></pre></div>
+
+    <h2>docker-compose — несколько сервисов</h2>
+    <p>Если нужно запустить приложение + базу данных + redis — используй <code>docker-compose.yml</code>:</p>
+
+    <div class="code-block"><pre><span class="keyword">version</span>: <span class="string">'3'</span>
+<span class="keyword">services</span>:
+  <span class="value">app</span>:
+    build: .
+    ports:
+      - <span class="string">"3000:3000"</span>
+    depends_on:
+      - db
+    environment:
+      - <span class="string">DATABASE_URL=postgres://user:pass@db:5432/mydb</span>
+
+  <span class="value">db</span>:
+    image: <span class="string">postgres:16</span>
+    environment:
+      POSTGRES_USER: <span class="string">user</span>
+      POSTGRES_PASSWORD: <span class="string">pass</span>
+      POSTGRES_DB: <span class="string">mydb</span>
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+<span class="keyword">volumes</span>:
+  pgdata:</pre></div>
+
+    <div class="code-block"><pre><span class="comment"># Запустить всё</span>
+<span class="cmd">docker-compose up -d</span>
+
+<span class="comment"># Остановить</span>
+<span class="cmd">docker-compose down</span></pre></div>
+
+    <div class="tip-block">
+        <span class="tip-icon">💡</span>
+        <p>Добавь <code>.dockerignore</code> рядом с <code>Dockerfile</code> и включи туда <code>node_modules</code>, <code>.git</code>, <code>.env</code> — они не должны попадать в образ.</p>
+    </div>
+
+</article>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+            <p class="footer-copy">Пишу про разработку — коротко и по делу</p>
+        </div>
+    </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../Scripts/script.js"></script>
+</body>
+</html>

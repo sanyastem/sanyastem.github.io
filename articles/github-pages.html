@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Как запустить сайт на GitHub Pages за 5 минут — sanyastem</title>
+    <meta name="description" content="Пошаговый гайд по запуску бесплатного хостинга через GitHub Pages: создание репозитория, настройка ветки, кастомный домен и HTTPS.">
+    <meta name="keywords" content="github pages, хостинг, бесплатный хостинг, статический сайт, деплой, github">
+    <meta name="author" content="sanyastem">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sanyastem.github.io/articles/github-pages.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sanyastem.github.io/articles/github-pages.html">
+    <meta property="og:title" content="Как запустить сайт на GitHub Pages за 5 минут">
+    <meta property="og:description" content="Пошаговый гайд: бесплатный хостинг из репозитория от нуля до рабочего сайта.">
+    <meta property="og:site_name" content="sanyastem">
+    <meta property="article:published_time" content="2025-02-28">
+    <meta property="article:tag" content="devops">
+    <meta property="article:tag" content="github">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Как запустить сайт на GitHub Pages за 5 минут">
+    <meta name="twitter:description" content="Пошаговый гайд: бесплатный хостинг из репозитория от нуля до рабочего сайта.">
+
+    <link rel="stylesheet" href="../Style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+        <ul class="nav-links">
+            <li><a href="/#posts" class="nav-link">Статьи</a></li>
+            <li><a href="/#posts" class="nav-link">Web</a></li>
+            <li><a href="/#posts" class="nav-link">DevOps</a></li>
+            <li><a href="/#posts" class="nav-link">Git</a></li>
+            <li><a href="/#posts" class="nav-link">Инструменты</a></li>
+        </ul>
+        <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<header class="article-hero">
+    <a href="/" class="article-back">Все статьи</a>
+    <div class="article-meta">
+        <span class="tag tag-devops">DevOps</span>
+        <span class="post-date">28 февраля 2025</span>
+        <span class="read-time">5 мин</span>
+    </div>
+    <h1 class="article-title">Как запустить сайт на GitHub Pages за 5 минут</h1>
+    <p class="article-desc">GitHub Pages — бесплатный хостинг прямо из репозитория. Никаких серверов, никаких платежей. Просто кладёшь файлы в репо — и сайт уже доступен в интернете. В этом гайде пройдём весь путь от нуля.</p>
+</header>
+
+<article class="article-body">
+
+    <h2>Что такое GitHub Pages</h2>
+    <p>GitHub Pages — сервис от GitHub, который берёт файлы из твоего репозитория и раздаёт их как статический сайт. Работает с HTML, CSS, JavaScript. Бесплатно для публичных репозиториев, домен по умолчанию — <code>username.github.io</code>.</p>
+    <p>Идеально для: портфолио, документации, блогов, лендингов.</p>
+
+    <h2>Шаг 1 — Создай репозиторий</h2>
+    <p>Для персонального сайта имя репозитория должно быть строго <code>username.github.io</code>, где <code>username</code> — твой логин на GitHub. Именно так, без отступлений.</p>
+
+    <div class="tip-block">
+        <span class="tip-icon">💡</span>
+        <p>Для проекта (не персонального сайта) имя может быть любым — он будет доступен по адресу <code>username.github.io/repo-name</code>.</p>
+    </div>
+
+    <h2>Шаг 2 — Добавь index.html</h2>
+    <p>GitHub Pages ищет точку входа — файл <code>index.html</code> в корне репозитория (или в папке <code>/docs</code>). Вот минимальный файл для старта:</p>
+
+    <div class="code-block"><pre><span class="comment">&lt;!-- index.html --&gt;</span>
+<span class="keyword">&lt;!DOCTYPE html&gt;</span>
+<span class="keyword">&lt;html</span> lang=<span class="string">"ru"</span><span class="keyword">&gt;</span>
+<span class="keyword">&lt;head&gt;</span>
+  <span class="keyword">&lt;meta</span> charset=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span>
+  <span class="keyword">&lt;title&gt;</span>Мой сайт<span class="keyword">&lt;/title&gt;</span>
+<span class="keyword">&lt;/head&gt;</span>
+<span class="keyword">&lt;body&gt;</span>
+  <span class="keyword">&lt;h1&gt;</span>Привет, мир!<span class="keyword">&lt;/h1&gt;</span>
+<span class="keyword">&lt;/body&gt;</span>
+<span class="keyword">&lt;/html&gt;</span></pre></div>
+
+    <h2>Шаг 3 — Включи Pages в настройках</h2>
+
+    <ul class="steps-list">
+        <li><span class="step-n">01</span><div><strong>Открой Settings репозитория</strong><p>Вкладка в верхнем меню репозитория.</p></div></li>
+        <li><span class="step-n">02</span><div><strong>Найди раздел Pages</strong><p>В левом сайдбаре — Pages.</p></div></li>
+        <li><span class="step-n">03</span><div><strong>Source: Deploy from branch</strong><p>Выбери ветку — обычно <code>main</code> или <code>master</code>, папку — <code>/ (root)</code>.</p></div></li>
+        <li><span class="step-n">04</span><div><strong>Сохрани</strong><p>Нажми Save. GitHub начнёт деплой — обычно занимает 1–2 минуты.</p></div></li>
+    </ul>
+
+    <h2>Шаг 4 — Открой сайт</h2>
+    <p>После деплоя в том же разделе Pages появится зелёная плашка с адресом: <code>https://username.github.io</code>. Жми и смотри результат.</p>
+
+    <h2>Кастомный домен</h2>
+    <p>Если хочешь подключить свой домен (<code>mysite.ru</code>), нужно:</p>
+    <ol>
+        <li>В настройках Pages ввести домен в поле Custom domain</li>
+        <li>У регистратора домена добавить DNS-запись:<br><code>CNAME @ username.github.io</code></li>
+        <li>Подождать распространения DNS — от 5 минут до нескольких часов</li>
+    </ol>
+
+    <div class="tip-block">
+        <span class="tip-icon">✅</span>
+        <p>HTTPS включается автоматически через Let's Encrypt — не нужно ничего настраивать дополнительно.</p>
+    </div>
+
+    <h2>Частые проблемы</h2>
+
+    <h3>Сайт не обновляется после push</h3>
+    <p>Проверь, что пушишь в ту ветку, которую указал в настройках Pages. Если ветка верная — жди, иногда CDN кэшируется несколько минут.</p>
+
+    <h3>Страница 404</h3>
+    <p>Убедись, что файл называется именно <code>index.html</code> (строчными буквами) и лежит в корне репозитория, а не в подпапке.</p>
+
+    <div class="warn-block">
+        <span class="tip-icon">⚠️</span>
+        <p>GitHub Pages не поддерживает серверную логику (Node.js, PHP, Python). Только статика: HTML, CSS, JS.</p>
+    </div>
+
+</article>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+            <p class="footer-copy">Пишу про разработку — коротко и по делу</p>
+        </div>
+    </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../Scripts/script.js"></script>
+</body>
+</html>
