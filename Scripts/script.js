@@ -1,38 +1,19 @@
-// ========== Scroll Top Button ==========
-const scrollTopBtn = document.getElementById('scrollTop');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-        scrollTopBtn.classList.add('visible');
-    } else {
-        scrollTopBtn.classList.remove('visible');
-    }
-});
-
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
 // ========== Fade-in on scroll ==========
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.classList.add('visible');
-            }, i * 80);
+            setTimeout(() => entry.target.classList.add('visible'), i * 60);
             observer.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
-document.querySelectorAll('.product-card, .stat, .about-text, .contact-card').forEach(el => {
-    el.classList.add('fade-in');
-    observer.observe(el);
-});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ========== Product Filter ==========
+// ========== Filter ==========
 const filterBtns = document.querySelectorAll('.filter-btn');
-const productCards = document.querySelectorAll('.product-card');
+const postCards  = document.querySelectorAll('.post-card');
+const noPostsMsg = document.getElementById('no-posts');
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -40,41 +21,41 @@ filterBtns.forEach(btn => {
         btn.classList.add('active');
 
         const filter = btn.dataset.filter;
+        let visible = 0;
 
-        productCards.forEach(card => {
-            if (filter === 'all' || card.dataset.category === filter) {
-                card.classList.remove('hidden');
-                card.classList.add('fade-in');
-                setTimeout(() => card.classList.add('visible'), 50);
-            } else {
-                card.classList.add('hidden');
+        postCards.forEach(card => {
+            const match = filter === 'all' || card.dataset.category === filter;
+            card.style.display = match ? '' : 'none';
+            if (match) {
+                visible++;
+                card.classList.remove('visible');
+                requestAnimationFrame(() => {
+                    setTimeout(() => card.classList.add('visible'), 50);
+                });
             }
         });
+
+        noPostsMsg.style.display = visible === 0 ? 'block' : 'none';
     });
 });
 
-// ========== Burger menu ==========
-const burger = document.getElementById('burger');
+// ========== Scroll Top ==========
+const scrollTopBtn = document.getElementById('scrollTop');
+
+window.addEventListener('scroll', () => {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ========== Burger ==========
+const burger   = document.getElementById('burger');
 const navLinks = document.querySelector('.nav-links');
 
-burger.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    navLinks.style.flexDirection = 'column';
-    navLinks.style.position = 'absolute';
-    navLinks.style.top = '64px';
-    navLinks.style.left = '0';
-    navLinks.style.right = '0';
-    navLinks.style.background = 'rgba(10,10,15,0.95)';
-    navLinks.style.padding = '16px 24px';
-    navLinks.style.borderBottom = '1px solid rgba(255,255,255,0.07)';
-    navLinks.style.backdropFilter = 'blur(16px)';
-});
+burger.addEventListener('click', () => navLinks.classList.toggle('open'));
 
-// Close mobile menu on link click
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-            navLinks.style.display = 'none';
-        }
-    });
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
 });
