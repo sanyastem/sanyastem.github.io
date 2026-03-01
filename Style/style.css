@@ -467,6 +467,68 @@ code {
 .scroll-top:hover { background: var(--accent-dim); border-color: rgba(0,183,229,0.3); color: var(--accent); }
 .scroll-top.visible { display: flex; }
 
+/* ========== Rouge Syntax Highlighting ========== */
+.article-body .highlight {
+    background: #0d0d14;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 20px 0;
+    overflow-x: auto;
+}
+
+.article-body .highlight pre {
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.83rem;
+    line-height: 1.7;
+    padding: 20px 24px;
+    margin: 0;
+    white-space: pre;
+    color: #c9d1d9;
+}
+
+/* Rouge token colors */
+.highlight .c, .highlight .c1, .highlight .cm { color: #6b7280; font-style: italic; } /* comments */
+.highlight .k, .highlight .kd, .highlight .kn { color: #ff7b72; }  /* keywords */
+.highlight .s, .highlight .s1, .highlight .s2 { color: #a5d6ff; }  /* strings */
+.highlight .n, .highlight .nv              { color: #c9d1d9; }  /* names */
+.highlight .nb                             { color: #79c0ff; }  /* builtins */
+.highlight .nc                             { color: #f0883e; }  /* class names */
+.highlight .nf                             { color: #d2a8ff; }  /* function names */
+.highlight .mi, .highlight .mf            { color: #79c0ff; }  /* numbers */
+.highlight .o                              { color: #ff7b72; }  /* operators */
+.highlight .p                              { color: #c9d1d9; }  /* punctuation */
+.highlight .na                             { color: #79c0ff; }  /* attr names */
+.highlight .nt                             { color: #7ee787; }  /* tag names */
+
+/* Inline code in article body */
+.article-body p code,
+.article-body li code,
+.article-body td code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.82em;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2px 6px;
+    border-radius: 5px;
+    color: var(--accent);
+}
+
+/* Blockquote tip style (> 💡 ...) */
+.article-body blockquote {
+    background: var(--accent-dim);
+    border: 1px solid rgba(0,183,229,0.15);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin: 24px 0;
+}
+
+.article-body blockquote p {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--text-dim);
+}
+
 /* ========== Fade-in ========== */
 .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }

@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+{% assign cat = site.data.categories[page.categories[0]] %}
+
+<header class="article-hero">
+    <a href="/" class="article-back">Все статьи</a>
+    <div class="article-meta">
+        <span class="tag tag-{{ page.categories[0] }}">{{ cat.label }}</span>
+        <span class="post-date">{{ page.date_ru }}</span>
+        <span class="read-time">{{ page.read_time }} мин</span>
+    </div>
+    <h1 class="article-title">{{ page.title }}</h1>
+    <p class="article-desc">{{ page.description }}</p>
+</header>
+
+<article class="article-body">
+    {{ content }}
+</article>

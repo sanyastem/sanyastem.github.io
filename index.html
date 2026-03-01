@@ -1,203 +1,55 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: default
+title: "sanyastem — блог разработчика"
+description: "Гайды и туториалы по Web-разработке, DevOps, Git и инструментам разработчика. Коротко, понятно и по делу."
+---
 
-    <title>sanyastem — блог разработчика</title>
-    <meta name="description" content="Гайды и туториалы по Web-разработке, DevOps, Git и инструментам разработчика. Коротко, понятно и по делу.">
-    <meta name="keywords" content="web разработка, devops, git, docker, css, javascript, туториалы, гайды, github pages, vs code">
-    <meta name="author" content="sanyastem">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://sanyastem.github.io/">
+<section class="hero">
+    <div class="hero-bg">
+        <div class="grid-overlay"></div>
+        <div class="glow glow-1"></div>
+    </div>
+    <div class="hero-content">
+        <span class="hero-badge">Блог разработчика</span>
+        <h1 class="hero-title">Гайды и туториалы<br>по <span class="accent-text">разработке</span></h1>
+        <p class="hero-sub">Web, DevOps, Git и инструменты — коротко и по делу</p>
+    </div>
+</section>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sanyastem.github.io/">
-    <meta property="og:title" content="sanyastem — блог разработчика">
-    <meta property="og:description" content="Гайды и туториалы по Web-разработке, DevOps, Git и инструментам разработчика.">
-    <meta property="og:site_name" content="sanyastem">
+<section class="posts-section" id="posts">
+    <div class="container">
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="sanyastem — блог разработчика">
-    <meta name="twitter:description" content="Гайды и туториалы по Web-разработке, DevOps, Git и инструментам разработчика.">
-
-    <link rel="stylesheet" href="Style/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
-            <ul class="nav-links">
-                <li><a href="#posts" class="nav-link">Статьи</a></li>
-                <li><a href="#posts" class="nav-link" data-filter="web">Web</a></li>
-                <li><a href="#posts" class="nav-link" data-filter="devops">DevOps</a></li>
-                <li><a href="#posts" class="nav-link" data-filter="git">Git</a></li>
-                <li><a href="#posts" class="nav-link" data-filter="tools">Инструменты</a></li>
-            </ul>
-            <button class="burger" id="burger"><span></span><span></span><span></span></button>
+        <div class="posts-header">
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="devops">DevOps</button>
+                <button class="filter-btn" data-filter="git">Git</button>
+                <button class="filter-btn" data-filter="tools">Инструменты</button>
+            </div>
+            <span class="posts-count" id="posts-count">{{ site.posts | size }} статей</span>
         </div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-bg">
-            <div class="grid-overlay"></div>
-            <div class="glow glow-1"></div>
-        </div>
-        <div class="hero-content">
-            <span class="hero-badge">Блог разработчика</span>
-            <h1 class="hero-title">Гайды и туториалы<br>по <span class="accent-text">разработке</span></h1>
-            <p class="hero-sub">Web, DevOps, Git и инструменты — коротко и по делу</p>
-        </div>
-    </section>
-
-    <section class="posts-section" id="posts">
-        <div class="container">
-
-            <div class="posts-header">
-                <div class="filter-bar">
-                    <button class="filter-btn active" data-filter="all">Все</button>
-                    <button class="filter-btn" data-filter="web">Web</button>
-                    <button class="filter-btn" data-filter="devops">DevOps</button>
-                    <button class="filter-btn" data-filter="git">Git</button>
-                    <button class="filter-btn" data-filter="tools">Инструменты</button>
+        <div class="posts-grid" id="posts-grid">
+            {% for post in site.posts %}
+            {% assign cat = site.data.categories[post.categories[0]] %}
+            <a href="{{ post.url | relative_url }}" class="post-card fade-in" data-category="{{ post.categories[0] }}">
+                <div class="card-top">
+                    <span class="tag tag-{{ post.categories[0] }}">{{ cat.label }}</span>
+                    <span class="read-time">{{ post.read_time }} мин</span>
                 </div>
-                <span class="posts-count" id="posts-count">9 статей</span>
-            </div>
-
-            <div class="posts-grid" id="posts-grid">
-
-                <a href="articles/github-pages.html" class="post-card fade-in" data-category="devops">
-                    <div class="card-top">
-                        <span class="tag tag-devops">DevOps</span>
-                        <span class="read-time">5 мин</span>
-                    </div>
-                    <h2 class="post-title">Как запустить сайт на GitHub Pages за 5 минут</h2>
-                    <p class="post-excerpt">Бесплатный хостинг прямо из репозитория — пошагово от нуля до рабочего сайта</p>
-                    <div class="card-footer">
-                        <span class="post-date">28 февраля 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/git-flow.html" class="post-card fade-in" data-category="git">
-                    <div class="card-top">
-                        <span class="tag tag-git">Git</span>
-                        <span class="read-time">4 мин</span>
-                    </div>
-                    <h2 class="post-title">Git flow: как правильно работать с ветками</h2>
-                    <p class="post-excerpt">Стратегия ветвления, именование веток, когда делать merge, а когда rebase</p>
-                    <div class="card-footer">
-                        <span class="post-date">15 февраля 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/css-dark-theme.html" class="post-card fade-in" data-category="web">
-                    <div class="card-top">
-                        <span class="tag tag-web">Web</span>
-                        <span class="read-time">6 мин</span>
-                    </div>
-                    <h2 class="post-title">CSS-переменные: тёмная тема без лишнего кода</h2>
-                    <p class="post-excerpt">Переключаем тёмную тему через :root и одну строку JS — никаких библиотек</p>
-                    <div class="card-footer">
-                        <span class="post-date">10 февраля 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/vscode-extensions.html" class="post-card fade-in" data-category="tools">
-                    <div class="card-top">
-                        <span class="tag tag-tools">Инструменты</span>
-                        <span class="read-time">3 мин</span>
-                    </div>
-                    <h2 class="post-title">VS Code: расширения которые я использую каждый день</h2>
-                    <p class="post-excerpt">Prettier, GitLens, Error Lens — что ставить в первую очередь</p>
-                    <div class="card-footer">
-                        <span class="post-date">5 февраля 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/docker-basics.html" class="post-card fade-in" data-category="devops">
-                    <div class="card-top">
-                        <span class="tag tag-devops">DevOps</span>
-                        <span class="read-time">7 мин</span>
-                    </div>
-                    <h2 class="post-title">Docker для новичка: контейнеры за 10 минут</h2>
-                    <p class="post-excerpt">Что такое контейнер, первый docker run и docker-compose на простом примере</p>
-                    <div class="card-footer">
-                        <span class="post-date">1 февраля 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/gitignore.html" class="post-card fade-in" data-category="git">
-                    <div class="card-top">
-                        <span class="tag tag-git">Git</span>
-                        <span class="read-time">3 мин</span>
-                    </div>
-                    <h2 class="post-title">.gitignore: что туда класть и почему</h2>
-                    <p class="post-excerpt">node_modules, .env, .DS_Store — что никогда не должно попасть в репозиторий</p>
-                    <div class="card-footer">
-                        <span class="post-date">25 января 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/flexbox-vs-grid.html" class="post-card fade-in" data-category="web">
-                    <div class="card-top">
-                        <span class="tag tag-web">Web</span>
-                        <span class="read-time">5 мин</span>
-                    </div>
-                    <h2 class="post-title">Flexbox vs Grid: когда что использовать</h2>
-                    <p class="post-excerpt">Простое правило и реальные примеры с кодом — раз и навсегда</p>
-                    <div class="card-footer">
-                        <span class="post-date">20 января 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/terminal-commands.html" class="post-card fade-in" data-category="tools">
-                    <div class="card-top">
-                        <span class="tag tag-tools">Инструменты</span>
-                        <span class="read-time">4 мин</span>
-                    </div>
-                    <h2 class="post-title">Терминал: команды которые экономят время</h2>
-                    <p class="post-excerpt">alias, history, ctrl+r и другие трюки которые должен знать каждый разработчик</p>
-                    <div class="card-footer">
-                        <span class="post-date">15 января 2025</span>
-                    </div>
-                </a>
-
-                <a href="articles/github-actions.html" class="post-card fade-in" data-category="devops">
-                    <div class="card-top">
-                        <span class="tag tag-devops">DevOps</span>
-                        <span class="read-time">5 мин</span>
-                    </div>
-                    <h2 class="post-title">GitHub Actions: автодеплой за 15 минут</h2>
-                    <p class="post-excerpt">CI/CD пайплайн с нуля — тесты и деплой при каждом пуше в main</p>
-                    <div class="card-footer">
-                        <span class="post-date">10 января 2025</span>
-                    </div>
-                </a>
-
-            </div>
-
-            <div class="no-posts" id="no-posts" style="display:none;">
-                Статьи по этой теме скоро появятся
-            </div>
-
+                <h2 class="post-title">{{ post.title }}</h2>
+                <p class="post-excerpt">{{ post.excerpt_text }}</p>
+                <div class="card-footer">
+                    <span class="post-date">{{ post.date_ru }}</span>
+                </div>
+            </a>
+            {% endfor %}
         </div>
-    </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-inner">
-                <span class="nav-logo">sanyastem<span class="accent">.</span></span>
-                <p class="footer-copy">Пишу про разработку — коротко и по делу</p>
-            </div>
+        <div class="no-posts" id="no-posts" style="display:none;">
+            Статьи по этой теме скоро появятся
         </div>
-    </footer>
 
-    <button class="scroll-top" id="scrollTop">↑</button>
-    <script src="Scripts/script.js"></script>
-</body>
-</html>
+    </div>
+</section>
