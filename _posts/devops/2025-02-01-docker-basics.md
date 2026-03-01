@@ -5,6 +5,9 @@ categories: devops
 date: 2025-02-01
 date_ru: "1 февраля 2025"
 read_time: 7
+difficulty: beginner
+series: "Docker: от установки до продакшна"
+part: 1
 description: "Что такое Docker-контейнер, первый docker run, Dockerfile и docker-compose на простом примере. Объясняем просто."
 excerpt_text: "Что такое контейнер, первый docker run и docker-compose на простом примере"
 keywords: "docker, контейнеры, dockerfile, docker-compose, docker для начинающих, devops"

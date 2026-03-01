@@ -5,6 +5,7 @@ categories: devops
 date: 2025-01-10
 date_ru: "10 января 2025"
 read_time: 5
+difficulty: intermediate
 description: "Настраиваем CI/CD пайплайн: при каждом пуше в main автоматически запускаются тесты и деплой. Пишем .yml с нуля."
 excerpt_text: "CI/CD пайплайн с нуля — тесты и деплой при каждом пуше в main"
 keywords: "github actions, ci/cd, автодеплой, workflow yml, continuous integration"

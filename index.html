@@ -19,25 +19,55 @@ description: "Гайды и туториалы по Web-разработке, De
 <section class="posts-section" id="posts">
     <div class="container">
 
-        <div class="posts-header">
-            <div class="filter-bar">
-                <button class="filter-btn active" data-filter="all">Все</button>
-                <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="devops">DevOps</button>
-                <button class="filter-btn" data-filter="git">Git</button>
-                <button class="filter-btn" data-filter="tools">Инструменты</button>
+        <div class="filters-wrap">
+            <div class="filter-row">
+                <span class="filter-label">Раздел</span>
+                <div class="filter-bar" id="cat-bar">
+                    <button class="filter-btn active" data-filter="all">Все</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="devops">DevOps</button>
+                    <button class="filter-btn" data-filter="git">Git</button>
+                    <button class="filter-btn" data-filter="tools">Инструменты</button>
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">Уровень</span>
+                <div class="filter-bar" id="diff-bar">
+                    <button class="filter-btn active" data-diff="all">Любой</button>
+                    <button class="filter-btn diff-btn-beginner"     data-diff="beginner">Новичок</button>
+                    <button class="filter-btn diff-btn-intermediate" data-diff="intermediate">Средний</button>
+                    <button class="filter-btn diff-btn-advanced"     data-diff="advanced">Продвинутый</button>
+                </div>
             </div>
             <span class="posts-count" id="posts-count">{{ site.posts | size }} статей</span>
         </div>
 
         <div class="posts-grid" id="posts-grid">
             {% for post in site.posts %}
-            {% assign cat = site.data.categories[post.categories[0]] %}
-            <a href="{{ post.url | relative_url }}" class="post-card fade-in" data-category="{{ post.categories[0] }}">
+            {% assign cat  = site.data.categories[post.categories[0]] %}
+            {% assign diff = site.data.difficulties[post.difficulty] %}
+            {% if post.series %}{% assign s_size = site.posts | where: "series", post.series | size %}{% endif %}
+            <a href="{{ post.url | relative_url }}"
+               class="post-card fade-in"
+               data-category="{{ post.categories[0] }}"
+               data-difficulty="{{ post.difficulty }}">
                 <div class="card-top">
-                    <span class="tag tag-{{ post.categories[0] }}">{{ cat.label }}</span>
+                    <div class="card-badges">
+                        <span class="tag tag-{{ post.categories[0] }}">{{ cat.label }}</span>
+                        {% if post.difficulty %}
+                        <span class="diff-badge diff-{{ post.difficulty }}">{{ diff.label }}</span>
+                        {% endif %}
+                    </div>
                     <span class="read-time">{{ post.read_time }} мин</span>
                 </div>
+
+                {% if post.series %}
+                <div class="card-series">
+                    <span class="card-series-name">📚 {{ post.series }}</span>
+                    <span class="card-series-part">Часть {{ post.part }}/{{ s_size }}</span>
+                </div>
+                {% endif %}
+
                 <h2 class="post-title">{{ post.title }}</h2>
                 <p class="post-excerpt">{{ post.excerpt_text }}</p>
                 <div class="card-footer">

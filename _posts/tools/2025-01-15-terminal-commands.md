@@ -5,6 +5,7 @@ categories: tools
 date: 2025-01-15
 date_ru: "15 января 2025"
 read_time: 4
+difficulty: beginner
 description: "alias, history, ctrl+r, && и || — базовые трюки терминала, которые должен знать каждый разработчик."
 excerpt_text: "alias, history, ctrl+r и другие трюки которые должен знать каждый разработчик"
 keywords: "терминал команды, bash команды, alias bash, история команд, unix команды"

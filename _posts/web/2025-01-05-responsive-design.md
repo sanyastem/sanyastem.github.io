@@ -5,6 +5,7 @@ categories: web
 date: 2025-01-05
 date_ru: "5 января 2025"
 read_time: 4
+difficulty: intermediate
 description: "Mobile-first подход, точки перехода, clamp() вместо куч медиазапросов. Как сделать сайт удобным на любом экране."
 excerpt_text: "Mobile-first, clamp() и минимум кода для адаптивного сайта на любом экране"
 keywords: "адаптивный дизайн, media queries, mobile first, responsive, clamp css"

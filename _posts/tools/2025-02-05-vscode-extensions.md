@@ -5,6 +5,7 @@ categories: tools
 date: 2025-02-05
 date_ru: "5 февраля 2025"
 read_time: 3
+difficulty: beginner
 description: "Prettier, GitLens, Error Lens, Path Intellisense, Thunder Client — что ставить в VS Code в первую очередь и как настроить."
 excerpt_text: "Prettier, GitLens, Error Lens — что ставить в первую очередь"
 keywords: "vs code расширения, vscode extensions, prettier, gitlens, error lens, настройка vs code"

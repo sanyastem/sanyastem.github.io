@@ -5,6 +5,7 @@ categories: web
 date: 2025-01-20
 date_ru: "20 января 2025"
 read_time: 5
+difficulty: intermediate
 description: "Простое правило: Flexbox для одного направления, Grid для двумерных сеток. Разбираем на реальных примерах с кодом."
 excerpt_text: "Простое правило и реальные примеры с кодом — раз и навсегда"
 keywords: "flexbox, css grid, flexbox vs grid, css layout, верстка"

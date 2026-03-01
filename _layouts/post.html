@@ -2,19 +2,77 @@
 layout: default
 ---
 
-{% assign cat = site.data.categories[page.categories[0]] %}
+{% assign cat  = site.data.categories[page.categories[0]] %}
+{% assign diff = site.data.difficulties[page.difficulty] %}
+{% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
+{% assign series_size  = series_posts | size %}
 
 <header class="article-hero">
     <a href="/" class="article-back">Все статьи</a>
+
     <div class="article-meta">
         <span class="tag tag-{{ page.categories[0] }}">{{ cat.label }}</span>
+        {% if page.difficulty %}
+        <span class="diff-badge diff-{{ page.difficulty }}">{{ diff.label }}</span>
+        {% endif %}
         <span class="post-date">{{ page.date_ru }}</span>
         <span class="read-time">{{ page.read_time }} мин</span>
     </div>
+
+    {% if page.series %}
+    <div class="series-label-line">
+        <span>📚</span>
+        {{ page.series }} · Часть {{ page.part }} из {{ series_size }}
+    </div>
+    {% endif %}
+
     <h1 class="article-title">{{ page.title }}</h1>
     <p class="article-desc">{{ page.description }}</p>
 </header>
 
+{% if page.series %}
+<div class="container">
+    <div class="series-box">
+        <div class="series-box-title">Все части серии</div>
+        <div class="series-parts-list">
+            {% for sp in series_posts %}
+            <a href="{{ sp.url | relative_url }}"
+               class="series-part-link{% if sp.url == page.url %} current{% endif %}">
+                <span class="part-num">{{ sp.part }}</span>
+                <span class="part-title-text">{{ sp.title }}</span>
+                {% if sp.url == page.url %}<span class="part-current-mark">← сейчас</span>{% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <article class="article-body">
     {{ content }}
 </article>
+
+{% if page.series and series_size > 1 %}
+<div class="container">
+    <div class="part-nav">
+        {% assign prev_idx = page.part | minus: 2 %}
+        {% assign next_idx = page.part %}
+        {% if page.part > 1 %}
+            {% assign prev_post = series_posts[prev_idx] %}
+            <a href="{{ prev_post.url | relative_url }}" class="part-nav-btn prev">
+                <span class="nav-hint">← Предыдущая часть</span>
+                <span class="nav-title">{{ prev_post.title }}</span>
+            </a>
+        {% else %}
+            <div></div>
+        {% endif %}
+        {% if page.part < series_size %}
+            {% assign next_post = series_posts[next_idx] %}
+            <a href="{{ next_post.url | relative_url }}" class="part-nav-btn next">
+                <span class="nav-hint">Следующая часть →</span>
+                <span class="nav-title">{{ next_post.title }}</span>
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

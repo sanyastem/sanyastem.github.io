@@ -5,6 +5,7 @@ categories: web
 date: 2025-02-10
 date_ru: "10 февраля 2025"
 read_time: 6
+difficulty: intermediate
 description: "Используем :root и CSS custom properties для переключения тёмной и светлой темы одной строкой JS. Никаких библиотек."
 excerpt_text: "Переключаем тёмную тему через :root и одну строку JS — никаких библиотек"
 keywords: "css переменные, тёмная тема, dark mode, css custom properties, prefers-color-scheme"
