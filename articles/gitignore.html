@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>.gitignore: что туда класть и почему — sanyastem</title>
+    <meta name="description" content="node_modules, .env, .DS_Store — что никогда не должно попадать в репозиторий, как настроить .gitignore и глобальный gitignore.">
+    <meta name="keywords" content=".gitignore, git ignore, node_modules, .env, секреты в git, gitignore шаблоны">
+    <meta name="author" content="sanyastem">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sanyastem.github.io/articles/gitignore.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sanyastem.github.io/articles/gitignore.html">
+    <meta property="og:title" content=".gitignore: что туда класть и почему">
+    <meta property="og:description" content="node_modules, .env, .DS_Store — что никогда не должно попасть в репозиторий.">
+    <meta property="og:site_name" content="sanyastem">
+    <meta property="article:published_time" content="2025-01-25">
+    <meta property="article:tag" content="git">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content=".gitignore: что туда класть и почему">
+    <meta name="twitter:description" content="node_modules, .env, .DS_Store — что никогда не должно попасть в репозиторий.">
+
+    <link rel="stylesheet" href="../Style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+        <ul class="nav-links">
+            <li><a href="/#posts" class="nav-link">Статьи</a></li>
+        </ul>
+        <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<header class="article-hero">
+    <a href="/" class="article-back">Все статьи</a>
+    <div class="article-meta">
+        <span class="tag tag-git">Git</span>
+        <span class="post-date">25 января 2025</span>
+        <span class="read-time">3 мин</span>
+    </div>
+    <h1 class="article-title">.gitignore: что туда класть и почему</h1>
+    <p class="article-desc">Запушить .env с паролями или node_modules на 300 МБ — классические ошибки новичков. Разбираем раз и навсегда что должно быть в .gitignore.</p>
+</header>
+
+<article class="article-body">
+
+    <h2>Что такое .gitignore</h2>
+    <p>Файл <code>.gitignore</code> говорит Git какие файлы и папки игнорировать — не отслеживать, не добавлять в коммиты. Создаётся в корне репозитория.</p>
+
+    <h2>Что обязательно игнорировать</h2>
+
+    <h3>Зависимости</h3>
+    <p><code>node_modules</code>, <code>vendor</code>, <code>.venv</code> — эти папки генерируются автоматически командой <code>npm install</code>, <code>pip install</code> и т.д. Они могут весить сотни мегабайт и не нужны в репо — у каждого разработчика они свои.</p>
+
+    <h3>Файлы окружения</h3>
+    <p><code>.env</code> — здесь хранятся секреты: пароли, API-ключи, токены. Если закоммитишь — они попадут в публичный репо. Это серьёзная уязвимость.</p>
+
+    <div class="warn-block">
+        <span class="tip-icon">⚠️</span>
+        <p>Если ты уже закоммитил <code>.env</code> — простое добавление в .gitignore не поможет. Нужно удалить файл из истории и сменить все скомпрометированные ключи.</p>
+    </div>
+
+    <h3>Системные файлы</h3>
+    <p><code>.DS_Store</code> (macOS), <code>Thumbs.db</code> (Windows) — мусор от операционной системы, не нужен в репо.</p>
+
+    <h3>Артефакты сборки</h3>
+    <p><code>dist/</code>, <code>build/</code>, <code>.next/</code>, <code>__pycache__/</code> — генерируются при сборке, не коммитятся.</p>
+
+    <h2>Типовой .gitignore для Node.js проекта</h2>
+
+    <div class="code-block"><pre><span class="comment"># Зависимости</span>
+node_modules/
+
+<span class="comment"># Окружение</span>
+.env
+.env.local
+.env.*.local
+
+<span class="comment"># Сборка</span>
+dist/
+build/
+.next/
+
+<span class="comment"># Логи</span>
+*.log
+npm-debug.log*
+
+<span class="comment"># Системные</span>
+.DS_Store
+Thumbs.db
+
+<span class="comment"># Редакторы</span>
+.vscode/settings.json
+.idea/</pre></div>
+
+    <div class="tip-block">
+        <span class="tip-icon">💡</span>
+        <p>Сайт <strong>gitignore.io</strong> генерирует готовый .gitignore по технологиям. Введи «Node», «Python», «macOS» — получишь полный файл.</p>
+    </div>
+
+    <h2>Глобальный .gitignore</h2>
+    <p>Системный мусор (<code>.DS_Store</code>, <code>.idea/</code>) лучше вынести в глобальный gitignore — чтобы не добавлять его в каждый проект:</p>
+
+    <div class="code-block"><pre><span class="comment"># Создать глобальный gitignore</span>
+<span class="cmd">touch ~/.gitignore_global</span>
+
+<span class="comment"># Прописать в git конфиге</span>
+<span class="cmd">git config --global core.excludesfile ~/.gitignore_global</span>
+
+<span class="comment"># Добавить системные файлы</span>
+<span class="cmd">echo ".DS_Store" >> ~/.gitignore_global</span>
+<span class="cmd">echo ".idea/" >> ~/.gitignore_global</span></pre></div>
+
+    <h2>Если файл уже в репо</h2>
+    <p>Добавление в <code>.gitignore</code> не удаляет файл из Git — он уже отслеживается. Чтобы убрать из отслеживания, но оставить локально:</p>
+
+    <div class="code-block"><pre><span class="comment"># Убрать папку из отслеживания (файлы останутся локально)</span>
+<span class="cmd">git rm -r --cached node_modules/</span>
+<span class="cmd">git rm --cached .env</span>
+
+<span class="comment"># Закоммитить удаление из отслеживания</span>
+<span class="cmd">git commit -m "remove tracked files from gitignore"</span></pre></div>
+
+</article>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+            <p class="footer-copy">Пишу про разработку — коротко и по делу</p>
+        </div>
+    </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="../Scripts/script.js"></script>
+</body>
+</html>
