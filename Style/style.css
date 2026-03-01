@@ -159,6 +159,19 @@ body {
 
 .hero-sub { font-size: 0.95rem; color: var(--text-muted); }
 
+.hero-slogan {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 0.3em;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    transition: color 0.4s;
+}
+
+.hero-slogan:hover { color: rgba(255,255,255,0.42); }
+
 /* ========== Difficulty badges ========== */
 .diff-badge {
     display: inline-block;
