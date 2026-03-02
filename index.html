@@ -40,11 +40,14 @@ description: "Гайды и туториалы по Web-разработке, De
                     <button class="filter-btn diff-btn-advanced"     data-diff="advanced">Продвинутый</button>
                 </div>
             </div>
-            <span class="posts-count" id="posts-count">{{ site.posts | size }} статей</span>
+            {% assign display_count = 0 %}
+            {% for post in site.posts %}{% unless post.series and post.part > 1 %}{% assign display_count = display_count | plus: 1 %}{% endunless %}{% endfor %}
+            <span class="posts-count" id="posts-count">{{ display_count }} статей</span>
         </div>
 
         <div class="posts-grid" id="posts-grid">
             {% for post in site.posts %}
+            {% unless post.series and post.part > 1 %}
             {% assign cat  = site.data.categories[post.categories[0]] %}
             {% assign diff = site.data.difficulties[post.difficulty] %}
             {% if post.series %}{% assign s_size = site.posts | where: "series", post.series | size %}{% endif %}
@@ -59,13 +62,16 @@ description: "Гайды и туториалы по Web-разработке, De
                         <span class="diff-badge diff-{{ post.difficulty }}">{{ diff.label }}</span>
                         {% endif %}
                     </div>
+                    {% if post.series %}
+                    <span class="read-time">{{ s_size }} части</span>
+                    {% else %}
                     <span class="read-time">{{ post.read_time }} мин</span>
+                    {% endif %}
                 </div>
 
                 {% if post.series %}
                 <div class="card-series">
                     <span class="card-series-name">📚 {{ post.series }}</span>
-                    <span class="card-series-part">Часть {{ post.part }}/{{ s_size }}</span>
                 </div>
                 {% endif %}
 
@@ -75,6 +81,7 @@ description: "Гайды и туториалы по Web-разработке, De
                     <span class="post-date">{{ post.date_ru }}</span>
                 </div>
             </a>
+            {% endunless %}
             {% endfor %}
         </div>
 
