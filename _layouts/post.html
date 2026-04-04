@@ -1,0 +1,123 @@
+---
+layout: default
+---
+
+<div class="reading-progress"></div>
+
+{% assign cat  = site.data.categories[page.categories[0]] %}
+{% assign diff = site.data.difficulties[page.difficulty] %}
+{% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
+{% assign series_size  = series_posts | size %}
+
+<header class="article-hero">
+    <a href="/" class="article-back">Все статьи</a>
+
+    <div class="article-meta">
+        <span class="tag tag-{{ page.categories[0] }}">{{ cat.label }}</span>
+        {% if page.difficulty %}
+        <span class="diff-badge diff-{{ page.difficulty }}">{{ diff.label }}</span>
+        {% endif %}
+        <span class="post-date">{{ page.date_ru }}</span>
+        <span class="read-time">{{ page.read_time }} мин</span>
+    </div>
+
+    {% if page.series %}
+    <div class="series-label-line">
+        <span>📚</span>
+        {{ page.series }} · Часть {{ page.part }} из {{ series_size }}
+    </div>
+    {% endif %}
+
+    <h1 class="article-title">{{ page.title }}</h1>
+    <p class="article-desc">{{ page.description }}</p>
+</header>
+
+{% if page.series %}
+<div class="container">
+    <div class="series-box" id="series-box">
+        <button class="series-box-toggle" id="series-toggle">
+            <span class="series-box-title">Все части серии</span>
+            <span class="series-box-info">Часть {{ page.part }} из {{ series_size }}</span>
+            <span class="series-toggle-icon">▾</span>
+        </button>
+        <div class="series-parts-list" id="series-parts" style="display:none;">
+            {% for sp in series_posts %}
+            <a href="{{ sp.url | relative_url }}"
+               class="series-part-link{% if sp.url == page.url %} current{% endif %}">
+                <span class="part-num">{{ sp.part }}</span>
+                <span class="part-title-text">{{ sp.title }}</span>
+                {% if sp.url == page.url %}<span class="part-current-mark">← сейчас</span>{% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<article class="article-body">
+    {{ content }}
+</article>
+
+
+{% if page.series and series_size > 1 %}
+<div class="container">
+    <div class="part-nav">
+        {% assign prev_idx = page.part | minus: 2 %}
+        {% assign next_idx = page.part %}
+        {% if page.part > 1 %}
+            {% assign prev_post = series_posts[prev_idx] %}
+            <a href="{{ prev_post.url | relative_url }}" class="part-nav-btn prev">
+                <span class="nav-hint">← Предыдущая часть</span>
+                <span class="nav-title">{{ prev_post.title }}</span>
+            </a>
+        {% else %}
+            <div></div>
+        {% endif %}
+        {% if page.part < series_size %}
+            {% assign next_post = series_posts[next_idx] %}
+            <a href="{{ next_post.url | relative_url }}" class="part-nav-btn next">
+                <span class="nav-hint">Следующая часть →</span>
+                <span class="nav-title">{{ next_post.title }}</span>
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+{% unless page.series and page.part < series_size %}
+{% assign sorted = site.posts | sort: "date" | reverse %}
+{% assign prev_article = nil %}
+{% assign next_article = nil %}
+{% assign found = false %}
+{% for p in sorted %}
+    {% if found and next_article == nil %}
+        {% assign next_article = p %}
+    {% endif %}
+    {% if p.url == page.url %}
+        {% assign found = true %}
+    {% endif %}
+    {% unless found %}
+        {% assign prev_article = p %}
+    {% endunless %}
+{% endfor %}
+{% if prev_article or next_article %}
+<div class="container">
+    <div class="part-nav read-more-nav">
+        {% if next_article %}
+            <a href="{{ next_article.url | relative_url }}" class="part-nav-btn prev">
+                <span class="nav-hint">← Предыдущая статья</span>
+                <span class="nav-title">{{ next_article.title }}</span>
+            </a>
+        {% else %}
+            <div></div>
+        {% endif %}
+        {% if prev_article %}
+            <a href="{{ prev_article.url | relative_url }}" class="part-nav-btn next">
+                <span class="nav-hint">Следующая статья →</span>
+                <span class="nav-title">{{ prev_article.title }}</span>
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endunless %}

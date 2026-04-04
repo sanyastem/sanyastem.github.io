@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% include head.html %}
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJ93HNXN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+        <ul class="nav-links">
+            <li><a href="/#posts" class="nav-link">Статьи</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41"/></svg>
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M13.5 8.5a5.5 5.5 0 1 1-6-6 4.5 4.5 0 0 0 6 6z"/></svg>
+        </button>
+        <button class="burger" id="burger"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<div class="site-content">
+{{ content }}
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <a href="/" class="nav-logo">sanyastem<span class="accent">.</span></a>
+            <p class="footer-copy">Пишу про разработку — коротко и по делу</p>
+        </div>
+    </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+<script src="/Scripts/script.js"></script>
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('pagefind');
+    if (el) new PagefindUI({ element: '#pagefind', showSubResults: false, showImages: false });
+});
+</script>
+</body>
+</html>
