@@ -313,6 +313,26 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
     display: flex;
 }
 
+/* ========== Pagefind overrides ========== */
+.pagefind-ui {
+    --pagefind-ui-scale: 0.85;
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-text: var(--text);
+    --pagefind-ui-background: var(--bg-card);
+    --pagefind-ui-border: var(--border);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 100px;
+    --pagefind-ui-font: inherit;
+}
+
+.pagefind-ui .pagefind-ui__search-input {
+    background: var(--bg-card) !important;
+    color: var(--text) !important;
+}
+
+.pagefind-ui .pagefind-ui__result-link { color: var(--text) !important; }
+.pagefind-ui .pagefind-ui__result-excerpt { color: var(--text-muted) !important; }
+
 /* ========== Post Cards ========== */
 .posts-grid {
     display: grid;
