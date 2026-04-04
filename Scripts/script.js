@@ -90,7 +90,7 @@ if (burger) {
 }
 
 // ========== Copy button for code blocks ==========
-document.querySelectorAll('.article-body .highlight').forEach(block => {
+document.querySelectorAll('.article-body div.highlight').forEach(block => {
     const wrap = document.createElement('div');
     wrap.className = 'highlight-wrap';
     block.parentNode.insertBefore(wrap, block);
