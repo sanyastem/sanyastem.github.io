@@ -13,7 +13,6 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 // ========== Combined filter (category + difficulty + search) ==========
 const postCards  = document.querySelectorAll('.post-card');
 const noPostsMsg = document.getElementById('no-posts');
-const postsCount = document.getElementById('posts-count');
 const searchInput = document.getElementById('search-input');
 
 let activeCategory   = 'all';
@@ -39,7 +38,6 @@ function applyFilter() {
         }
     });
 
-    if (postsCount) postsCount.textContent = visible + ' ' + decline(visible);
     if (noPostsMsg) noPostsMsg.style.display = visible === 0 ? 'block' : 'none';
 }
 
@@ -68,24 +66,6 @@ if (searchInput) {
     searchInput.addEventListener('input', applyFilter);
 }
 
-function decline(n) {
-    if (n === 1) return 'статья';
-    if (n >= 2 && n <= 4) return 'статьи';
-    return 'статей';
-}
-
-// Nav links with data-filter
-document.querySelectorAll('.nav-link[data-filter]').forEach(link => {
-    link.addEventListener('click', (e) => {
-        const filter = link.dataset.filter;
-        const btn = document.querySelector(`#cat-bar .filter-btn[data-filter="${filter}"]`);
-        if (btn) {
-            e.preventDefault();
-            btn.click();
-            document.getElementById('posts')?.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
 
 // URL filter on load
 const urlFilter = new URLSearchParams(window.location.search).get('filter');
@@ -173,6 +153,18 @@ if (themeToggle) {
         const next = isDark ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
+    });
+}
+
+// ========== Series box toggle ==========
+const seriesToggle = document.getElementById('series-toggle');
+const seriesParts = document.getElementById('series-parts');
+if (seriesToggle && seriesParts) {
+    seriesToggle.addEventListener('click', () => {
+        const open = seriesParts.style.display !== 'none';
+        seriesParts.style.display = open ? 'none' : 'flex';
+        seriesParts.style.marginTop = open ? '0' : '14px';
+        seriesToggle.classList.toggle('open', !open);
     });
 }
 
