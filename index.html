@@ -8,6 +8,7 @@ description: "Гайды и туториалы по Web-разработке, De
     <div class="hero-bg">
         <div class="grid-overlay"></div>
         <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
     </div>
     <div class="hero-content">
         <span class="hero-badge">Блог разработчика</span>
@@ -44,10 +45,6 @@ description: "Гайды и туториалы по Web-разработке, De
                     <button class="filter-btn diff-btn-advanced"     data-diff="advanced">Продвинутый</button>
                 </div>
             </div>
-            {% assign display_count = 0 %}
-            {% for post in site.posts %}{% unless post.series and post.part > 1 %}{% assign display_count = display_count | plus: 1 %}{% endunless %}{% endfor %}
-            {% if display_count == 1 %}{% assign count_word = "статья" %}{% elsif display_count >= 2 and display_count <= 4 %}{% assign count_word = "статьи" %}{% else %}{% assign count_word = "статей" %}{% endif %}
-            <span class="posts-count" id="posts-count">{{ display_count }} {{ count_word }}</span>
         </div>
 
         <div class="posts-grid" id="posts-grid">
