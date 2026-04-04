@@ -18,19 +18,5 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# Giscus — комментарии через GitHub Discussions
-# Настрой на https://giscus.app/ и вставь свои значения
-giscus:
-  repo: "sanyastem/sanyastem.github.io"
-  repo_id: ""           # Получишь на giscus.app
-  category: "Comments"
-  category_id: ""       # Получишь на giscus.app
-  mapping: "pathname"
-  reactions: true
-  theme: "transparent_dark"
-
-# Аналитика (Plausible, Umami или GoatCounter)
-# Раскомментируй нужный и вставь свой домен/ID
-# analytics:
-#   plausible: "sanyastem.github.io"
-#   goatcounter: "sanyastem"
+# Google Analytics — вставь свой Measurement ID (G-XXXXXXXXXX)
+# google_analytics: "G-XXXXXXXXXX"
