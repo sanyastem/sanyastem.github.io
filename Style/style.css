@@ -78,7 +78,7 @@ body {
     transition: color 0.2s, background 0.2s;
 }
 
-.nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,0.05); }
 
 .burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
 .burger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; }
@@ -711,6 +711,205 @@ code {
     color: var(--text-dim);
 }
 
+/* ========== Tables ========== */
+.article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.87rem;
+    overflow-x: auto;
+    display: block;
+}
+
+.article-body thead th {
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+}
+
+.article-body tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+
+.article-body tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+/* ========== Code block copy button ========== */
+.highlight-wrap {
+    position: relative;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-family: inherit;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s, color 0.2s;
+    z-index: 2;
+}
+
+.highlight-wrap:hover .copy-btn { opacity: 1; }
+.copy-btn:hover { background: var(--accent-dim); border-color: rgba(0,183,229,0.3); color: var(--accent); }
+.copy-btn.copied { color: var(--diff-beginner); border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.1); }
+
+/* ========== Heading anchors ========== */
+.heading-anchor {
+    color: var(--text-muted);
+    text-decoration: none;
+    opacity: 0;
+    margin-left: 8px;
+    font-size: 0.8em;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.article-body h2:hover .heading-anchor,
+.article-body h3:hover .heading-anchor { opacity: 1; }
+.heading-anchor:hover { color: var(--accent); }
+
+/* ========== Reading progress bar ========== */
+.reading-progress {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 101;
+    width: 0;
+    transition: width 0.1s linear;
+}
+
+/* ========== Search ========== */
+.search-wrap {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    font-size: 0.88rem;
+    font-family: inherit;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-input::placeholder { color: var(--text-muted); }
+.search-input:focus { border-color: rgba(0,183,229,0.4); }
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+/* ========== Theme toggle ========== */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    border-color: rgba(255,255,255,0.15);
+}
+
+/* Light theme */
+html[data-theme="light"] {
+    --bg: #f5f5f7;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fafafa;
+    --border: rgba(0,0,0,0.08);
+    --border-hover: rgba(0,183,229,0.3);
+    --accent: #0095c7;
+    --accent-dim: rgba(0,149,199,0.08);
+    --text: #1a1a2e;
+    --text-muted: #6b6b80;
+    --text-dim: #44445a;
+    --tag-web-bg: rgba(59,130,246,0.08);
+    --tag-devops-bg: rgba(245,158,11,0.08);
+    --tag-git-bg: rgba(249,115,22,0.08);
+    --tag-tools-bg: rgba(167,139,250,0.08);
+    --diff-beginner-bg: rgba(74,222,128,0.08);
+    --diff-intermediate-bg: rgba(251,191,36,0.08);
+    --diff-advanced-bg: rgba(248,113,113,0.08);
+}
+
+html[data-theme="light"] .navbar {
+    background: rgba(245,245,247,0.88);
+}
+
+html[data-theme="light"] .nav-links.open {
+    background: rgba(245,245,247,0.97);
+}
+
+html[data-theme="light"] .grid-overlay {
+    background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+}
+
+html[data-theme="light"] .glow-1 {
+    background: radial-gradient(ellipse, rgba(0,149,199,0.08) 0%, transparent 70%);
+}
+
+html[data-theme="light"] .hero-slogan { color: rgba(0,0,0,0.15); }
+html[data-theme="light"] .hero-slogan:hover { color: rgba(0,0,0,0.35); }
+
+html[data-theme="light"] code {
+    background: rgba(0,0,0,0.05);
+    border-color: rgba(0,0,0,0.08);
+}
+
+html[data-theme="light"] .highlight,
+html[data-theme="light"] .article-body .highlight {
+    background: #1e1e2e;
+}
+
+html[data-theme="light"] .copy-btn {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.1);
+    color: #999;
+}
+
+html[data-theme="light"] .scroll-top {
+    background: var(--bg-card);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
 /* ========== Fade-in ========== */
 .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.45s ease, transform 0.45s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -729,6 +928,7 @@ code {
     }
     .footer-inner { flex-direction: column; text-align: center; }
     .posts-grid { grid-template-columns: 1fr 1fr; }
+    .search-wrap { order: -1; }
 }
 
 @media (max-width: 480px) {

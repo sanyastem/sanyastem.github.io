@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<div class="reading-progress"></div>
+
 {% assign cat  = site.data.categories[page.categories[0]] %}
 {% assign diff = site.data.difficulties[page.difficulty] %}
 {% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
