@@ -58,6 +58,26 @@ layout: default
     {{ content }}
 </article>
 
+{% if site.giscus.repo_id != "" %}
+<div class="container" style="max-width:760px; margin:0 auto; padding:0 24px 40px;">
+    <script src="https://giscus.app/client.js"
+        data-repo="{{ site.giscus.repo }}"
+        data-repo-id="{{ site.giscus.repo_id }}"
+        data-category="{{ site.giscus.category }}"
+        data-category-id="{{ site.giscus.category_id }}"
+        data-mapping="{{ site.giscus.mapping }}"
+        data-strict="0"
+        data-reactions-enabled="{% if site.giscus.reactions %}1{% else %}0{% endif %}"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="{{ site.giscus.theme }}"
+        data-lang="ru"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+{% endif %}
+
 {% if page.series and series_size > 1 %}
 <div class="container">
     <div class="part-nav">

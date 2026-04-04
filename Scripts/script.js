@@ -13,22 +13,17 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 // ========== Combined filter (category + difficulty + search) ==========
 const postCards  = document.querySelectorAll('.post-card');
 const noPostsMsg = document.getElementById('no-posts');
-const searchInput = document.getElementById('search-input');
 
 let activeCategory   = 'all';
 let activeDifficulty = 'all';
 
 function applyFilter() {
     let visible = 0;
-    const query = (searchInput?.value || '').toLowerCase().trim();
 
     postCards.forEach(card => {
         const catMatch  = activeCategory   === 'all' || card.dataset.category   === activeCategory;
         const diffMatch = activeDifficulty === 'all' || card.dataset.difficulty === activeDifficulty || card.dataset.difficulty === 'series';
-        const title   = card.querySelector('.post-title')?.textContent.toLowerCase() || '';
-        const excerpt = card.querySelector('.post-excerpt')?.textContent.toLowerCase() || '';
-        const searchMatch = !query || title.includes(query) || excerpt.includes(query);
-        const show = catMatch && diffMatch && searchMatch;
+        const show = catMatch && diffMatch;
 
         card.style.display = show ? '' : 'none';
         if (show) {
@@ -60,11 +55,6 @@ document.querySelectorAll('#diff-bar .filter-btn').forEach(btn => {
         applyFilter();
     });
 });
-
-// Search
-if (searchInput) {
-    searchInput.addEventListener('input', applyFilter);
-}
 
 
 // URL filter on load
