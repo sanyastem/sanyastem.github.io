@@ -141,24 +141,16 @@ document.querySelectorAll('.article-body table').forEach(table => {
 });
 
 // ========== Heading anchors ==========
-document.querySelectorAll('.article-body h2[id], .article-body h3[id]').forEach(heading => {
+document.querySelectorAll('.article-body h2, .article-body h3').forEach(heading => {
+    if (!heading.id) {
+        heading.id = heading.textContent.trim().toLowerCase()
+            .replace(/[^\wа-яё\s-]/gi, '').replace(/\s+/g, '-');
+    }
     const anchor = document.createElement('a');
     anchor.className = 'heading-anchor';
     anchor.href = '#' + heading.id;
     anchor.textContent = '#';
     anchor.setAttribute('aria-label', 'Ссылка на раздел');
-    heading.appendChild(anchor);
-});
-
-// Generate ids for headings without them
-document.querySelectorAll('.article-body h2:not([id]), .article-body h3:not([id])').forEach(heading => {
-    const text = heading.textContent.replace(/#$/, '').trim();
-    heading.id = text.toLowerCase().replace(/[^\wа-яё\s-]/gi, '').replace(/\s+/g, '-');
-    const anchor = document.createElement('a');
-    anchor.className = 'heading-anchor';
-    anchor.href = '#' + heading.id;
-    anchor.textContent = '#';
-    anchor.setAttribute('aria-label', 'Ссылка на разд��л');
     heading.appendChild(anchor);
 });
 

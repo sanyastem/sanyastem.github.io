@@ -50,6 +50,11 @@ description: "Гайды и туториалы по Web-разработке, De
             <span class="posts-count" id="posts-count">{{ display_count }} {{ count_word }}</span>
         </div>
 
+        <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="search-input" placeholder="Поиск по статьям...">
+        </div>
+
         <div class="posts-grid" id="posts-grid">
             {% for post in site.posts %}
             {% unless post.series and post.part > 1 %}
