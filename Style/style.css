@@ -854,7 +854,7 @@ code {
 .nav-title { font-size: 0.88rem; color: var(--text); font-weight: 500; line-height: 1.4; }
 
 /* ========== Rouge Syntax Highlighting ========== */
-.article-body .highlight {
+.article-body div.highlight {
     background: var(--highlight-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -863,7 +863,11 @@ code {
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.3);
 }
 
-.article-body .highlight pre {
+.article-body div.highlight pre {
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
     font-family: 'Fira Code', 'Cascadia Code', monospace;
     font-size: 0.83rem;
     line-height: 1.7;
