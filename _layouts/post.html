@@ -51,6 +51,40 @@ layout: default
     {{ content }}
 </article>
 
+{% if page.faq %}
+<div class="container" style="max-width:760px; margin:0 auto; padding:0 24px;">
+    <section class="faq-section">
+        <h2>Частые вопросы</h2>
+        {% for item in page.faq %}
+        <details class="faq-item">
+            <summary>{{ item.q }}</summary>
+            <p>{{ item.a }}</p>
+        </details>
+        {% endfor %}
+    </section>
+</div>
+{% endif %}
+
+{% assign related = site.posts | where: "categories", page.categories[0] | where_exp: "p", "p.url != page.url" | limit: 3 %}
+{% if page.series %}
+  {% assign related = related | where_exp: "p", "p.series != page.series" | limit: 3 %}
+{% endif %}
+{% if related.size > 0 %}
+<div class="container" style="max-width:760px; margin:0 auto; padding:0 24px 40px;">
+    <section class="related-posts">
+        <h2 class="related-title">Похожие статьи</h2>
+        <div class="related-grid">
+            {% for rp in related %}
+            <a href="{{ rp.url | relative_url }}" class="related-card">
+                <span class="tag tag-{{ rp.categories[0] }}">{{ site.data.categories[rp.categories[0]].label }}</span>
+                <span class="related-card-title">{{ rp.title }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endif %}
+
 {% if page.series and series_size > 1 %}
 <div class="container">
     <div class="part-nav">
