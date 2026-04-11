@@ -41,6 +41,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <button class="scroll-top" id="scrollTop">↑</button>
 <script src="/Scripts/script.js"></script>
+{% unless page.layout == "post" %}
 <script src="/pagefind/pagefind-ui.js"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
@@ -48,5 +49,6 @@ window.addEventListener('DOMContentLoaded', () => {
     if (el) new PagefindUI({ element: '#pagefind', showSubResults: false, showImages: false });
 });
 </script>
+{% endunless %}
 </body>
 </html>
