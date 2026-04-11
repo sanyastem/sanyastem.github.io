@@ -86,36 +86,36 @@ layout: default
 
 {% unless page.series and page.part < series_size %}
 {% assign sorted = site.posts | sort: "date" | reverse %}
-{% assign prev_article = nil %}
-{% assign next_article = nil %}
+{% assign older_article = nil %}
+{% assign newer_article = nil %}
 {% assign found = false %}
 {% for p in sorted %}
     {% if p.series == page.series and page.series %}{% continue %}{% endif %}
-    {% if found and next_article == nil %}
-        {% assign next_article = p %}
+    {% if found and older_article == nil %}
+        {% assign older_article = p %}
     {% endif %}
     {% if p.url == page.url %}
         {% assign found = true %}
     {% endif %}
     {% unless found %}
-        {% assign prev_article = p %}
+        {% assign newer_article = p %}
     {% endunless %}
 {% endfor %}
-{% if prev_article or next_article %}
+{% if newer_article or older_article %}
 <div class="container">
     <div class="part-nav read-more-nav">
-        {% if next_article %}
-            <a href="{{ next_article.url | relative_url }}" class="part-nav-btn prev">
+        {% if older_article %}
+            <a href="{{ older_article.url | relative_url }}" class="part-nav-btn prev">
                 <span class="nav-hint">← Предыдущая статья</span>
-                <span class="nav-title">{{ next_article.title }}</span>
+                <span class="nav-title">{{ older_article.title }}</span>
             </a>
         {% else %}
             <div></div>
         {% endif %}
-        {% if prev_article %}
-            <a href="{{ prev_article.url | relative_url }}" class="part-nav-btn next">
+        {% if newer_article %}
+            <a href="{{ newer_article.url | relative_url }}" class="part-nav-btn next">
                 <span class="nav-hint">Следующая статья →</span>
-                <span class="nav-title">{{ prev_article.title }}</span>
+                <span class="nav-title">{{ newer_article.title }}</span>
             </a>
         {% endif %}
     </div>
