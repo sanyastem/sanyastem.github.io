@@ -1,8 +1,8 @@
-// Fade-in on scroll
+// Fade-in on scroll (only on first load)
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add('visible'), i * 50);
+            setTimeout(() => entry.target.classList.add('visible'), i * 40);
             observer.unobserve(entry.target);
         }
     });
@@ -10,27 +10,19 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ========== Combined filter (category + difficulty + search) ==========
+// ========== Category filter ==========
 const postCards  = document.querySelectorAll('.post-card');
 const noPostsMsg = document.getElementById('no-posts');
 
-let activeCategory   = 'all';
-let activeDifficulty = 'all';
+let activeCategory = 'all';
 
 function applyFilter() {
     let visible = 0;
 
     postCards.forEach(card => {
-        const catMatch  = activeCategory   === 'all' || card.dataset.category   === activeCategory;
-        const diffMatch = activeDifficulty === 'all' || card.dataset.difficulty === activeDifficulty || card.dataset.difficulty === 'series';
-        const show = catMatch && diffMatch;
-
+        const show = activeCategory === 'all' || card.dataset.category === activeCategory;
         card.style.display = show ? '' : 'none';
-        if (show) {
-            visible++;
-            card.classList.remove('visible');
-            setTimeout(() => card.classList.add('visible'), 50);
-        }
+        if (show) visible++;
     });
 
     if (noPostsMsg) noPostsMsg.style.display = visible === 0 ? 'block' : 'none';
@@ -43,19 +35,14 @@ document.querySelectorAll('#cat-bar .filter-btn').forEach(btn => {
         btn.classList.add('active');
         activeCategory = btn.dataset.filter;
         applyFilter();
+
+        // Update URL
+        const url = activeCategory === 'all'
+            ? window.location.pathname
+            : window.location.pathname + '?filter=' + activeCategory;
+        history.replaceState(null, '', url);
     });
 });
-
-// Difficulty buttons
-document.querySelectorAll('#diff-bar .filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('#diff-bar .filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeDifficulty = btn.dataset.diff;
-        applyFilter();
-    });
-});
-
 
 // URL filter on load
 const urlFilter = new URLSearchParams(window.location.search).get('filter');
@@ -156,10 +143,4 @@ if (seriesToggle && seriesParts) {
         seriesParts.style.marginTop = open ? '0' : '14px';
         seriesToggle.classList.toggle('open', !open);
     });
-}
-
-// ========== Active nav link for current category ==========
-const pageCat = document.querySelector('.article-hero .tag')?.className.match(/tag-(\w+)/)?.[1];
-if (pageCat) {
-    document.querySelectorAll(`.nav-link[data-filter="${pageCat}"]`).forEach(l => l.classList.add('active'));
 }

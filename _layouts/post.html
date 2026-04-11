@@ -10,7 +10,7 @@ layout: default
 {% assign series_size  = series_posts | size %}
 
 <header class="article-hero">
-    <a href="/" class="article-back">Все статьи</a>
+    <a href="/?filter={{ page.categories[0] }}#posts" class="article-back">{{ cat.label }}</a>
 
     <div class="article-meta">
         <span class="tag tag-{{ page.categories[0] }}">{{ cat.label }}</span>
@@ -21,13 +21,6 @@ layout: default
         <span class="read-time">{{ page.read_time }} мин</span>
     </div>
 
-    {% if page.series %}
-    <div class="series-label-line">
-        <span>📚</span>
-        {{ page.series }} · Часть {{ page.part }} из {{ series_size }}
-    </div>
-    {% endif %}
-
     <h1 class="article-title">{{ page.title }}</h1>
     <p class="article-desc">{{ page.description }}</p>
 </header>
@@ -36,7 +29,7 @@ layout: default
 <div class="container">
     <div class="series-box" id="series-box">
         <button class="series-box-toggle" id="series-toggle">
-            <span class="series-box-title">Все части серии</span>
+            <span class="series-box-title">{{ page.series }}</span>
             <span class="series-box-info">Часть {{ page.part }} из {{ series_size }}</span>
             <span class="series-toggle-icon">▾</span>
         </button>
@@ -58,7 +51,6 @@ layout: default
     {{ content }}
 </article>
 
-
 {% if page.series and series_size > 1 %}
 <div class="container">
     <div class="part-nav">
@@ -79,18 +71,31 @@ layout: default
                 <span class="nav-hint">Следующая часть →</span>
                 <span class="nav-title">{{ next_post.title }}</span>
             </a>
+        {% else %}
+            {% assign sorted = site.posts | sort: "date" | reverse %}
+            {% assign next_other = nil %}
+            {% assign found_self = false %}
+            {% for p in sorted %}
+                {% if p.series == page.series %}{% continue %}{% endif %}
+                {% if found_self and next_other == nil %}{% assign next_other = p %}{% endif %}
+                {% if p.url == page.url %}{% assign found_self = true %}{% endif %}
+            {% endfor %}
+            {% if next_other %}
+            <a href="{{ next_other.url | relative_url }}" class="part-nav-btn next">
+                <span class="nav-hint">Следующая статья →</span>
+                <span class="nav-title">{{ next_other.title }}</span>
+            </a>
+            {% endif %}
         {% endif %}
     </div>
 </div>
-{% endif %}
-
-{% unless page.series and page.part < series_size %}
+{% else %}
 {% assign sorted = site.posts | sort: "date" | reverse %}
 {% assign older_article = nil %}
 {% assign newer_article = nil %}
 {% assign found = false %}
 {% for p in sorted %}
-    {% if p.series == page.series and page.series %}{% continue %}{% endif %}
+    {% if p.series and p.series == page.series and page.series %}{% continue %}{% endif %}
     {% if found and older_article == nil %}
         {% assign older_article = p %}
     {% endif %}
@@ -103,7 +108,7 @@ layout: default
 {% endfor %}
 {% if newer_article or older_article %}
 <div class="container">
-    <div class="part-nav read-more-nav">
+    <div class="part-nav">
         {% if older_article %}
             <a href="{{ older_article.url | relative_url }}" class="part-nav-btn prev">
                 <span class="nav-hint">← Предыдущая статья</span>
@@ -121,4 +126,4 @@ layout: default
     </div>
 </div>
 {% endif %}
-{% endunless %}
+{% endif %}
