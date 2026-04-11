@@ -182,7 +182,9 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
     color: var(--text-muted);
     opacity: 0.35;
     letter-spacing: 0.3em;
-    margin-top: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
     transition: opacity 0.4s;
 }
 
