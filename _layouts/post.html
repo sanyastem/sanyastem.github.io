@@ -90,6 +90,7 @@ layout: default
 {% assign next_article = nil %}
 {% assign found = false %}
 {% for p in sorted %}
+    {% if p.series == page.series and page.series %}{% continue %}{% endif %}
     {% if found and next_article == nil %}
         {% assign next_article = p %}
     {% endif %}
