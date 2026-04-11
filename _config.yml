@@ -18,5 +18,9 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# Google Analytics — вставь свой Measurement ID (G-XXXXXXXXXX)
-# google_analytics: "G-XXXXXXXXXX"
+author:
+  name: "Aliaksandr Rubis"
+  url: "https://sanyastem.github.io"
+
+feed:
+  excerpt_only: false
