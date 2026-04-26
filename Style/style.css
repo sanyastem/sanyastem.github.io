@@ -1041,13 +1041,18 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
 
 /* ========== Article layout with TOC sidebar ========== */
 /* On mobile: just a passthrough — .article-body keeps its own padding.
-   On desktop (>=1100px): becomes a 2-column grid with the TOC sidebar. */
+   On desktop (>=1100px): becomes a 2-column grid with the TOC sidebar.
+   minmax(0, 1fr) instead of 1fr — иначе grid item не даёт пере-
+   полняющим элементам (code blocks, длинные слова) сжиматься
+   и весь блок «вылезает» за viewport на мобиле. */
 .article-layout {
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 }
+
+.article-layout > .article-body { min-width: 0; }
 
 .article-toc-wrap {
     display: none;
