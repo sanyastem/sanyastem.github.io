@@ -10,60 +10,85 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ========== Category filter ==========
+// ========== Filters (category + difficulty) ==========
 const postCards  = document.querySelectorAll('.post-card');
 const noPostsMsg = document.getElementById('no-posts');
 
 let activeCategory = 'all';
+let activeDiff     = 'all';
 
 function applyFilter() {
     let visible = 0;
-
     postCards.forEach(card => {
-        const show = activeCategory === 'all' || card.dataset.category === activeCategory;
+        const okCat  = activeCategory === 'all' || card.dataset.category === activeCategory;
+        const okDiff = activeDiff === 'all' || card.dataset.difficulty === activeDiff;
+        const show = okCat && okDiff;
         card.style.display = show ? '' : 'none';
         if (show) visible++;
     });
-
     if (noPostsMsg) noPostsMsg.style.display = visible === 0 ? 'block' : 'none';
 }
 
-// Category buttons
-document.querySelectorAll('#cat-bar .filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('#cat-bar .filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeCategory = btn.dataset.filter;
-        applyFilter();
-
-        // Update URL
-        const url = activeCategory === 'all'
-            ? window.location.pathname
-            : window.location.pathname + '?filter=' + activeCategory;
-        history.replaceState(null, '', url);
-    });
-});
-
-// URL filter on load
-const urlFilter = new URLSearchParams(window.location.search).get('filter');
-if (urlFilter) {
-    const btn = document.querySelector(`#cat-bar .filter-btn[data-filter="${urlFilter}"]`);
-    if (btn) btn.click();
+function syncUrl() {
+    const params = new URLSearchParams();
+    if (activeCategory !== 'all') params.set('filter', activeCategory);
+    if (activeDiff !== 'all')     params.set('level', activeDiff);
+    const qs = params.toString();
+    const url = window.location.pathname + (qs ? '?' + qs : '');
+    history.replaceState(null, '', url);
 }
 
-// Scroll top
+function bindFilterBar(barId, key, getter, setter) {
+    const bar = document.getElementById(barId);
+    if (!bar) return;
+    bar.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            bar.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            setter(btn.dataset[key]);
+            applyFilter();
+            syncUrl();
+        });
+    });
+}
+
+bindFilterBar('cat-bar',  'filter', () => activeCategory, v => activeCategory = v);
+bindFilterBar('diff-bar', 'diff',   () => activeDiff,     v => activeDiff = v);
+
+// URL state on load
+const params = new URLSearchParams(window.location.search);
+['filter', 'level'].forEach(key => {
+    const val = params.get(key);
+    if (!val) return;
+    const sel = key === 'filter'
+        ? `#cat-bar .filter-btn[data-filter="${val}"]`
+        : `#diff-bar .filter-btn[data-diff="${val}"]`;
+    const btn = document.querySelector(sel);
+    if (btn) btn.click();
+});
+
+// ========== Scroll top ==========
 const scrollTopBtn = document.getElementById('scrollTop');
 if (scrollTopBtn) {
     window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('visible', window.scrollY > 400));
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-// Burger
+// ========== Burger ==========
 const burger   = document.getElementById('burger');
 const navLinks = document.querySelector('.nav-links');
-if (burger) {
-    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-    document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+if (burger && navLinks) {
+    const setOpen = (open) => {
+        navLinks.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', String(open));
+    };
+    burger.addEventListener('click', () => setOpen(!navLinks.classList.contains('open')));
+    document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
 }
 
 // ========== Copy button for code blocks ==========
@@ -75,7 +100,9 @@ document.querySelectorAll('.article-body div.highlight').forEach(block => {
 
     const btn = document.createElement('button');
     btn.className = 'copy-btn';
+    btn.type = 'button';
     btn.textContent = 'Скопировать';
+    btn.setAttribute('aria-label', 'Скопировать код');
     btn.addEventListener('click', () => {
         const code = block.querySelector('pre')?.textContent || '';
         navigator.clipboard.writeText(code).then(() => {
@@ -97,19 +124,59 @@ document.querySelectorAll('.article-body table').forEach(table => {
     }
 });
 
-// ========== Heading anchors ==========
-document.querySelectorAll('.article-body h2, .article-body h3').forEach(heading => {
-    if (!heading.id) {
-        heading.id = heading.textContent.trim().toLowerCase()
-            .replace(/[^\wа-яё\s-]/gi, '').replace(/\s+/g, '-');
-    }
+// ========== Heading anchors + TOC ==========
+const headings = document.querySelectorAll('.article-body h2, .article-body h3');
+const tocEl    = document.getElementById('article-toc');
+
+function slugify(text) {
+    return text.trim().toLowerCase()
+        .replace(/[^\wа-яё\s-]/gi, '')
+        .replace(/\s+/g, '-');
+}
+
+const tocItems = [];
+
+headings.forEach(heading => {
+    if (!heading.id) heading.id = slugify(heading.textContent);
     const anchor = document.createElement('a');
     anchor.className = 'heading-anchor';
     anchor.href = '#' + heading.id;
     anchor.textContent = '#';
     anchor.setAttribute('aria-label', 'Ссылка на раздел');
     heading.appendChild(anchor);
+
+    tocItems.push({ id: heading.id, text: heading.textContent.replace(/#$/, '').trim(), level: heading.tagName });
 });
+
+if (tocEl && tocItems.length >= 3) {
+    const ul = document.createElement('ul');
+    tocItems.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'toc-' + item.level.toLowerCase();
+        const a = document.createElement('a');
+        a.href = '#' + item.id;
+        a.textContent = item.text;
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
+    tocEl.appendChild(ul);
+    tocEl.parentElement.classList.add('has-toc');
+
+    // Scrollspy
+    const tocLinks = tocEl.querySelectorAll('a');
+    const byId = new Map(Array.from(tocLinks).map(a => [a.getAttribute('href').slice(1), a]));
+    const spy = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            const link = byId.get(e.target.id);
+            if (!link) return;
+            if (e.isIntersecting) {
+                tocLinks.forEach(l => l.classList.remove('is-active'));
+                link.classList.add('is-active');
+            }
+        });
+    }, { rootMargin: '-80px 0px -70% 0px' });
+    headings.forEach(h => spy.observe(h));
+}
 
 // ========== Reading progress bar ==========
 const progressBar = document.querySelector('.reading-progress');
@@ -135,12 +202,26 @@ if (themeToggle) {
 
 // ========== Series box toggle ==========
 const seriesToggle = document.getElementById('series-toggle');
-const seriesParts = document.getElementById('series-parts');
+const seriesParts  = document.getElementById('series-parts');
 if (seriesToggle && seriesParts) {
     seriesToggle.addEventListener('click', () => {
         const open = seriesParts.style.display !== 'none';
         seriesParts.style.display = open ? 'none' : 'flex';
         seriesParts.style.marginTop = open ? '0' : '14px';
         seriesToggle.classList.toggle('open', !open);
+        seriesToggle.setAttribute('aria-expanded', String(!open));
     });
 }
+
+// ========== Share: copy link ==========
+document.querySelectorAll('.share-copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const url = btn.dataset.copy || window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            const orig = btn.textContent;
+            btn.textContent = 'готово';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+        });
+    });
+});
