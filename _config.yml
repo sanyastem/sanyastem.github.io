@@ -17,6 +17,23 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-minifier
+
+# jekyll-minifier: HTML/JSON compression only.
+# CSS/JS skipped — gem 0.2.2 mis-detects UTF-8 with Cyrillic and bails out.
+# GitHub Pages serves these gzipped (~70% reduction) anyway.
+jekyll-minifier:
+  preserve_php: false
+  remove_comments: true
+  compress_css: false
+  compress_javascript: false
+  compress_json: true
+  exclude:
+    - "feed.xml"
+    - "sitemap.xml"
+    - "robots.txt"
+    - "llms.txt"
+    - "pagefind/**/*"
 
 author:
   name: "Aliaksandr Rubis"
