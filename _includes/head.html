@@ -23,12 +23,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="{{ page.url | prepend: site.url }}">
 
+  {% assign og_img = page.og_image | default: "/assets/og-default.png" | prepend: site.url %}
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ page.url | prepend: site.url }}">
   <meta property="og:title" content="{{ page.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="{{ og_img }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
   <meta property="article:modified_time" content="{{ page.last_modified_at | default: page.date | date_to_xmlschema }}">
   <meta property="article:author" content="Aliaksandr Rubis">
@@ -36,9 +41,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="article:tag" content="{{ cat }}">
   {% endfor %}
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page.title }}">
   <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+  <meta name="twitter:image" content="{{ og_img }}">
 
   <!-- JSON-LD: BlogPosting -->
   <script type="application/ld+json">
@@ -90,10 +96,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "name": "Главная",
         "item": "{{ site.url }}"
       },
+      {% assign bc_cat_key = page.categories[0] %}
+      {% assign bc_cat = site.data.categories[bc_cat_key] %}
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "{{ site.data.categories[page.categories[0]].label }}",
+        "name": {{ bc_cat.label | jsonify }},
         "item": "{{ site.url }}/?filter={{ page.categories[0] }}"
       },
       {
@@ -134,16 +142,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="{{ page.url | prepend: site.url }}">
 
+  {% assign og_img = page.og_image | default: "/assets/og-default.png" | prepend: site.url %}
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ page.url | prepend: site.url }}">
   <meta property="og:title" content="{{ page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="{{ og_img }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page.title | default: site.title }}">
   <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+  <meta name="twitter:image" content="{{ og_img }}">
 
   <!-- JSON-LD: WebSite -->
   <script type="application/ld+json">
