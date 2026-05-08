@@ -134,8 +134,9 @@ function slugify(text) {
         .replace(/\s+/g, '-');
 }
 
+// Stage 1: read all heading data first (reads only)
 const tocItems = [];
-
+const anchorsToAppend = [];
 headings.forEach(heading => {
     if (!heading.id) heading.id = slugify(heading.textContent);
     const anchor = document.createElement('a');
@@ -143,12 +144,13 @@ headings.forEach(heading => {
     anchor.href = '#' + heading.id;
     anchor.textContent = '#';
     anchor.setAttribute('aria-label', 'Ссылка на раздел');
-    heading.appendChild(anchor);
-
-    tocItems.push({ id: heading.id, text: heading.textContent.replace(/#$/, '').trim(), level: heading.tagName });
+    anchorsToAppend.push({ heading, anchor });
+    tocItems.push({ id: heading.id, text: heading.textContent.trim(), level: heading.tagName });
 });
 
+// Stage 2: write — build TOC in DocumentFragment, append all in one pass
 if (tocEl && tocItems.length >= 3) {
+    const frag = document.createDocumentFragment();
     const ul = document.createElement('ul');
     tocItems.forEach(item => {
         const li = document.createElement('li');
@@ -159,10 +161,10 @@ if (tocEl && tocItems.length >= 3) {
         li.appendChild(a);
         ul.appendChild(li);
     });
-    tocEl.appendChild(ul);
+    frag.appendChild(ul);
+    tocEl.appendChild(frag);
     tocEl.parentElement.classList.add('has-toc');
 
-    // Scrollspy
     const tocLinks = tocEl.querySelectorAll('a');
     const byId = new Map(Array.from(tocLinks).map(a => [a.getAttribute('href').slice(1), a]));
     const spy = new IntersectionObserver(entries => {
@@ -178,15 +180,30 @@ if (tocEl && tocItems.length >= 3) {
     headings.forEach(h => spy.observe(h));
 }
 
-// ========== Reading progress bar ==========
+// Append anchors after TOC build (writes batched)
+anchorsToAppend.forEach(({ heading, anchor }) => heading.appendChild(anchor));
+
+// ========== Reading progress bar (rAF-throttled) ==========
 const progressBar = document.querySelector('.reading-progress');
 if (progressBar) {
-    window.addEventListener('scroll', () => {
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight > 0) {
-            progressBar.style.width = Math.min(window.scrollY / docHeight * 100, 100) + '%';
-        }
-    });
+    let ticking = false;
+    let cachedDocHeight = 0;
+    function updateDocHeight() {
+        cachedDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+    }
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            if (cachedDocHeight > 0) {
+                progressBar.style.width = Math.min(window.scrollY / cachedDocHeight * 100, 100) + '%';
+            }
+            ticking = false;
+        });
+    }
+    updateDocHeight();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateDocHeight, { passive: true });
 }
 
 // ========== Theme toggle ==========
