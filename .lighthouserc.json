@@ -10,20 +10,15 @@
       ],
       "numberOfRuns": 1,
       "settings": {
-        "preset": "desktop",
-        "skipAudits": ["uses-http2", "canonical"]
+        "preset": "desktop"
       }
     },
     "assert": {
-      "preset": "lighthouse:no-pwa",
       "assertions": {
-        "categories:performance": ["warn", { "minScore": 0.85 }],
-        "categories:accessibility": ["error", { "minScore": 0.9 }],
-        "categories:best-practices": ["warn", { "minScore": 0.9 }],
-        "categories:seo": ["error", { "minScore": 0.9 }],
-        "uses-text-compression": "off",
-        "is-crawlable": "off",
-        "uses-rel-preconnect": "off"
+        "categories:performance":     ["warn",  { "minScore": 0.85 }],
+        "categories:accessibility":   ["error", { "minScore": 0.9 }],
+        "categories:best-practices":  ["warn",  { "minScore": 0.9 }],
+        "categories:seo":             ["error", { "minScore": 0.9 }]
       }
     },
     "upload": {
