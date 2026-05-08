@@ -230,6 +230,36 @@ if (seriesToggle && seriesParts) {
     });
 }
 
+// ========== Mermaid diagrams ==========
+// Конвертирует <pre><code class="language-mermaid">...</code></pre> в SVG
+const mermaidBlocks = document.querySelectorAll('code.language-mermaid');
+if (mermaidBlocks.length > 0) {
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.textContent = `
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: isDark ? 'dark' : 'default',
+            themeVariables: {
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontSize: '14px'
+            }
+        });
+        document.querySelectorAll('code.language-mermaid').forEach((el, i) => {
+            const wrap = document.createElement('div');
+            wrap.className = 'mermaid';
+            wrap.id = 'mermaid-' + i;
+            wrap.textContent = el.textContent;
+            const pre = el.closest('pre') || el.closest('.highlight');
+            (pre || el).replaceWith(wrap);
+        });
+        await mermaid.run({ querySelector: '.mermaid' });
+    `;
+    document.body.appendChild(script);
+}
+
 // ========== Share: copy link ==========
 document.querySelectorAll('.share-copy').forEach(btn => {
     btn.addEventListener('click', () => {

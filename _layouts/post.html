@@ -76,6 +76,12 @@ layout: default
     </article>
 </div>
 
+{% if site.giscus.repo_id != "" %}
+<div class="container" style="max-width:760px; margin:0 auto; padding:0 24px 40px;">
+    {% include giscus.html %}
+</div>
+{% endif %}
+
 {% if page.faq %}
 <div class="container" style="max-width:760px; margin:0 auto; padding:0 24px;">
     <section class="faq-section">
