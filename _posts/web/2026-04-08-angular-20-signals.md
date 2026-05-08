@@ -8,9 +8,11 @@ read_time: 13
 difficulty: intermediate
 description: "Angular 20 — Signals полностью стабильны, Zoneless вышел из experimental, новый control flow (@if/@for), resource() и httpResource() для async данных, standalone по умолчанию."
 excerpt_text: "Signals stable, Zoneless stable, @if/@for, resource() и httpResource() — Angular 20 без компромиссов"
+excerpt: "Что нового в Angular 20: Signals полностью стабильны, Zoneless вышел из experimental, новый @if/@for, resource() и httpResource()."
 keywords: "Angular 20 Signals, Zoneless Angular, Angular control flow @if @for, httpResource Angular 20, linkedSignal, standalone компоненты Angular 20"
 ---
 
+{% raw %}
 ## Что изменилось в Angular 20
 
 Angular 20 вышел в мае 2025. Это самый значительный релиз за несколько лет.
@@ -380,3 +382,4 @@ export class ProductListComponent {
 Можно делать поэтапно — Zone.js и Signals работают вместе.
 
 > 💡 `ng update @angular/core @angular/cli` — официальная миграция. Для каждой мажорной версии Angular предоставляет schematics которые автоматически конвертируют старый синтаксис. Запусти `ng update` чтобы увидеть доступные миграции.
+{% endraw %}
