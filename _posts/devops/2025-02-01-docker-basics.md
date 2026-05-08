@@ -12,6 +12,20 @@ part: 1
 description: "Что такое Docker-контейнер, первый docker run, Dockerfile и docker-compose на простом примере. Объясняем просто."
 excerpt_text: "Что такое контейнер, первый docker run и docker-compose на простом примере"
 keywords: "docker, контейнеры, dockerfile, docker-compose, docker для начинающих, devops"
+howto:
+  name: "Запуск первого Docker-контейнера за 10 минут"
+  totalTime: "PT10M"
+  steps:
+    - name: "Установить Docker Desktop"
+      text: "Скачать Docker Desktop с docker.com и установить под свою ОС. Запустить, дождаться зелёной иконки в трее."
+    - name: "Запустить первый контейнер"
+      text: "Открыть терминал и выполнить docker run hello-world — Docker скачает образ и покажет приветственное сообщение."
+    - name: "Запустить веб-сервер"
+      text: "docker run -d -p 8080:80 nginx — поднимет nginx, доступный на http://localhost:8080."
+    - name: "Написать свой Dockerfile"
+      text: "Создать Dockerfile с FROM, COPY, RUN, CMD под своё приложение и собрать командой docker build -t myapp ."
+    - name: "Использовать docker-compose"
+      text: "Описать многоконтейнерное приложение в docker-compose.yml и запустить всё одной командой docker compose up."
 faq:
   - q: "Чем контейнер отличается от виртуальной машины?"
     a: "ВМ виртуализирует железо и запускает целую гостевую ОС — обычно гигабайты памяти и долгие минуты на старт. Контейнер шарит ядро хоста и изолирует процессы через namespaces/cgroups, поэтому весит десятки мегабайт и стартует за секунды."

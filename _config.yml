@@ -41,3 +41,14 @@ author:
 
 feed:
   excerpt_only: false
+
+# Giscus comments — заполни repo_id и category_id через https://giscus.app
+# Шаги:
+# 1. Включи GitHub Discussions: Settings → General → Discussions ✓
+# 2. Установи приложение https://github.com/apps/giscus
+# 3. На giscus.app вставь sanyastem/sanyastem.github.io → выбери категорию (Announcements рекомендуется) → скопируй data-repo-id и data-category-id ниже:
+giscus:
+  repo: "sanyastem/sanyastem.github.io"
+  repo_id: ""        # вставь сюда
+  category: "Announcements"
+  category_id: ""    # и сюда

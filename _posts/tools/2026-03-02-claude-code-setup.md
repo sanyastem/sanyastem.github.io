@@ -11,6 +11,18 @@ part: 1
 description: "Устанавливаем Claude Code, разбираемся с CLAUDE.md, настройками и первыми командами. Стартовый гайд для разработчиков."
 excerpt_text: "Устанавливаем Claude Code, настраиваем CLAUDE.md и запускаем первые команды в терминале"
 keywords: "claude code, установка claude code, claude code настройка, CLAUDE.md, Anthropic CLI"
+howto:
+  name: "Установка и первая настройка Claude Code"
+  totalTime: "PT15M"
+  steps:
+    - name: "Установить Claude Code"
+      text: "Установить через npm: npm install -g @anthropic-ai/claude-code. Требуется Node.js 18+."
+    - name: "Авторизоваться"
+      text: "Запустить команду claude в терминале — откроется браузер для логина в Anthropic-аккаунт."
+    - name: "Создать CLAUDE.md в проекте"
+      text: "В корне проекта создать файл CLAUDE.md с описанием стека, соглашений, команд для билда/тестов. Этот файл агент читает при каждом запуске."
+    - name: "Запустить первую сессию"
+      text: "claude в папке проекта → описать задачу обычным языком. Агент проанализирует код и предложит план."
 ---
 
 ## Что такое Claude Code
