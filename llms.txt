@@ -29,6 +29,7 @@
 
 - [Git Flow](https://sanyastem.github.io/git/git-flow/): Стратегии ветвления, merge vs rebase
 - [.gitignore](https://sanyastem.github.io/git/gitignore/): Что исключать, глобальный gitignore
+- [git rebase vs merge](https://sanyastem.github.io/git/git-rebase-vs-merge/): Реальные кейсы, interactive rebase, force-with-lease, reflog
 
 ## Optional
 
