@@ -4,6 +4,7 @@ title: "Docker: пишем Dockerfile и собираем образы"
 categories: devops
 date: 2025-02-08
 date_ru: "8 февраля 2025"
+last_modified_at: 2026-05-08
 read_time: 8
 difficulty: intermediate
 series: "Docker: от установки до продакшна"

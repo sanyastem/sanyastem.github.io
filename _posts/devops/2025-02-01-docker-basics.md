@@ -4,6 +4,7 @@ title: "Docker для новичка: контейнеры за 10 минут"
 categories: devops
 date: 2025-02-01
 date_ru: "1 февраля 2025"
+last_modified_at: 2026-05-08
 read_time: 7
 difficulty: beginner
 series: "Docker: от установки до продакшна"
