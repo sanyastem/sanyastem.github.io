@@ -187,6 +187,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
 {% endunless %}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400&display=swap"></noscript>
+<!-- Preload critical font subsets (cyrillic + latin для текста страницы) -->
+<link rel="preload" href="/assets/fonts/inter-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-700-cyrillic.woff2" as="font" type="font/woff2" crossorigin>

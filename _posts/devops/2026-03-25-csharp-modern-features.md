@@ -291,12 +291,14 @@ string json = """
 
 // С интерполяцией (двойные $$ чтобы экранировать {})
 string name = "Alice";
+{% raw %}
 string template = $$"""
     {
         "name": "{{name}}",
         "timestamp": "{{DateTime.UtcNow:O}}"
     }
     """;
+{% endraw %}
 ```
 
 Особенно удобно для SQL, JSON-шаблонов, regex.

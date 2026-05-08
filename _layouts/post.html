@@ -90,24 +90,28 @@ layout: default
 </div>
 {% endif %}
 
-{% assign related = site.posts | where: "categories", page.categories[0] | where_exp: "p", "p.url != page.url" | limit: 3 %}
-{% if page.series %}
-  {% assign related = related | where_exp: "p", "p.series != page.series" | limit: 3 %}
-{% endif %}
-{% if related.size > 0 %}
-<div class="container" style="max-width:760px; margin:0 auto; padding:0 24px 40px;">
-    <section class="related-posts">
-        <h2 class="related-title">Похожие статьи</h2>
-        <div class="related-grid">
-            {% for rp in related %}
-            {% assign rp_cat_key = rp.categories[0] %}
-            {% assign rp_cat = site.data.categories[rp_cat_key] %}
+{% assign cat0 = page.categories[0] %}
+{% assign related_count = 0 %}
+{% capture related_html %}
+    {% for rp in site.posts %}
+        {% if related_count >= 3 %}{% break %}{% endif %}
+        {% if rp.url == page.url %}{% continue %}{% endif %}
+        {% unless rp.categories contains cat0 %}{% continue %}{% endunless %}
+        {% if page.series and rp.series == page.series %}{% continue %}{% endif %}
+        {% assign rp_cat_key = rp.categories[0] %}
+        {% assign rp_cat = site.data.categories[rp_cat_key] %}
             <a href="{{ rp.url | relative_url }}" class="related-card">
                 <span class="tag tag-{{ rp.categories[0] }}">{{ rp_cat.label }}</span>
                 <span class="related-card-title">{{ rp.title }}</span>
             </a>
-            {% endfor %}
-        </div>
+        {% assign related_count = related_count | plus: 1 %}
+    {% endfor %}
+{% endcapture %}
+{% if related_count > 0 %}
+<div class="container" style="max-width:760px; margin:0 auto; padding:0 24px 40px;">
+    <section class="related-posts">
+        <h2 class="related-title">Похожие статьи</h2>
+        <div class="related-grid">{{ related_html }}</div>
     </section>
 </div>
 {% endif %}
