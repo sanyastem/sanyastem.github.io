@@ -1265,6 +1265,34 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     word-break: normal;
 }
 
+/* ========== Mermaid diagrams ========== */
+.mermaid {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+    overflow-x: auto;
+}
+.mermaid svg { max-width: 100%; height: auto; }
+
+/* ========== Comments (Giscus) ========== */
+.comments {
+    margin: 40px 0 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+}
+.comments-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+}
+.giscus, .giscus-frame { width: 100%; }
+
 /* ========== Reduced motion (a11y) ========== */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {

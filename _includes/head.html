@@ -62,7 +62,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "author": {
       "@type": "Person",
       "name": "Aliaksandr Rubis",
-      "url": "{{ site.url }}"
+      "url": "{{ site.url }}",
+      "sameAs": [
+        "https://github.com/sanyastem"
+      ]
     },
     "publisher": {
       "@type": "Organization",
@@ -112,6 +115,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     ]
   }
   </script>
+
+  <!-- JSON-LD: HowTo (if present in frontmatter) -->
+  {% if page.howto %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": {{ page.howto.name | default: page.title | jsonify }},
+    "description": {{ page.howto.description | default: page.description | jsonify }},
+    {% if page.howto.totalTime %}"totalTime": "{{ page.howto.totalTime }}",{% endif %}
+    "step": [
+      {% for s in page.howto.steps %}
+      {
+        "@type": "HowToStep",
+        "position": {{ forloop.index }},
+        "name": {{ s.name | jsonify }},
+        "text": {{ s.text | jsonify }}{% if s.url %},
+        "url": "{{ page.url | prepend: site.url }}#{{ s.url }}"{% endif %}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+  </script>
+  {% endif %}
 
   <!-- JSON-LD: FAQ (if present in frontmatter) -->
   {% if page.faq %}
@@ -170,7 +197,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "inLanguage": "ru",
     "author": {
       "@type": "Person",
-      "name": "Aliaksandr Rubis"
+      "name": "Aliaksandr Rubis",
+      "url": "{{ site.url }}",
+      "sameAs": [
+        "https://github.com/sanyastem"
+      ]
     }
   }
   </script>

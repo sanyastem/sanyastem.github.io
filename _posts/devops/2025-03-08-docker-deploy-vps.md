@@ -4,6 +4,7 @@ title: "Docker: деплой на VPS с нуля"
 categories: devops
 date: 2025-03-08
 date_ru: "8 марта 2025"
+last_modified_at: 2026-05-08
 read_time: 10
 difficulty: intermediate
 series: "Docker: от установки до продакшна"
