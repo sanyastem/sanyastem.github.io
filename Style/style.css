@@ -1040,16 +1040,13 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
 }
 
 /* ========== Article layout with TOC sidebar ========== */
-/* On mobile: just a passthrough — .article-body keeps its own padding.
-   On desktop (>=1100px): becomes a 2-column grid with the TOC sidebar.
-   minmax(0, 1fr) instead of 1fr — иначе grid item не даёт пере-
-   полняющим элементам (code blocks, длинные слова) сжиматься
-   и весь блок «вылезает» за viewport на мобиле. */
+/* Контент остаётся центрированным (как было исторически — max-width 760px),
+   TOC «вылетает» абсолютно справа от него на широких экранах.
+   Это сохраняет визуальный центр статьи и не ломает узкие десктопы. */
 .article-layout {
-    max-width: 1100px;
+    position: relative;
+    max-width: 760px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
 }
 
 .article-layout > .article-body { min-width: 0; }
@@ -1099,19 +1096,20 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     border-left-color: var(--accent);
 }
 
-@media (min-width: 1100px) {
-    .article-layout {
-        grid-template-columns: minmax(0, 760px) 220px;
-        justify-content: center;
-        gap: 56px;
-        padding: 0 24px;
-    }
-    .article-layout .article-body { max-width: none; padding: 0 0 100px; margin: 0; }
+/* TOC показываем только когда вокруг центрированного контента (760px)
+   реально хватает места под сайдбар 220px + 32px gap × 2 стороны. */
+@media (min-width: 1280px) {
     .article-toc-wrap.has-toc {
         display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: calc(100% + 32px);
+        width: 220px;
+    }
+    .article-toc-wrap.has-toc > .article-toc-sticky {
         position: sticky;
         top: calc(var(--nav-height) + 24px);
-        align-self: start;
         max-height: calc(100vh - var(--nav-height) - 48px);
         overflow-y: auto;
     }
