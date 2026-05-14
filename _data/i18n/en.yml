@@ -65,3 +65,23 @@ errors:
   back_home: "← Home"
   fresh_articles: "Latest articles"
   or_search: "Or search for something"
+
+cookies:
+  title: "Cookies on this site"
+  text: "We use necessary cookies for site functionality and optional ones — for analytics and ads. Details in the <a href=\"/en/privacy/\">privacy policy</a>."
+  accept_all: "Accept all"
+  reject_all: "Necessary only"
+  customize: "Customize"
+  settings_title: "Cookie settings"
+  necessary: "Necessary"
+  necessary_desc: "Theme, language — the site won't work properly without them."
+  analytics: "Analytics"
+  analytics_desc: "Google Analytics — visit statistics."
+  ads: "Advertising"
+  ads_desc: "Google AdSense — personalized ads."
+  save: "Save choice"
+  manage: "Cookies"
+
+nav_extra:
+  about: "About"
+  privacy: "Privacy"

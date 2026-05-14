@@ -1,0 +1,44 @@
+{% assign clang = page.lang | default: 'ru' %}
+{% assign ct = site.data.i18n[clang].cookies %}
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" hidden>
+    <div class="cookie-banner-inner">
+        <h2 class="cookie-banner-title" id="cookie-banner-title">{{ ct.title }}</h2>
+        <p class="cookie-banner-text">{{ ct.text }}</p>
+        <div class="cookie-banner-actions">
+            <button type="button" class="cookie-btn cookie-btn-primary" data-consent="all">{{ ct.accept_all }}</button>
+            <button type="button" class="cookie-btn cookie-btn-secondary" data-consent="necessary">{{ ct.reject_all }}</button>
+            <button type="button" class="cookie-btn cookie-btn-ghost" data-consent="customize">{{ ct.customize }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="cookie-settings" id="cookie-settings" role="dialog" aria-labelledby="cookie-settings-title" hidden>
+    <div class="cookie-settings-backdrop" data-close-settings></div>
+    <div class="cookie-settings-modal">
+        <h2 class="cookie-settings-title" id="cookie-settings-title">{{ ct.settings_title }}</h2>
+        <label class="cookie-toggle">
+            <input type="checkbox" checked disabled>
+            <span class="cookie-toggle-label">
+                <strong>{{ ct.necessary }}</strong>
+                <span class="cookie-toggle-desc">{{ ct.necessary_desc }}</span>
+            </span>
+        </label>
+        <label class="cookie-toggle">
+            <input type="checkbox" id="consent-analytics">
+            <span class="cookie-toggle-label">
+                <strong>{{ ct.analytics }}</strong>
+                <span class="cookie-toggle-desc">{{ ct.analytics_desc }}</span>
+            </span>
+        </label>
+        <label class="cookie-toggle">
+            <input type="checkbox" id="consent-ads">
+            <span class="cookie-toggle-label">
+                <strong>{{ ct.ads }}</strong>
+                <span class="cookie-toggle-desc">{{ ct.ads_desc }}</span>
+            </span>
+        </label>
+        <div class="cookie-banner-actions">
+            <button type="button" class="cookie-btn cookie-btn-primary" id="cookie-save">{{ ct.save }}</button>
+        </div>
+    </div>
+</div>
