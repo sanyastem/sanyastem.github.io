@@ -181,9 +181,21 @@ body {
 }
 
 .nav-link:hover, .nav-link.active { color: var(--text); background: var(--hover-bg); }
+.nav-link[aria-current="page"] { color: var(--accent); background: var(--accent-dim); }
 
 .burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-.burger span { display: block; width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: background 0.2s; }
+.burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-muted);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, background 0.2s;
+    transform-origin: center;
+}
+.burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--text); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--text); }
 
 /* ========== Theme toggle ========== */
 .theme-toggle {
@@ -680,14 +692,18 @@ code {
     background: rgba(255,255,255,0.07);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: var(--radius-sm);
-    color: #888;
+    color: var(--text-muted);
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.75;
     transition: opacity 0.2s, background 0.2s, color 0.2s;
     z-index: 2;
 }
 
 .highlight-wrap:hover .copy-btn { opacity: 1; }
+/* На тач-устройствах hover недоступен — всегда показываем */
+@media (hover: none) {
+    .copy-btn { opacity: 1; }
+}
 .copy-btn:hover { background: rgba(0,183,229,0.15); border-color: rgba(0,183,229,0.3); color: #00b7e5; }
 .copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.1); }
 
@@ -705,6 +721,10 @@ code {
 .article-body h2:hover .heading-anchor,
 .article-body h3:hover .heading-anchor { opacity: 0.6; }
 .heading-anchor:hover { opacity: 1; color: var(--accent); }
+/* На тач-устройствах hover не работает — показываем всегда */
+@media (hover: none) {
+    .heading-anchor { opacity: 0.5; }
+}
 
 /* ========== Reading progress bar ========== */
 .reading-progress {
@@ -717,9 +737,90 @@ code {
     width: 0;
     pointer-events: none;
 }
+.reading-progress-text {
+    position: fixed;
+    top: calc(var(--nav-height) + 6px);
+    right: 14px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: var(--nav-bg);
+    padding: 2px 8px;
+    border-radius: 100px;
+    z-index: 99;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.reading-progress-text:not(:empty) { opacity: 1; }
+
+/* Дата обновления статьи */
+.post-updated {
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+}
+
+/* Mobile TOC drawer (только на узких экранах < 1280px) */
+.article-toc-mobile {
+    margin: 0 0 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    overflow: hidden;
+}
+.article-toc-mobile:not(.has-toc) { display: none; }
+.article-toc-mobile > summary {
+    padding: 12px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.article-toc-mobile > summary::after {
+    content: '▾';
+    color: var(--text-muted);
+    transition: transform 0.2s;
+}
+.article-toc-mobile[open] > summary::after { transform: rotate(180deg); }
+.article-toc-mobile > summary::-webkit-details-marker { display: none; }
+.article-toc-mobile #article-toc-m {
+    padding: 0 18px 14px;
+}
+@media (min-width: 1280px) {
+    .article-toc-mobile { display: none !important; }
+}
 
 /* ========== Footer ========== */
 .footer { padding: 28px 0; border-top: 1px solid var(--border); }
+.footer-brand { display: flex; flex-direction: column; gap: 4px; }
+.footer-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.footer-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+}
+.footer-links a:hover {
+    color: var(--accent);
+    border-color: rgba(0,183,229,0.3);
+}
 
 .footer-inner {
     display: flex;
@@ -1202,12 +1303,9 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 36px;
-    height: 32px;
-    padding: 0 12px;
-    font-size: 0.78rem;
-    font-family: inherit;
-    font-weight: 600;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 100px;
@@ -1216,6 +1314,7 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     cursor: pointer;
     transition: all 0.2s;
 }
+.share-btn svg { display: block; }
 
 .share-btn:hover {
     background: var(--accent-dim);
@@ -1253,7 +1352,7 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
 @media (max-width: 480px) {
     .posts-grid { grid-template-columns: 1fr; }
     .share-bar { gap: 6px; }
-    .share-btn { padding: 0 10px; min-width: 32px; }
+    .share-btn { width: 36px; height: 36px; }
 }
 
 /* Prevent overflow from long inline code / URLs on narrow screens */
