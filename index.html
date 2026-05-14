@@ -4,11 +4,36 @@ title: "sanyastem — блог разработчика"
 description: "Гайды и туториалы по Web-разработке, DevOps, Git и инструментам разработчика. Коротко, понятно и по делу."
 ---
 
-<section class="hero">
-    <div class="hero-content">
-        <h1 class="hero-title">Гайды по <span class="accent-text">разработке</span></h1>
-        <p class="hero-sub">Web, DevOps, Git и инструменты — коротко и по делу</p>
-        <p class="hero-slogan">build. break. learn. repeat.</p>
+{% assign featured = site.posts.first %}
+{% assign featured_cat_key = featured.categories[0] %}
+{% assign featured_cat = site.data.categories[featured_cat_key] %}
+
+<section class="hero-modern">
+    <div class="hero-grad" aria-hidden="true"></div>
+    <div class="container">
+        <div class="hero-modern-inner">
+            <div class="hero-text">
+                <span class="hero-eyebrow">блог разработчика</span>
+                <h1 class="hero-title-modern">Гайды по разработке —<br><span class="accent-text">коротко и по делу</span></h1>
+                <p class="hero-sub-modern">Web · DevOps · Git · Инструменты · AI</p>
+            </div>
+            <a href="{{ featured.url | relative_url }}" class="featured-card">
+                <div class="featured-card-inner">
+                    <span class="featured-label">Свежее</span>
+                    <span class="tag tag-{{ featured.categories[0] }}">{{ featured_cat.label }}</span>
+                    <h2 class="featured-title">{{ featured.title }}</h2>
+                    {% if featured.excerpt_text %}
+                    <p class="featured-excerpt">{{ featured.excerpt_text }}</p>
+                    {% endif %}
+                    <div class="featured-meta">
+                        <span class="post-date">{{ featured.date_ru }}</span>
+                        <span class="dot">·</span>
+                        <span class="read-time">{{ featured.read_time }} мин</span>
+                        <span class="featured-arrow" aria-hidden="true">→</span>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </section>
 
@@ -40,6 +65,7 @@ description: "Гайды и туториалы по Web-разработке, De
         <div class="posts-grid" id="posts-grid">
             {% for post in site.posts %}
             {% unless post.series and post.part > 1 %}
+            {% if forloop.first %}{% continue %}{% endif %}
             {% assign cat_key  = post.categories[0] %}
             {% assign diff_key = post.difficulty | default: 'beginner' %}
             {% assign cat  = site.data.categories[cat_key] %}
@@ -59,6 +85,9 @@ description: "Гайды и туториалы по Web-разработке, De
                     {% endif %}
                 </div>
                 <h2 class="post-title">{{ post.title }}</h2>
+                {% if post.excerpt_text %}
+                <p class="post-excerpt">{{ post.excerpt_text }}</p>
+                {% endif %}
                 <div class="card-bottom">
                     <span class="post-date">{{ post.date_ru }}</span>
                     {% if post.difficulty %}
