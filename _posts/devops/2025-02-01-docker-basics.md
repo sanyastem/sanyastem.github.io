@@ -12,6 +12,7 @@ part: 1
 description: "Что такое Docker-контейнер, первый docker run, Dockerfile и docker-compose на простом примере. Объясняем просто."
 excerpt_text: "Что такое контейнер, первый docker run и docker-compose на простом примере"
 keywords: "docker, контейнеры, dockerfile, docker-compose, docker для начинающих, devops"
+translation_of: "/en/devops/docker-basics/"
 howto:
   name: "Запуск первого Docker-контейнера за 10 минут"
   totalTime: "PT10M"

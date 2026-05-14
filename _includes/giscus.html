@@ -1,6 +1,7 @@
 {% if site.giscus.repo_id != "" and site.giscus.category_id != "" %}
-<section class="comments" aria-label="Комментарии">
-    <h2 class="comments-title">Обсуждение</h2>
+{% assign page_lang = page.lang | default: 'ru' %}
+<section class="comments" aria-label="{{ site.data.i18n[page_lang].article.comments_title }}">
+    <h2 class="comments-title">{{ site.data.i18n[page_lang].article.comments_title }}</h2>
     <script src="https://giscus.app/client.js"
             data-repo="{{ site.giscus.repo }}"
             data-repo-id="{{ site.giscus.repo_id }}"
@@ -12,7 +13,7 @@
             data-emit-metadata="0"
             data-input-position="top"
             data-theme="preferred_color_scheme"
-            data-lang="ru"
+            data-lang="{{ page_lang }}"
             data-loading="lazy"
             crossorigin="anonymous"
             async></script>

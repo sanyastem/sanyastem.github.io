@@ -5,6 +5,26 @@ baseurl: ""
 
 permalink: /:categories/:slug/
 
+# Defaults: все посты — русские по умолчанию.
+# Чтобы добавить английский перевод — положи .md в _posts/en/, он сам станет lang: en
+# и доступен по /en/<категория>/<slug>/
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      lang: ru
+  - scope:
+      path: "_posts/en"
+      type: posts
+    values:
+      lang: en
+      permalink: /en/:categories/:slug/
+  - scope:
+      path: "en"
+    values:
+      lang: en
+
 markdown: kramdown
 highlighter: rouge
 kramdown:
