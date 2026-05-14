@@ -1,9 +1,10 @@
 site:
   description: "Блог разработчика — гайды по Web, DevOps, Git и инструментам"
+  keywords: "web разработка, devops, git, docker, css, javascript, туториалы"
 
 nav:
   switch_to: "EN"
-  switch_label: "Switch to English"
+  switch_label: "Переключить на английский"
 
 hero:
   eyebrow: "блог разработчика"

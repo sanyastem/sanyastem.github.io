@@ -1,5 +1,6 @@
 site:
   description: "Developer blog — practical guides on Web, DevOps, Git, and tools"
+  keywords: "web development, devops, git, docker, css, javascript, tutorials"
 
 nav:
   switch_to: "RU"
