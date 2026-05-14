@@ -72,3 +72,20 @@ giscus:
   repo_id: ""        # вставь сюда
   category: "Announcements"
   category_id: ""    # и сюда
+
+# Google AdSense — заполни client_id после approval (https://adsense.google.com)
+# Шаги:
+# 1. Зарегистрируйся на adsense.google.com, добавь сайт sanyastem.github.io
+# 2. Скопируй ca-pub-XXXXXXXXXXXXXXXX и вставь в client_id ниже
+# 3. Создай ad-юниты в AdSense → Ads → By ad unit → "Display ad"
+# 4. Скопируй slot ID каждого юнита и вставь в slots ниже
+# 5. Дождись approval (1-4 недели). До этого ads не показываются.
+# 6. После approval добавь ads.txt в корень — Jekyll его уже генерит из _config.yml ниже.
+adsense:
+  enabled: false                        # переключи на true когда approval придёт
+  client_id: ""                          # ca-pub-XXXXXXXXXXXXXXXX
+  slots:
+    in_article: ""                       # slot ID для в-статьи (после 1-го h2)
+    sidebar: ""                          # slot ID для sidebar (под TOC на десктопе)
+    end_of_article: ""                   # slot ID после статьи (перед related)
+    home_grid: ""                        # slot ID на главной (вставка между карточками)
