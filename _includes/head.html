@@ -16,15 +16,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
+{% assign p_lang = page.lang | default: 'ru' %}
+{% assign t_site = site.data.i18n[p_lang] %}
+{% assign default_desc = t_site.site.description | default: site.description %}
+
 {% if page.layout == "post" %}
   <title>{{ page.title }} — {{ site.title }}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}">
+  <meta name="description" content="{{ page.description | default: default_desc }}">
   <meta name="keywords" content="{{ page.keywords }}">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="{{ page.url | prepend: site.url }}">
 
   {% comment %} hreflang alternates — переводы постов через page.translation_of (RU↔EN) {% endcomment %}
-  {% assign p_lang = page.lang | default: 'ru' %}
   {% if page.translation_of %}
     <link rel="alternate" hreflang="{{ p_lang }}" href="{{ page.url | prepend: site.url }}">
     {% if p_lang == 'en' %}
@@ -39,7 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ page.url | prepend: site.url }}">
   <meta property="og:title" content="{{ page.title }}">
-  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:description" content="{{ page.description | default: default_desc }}">
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:locale" content="{% if p_lang == 'en' %}en_US{% else %}ru_RU{% endif %}">
   <meta property="og:image" content="{{ og_img }}">
@@ -55,7 +58,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page.title }}">
-  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+  <meta name="twitter:description" content="{{ page.description | default: default_desc }}">
   <meta name="twitter:image" content="{{ og_img }}">
 
   <!-- JSON-LD: BlogPosting -->
@@ -68,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@id": "{{ page.url | prepend: site.url }}"
     },
     "headline": {{ page.title | jsonify }},
-    "description": {{ page.description | default: site.description | jsonify }},
+    "description": {{ page.description | default: default_desc | jsonify }},
     "datePublished": "{{ page.date | date_to_xmlschema }}",
     "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
     "author": {
@@ -84,7 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "{{ site.title }}",
       "url": "{{ site.url }}"
     },
-    "inLanguage": "ru",
+    "inLanguage": "{{ p_lang }}",
     "keywords": {{ page.keywords | default: "" | jsonify }},
     "articleSection": {{ page.categories[0] | default: "general" | jsonify }},
     "wordCount": {{ content | number_of_words }},
@@ -108,16 +111,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Главная",
-        "item": "{{ site.url }}"
+        "name": "{% if p_lang == 'en' %}Home{% else %}Главная{% endif %}",
+        "item": "{% if p_lang == 'en' %}{{ site.url }}/en/{% else %}{{ site.url }}{% endif %}"
       },
       {% assign bc_cat_key = page.categories[0] %}
       {% assign bc_cat = site.data.categories[bc_cat_key] %}
+      {% if p_lang == 'en' %}{% assign bc_label = bc_cat.label_en | default: bc_cat.label %}{% else %}{% assign bc_label = bc_cat.label %}{% endif %}
       {
         "@type": "ListItem",
         "position": 2,
-        "name": {{ bc_cat.label | jsonify }},
-        "item": "{{ site.url }}/?filter={{ page.categories[0] }}"
+        "name": {{ bc_label | jsonify }},
+        "item": "{% if p_lang == 'en' %}{{ site.url }}/en/?filter={{ page.categories[0] }}{% else %}{{ site.url }}/?filter={{ page.categories[0] }}{% endif %}"
       },
       {
         "@type": "ListItem",
@@ -176,8 +180,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 {% else %}
   <title>{{ page.title | default: site.title }}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}">
-  <meta name="keywords" content="{{ page.keywords | default: 'web разработка, devops, git, docker, css, javascript, туториалы' }}">
+  <meta name="description" content="{{ page.description | default: default_desc }}">
+  <meta name="keywords" content="{{ page.keywords | default: t_site.site.keywords | default: 'web development, devops, git, docker, javascript, tutorials' }}">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="{{ page.url | prepend: site.url }}">
 
@@ -185,7 +189,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ page.url | prepend: site.url }}">
   <meta property="og:title" content="{{ page.title | default: site.title }}">
-  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:description" content="{{ page.description | default: default_desc }}">
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:image" content="{{ og_img }}">
@@ -195,7 +199,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page.title | default: site.title }}">
-  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+  <meta name="twitter:description" content="{{ page.description | default: default_desc }}">
   <meta name="twitter:image" content="{{ og_img }}">
 
   <!-- JSON-LD: WebSite -->
@@ -204,9 +208,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "{{ site.title }}",
-    "url": "{{ site.url }}",
-    "description": {{ site.description | jsonify }},
-    "inLanguage": "ru",
+    "url": "{% if p_lang == 'en' %}{{ site.url }}/en/{% else %}{{ site.url }}{% endif %}",
+    "description": {{ default_desc | jsonify }},
+    "inLanguage": "{{ p_lang }}",
     "author": {
       "@type": "Person",
       "name": "Aliaksandr Rubis",
