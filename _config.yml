@@ -82,8 +82,8 @@ giscus:
 # 5. Дождись approval (1-4 недели). До этого ads не показываются.
 # 6. После approval добавь ads.txt в корень — Jekyll его уже генерит из _config.yml ниже.
 adsense:
-  enabled: false                        # переключи на true когда approval придёт
-  client_id: ""                          # ca-pub-XXXXXXXXXXXXXXXX
+  enabled: true                          # скрипт загружается для approval-верификации
+  client_id: "ca-pub-8464617912649637"
   slots:
     in_article: ""                       # slot ID для в-статьи (после 1-го h2)
     sidebar: ""                          # slot ID для sidebar (под TOC на десктопе)
