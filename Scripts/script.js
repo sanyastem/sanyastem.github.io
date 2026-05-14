@@ -84,6 +84,7 @@ const navLinks = document.querySelector('.nav-links');
 if (burger && navLinks) {
     const setOpen = (open) => {
         navLinks.classList.toggle('open', open);
+        burger.classList.toggle('open', open);
         burger.setAttribute('aria-expanded', String(open));
     };
     burger.addEventListener('click', () => setOpen(!navLinks.classList.contains('open')));
@@ -148,11 +149,11 @@ headings.forEach(heading => {
     tocItems.push({ id: heading.id, text: heading.textContent.trim(), level: heading.tagName });
 });
 
-// Stage 2: write — build TOC in DocumentFragment, append all in one pass
-if (tocEl && tocItems.length >= 3) {
-    const frag = document.createDocumentFragment();
+// Stage 2: write — build TOC list in DocumentFragment, render in both desktop sidebar
+// и mobile <details> drawer (один и тот же UL клонируется)
+function buildTocList(items) {
     const ul = document.createElement('ul');
-    tocItems.forEach(item => {
+    items.forEach(item => {
         const li = document.createElement('li');
         li.className = 'toc-' + item.level.toLowerCase();
         const a = document.createElement('a');
@@ -161,23 +162,47 @@ if (tocEl && tocItems.length >= 3) {
         li.appendChild(a);
         ul.appendChild(li);
     });
-    frag.appendChild(ul);
-    tocEl.appendChild(frag);
-    tocEl.parentElement.classList.add('has-toc');
+    return ul;
+}
 
-    const tocLinks = tocEl.querySelectorAll('a');
-    const byId = new Map(Array.from(tocLinks).map(a => [a.getAttribute('href').slice(1), a]));
+const tocMobileEl = document.getElementById('article-toc-m');
+const tocMobileWrap = document.getElementById('article-toc-mobile');
+
+if (tocItems.length >= 3) {
+    if (tocEl) {
+        tocEl.appendChild(buildTocList(tocItems));
+        tocEl.parentElement.classList.add('has-toc');
+    }
+    if (tocMobileEl) {
+        tocMobileEl.appendChild(buildTocList(tocItems));
+        tocMobileWrap?.classList.add('has-toc');
+    }
+
+    const allLinks = document.querySelectorAll('#article-toc a, #article-toc-m a');
+    const byId = new Map();
+    allLinks.forEach(a => {
+        const id = a.getAttribute('href').slice(1);
+        if (!byId.has(id)) byId.set(id, []);
+        byId.get(id).push(a);
+    });
     const spy = new IntersectionObserver(entries => {
         entries.forEach(e => {
-            const link = byId.get(e.target.id);
-            if (!link) return;
+            const links = byId.get(e.target.id);
+            if (!links) return;
             if (e.isIntersecting) {
-                tocLinks.forEach(l => l.classList.remove('is-active'));
-                link.classList.add('is-active');
+                allLinks.forEach(l => l.classList.remove('is-active'));
+                links.forEach(l => l.classList.add('is-active'));
             }
         });
     }, { rootMargin: '-80px 0px -70% 0px' });
     headings.forEach(h => spy.observe(h));
+
+    // Закрывать mobile drawer после клика по ссылке
+    tocMobileEl?.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => { if (tocMobileWrap) tocMobileWrap.open = false; });
+    });
+} else {
+    tocMobileWrap?.remove();
 }
 
 // Append anchors after TOC build (writes batched)
@@ -185,6 +210,8 @@ anchorsToAppend.forEach(({ heading, anchor }) => heading.appendChild(anchor));
 
 // ========== Reading progress bar (rAF-throttled) ==========
 const progressBar = document.querySelector('.reading-progress');
+const progressText = document.querySelector('.reading-progress-text');
+const articleReadTime = parseInt(document.body.dataset.readTime || '0', 10);
 if (progressBar) {
     let ticking = false;
     let cachedDocHeight = 0;
@@ -196,7 +223,12 @@ if (progressBar) {
         ticking = true;
         requestAnimationFrame(() => {
             if (cachedDocHeight > 0) {
-                progressBar.style.width = Math.min(window.scrollY / cachedDocHeight * 100, 100) + '%';
+                const pct = Math.min(window.scrollY / cachedDocHeight, 1);
+                progressBar.style.width = (pct * 100) + '%';
+                if (progressText && articleReadTime > 0) {
+                    const left = Math.max(0, Math.ceil(articleReadTime * (1 - pct)));
+                    progressText.textContent = left > 0 ? left + ' мин до конца' : 'готово';
+                }
             }
             ticking = false;
         });
@@ -206,14 +238,21 @@ if (progressBar) {
     window.addEventListener('resize', updateDocHeight, { passive: true });
 }
 
-// ========== Theme toggle ==========
+// ========== Theme toggle (с dynamic aria-label) ==========
 const themeToggle = document.getElementById('theme-toggle');
+function syncThemeLabel() {
+    if (!themeToggle) return;
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    themeToggle.setAttribute('aria-label', isDark ? 'Переключить на светлую тему' : 'Переключить на тёмную тему');
+}
+syncThemeLabel();
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
         const next = isDark ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
+        syncThemeLabel();
     });
 }
 
@@ -229,6 +268,15 @@ if (seriesToggle && seriesParts) {
         seriesToggle.setAttribute('aria-expanded', String(!open));
     });
 }
+
+// ========== Burger X-animation + search keyboard shortcut ==========
+// (burger handler updated above to flip class via toggle('open'))
+// Глобальный shortcut «/» — фокус на поиск
+document.addEventListener('keydown', e => {
+    if (e.key !== '/' || e.target.matches('input, textarea, [contenteditable]')) return;
+    const search = document.querySelector('#pagefind input, .pagefind-ui__search-input');
+    if (search) { e.preventDefault(); search.focus(); }
+});
 
 // ========== Mermaid diagrams ==========
 // Конвертирует <pre><code class="language-mermaid">...</code></pre> в SVG
