@@ -320,3 +320,69 @@ document.querySelectorAll('.share-copy').forEach(btn => {
         });
     });
 });
+
+// ========== Cookie consent (GDPR + Google Consent Mode v2) ==========
+(function() {
+    const STORAGE_KEY = 'cookie-consent';
+    const banner = document.getElementById('cookie-banner');
+    const settings = document.getElementById('cookie-settings');
+    if (!banner) return;
+
+    function loadConsent() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) { return null; }
+    }
+    function saveConsent(c) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...c, ts: Date.now() }));
+        applyConsent(c);
+    }
+    function applyConsent(c) {
+        if (typeof gtag === 'function') {
+            gtag('consent', 'update', {
+                'ad_storage':         c.ads       ? 'granted' : 'denied',
+                'ad_user_data':       c.ads       ? 'granted' : 'denied',
+                'ad_personalization': c.ads       ? 'granted' : 'denied',
+                'analytics_storage':  c.analytics ? 'granted' : 'denied'
+            });
+        }
+    }
+    function showBanner() { banner.hidden = false; banner.classList.add('is-open'); }
+    function hideBanner() { banner.hidden = true; banner.classList.remove('is-open'); }
+    function showSettings() {
+        const c = loadConsent() || { analytics: false, ads: false };
+        document.getElementById('consent-analytics').checked = !!c.analytics;
+        document.getElementById('consent-ads').checked = !!c.ads;
+        settings.hidden = false;
+        settings.classList.add('is-open');
+    }
+    function hideSettings() { settings.hidden = true; settings.classList.remove('is-open'); }
+
+    // Открыть настройки извне (из футера / privacy)
+    window.__openCookieSettings = () => { hideBanner(); showSettings(); };
+
+    banner.querySelectorAll('[data-consent]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const v = btn.dataset.consent;
+            if (v === 'all')        saveConsent({ analytics: true,  ads: true  });
+            if (v === 'necessary')  saveConsent({ analytics: false, ads: false });
+            if (v === 'customize')  { hideBanner(); showSettings(); return; }
+            hideBanner();
+        });
+    });
+
+    settings.querySelectorAll('[data-close-settings]').forEach(el => {
+        el.addEventListener('click', hideSettings);
+    });
+
+    document.getElementById('cookie-save')?.addEventListener('click', () => {
+        saveConsent({
+            analytics: document.getElementById('consent-analytics').checked,
+            ads:       document.getElementById('consent-ads').checked
+        });
+        hideSettings();
+    });
+
+    // Показать баннер при первом визите
+    if (!loadConsent()) {
+        setTimeout(showBanner, 400);
+    }
+})();
