@@ -1,0 +1,66 @@
+site:
+  description: "Блог разработчика — гайды по Web, DevOps, Git и инструментам"
+
+nav:
+  switch_to: "EN"
+  switch_label: "Switch to English"
+
+hero:
+  eyebrow: "блог разработчика"
+  title_html: 'Гайды по разработке —<br><span class="accent-text">коротко и по делу</span>'
+  sub: "Web · DevOps · Git · Инструменты · AI"
+  featured_label: "Свежее"
+
+filters:
+  topic: "Тема:"
+  level: "Уровень:"
+  all: "Все"
+
+no_posts: "Статьи по этой теме скоро появятся"
+
+article:
+  back_prefix: ""
+  read_time_suffix: "мин"
+  updated: "обновлено"
+  contents: "Содержание"
+  share: "Поделиться:"
+  share_x: "Поделиться в X (Twitter)"
+  share_in: "Поделиться в LinkedIn"
+  share_tg: "Поделиться в Telegram"
+  share_copy: "Скопировать ссылку"
+  copy_label: "Скопировать"
+  copy_done: "Готово"
+  faq_title: "Частые вопросы"
+  related_title: "Похожие статьи"
+  comments_title: "Обсуждение"
+  series_parts_short_1: "часть"
+  series_parts_short_few: "части"
+  series_parts_short_many: "частей"
+  series_progress_word: "Часть"
+  series_progress_of: "из"
+  prev_part: "← Предыдущая часть"
+  next_part: "Следующая часть →"
+  prev_article: "← Предыдущая статья"
+  next_article: "Следующая статья →"
+  mins_left_suffix: "мин до конца"
+  reading_done: "готово"
+
+theme:
+  toggle_to_light: "Переключить на светлую тему"
+  toggle_to_dark: "Переключить на тёмную тему"
+
+a11y:
+  skip_to_main: "Перейти к содержимому"
+  menu: "Меню"
+  section_link: "Ссылка на раздел"
+  copy_code: "Скопировать код"
+
+footer:
+  copy: "Пишу про разработку — коротко и по делу"
+
+errors:
+  page_404_badge: "Ошибка 404"
+  page_404_message: "Такой страницы нет — возможно, она переехала или была удалена"
+  back_home: "← На главную"
+  fresh_articles: "Свежие статьи"
+  or_search: "Или поищи нужное"

@@ -1,34 +1,35 @@
 ---
 layout: default
-title: "404 — Страница не найдена"
+title: "404"
 permalink: /404.html
 ---
+{% assign lang = 'ru' %}
+{% assign t = site.data.i18n[lang] %}
+{% assign latest = site.posts | where: "lang", lang | slice: 0, 3 %}
+{% if latest.size == 0 %}{% assign latest = site.posts | slice: 0, 3 %}{% endif %}
 
 <section class="error-page">
     <div class="error-content">
-        <span class="hero-badge">Ошибка 404</span>
+        <span class="hero-badge">{{ t.errors.page_404_badge }}</span>
         <h1 class="error-code">4<span class="accent-text">0</span>4</h1>
-        <p class="hero-sub">Такой страницы нет — возможно, она переехала или была удалена</p>
-        <a href="/" class="back-home">← На главную</a>
+        <p class="hero-sub">{{ t.errors.page_404_message }}</p>
+        <a href="/" class="back-home">{{ t.errors.back_home }}</a>
     </div>
 </section>
 
 <section class="container" style="max-width:760px; margin:40px auto; padding:0 24px 60px;">
-    <h2 class="related-title">Свежие статьи</h2>
+    <h2 class="related-title">{{ t.errors.fresh_articles }}</h2>
     <div class="related-grid" style="margin-top:14px;">
-        {% assign latest = site.posts | slice: 0, 3 %}
         {% for p in latest %}
-        {% assign p_cat_key = p.categories[0] %}
-        {% assign p_cat = site.data.categories[p_cat_key] %}
+        {% assign p_cat = site.data.categories[p.categories[0]] %}
         <a href="{{ p.url | relative_url }}" class="related-card">
             <span class="tag tag-{{ p.categories[0] }}">{{ p_cat.label }}</span>
             <span class="related-card-title">{{ p.title }}</span>
         </a>
         {% endfor %}
     </div>
-
     <div style="margin-top:40px;">
-        <h2 class="related-title">Или поищи нужное</h2>
+        <h2 class="related-title">{{ t.errors.or_search }}</h2>
         <div id="pagefind" style="margin-top:14px;"></div>
     </div>
 </section>

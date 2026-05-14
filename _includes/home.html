@@ -1,0 +1,121 @@
+{% assign lang = include.lang | default: 'ru' %}
+{% assign t = site.data.i18n[lang] %}
+
+{% comment %} Filter posts to current language. RU = no _posts/en/ posts (those have lang: en). {% endcomment %}
+{% assign all_posts = site.posts | where: "lang", lang %}
+{% if all_posts.size == 0 %}{% assign all_posts = site.posts %}{% endif %}
+{% assign featured = all_posts | first %}
+{% assign featured_cat_key = featured.categories[0] %}
+{% assign featured_cat = site.data.categories[featured_cat_key] %}
+{% assign featured_cat_label = featured_cat.label %}
+{% if lang == 'en' %}{% assign featured_cat_label = featured_cat.label_en | default: featured_cat.label %}{% endif %}
+
+<section class="hero-modern">
+    <div class="hero-grad" aria-hidden="true"></div>
+    <div class="container">
+        <div class="hero-modern-inner">
+            <div class="hero-text">
+                <span class="hero-eyebrow">{{ t.hero.eyebrow }}</span>
+                <h1 class="hero-title-modern">{{ t.hero.title_html }}</h1>
+                <p class="hero-sub-modern">{{ t.hero.sub }}</p>
+            </div>
+            {% if featured %}
+            <a href="{{ featured.url | relative_url }}" class="featured-card">
+                <div class="featured-card-inner">
+                    <span class="featured-label">{{ t.hero.featured_label }}</span>
+                    <span class="tag tag-{{ featured.categories[0] }}">{{ featured_cat_label }}</span>
+                    <h2 class="featured-title">{{ featured.title }}</h2>
+                    {% if featured.excerpt_text %}
+                    <p class="featured-excerpt">{{ featured.excerpt_text }}</p>
+                    {% endif %}
+                    <div class="featured-meta">
+                        <span class="post-date">{% if lang == 'en' %}{{ featured.date | date: "%-d %b %Y" }}{% else %}{{ featured.date_ru }}{% endif %}</span>
+                        <span class="dot">·</span>
+                        <span class="read-time">{{ featured.read_time }} {{ t.article.read_time_suffix }}</span>
+                        <span class="featured-arrow" aria-hidden="true">→</span>
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="posts-section" id="posts">
+    <div class="container">
+
+        <div class="filters-wrap">
+            <div class="filter-row">
+                <span class="filter-label">{{ t.filters.topic }}</span>
+                <div class="filter-bar" id="cat-bar" role="tablist">
+                    <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">{{ t.filters.all }}</button>
+                    {% for cat in site.data.categories %}
+                    {% assign cat_label = cat[1].label %}
+                    {% if lang == 'en' %}{% assign cat_label = cat[1].label_en | default: cat[1].label %}{% endif %}
+                    <button class="filter-btn" data-filter="{{ cat[0] }}" role="tab" aria-selected="false">{{ cat_label }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">{{ t.filters.level }}</span>
+                <div class="filter-bar" id="diff-bar" role="tablist">
+                    <button class="filter-btn active" data-diff="all" role="tab" aria-selected="true">{{ t.filters.all }}</button>
+                    {% for d in site.data.difficulties %}
+                    {% assign d_label = d[1].label %}
+                    {% if lang == 'en' %}{% assign d_label = d[1].label_en | default: d[1].label %}{% endif %}
+                    <button class="filter-btn diff-{{ d[0] }}" data-diff="{{ d[0] }}" role="tab" aria-selected="false">{{ d_label }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="pagefind"></div>
+        </div>
+
+        <div class="posts-grid" id="posts-grid">
+            {% for post in all_posts %}
+            {% unless post.series and post.part > 1 %}
+            {% if forloop.first %}{% continue %}{% endif %}
+            {% assign cat_key  = post.categories[0] %}
+            {% assign diff_key = post.difficulty | default: 'beginner' %}
+            {% assign cat  = site.data.categories[cat_key] %}
+            {% assign diff = site.data.difficulties[diff_key] %}
+            {% assign cat_label = cat.label %}
+            {% assign diff_label = diff.label %}
+            {% if lang == 'en' %}
+                {% assign cat_label = cat.label_en | default: cat.label %}
+                {% assign diff_label = diff.label_en | default: diff.label %}
+            {% endif %}
+            {% if post.series %}{% assign s_size = site.posts | where: "series", post.series | size %}{% endif %}
+            <a href="{{ post.url | relative_url }}"
+               class="post-card fade-in"
+               data-category="{{ post.categories[0] }}"
+               data-difficulty="{{ post.difficulty | default: 'beginner' }}">
+                <div class="card-top">
+                    <span class="tag tag-{{ post.categories[0] }}">{{ cat_label }}</span>
+                    {% if post.series %}
+                    {% if s_size == 1 %}{% assign parts_word = t.article.series_parts_short_1 %}{% elsif s_size >= 2 and s_size <= 4 %}{% assign parts_word = t.article.series_parts_short_few %}{% else %}{% assign parts_word = t.article.series_parts_short_many %}{% endif %}
+                    <span class="read-time">{{ s_size }} {{ parts_word }}</span>
+                    {% else %}
+                    <span class="read-time">{{ post.read_time }} {{ t.article.read_time_suffix }}</span>
+                    {% endif %}
+                </div>
+                <h2 class="post-title">{{ post.title }}</h2>
+                {% if post.excerpt_text %}
+                <p class="post-excerpt">{{ post.excerpt_text }}</p>
+                {% endif %}
+                <div class="card-bottom">
+                    <span class="post-date">{% if lang == 'en' %}{{ post.date | date: "%-d %b %Y" }}{% else %}{{ post.date_ru }}{% endif %}</span>
+                    {% if post.difficulty %}
+                    <span class="diff-badge diff-{{ post.difficulty }}">{{ diff_label }}</span>
+                    {% endif %}
+                </div>
+            </a>
+            {% endunless %}
+            {% endfor %}
+        </div>
+
+        <div class="no-posts" id="no-posts" style="display:none;">
+            {{ t.no_posts }}
+        </div>
+
+    </div>
+</section>
