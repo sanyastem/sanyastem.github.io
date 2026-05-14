@@ -65,3 +65,23 @@ errors:
   back_home: "← На главную"
   fresh_articles: "Свежие статьи"
   or_search: "Или поищи нужное"
+
+cookies:
+  title: "Cookies на этом сайте"
+  text: "Мы используем необходимые cookies для работы сайта и опциональные — для аналитики и рекламы. Подробнее — в <a href=\"/privacy/\">политике конфиденциальности</a>."
+  accept_all: "Принять все"
+  reject_all: "Только необходимые"
+  customize: "Настроить"
+  settings_title: "Настройки cookies"
+  necessary: "Необходимые"
+  necessary_desc: "Тема, язык — без них сайт работает некорректно."
+  analytics: "Аналитика"
+  analytics_desc: "Google Analytics — статистика посещений."
+  ads: "Реклама"
+  ads_desc: "Google AdSense — персонализированная реклама."
+  save: "Сохранить выбор"
+  manage: "Cookies"
+
+nav_extra:
+  about: "О блоге"
+  privacy: "Конфиденциальность"
