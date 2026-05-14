@@ -1,11 +1,14 @@
 beginner:
   label: Новичок
+  label_en: Beginner
   slug: beginner
 
 intermediate:
   label: Средний
+  label_en: Intermediate
   slug: intermediate
 
 advanced:
   label: Продвинутый
+  label_en: Advanced
   slug: advanced

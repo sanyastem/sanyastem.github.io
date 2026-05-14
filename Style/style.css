@@ -202,6 +202,30 @@ body {
 .burger.open span:nth-child(2) { opacity: 0; }
 .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--text); }
 
+/* ========== Language switcher ========== */
+.lang-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    min-width: 38px;
+    padding: 0 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+.lang-switch:hover {
+    color: var(--accent);
+    border-color: var(--border-hover);
+    background: var(--hover-bg);
+}
+
 /* ========== Theme toggle ========== */
 .theme-toggle {
     background: none;

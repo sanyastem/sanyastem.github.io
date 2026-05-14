@@ -23,13 +23,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="{{ page.url | prepend: site.url }}">
 
+  {% comment %} hreflang alternates — переводы постов через page.translation_of (RU↔EN) {% endcomment %}
+  {% assign p_lang = page.lang | default: 'ru' %}
+  {% if page.translation_of %}
+    <link rel="alternate" hreflang="{{ p_lang }}" href="{{ page.url | prepend: site.url }}">
+    {% if p_lang == 'en' %}
+      <link rel="alternate" hreflang="ru" href="{{ page.translation_of | prepend: site.url }}">
+    {% else %}
+      <link rel="alternate" hreflang="en" href="{{ page.translation_of | prepend: site.url }}">
+    {% endif %}
+    <link rel="alternate" hreflang="x-default" href="{{ page.url | prepend: site.url }}">
+  {% endif %}
+
   {% assign og_img = page.og_image | default: "/assets/og-default.png" | prepend: site.url %}
   <meta property="og:type" content="article">
   <meta property="og:url" content="{{ page.url | prepend: site.url }}">
   <meta property="og:title" content="{{ page.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   <meta property="og:site_name" content="{{ site.title }}">
-  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale" content="{% if p_lang == 'en' %}en_US{% else %}ru_RU{% endif %}">
   <meta property="og:image" content="{{ og_img }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">

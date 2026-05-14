@@ -1,15 +1,19 @@
 web:
   label: Web
+  label_en: Web
   color: web
 
 devops:
   label: DevOps
+  label_en: DevOps
   color: devops
 
 git:
   label: Git
+  label_en: Git
   color: git
 
 tools:
   label: Инструменты
+  label_en: Tools
   color: tools
