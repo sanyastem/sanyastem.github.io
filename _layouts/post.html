@@ -20,7 +20,7 @@ layout: default
 {% assign post_date_disp = page.date_ru %}
 {% if lang == 'en' %}{% assign post_date_disp = page.date | date: "%-d %b %Y" %}{% endif %}
 {% assign series_posts = site.posts | where: "series", page.series | sort: "part" %}
-{% assign series_size  = series_posts | size %}
+{% assign series_size = series_posts | size %}
 {% assign back_url = '/?filter=' | append: page.categories[0] | append: '#posts' %}
 {% if lang == 'en' %}{% assign back_url = '/en/?filter=' | append: page.categories[0] | append: '#posts' %}{% endif %}
 
@@ -134,12 +134,16 @@ layout: default
     {% for rp in site.posts %}
         {% if related_count >= 3 %}{% break %}{% endif %}
         {% if rp.url == page.url %}{% continue %}{% endif %}
+        {% assign rp_lang = rp.lang | default: 'ru' %}
+        {% if rp_lang != lang %}{% continue %}{% endif %}
         {% unless rp.categories contains cat0 %}{% continue %}{% endunless %}
         {% if page.series and rp.series == page.series %}{% continue %}{% endif %}
         {% assign rp_cat_key = rp.categories[0] %}
         {% assign rp_cat = site.data.categories[rp_cat_key] %}
+        {% assign rp_cat_label = rp_cat.label %}
+        {% if lang == 'en' %}{% assign rp_cat_label = rp_cat.label_en | default: rp_cat.label %}{% endif %}
             <a href="{{ rp.url | relative_url }}" class="related-card">
-                <span class="tag tag-{{ rp.categories[0] }}">{{ rp_cat.label }}</span>
+                <span class="tag tag-{{ rp.categories[0] }}">{{ rp_cat_label }}</span>
                 <span class="related-card-title">{{ rp.title }}</span>
             </a>
         {% assign related_count = related_count | plus: 1 %}
@@ -179,6 +183,8 @@ layout: default
             {% assign next_other = nil %}
             {% assign found_self = false %}
             {% for p in sorted %}
+                {% assign p_lng = p.lang | default: 'ru' %}
+                {% if p_lng != lang %}{% continue %}{% endif %}
                 {% if p.series == page.series %}{% continue %}{% endif %}
                 {% if found_self and next_other == nil %}{% assign next_other = p %}{% endif %}
                 {% if p.url == page.url %}{% assign found_self = true %}{% endif %}
@@ -198,6 +204,8 @@ layout: default
 {% assign newer_article = nil %}
 {% assign found = false %}
 {% for p in sorted %}
+    {% assign p_lng = p.lang | default: 'ru' %}
+    {% if p_lng != lang %}{% continue %}{% endif %}
     {% if p.series and p.series == page.series and page.series %}{% continue %}{% endif %}
     {% if found and older_article == nil %}
         {% assign older_article = p %}
