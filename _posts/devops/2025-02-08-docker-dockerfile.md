@@ -12,6 +12,22 @@ part: 2
 description: "Разбираем Dockerfile по инструкциям, слои образов, кэширование сборки и оптимизацию — как уменьшить размер образа в разы."
 excerpt_text: "Dockerfile по инструкциям, слои, кэш сборки и оптимизация размера образа"
 keywords: "dockerfile, docker образ, docker build, слои docker, оптимизация docker, multi-stage"
+howto:
+  name: "Написать оптимизированный Dockerfile с нуля"
+  totalTime: "PT20M"
+  steps:
+    - name: "Выбрать базовый образ"
+      text: "Использовать минимальный официальный образ под язык (node:20-alpine вместо node:20, python:3.12-slim вместо python:3.12). Это уменьшает финальный размер в 5-10 раз."
+    - name: "Скопировать manifest зависимостей"
+      text: "COPY package*.json ./ или requirements.txt отдельно от кода. Кэш Docker не инвалидирует слой если файл не менялся, npm install не выполнится повторно."
+    - name: "Установить зависимости"
+      text: "RUN npm ci --omit=dev или pip install --no-cache-dir -r requirements.txt. --omit=dev убирает devDependencies в production-сборке."
+    - name: "Скопировать код"
+      text: "COPY . . — копирует весь код приложения. Этот слой меняется на каждом коммите, но restore выше уже в кэше."
+    - name: "Multi-stage для уменьшения размера"
+      text: "Второй FROM с минимальным runtime-образом (например, distroless или alpine), COPY --from=build /app/dist /app — финальный образ без компилятора и dev-tools."
+    - name: "Запустить под не-root пользователем"
+      text: "USER 1000 или USER nodejs — повышает безопасность. Если контейнер взломают, атакующий не получит root в host через kernel exploit."
 faq:
   - q: "CMD vs ENTRYPOINT — в чём разница?"
     a: "ENTRYPOINT задаёт исполняемый файл (всегда выполнится), CMD — аргументы по умолчанию (можно перезаписать в docker run). Обычная связка: ENTRYPOINT [\"node\"] + CMD [\"server.js\"]. Если оставить только CMD — пользователь может полностью заменить команду."

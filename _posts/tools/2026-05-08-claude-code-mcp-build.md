@@ -11,6 +11,33 @@ part: 5
 description: "Пошаговый гайд: пишем MCP-сервер на TypeScript, подключаем к Claude Code, отлаживаем через MCP Inspector и расшариваем команде."
 excerpt_text: "Свой MCP-сервер — когда готовых не хватает: реальный пример с поиском по внутренним докам, отладка и публикация в npm"
 keywords: "MCP server, model context protocol, своими руками, claude code custom mcp, mcp sdk typescript, mcp inspector"
+howto:
+  name: "Написать собственный MCP-сервер для Claude Code"
+  totalTime: "PT30M"
+  steps:
+    - name: "Создать проект"
+      text: "mkdir mcp-server && cd mcp-server; npm init -y; npm install @modelcontextprotocol/sdk zod; npm install -D typescript @types/node tsx."
+    - name: "Написать минимальный server"
+      text: "src/index.ts с импортом Server из @modelcontextprotocol/sdk, StdioServerTransport, и одним ping-tool через setRequestHandler."
+    - name: "Реализовать реальные tools"
+      text: "Заменить ping на свои tools (search_docs, read_doc и т.д.). Каждый — name, description, inputSchema с zod-валидацией, обработчик в CallToolRequestSchema."
+    - name: "Защитить от path traversal"
+      text: "Если работаешь с файлами, валидировать full.startsWith(BASE_DIR). MCP-сервер запускается с правами твоего пользователя — может прочитать /etc/passwd если не проверять."
+    - name: "Подключить к Claude Code"
+      text: "Скомпилировать (npm run build), создать .mcp.json в корне проекта с command: node, args: путь к dist/index.js. Restart Claude Code → /mcp покажет твой сервер."
+    - name: "Отладить через MCP Inspector"
+      text: "npx @modelcontextprotocol/inspector node ./dist/index.js — UI в браузере с raw JSON-запросами/ответами. Прогнать все tools на edge-кейсах."
+    - name: "Опубликовать в npm"
+      text: "package.json с bin field, npm publish --access=public. Теперь команда подключает через npx -y @your-org/mcp-server в их .mcp.json."
+faq:
+  - q: "Когда писать свой vs брать готовый?"
+    a: "Свой — для внутренних API без коннектора, специфичных БД, регулярно используемых workflows. Готовый из реестра — для стандартного (GitHub, Postgres, Slack). Не пиши свой для разовых задач — bash-скрипт + skill справится."
+  - q: "Резидентский MCP или Stdio?"
+    a: "Stdio — стандарт для локальных Claude Code сценариев (Python/Node процесс запускается per-session). HTTP/SSE — для remote MCP (доступ из cloud, общий между пользователями). Для большинства команд — Stdio проще и безопаснее."
+  - q: "Куда писать логи MCP-сервера?"
+    a: "В stderr или файл — НЕ в stdout. stdout зарезервирован под протокол. console.log сломает парсер на стороне Claude и сервер отвалится с ошибкой. Используй process.stderr.write."
+  - q: "Можно ли передавать секреты в MCP env?"
+    a: "Да, через env в .mcp.json: \"env\": { \"API_KEY\": \"\\${API_KEY}\" }. Подставляется из системной среды. Не хардкодь токены в .mcp.json — файл коммитится в репо."
 ---
 
 В [предыдущей части](/tools/claude-code-mcp/) мы подключали готовые MCP-серверы. Но иногда нужно своё: внутренний API, специфичная база, корпоративный сервис без публичного коннектора. Сейчас напишем рабочий сервер с нуля — за один присест.

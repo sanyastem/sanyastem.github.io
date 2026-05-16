@@ -20,9 +20,6 @@ description: "sanyastem — a developer blog on the modern stack: Web, DevOps, G
   <li><a href="/en/?filter=tools#posts">Tools</a> — Claude Code, AI for development and QA</li>
 </ul>
 
-<h2>Author</h2>
-<p><strong>Aliaksandr Rubis</strong> — .NET and Angular developer based in Poland.</p>
-
 <h2>Contact</h2>
 <ul>
   <li>GitHub: <a href="https://github.com/sanyastem">@sanyastem</a></li>
