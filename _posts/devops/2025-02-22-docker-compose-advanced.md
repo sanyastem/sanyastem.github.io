@@ -12,6 +12,15 @@ part: 3
 description: "Полный разбор docker-compose.yml: сети, volumes, переменные среды, health checks, профили и деплой на сервер."
 excerpt_text: "Сети, volumes, переменные среды, health checks и деплой через docker-compose"
 keywords: "docker-compose, docker сети, volumes, health check, docker профили, docker деплой"
+faq:
+  - q: "docker-compose vs Kubernetes — когда что использовать?"
+    a: "Compose — один сервер, dev/staging, до 10 сервисов. Kubernetes — несколько серверов, авто-масштабирование, продакшн с high-availability. Для MVP и блога — Compose, для масштабируемых SaaS — K8s."
+  - q: "depends_on и healthcheck — в чём разница?"
+    a: "depends_on задаёт порядок запуска, но не ждёт готовности сервиса. healthcheck проверяет что контейнер реально готов принимать запросы. Для БД обязательно: depends_on с condition: service_healthy."
+  - q: "Где хранить .env с паролями для compose?"
+    a: ".env файл рядом с docker-compose.yml + добавить в .gitignore. Compose автоматически подхватывает переменные. В проде — Docker secrets или внешний vault (HashiCorp, AWS Secrets Manager)."
+  - q: "Можно ли запускать compose в production?"
+    a: "Да, для маленьких single-server деплоев — норма. Используй отдельный compose.prod.yml с restart: always, без bind-mounts на код, обязательно бэкапы volumes."
 ---
 
 ## Зачем нужен Docker Compose

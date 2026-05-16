@@ -11,6 +11,15 @@ part: 1
 description: "Как перейти с .NET Framework 4.x на .NET 10 LTS: что изменилось в архитектуре, типичные проблемы при миграции и инструменты которые помогут."
 excerpt_text: "Полный план перехода с .NET Framework 4.x на .NET 10 LTS — что сломается и как починить"
 keywords: "миграция .NET Framework .NET 10, upgrade assistant dotnet, web.config appsettings, Global.asax Program.cs, breaking changes dotnet"
+faq:
+  - q: "Можно ли мигрировать только часть проектов?"
+    a: "Да, миграцию делают постепенно. Сначала переносят отдельные библиотеки (DLL) на .NET Standard или .NET 10, потом тесты, потом web-проект. Главное — установить InternalsVisibleTo и убедиться что зависимости совместимы (NuGet target frameworks)."
+  - q: "Что делать с зависимостями System.Web и WebForms?"
+    a: "В .NET 10 не поддерживаются. WebForms → переписать на Razor Pages или ASP.NET Core MVC. System.Web.HttpContext → Microsoft.AspNetCore.Http.HttpContext. Если страниц много — запусти в Docker контейнере на старом фреймворке параллельно."
+  - q: "Сколько времени занимает миграция?"
+    a: "Маленький Web API (~10k LOC) — 1-2 недели. Средний enterprise (~100k LOC, 20+ проектов) — 2-6 месяцев. Главное узкое место: WebForms / WCF / EF 6 → EF Core. Upgrade Assistant ускоряет, но не решает все breaking changes."
+  - q: ".NET 10 LTS или ждать .NET 12?"
+    a: ".NET 10 LTS до ноября 2028. Если мигрируешь сейчас — бери 10, support 3 года. .NET 12 выйдет 2027 (LTS до 2030). Если можешь подождать год и проект не горит — инструменты улучшаются с каждым релизом."
 ---
 
 ## Зачем мигрировать и когда

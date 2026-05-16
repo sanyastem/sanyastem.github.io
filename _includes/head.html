@@ -48,7 +48,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {% endif %}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f0f12" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="manifest" href="/site.webmanifest">
 
 {% assign p_lang = page.lang | default: 'ru' %}
 {% assign t_site = site.data.i18n[p_lang] %}
@@ -119,8 +122,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "publisher": {
       "@type": "Organization",
       "name": "{{ site.title }}",
-      "url": "{{ site.url }}"
+      "url": "{{ site.url }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}/assets/og-default.png"
+      }
     },
+    "image": "{{ og_img }}",
     "inLanguage": "{{ p_lang }}",
     "keywords": {{ page.keywords | default: "" | jsonify }},
     "articleSection": {{ page.categories[0] | default: "general" | jsonify }},
@@ -236,7 +244,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:description" content="{{ page.description | default: default_desc }}">
   <meta name="twitter:image" content="{{ og_img }}">
 
-  <!-- JSON-LD: WebSite -->
+  <!-- JSON-LD: WebSite (with SearchAction for sitelinks search box) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -245,6 +253,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "url": "{% if p_lang == 'en' %}{{ site.url }}/en/{% else %}{{ site.url }}{% endif %}",
     "description": {{ default_desc | jsonify }},
     "inLanguage": "{{ p_lang }}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "{{ site.url }}/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    },
     "author": {
       "@type": "Person",
       "name": "Aliaksandr Rubis",
@@ -253,6 +269,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "https://github.com/sanyastem"
       ]
     }
+  }
+  </script>
+
+  <!-- JSON-LD: Organization (publisher entity) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}",
+    "logo": "{{ site.url }}/assets/og-default.png",
+    "founder": {
+      "@type": "Person",
+      "name": "Aliaksandr Rubis",
+      "sameAs": ["https://github.com/sanyastem"]
+    },
+    "sameAs": ["https://github.com/sanyastem"]
   }
   </script>
 {% endif %}

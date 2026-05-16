@@ -11,6 +11,15 @@ part: 3
 description: "EF Core 9 и 10: compiled queries, AsNoTracking, JSON columns, проблема N+1, auto-compiled models и как не убить производительность базы данных."
 excerpt_text: "Как не убить БД через EF Core: N+1, compiled queries, AsNoTracking, JSON columns и новое в версии 9/10"
 keywords: "EF Core 9 10 оптимизация, compiled queries ef core, AsNoTracking, N+1 проблема, JSON columns EF Core, auto-compiled model"
+faq:
+  - q: "AsNoTracking влияет на Include?"
+    a: "Нет, навигационные свойства подгружаются как обычно. AsNoTracking только отключает Change Tracker — сущности не получают entity tracking entries, экономия памяти 30-70%. Для read-only — всегда AsNoTracking. Для write — оставляй tracking."
+  - q: "Compiled queries дают эффект на маленьких таблицах?"
+    a: "Маленькая разница (~5-10мс на запрос), но при 100+ вызовов одного запроса в секунду экономия складывается. Реальный выигрыш виден на hot-path — каталог товаров, корзина, профиль пользователя. Для админ-панели разовых запросов смысла нет."
+  - q: "JSON column в EF Core заменяет отдельную таблицу?"
+    a: "Заменяет, когда поля документа не используются в JOIN. Адрес доставки в заказе, настройки пользователя — идеальный кейс. Если нужно фильтровать/искать по полям JSON часто — лучше отдельная таблица с индексами, JSON_VALUE() в WHERE медленный на больших данных."
+  - q: "ExecuteUpdate срабатывает на триггеры?"
+    a: "Да, БД триггеры срабатывают (на уровне SQL). Но EF Core change-tracker и savechanges-interceptors — нет, EF их полностью обходит. Если у тебя AuditLog через DbContext.SaveChanges() — он НЕ запишется. Для критичного аудита делай на уровне БД (триггеры) или дублируй явно."
 ---
 
 ## Что нового в EF Core 9 и 10

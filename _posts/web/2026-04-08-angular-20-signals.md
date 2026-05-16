@@ -10,6 +10,15 @@ description: "Angular 20 — Signals полностью стабильны, Zone
 excerpt_text: "Signals stable, Zoneless stable, @if/@for, resource() и httpResource() — Angular 20 без компромиссов"
 excerpt: "Что нового в Angular 20: Signals полностью стабильны, Zoneless вышел из experimental, новый @if/@for, resource() и httpResource()."
 keywords: "Angular 20 Signals, Zoneless Angular, Angular control flow @if @for, httpResource Angular 20, linkedSignal, standalone компоненты Angular 20"
+faq:
+  - q: "Можно ли Signals с NgRx Classic?"
+    a: "Да, они отлично сосуществуют. NgRx-store экспонирует Observable через selectors, конвертируешь в Signal через toSignal(). Часто гибрид встречается в крупных проектах: общий стейт (auth, router) на NgRx Classic, новые фичи на Signal Store. Через год Classic остаётся только где реально нужен."
+  - q: "Zoneless требует переписать весь app?"
+    a: "Нет. Включаешь provideZonelessChangeDetection() — Zone.js удаляется. Компоненты на Signals работают сразу. Компоненты на OnPush + Observable через async pipe — тоже работают. Сломаются только компоненты без OnPush, полагающиеся на zone-patching setTimeout/setInterval — но их и так нужно переписать."
+  - q: "OnPush + Zone.js что делать?"
+    a: "Ничего не делать — продолжают работать как прежде. Zoneless — opt-in, можно мигрировать постепенно: новые компоненты пиши Signal-first, старые оставляй на OnPush. Когда 80%+ покрыто Signals — включаешь zoneless глобально."
+  - q: "linkedSignal vs computed — когда что?"
+    a: "computed — derived signal только для чтения, пересчитывается автоматически из зависимостей. linkedSignal — derived + writable, можно перезаписать сверху и снова сбрасывается при изменении source. Пример: pagination current page — linkedSignal({source: category, computation: () => 1}) сбрасывает на 1 при смене категории."
 ---
 
 {% raw %}
