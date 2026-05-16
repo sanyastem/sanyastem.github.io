@@ -296,9 +296,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script>
 (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
 </script>
-<link rel="stylesheet" href="/Style/style.css">
+{% assign bust = site.time | date: '%s' %}
+<link rel="stylesheet" href="/Style/style.css?v={{ bust }}">
 {% unless page.layout == "post" %}
-<link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css?v={{ bust }}">
 {% endunless %}
 
 <!-- Preload critical font subsets (cyrillic + latin для текста страницы) -->

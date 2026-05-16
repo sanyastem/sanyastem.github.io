@@ -1508,7 +1508,7 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
 }
 
 /* ========== Share bar ========== */
-.share-bar {
+.post-share {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1518,14 +1518,14 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     flex-wrap: wrap;
 }
 
-.share-label {
+.post-share-text {
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text);
     margin-right: 6px;
 }
 
-.share-btn {
+.post-share-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1540,16 +1540,16 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     cursor: pointer;
     transition: all 0.2s;
 }
-.share-btn svg { display: block; width: 16px; height: 16px; }
+.post-share-link svg { display: block; width: 16px; height: 16px; }
 
-.share-btn:hover {
+.post-share-link:hover {
     background: var(--accent-dim);
     border-color: var(--accent);
     color: var(--accent);
     transform: translateY(-2px);
 }
 
-.share-btn.copied {
+.post-share-link.copied {
     background: rgba(74,222,128,0.1);
     border-color: rgba(74,222,128,0.3);
     color: #4ade80;
@@ -1578,8 +1578,8 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
 
 @media (max-width: 480px) {
     .posts-grid { grid-template-columns: 1fr; }
-    .share-bar { gap: 8px; }
-    .share-btn { width: 40px; height: 40px; }
+    .post-share { gap: 8px; }
+    .post-share-link { width: 40px; height: 40px; }
 }
 
 /* Prevent overflow from long inline code / URLs on narrow screens */
