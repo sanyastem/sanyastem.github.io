@@ -9,6 +9,15 @@ difficulty: intermediate
 description: "Настраиваем CI/CD пайплайн: при каждом пуше в main автоматически запускаются тесты и деплой. Пишем .yml с нуля."
 excerpt_text: "CI/CD пайплайн с нуля — тесты и деплой при каждом пуше в main"
 keywords: "github actions, ci/cd, автодеплой, workflow yml, continuous integration"
+faq:
+  - q: "Сколько минут даёт GitHub Actions бесплатно?"
+    a: "Для публичных репо — безлимитно. Для приватных — 2000 минут/месяц на Free плане, 3000 — на Pro. Linux runner = 1× минута, Windows = 2×, macOS = 10×. Хитрость: даже на Free плане публичный репо = бесконечный CI."
+  - q: "Где хранить секреты для workflow?"
+    a: "Settings → Secrets and variables → Actions. Никогда не клади токены в код или .env в репо. В workflow используешь как \\${{ secrets.MY_TOKEN }}. Environments → можно scoping секретов на production/staging."
+  - q: "Почему мой workflow не запускается на PR?"
+    a: "3 причины: 1) on: pull_request не указан (только push), 2) PR из forked-репо — workflow не имеет доступа к secrets по соображениям безопасности, 3) первый PR от нового contributor требует одобрения мейнтейнера."
+  - q: "Self-hosted runner или GitHub-hosted?"
+    a: "GitHub-hosted (по умолчанию) — чистая VM на каждый job, удобно но платно после лимита. Self-hosted — твой сервер, кэш сохраняется между runs (быстрее), бесплатно но требует поддержки. Для блога/MVP — hosted, для энтерпрайза с тяжёлыми билдами — self-hosted."
 ---
 
 ## Как это работает

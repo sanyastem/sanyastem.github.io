@@ -1619,6 +1619,27 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
 }
 .giscus, .giscus-frame { width: 100%; }
 
+/* ========== Article breadcrumb ========== */
+.article-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+}
+.article-breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.article-breadcrumb a:hover { color: var(--accent); }
+.article-breadcrumb .bc-sep { opacity: 0.4; }
+.article-breadcrumb .bc-current { color: var(--text); }
+/* Старая «← Категория» больше не нужна, скрываем */
+.article-breadcrumb + .article-back { display: none; }
+
 /* ========== Footer meta links ========== */
 .footer-meta {
     display: flex;

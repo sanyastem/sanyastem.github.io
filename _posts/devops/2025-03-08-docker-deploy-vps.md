@@ -12,6 +12,15 @@ part: 4
 description: "Арендуем VPS, устанавливаем Docker, деплоим через docker-compose, настраиваем Nginx и автоматизируем деплой через GitHub Actions."
 excerpt_text: "VPS, Docker, Nginx и автодеплой через GitHub Actions — полный путь от кода до продакшна"
 keywords: "docker vps деплой, docker-compose продакшн, nginx reverse proxy docker, github actions docker deploy, деплой на сервер"
+faq:
+  - q: "Какой VPS выбрать для Docker?"
+    a: "Минимум 2 CPU + 4 GB RAM — иначе своп при сборке. Hetzner CX22 (€4.5/мес), DigitalOcean Basic ($6), Vultr — лучшие соотношения цена/производительность. Hetzner дешевле в EU, AWS Lightsail дороже но удобнее для multi-region."
+  - q: "Нужен ли Kubernetes если у меня 1 сервер?"
+    a: "Нет. Для 1 сервера достаточно docker-compose. K8s даёт авто-масштабирование, self-healing, rolling updates — но требует 3+ узла и админа. Для пет-проектов и MVP overkill, для энтерпрайза — обязательно."
+  - q: "Как обновлять контейнер без downtime?"
+    a: "Через nginx reverse proxy + docker compose up -d с healthcheck. Compose заменит старый контейнер только после того как новый пройдёт healthcheck. Альтернатива — blue/green deploy: запускаешь параллельно новую версию, переключаешь nginx, гасишь старую."
+  - q: "Как сделать backup данных из volumes?"
+    a: "Самое простое: docker run --rm -v db_data:/data -v $(pwd):/backup alpine tar czf /backup/db-$(date +%Y%m%d).tar.gz /data. По cron раз в сутки. Для БД — лучше mysqldump/pg_dump внутри контейнера: docker exec db mysqldump > backup.sql."
 ---
 
 ## Что нужно для старта

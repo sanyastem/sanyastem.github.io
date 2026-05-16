@@ -1,4 +1,28 @@
 User-agent: *
 Allow: /
+Disallow: /_handoff/
+Disallow: /pagefind/
+Disallow: /*?filter=
+Disallow: /*?level=
+
+# AI training crawlers — пропускаем (стандарт llms.txt уже даёт чистый индекс)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Аггрессивные scrapers — закрыть
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
 
 Sitemap: https://sanyastem.github.io/sitemap.xml

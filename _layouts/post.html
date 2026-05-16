@@ -25,6 +25,13 @@ layout: default
 {% if lang == 'en' %}{% assign back_url = '/en/?filter=' | append: page.categories[0] | append: '#posts' %}{% endif %}
 
 <header class="article-hero">
+    <nav class="article-breadcrumb" aria-label="breadcrumb">
+        <a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}">{% if lang == 'en' %}Home{% else %}Главная{% endif %}</a>
+        <span class="bc-sep" aria-hidden="true">/</span>
+        <a href="{{ back_url }}">{{ cat_label }}</a>
+        <span class="bc-sep" aria-hidden="true">/</span>
+        <span class="bc-current" aria-current="page">{{ page.title | truncate: 50 }}</span>
+    </nav>
     <a href="{{ back_url }}" class="article-back">{{ cat_label }}</a>
 
     <div class="article-meta">
@@ -132,7 +139,7 @@ layout: default
 {% assign related_count = 0 %}
 {% capture related_html %}
     {% for rp in site.posts %}
-        {% if related_count >= 3 %}{% break %}{% endif %}
+        {% if related_count >= 5 %}{% break %}{% endif %}
         {% if rp.url == page.url %}{% continue %}{% endif %}
         {% assign rp_lang = rp.lang | default: 'ru' %}
         {% if rp_lang != lang %}{% continue %}{% endif %}
