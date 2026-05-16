@@ -71,9 +71,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {% include cookie-banner.html %}
 
 <button class="scroll-top" id="scrollTop">↑</button>
-<script src="/Scripts/script.js"></script>
+{% assign jsbust = site.time | date: '%s' %}
+<script src="/Scripts/script.js?v={{ jsbust }}"></script>
 {% unless page.layout == "post" %}
-<script src="/pagefind/pagefind-ui.js"></script>
+<script src="/pagefind/pagefind-ui.js?v={{ jsbust }}"></script>
 <script>
 window.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('pagefind');

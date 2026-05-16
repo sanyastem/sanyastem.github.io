@@ -309,7 +309,7 @@ if (mermaidBlocks.length > 0) {
 }
 
 // ========== Share: copy link ==========
-document.querySelectorAll('.share-copy').forEach(btn => {
+document.querySelectorAll('.post-share-copy').forEach(btn => {
     btn.addEventListener('click', () => {
         const url = btn.dataset.copy || window.location.href;
         navigator.clipboard.writeText(url).then(() => {
