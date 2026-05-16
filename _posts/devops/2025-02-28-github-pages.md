@@ -9,6 +9,27 @@ difficulty: beginner
 description: "GitHub Pages — бесплатный хостинг прямо из репозитория. Пошагово от нуля до рабочего сайта с кастомным доменом и HTTPS."
 excerpt_text: "Бесплатный хостинг прямо из репозитория — пошагово от нуля до рабочего сайта"
 keywords: "github pages, хостинг, бесплатный хостинг, статический сайт, деплой"
+howto:
+  name: "Запустить сайт на GitHub Pages"
+  totalTime: "PT5M"
+  steps:
+    - name: "Создать репозиторий"
+      text: "На github.com создать репо с именем username.github.io (для пользовательского сайта) или любым именем (для project page). Public, с README."
+    - name: "Закоммитить index.html"
+      text: "Создать минимальный index.html в корне. git clone, добавить, git push. Можно просто загрузить через UI github.com."
+    - name: "Включить Pages"
+      text: "Settings → Pages → Source: Deploy from a branch → Branch: main → / (root) → Save. Через 1-2 минуты сайт доступен на https://username.github.io."
+    - name: "Подключить кастомный домен (опционально)"
+      text: "В Settings → Pages вписать домен (yoursite.com). В DNS-провайдере добавить CNAME → username.github.io. HTTPS подтягивается автоматически через Let's Encrypt за 5-10 минут."
+faq:
+  - q: "Можно ли использовать React/Vue/Angular?"
+    a: "Можно. Билдишь приложение (npm run build), коммитишь содержимое dist/ в gh-pages ветку или main. Для production-сборок настрой GitHub Actions с upload-pages-artifact + deploy-pages — автоматический деплой на push."
+  - q: "Есть ли ограничения по размеру?"
+    a: "Репо до 1GB, сайт до 1GB, soft-limit 100GB трафика в месяц. Файлы до 100MB каждый. Для блога / документации / лендинга — overkill. Если ты упёрся в лимиты — рассмотри Vercel или Cloudflare Pages."
+  - q: "Поддерживает ли GitHub Pages backend?"
+    a: "Нет, только статика (HTML/CSS/JS). Если нужен backend — GitHub Pages frontend + отдельный API (Cloudflare Workers, AWS Lambda, Vercel Functions). Или используй Jekyll/Hugo для SSG."
+  - q: "Можно ли скрыть site от индексации?"
+    a: "Положи robots.txt с Disallow: / в корень. Но Pages нельзя сделать приватным — публичные репо обязательно публичные сайты. Для приватных нужен GitHub Enterprise или другой хостинг."
 ---
 
 ## Что такое GitHub Pages

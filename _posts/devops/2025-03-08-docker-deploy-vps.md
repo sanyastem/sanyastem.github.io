@@ -12,6 +12,22 @@ part: 4
 description: "Арендуем VPS, устанавливаем Docker, деплоим через docker-compose, настраиваем Nginx и автоматизируем деплой через GitHub Actions."
 excerpt_text: "VPS, Docker, Nginx и автодеплой через GitHub Actions — полный путь от кода до продакшна"
 keywords: "docker vps деплой, docker-compose продакшн, nginx reverse proxy docker, github actions docker deploy, деплой на сервер"
+howto:
+  name: "Развернуть Docker-приложение на VPS"
+  totalTime: "PT30M"
+  steps:
+    - name: "Купить и подготовить VPS"
+      text: "Hetzner / DigitalOcean / Vultr — 2 CPU + 4GB RAM от €4.5/мес. Ubuntu 22.04 или 24.04 LTS. SSH-ключ обязательно, без пароля."
+    - name: "Установить Docker + Compose"
+      text: "curl -fsSL https://get.docker.com | sh; sudo usermod -aG docker $USER. Logout/login. Compose v2 уже встроен через docker compose."
+    - name: "Настроить firewall"
+      text: "ufw allow 22 (SSH); ufw allow 80, 443 (HTTP/HTTPS); ufw enable. Закрыть все остальные порты — БД и API не должны быть доступны извне."
+    - name: "Подготовить docker-compose.yml для production"
+      text: "restart: always, без bind-mounts на код (используй COPY в Dockerfile), volumes для БД, nginx как reverse proxy для HTTPS."
+    - name: "Получить SSL через Let's Encrypt"
+      text: "Использовать nginx-proxy-acme или Caddy — автоматическое получение и обновление сертификатов. Один volume для сертификатов, монтируется в nginx."
+    - name: "Настроить auto-deploy через GitHub Actions"
+      text: "Workflow на push в main: SSH на VPS, git pull, docker compose up -d --build. SSH-ключ в Secrets. Деплой за 30-60 секунд после push."
 faq:
   - q: "Какой VPS выбрать для Docker?"
     a: "Минимум 2 CPU + 4 GB RAM — иначе своп при сборке. Hetzner CX22 (€4.5/мес), DigitalOcean Basic ($6), Vultr — лучшие соотношения цена/производительность. Hetzner дешевле в EU, AWS Lightsail дороже но удобнее для multi-region."

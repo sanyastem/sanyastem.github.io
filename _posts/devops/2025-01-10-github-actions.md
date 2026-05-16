@@ -9,6 +9,20 @@ difficulty: intermediate
 description: "Настраиваем CI/CD пайплайн: при каждом пуше в main автоматически запускаются тесты и деплой. Пишем .yml с нуля."
 excerpt_text: "CI/CD пайплайн с нуля — тесты и деплой при каждом пуше в main"
 keywords: "github actions, ci/cd, автодеплой, workflow yml, continuous integration"
+howto:
+  name: "Настроить CI/CD пайплайн через GitHub Actions"
+  totalTime: "PT15M"
+  steps:
+    - name: "Создать папку .github/workflows"
+      text: "В корне репозитория mkdir -p .github/workflows. Все workflow-файлы хранятся здесь как .yml."
+    - name: "Написать первый workflow"
+      text: "ci.yml с триггерами on push/pull_request. Steps: actions/checkout, actions/setup-node, npm ci, npm test. Каждый push — автоматически прогоняются тесты."
+    - name: "Добавить деплой"
+      text: "Job deploy зависит от build через needs: build. Условие if: github.ref == 'refs/heads/main' — деплоит только из main. Деплой шаги — SSH на сервер, rsync, docker compose pull."
+    - name: "Хранить секреты безопасно"
+      text: "Settings → Secrets and variables → Actions. SSH_KEY, DEPLOY_HOST, DB_PASSWORD — никогда в коде. В workflow: \\${{ secrets.SSH_KEY }}."
+    - name: "Настроить уведомления"
+      text: "Slack/Discord/Telegram webhook через action отдельным step с if: failure(). При падении билда команда получает alert."
 faq:
   - q: "Сколько минут даёт GitHub Actions бесплатно?"
     a: "Для публичных репо — безлимитно. Для приватных — 2000 минут/месяц на Free плане, 3000 — на Pro. Linux runner = 1× минута, Windows = 2×, macOS = 10×. Хитрость: даже на Free плане публичный репо = бесконечный CI."
