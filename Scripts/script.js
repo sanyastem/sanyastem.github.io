@@ -321,38 +321,48 @@ document.querySelectorAll('.post-share-copy').forEach(btn => {
     });
 });
 
-// ========== Ad close / restore ==========
+// ========== Ad collapse / expand ==========
 (function() {
-    const KEY = 'ads-hidden';
-    function hidden() {
+    const KEY = 'ads-collapsed';
+    function state() {
         try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { return {}; }
     }
     function save(map) { localStorage.setItem(KEY, JSON.stringify(map)); }
 
+    function apply(wrap, collapsed) {
+        wrap.classList.toggle('is-collapsed', collapsed);
+        const btn = wrap.querySelector('.ad-toggle');
+        if (btn) {
+            btn.setAttribute('aria-expanded', String(!collapsed));
+            btn.title = collapsed ? 'Развернуть' : 'Свернуть';
+        }
+    }
+
     // Применить сохранённое состояние при загрузке
-    const state = hidden();
+    const s0 = state();
     document.querySelectorAll('.ad-wrap').forEach(wrap => {
         const key = wrap.dataset.adSlotKey || 'default';
-        if (state[key]) wrap.classList.add('is-hidden');
+        if (s0[key]) apply(wrap, true);
     });
 
-    // Кнопка закрытия
+    // Клик по кнопке-стрелке
     document.addEventListener('click', e => {
-        const btn = e.target.closest('.ad-close');
+        const btn = e.target.closest('.ad-toggle');
         if (!btn) return;
         const wrap = btn.closest('.ad-wrap');
         if (!wrap) return;
         const key = wrap.dataset.adSlotKey || 'default';
-        const s = hidden();
-        s[key] = true;
+        const s = state();
+        const isCollapsed = !wrap.classList.contains('is-collapsed');
+        if (isCollapsed) s[key] = true; else delete s[key];
         save(s);
-        wrap.classList.add('is-hidden');
+        apply(wrap, isCollapsed);
     });
 
-    // Public API: window.__restoreAds() — показать обратно все скрытые
-    window.__restoreAds = () => {
+    // Public API: window.__expandAllAds() — развернуть все
+    window.__expandAllAds = () => {
         localStorage.removeItem(KEY);
-        document.querySelectorAll('.ad-wrap.is-hidden').forEach(w => w.classList.remove('is-hidden'));
+        document.querySelectorAll('.ad-wrap.is-collapsed').forEach(w => apply(w, false));
     };
 })();
 

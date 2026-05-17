@@ -1615,20 +1615,34 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     overflow: hidden;
     transition: opacity 0.2s, transform 0.2s;
 }
-.ad-wrap.is-hidden {
+/* Свёрнутое состояние: контент скрыт, остаётся только полоска с лейблом + стрелкой */
+.ad-wrap.is-collapsed {
+    min-height: 0;
+    padding: 6px 12px;
+}
+.ad-wrap.is-collapsed .ad-content {
     display: none;
 }
-.ad-close {
+.ad-wrap.is-collapsed .ad-label {
+    font-size: 0.7rem;
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+.ad-wrap.is-collapsed .ad-toggle-icon {
+    transform: rotate(180deg);
+}
+.ad-content { display: block; }
+
+.ad-toggle {
     position: absolute;
-    top: 6px;
-    right: 8px;
-    width: 24px;
-    height: 24px;
-    background: rgba(0,0,0,0.3);
+    top: 4px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+    background: rgba(0,0,0,0.25);
     border: 1px solid var(--border);
     border-radius: 100px;
     color: var(--text-dim);
-    font-size: 14px;
     line-height: 1;
     cursor: pointer;
     z-index: 2;
@@ -1638,10 +1652,15 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     transition: all 0.15s;
     padding: 0;
 }
-.ad-close:hover {
+.ad-toggle:hover {
     background: var(--accent-dim);
     color: var(--accent);
     border-color: var(--accent);
+}
+.ad-toggle-icon {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+    display: inline-block;
 }
 /* Ad-карточка в сетке постов на главной */
 .post-card-ad {
