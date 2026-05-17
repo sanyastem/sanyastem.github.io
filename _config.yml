@@ -88,4 +88,4 @@ adsense:
     in_article: "4704327067"             # responsive auto, в конце статьи
     sidebar: ""                          # slot ID для sidebar (под TOC на десктопе)
     end_of_article: ""                   # slot ID после статьи (перед related)
-    home_grid: ""                        # slot ID на главной (вставка между карточками)
+    home_grid: "8156486913"              # responsive auto, между карточками на главной

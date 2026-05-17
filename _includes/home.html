@@ -72,9 +72,11 @@
         </div>
 
         <div class="posts-grid" id="posts-grid">
+            {% assign shown = 0 %}
             {% for post in all_posts %}
             {% unless post.series and post.part > 1 %}
             {% if forloop.first %}{% continue %}{% endif %}
+            {% assign shown = shown | plus: 1 %}
             {% assign cat_key  = post.categories[0] %}
             {% assign diff_key = post.difficulty | default: 'beginner' %}
             {% assign cat  = site.data.categories[cat_key] %}
@@ -110,6 +112,11 @@
                     {% endif %}
                 </div>
             </a>
+            {% if shown == 4 %}
+            <div class="post-card post-card-ad">
+                {% include ad.html slot="home_grid" %}
+            </div>
+            {% endif %}
             {% endunless %}
             {% endfor %}
         </div>

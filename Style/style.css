@@ -1613,7 +1613,50 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
     position: relative;
     min-height: 100px;
     overflow: hidden;
+    transition: opacity 0.2s, transform 0.2s;
 }
+.ad-wrap.is-hidden {
+    display: none;
+}
+.ad-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+}
+.ad-close:hover {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+/* Ad-карточка в сетке постов на главной */
+.post-card-ad {
+    background: var(--hover-bg);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.post-card-ad .ad-wrap { margin: 0; padding: 0; background: transparent; border: none; width: 100%; }
+.post-card-ad .ad-label { display: block; }
+.post-card-ad ins.adsbygoogle { min-height: 140px; }
 .ad-wrap .ad-label {
     display: block;
     font-size: 0.65rem;
