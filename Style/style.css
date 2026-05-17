@@ -1603,6 +1603,31 @@ html[data-theme="light"] .post-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0
 }
 .mermaid svg { max-width: 100%; height: auto; }
 
+/* ========== Ad blocks ========== */
+.ad-wrap {
+    margin: 40px -8px;
+    padding: 16px 12px 12px;
+    background: var(--hover-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    position: relative;
+    min-height: 100px;
+    overflow: hidden;
+}
+.ad-wrap .ad-label {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    opacity: 0.6;
+}
+.ad-wrap ins.adsbygoogle { display: block; min-height: 90px; }
+@media (max-width: 480px) {
+    .ad-wrap { margin: 32px 0; padding: 12px; }
+}
+
 /* ========== Comments (Giscus) ========== */
 .comments {
     margin: 40px 0 0;

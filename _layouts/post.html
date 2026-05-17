@@ -91,6 +91,8 @@ layout: default
 
         {{ content }}
 
+        {% include ad.html slot="in_article" %}
+
         {% assign page_url = page.url | prepend: site.url | url_encode %}
         {% assign page_title = page.title | url_encode %}
         <div class="post-share" aria-label="{{ t.article.share }}">
