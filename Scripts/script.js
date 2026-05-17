@@ -321,6 +321,41 @@ document.querySelectorAll('.post-share-copy').forEach(btn => {
     });
 });
 
+// ========== Ad close / restore ==========
+(function() {
+    const KEY = 'ads-hidden';
+    function hidden() {
+        try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { return {}; }
+    }
+    function save(map) { localStorage.setItem(KEY, JSON.stringify(map)); }
+
+    // Применить сохранённое состояние при загрузке
+    const state = hidden();
+    document.querySelectorAll('.ad-wrap').forEach(wrap => {
+        const key = wrap.dataset.adSlotKey || 'default';
+        if (state[key]) wrap.classList.add('is-hidden');
+    });
+
+    // Кнопка закрытия
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.ad-close');
+        if (!btn) return;
+        const wrap = btn.closest('.ad-wrap');
+        if (!wrap) return;
+        const key = wrap.dataset.adSlotKey || 'default';
+        const s = hidden();
+        s[key] = true;
+        save(s);
+        wrap.classList.add('is-hidden');
+    });
+
+    // Public API: window.__restoreAds() — показать обратно все скрытые
+    window.__restoreAds = () => {
+        localStorage.removeItem(KEY);
+        document.querySelectorAll('.ad-wrap.is-hidden').forEach(w => w.classList.remove('is-hidden'));
+    };
+})();
+
 // ========== Cookie consent (GDPR + Google Consent Mode v2) ==========
 (function() {
     const STORAGE_KEY = 'cookie-consent';

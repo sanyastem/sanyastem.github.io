@@ -5,7 +5,8 @@
 {% endcomment %}
 {% assign slot_id = site.adsense.slots[include.slot] %}
 {% if site.adsense.enabled and site.adsense.client_id != "" and slot_id != "" %}
-<div class="ad-wrap ad-{{ include.slot }}" data-nosnippet>
+<div class="ad-wrap ad-{{ include.slot }}" data-ad-slot-key="{{ include.slot }}" data-nosnippet>
+    <button type="button" class="ad-close" aria-label="Скрыть рекламу" title="Скрыть">×</button>
     <span class="ad-label">Реклама</span>
     <ins class="adsbygoogle"
          style="display:block"
