@@ -2,4 +2,4 @@
 layout: null
 permalink: /ads.txt
 ---
-{% if site.adsense.client_id != "" %}google.com, {{ site.adsense.client_id }}, DIRECT, f08c47fec0942fa0{% endif %}
+{% if site.adsense.client_id != "" %}{% assign pub_id = site.adsense.client_id | remove: "ca-" %}google.com, {{ pub_id }}, DIRECT, f08c47fec0942fa0{% endif %}
