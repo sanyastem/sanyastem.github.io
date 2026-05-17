@@ -1,0 +1,20 @@
+{% comment %}
+  AdSense ad unit. Usage:
+    {% include ad.html slot="in_article" %}
+  Renders only when AdSense enabled AND slot ID configured.
+{% endcomment %}
+{% assign slot_id = site.adsense.slots[include.slot] %}
+{% if site.adsense.enabled and site.adsense.client_id != "" and slot_id != "" %}
+<div class="ad-wrap ad-{{ include.slot }}" data-nosnippet>
+    <span class="ad-label">Реклама</span>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="{{ site.adsense.client_id }}"
+         data-ad-slot="{{ slot_id }}"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+{% endif %}

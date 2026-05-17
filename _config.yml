@@ -85,7 +85,7 @@ adsense:
   enabled: true                          # скрипт загружается для approval-верификации
   client_id: "ca-pub-8464617912649637"
   slots:
-    in_article: ""                       # slot ID для в-статьи (после 1-го h2)
+    in_article: "4704327067"             # responsive auto, в конце статьи
     sidebar: ""                          # slot ID для sidebar (под TOC на десктопе)
     end_of_article: ""                   # slot ID после статьи (перед related)
     home_grid: ""                        # slot ID на главной (вставка между карточками)
