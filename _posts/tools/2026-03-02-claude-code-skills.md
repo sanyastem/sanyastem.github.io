@@ -2,6 +2,7 @@
 layout: post
 title: "Claude Code: Skills — собственные команды для агента"
 categories: tools
+translation_of: "/en/tools/claude-code-skills/"
 date: 2026-03-02
 date_ru: "2 марта 2026"
 read_time: 5

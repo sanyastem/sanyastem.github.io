@@ -2,6 +2,7 @@
 layout: post
 title: "Docker: пишем Dockerfile и собираем образы"
 categories: devops
+translation_of: "/en/devops/docker-dockerfile/"
 date: 2025-02-08
 date_ru: "8 февраля 2025"
 last_modified_at: 2026-05-08

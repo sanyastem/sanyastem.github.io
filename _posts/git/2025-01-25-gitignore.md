@@ -2,6 +2,7 @@
 layout: post
 title: ".gitignore: что туда класть и почему"
 categories: git
+translation_of: "/en/git/gitignore/"
 date: 2025-01-25
 date_ru: "25 января 2025"
 read_time: 3

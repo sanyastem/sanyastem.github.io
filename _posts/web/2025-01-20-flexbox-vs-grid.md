@@ -2,6 +2,7 @@
 layout: post
 title: "Flexbox vs Grid: когда что использовать"
 categories: web
+translation_of: "/en/web/flexbox-vs-grid/"
 date: 2025-01-20
 date_ru: "20 января 2025"
 read_time: 5

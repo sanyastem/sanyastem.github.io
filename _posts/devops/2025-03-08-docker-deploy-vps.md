@@ -2,6 +2,7 @@
 layout: post
 title: "Docker: деплой на VPS с нуля"
 categories: devops
+translation_of: "/en/devops/docker-deploy-vps/"
 date: 2025-03-08
 date_ru: "8 марта 2025"
 last_modified_at: 2026-05-08

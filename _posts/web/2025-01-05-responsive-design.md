@@ -2,6 +2,7 @@
 layout: post
 title: "Адаптивный дизайн: media queries без боли"
 categories: web
+translation_of: "/en/web/responsive-design/"
 date: 2025-01-05
 date_ru: "5 января 2025"
 read_time: 4

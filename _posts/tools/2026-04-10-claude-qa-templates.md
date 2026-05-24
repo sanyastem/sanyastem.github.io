@@ -2,6 +2,7 @@
 layout: post
 title: "Claude для тестировщика: шаблоны и продвинутые техники"
 categories: tools
+translation_of: "/en/tools/claude-qa-templates/"
 date: 2026-04-10
 date_ru: "10 апреля 2026"
 read_time: 12

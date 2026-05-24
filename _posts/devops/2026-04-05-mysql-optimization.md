@@ -2,6 +2,7 @@
 layout: post
 title: "MySQL 8.4: индексы, EXPLAIN и оптимизация запросов"
 categories: devops
+translation_of: "/en/devops/mysql-optimization/"
 date: 2026-04-05
 date_ru: "5 апреля 2026"
 read_time: 12

@@ -2,6 +2,7 @@
 layout: post
 title: "Claude Code: установка и базовая настройка"
 categories: tools
+translation_of: "/en/tools/claude-code-setup/"
 date: 2026-03-02
 date_ru: "2 марта 2026"
 read_time: 6

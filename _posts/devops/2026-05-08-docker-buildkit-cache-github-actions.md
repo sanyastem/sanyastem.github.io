@@ -2,6 +2,7 @@
 layout: post
 title: "Docker BuildKit cache в GitHub Actions: -80% времени .NET-билда"
 categories: devops
+translation_of: "/en/devops/docker-buildkit-cache-github-actions/"
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 8

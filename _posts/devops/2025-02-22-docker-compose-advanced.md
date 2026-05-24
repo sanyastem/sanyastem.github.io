@@ -2,6 +2,7 @@
 layout: post
 title: "Docker Compose: оркестрация многоконтейнерных приложений"
 categories: devops
+translation_of: "/en/devops/docker-compose-advanced/"
 date: 2025-02-22
 date_ru: "22 февраля 2025"
 last_modified_at: 2026-05-08

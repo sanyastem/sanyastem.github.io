@@ -2,6 +2,7 @@
 layout: post
 title: "git rebase vs merge: когда что использовать на реальном проекте"
 categories: git
+translation_of: "/en/git/git-rebase-vs-merge/"
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 8

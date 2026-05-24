@@ -2,6 +2,7 @@
 layout: post
 title: "VS Code: расширения которые я использую каждый день"
 categories: tools
+translation_of: "/en/tools/vscode-extensions/"
 date: 2025-02-05
 date_ru: "5 февраля 2025"
 read_time: 3

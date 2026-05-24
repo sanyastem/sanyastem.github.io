@@ -2,6 +2,7 @@
 layout: post
 title: "Angular 20: Signals, Zoneless и новый синтаксис шаблонов"
 categories: web
+translation_of: "/en/web/angular-20-signals/"
 date: 2026-04-08
 date_ru: "8 апреля 2026"
 read_time: 13

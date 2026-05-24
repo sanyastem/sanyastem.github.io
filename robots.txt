@@ -5,17 +5,45 @@ Disallow: /pagefind/
 Disallow: /*?filter=
 Disallow: /*?level=
 
-# AI training crawlers — пропускаем (стандарт llms.txt уже даёт чистый индекс)
+# AI-краулеры и answer-движки — разрешаем (нужна цитируемость + есть llms.txt/llms-full.txt).
+# Обучающие краулеры (GPTBot, CCBot, Google-Extended, Applebot-Extended) — тоже пускаем сознательно.
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
 Allow: /
 
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 User-agent: Google-Extended
 Allow: /
 
-# Аггрессивные scrapers — закрыть
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Агрессивные SEO-scrapers — притормозить / закрыть
 User-agent: AhrefsBot
 Crawl-delay: 10
 

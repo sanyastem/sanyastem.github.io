@@ -2,6 +2,7 @@
 layout: post
 title: "Миграция с .NET Framework на .NET 10: пошаговый план"
 categories: devops
+translation_of: "/en/devops/dotnet-migration/"
 date: 2026-03-22
 date_ru: "22 марта 2026"
 read_time: 12

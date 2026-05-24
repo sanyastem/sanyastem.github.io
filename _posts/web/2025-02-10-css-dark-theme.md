@@ -2,6 +2,7 @@
 layout: post
 title: "CSS-переменные: тёмная тема без лишнего кода"
 categories: web
+translation_of: "/en/web/css-dark-theme/"
 date: 2025-02-10
 date_ru: "10 февраля 2025"
 read_time: 6

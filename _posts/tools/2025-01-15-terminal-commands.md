@@ -2,6 +2,7 @@
 layout: post
 title: "Терминал: команды которые экономят время"
 categories: tools
+translation_of: "/en/tools/terminal-commands/"
 date: 2025-01-15
 date_ru: "15 января 2025"
 read_time: 4

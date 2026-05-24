@@ -2,6 +2,7 @@
 layout: post
 title: "Angular 20 Signal Store: переписываем NgRx за вечер"
 categories: web
+translation_of: "/en/web/angular-signal-store/"
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 10

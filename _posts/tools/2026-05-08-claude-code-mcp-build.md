@@ -2,6 +2,7 @@
 layout: post
 title: "Claude Code: пишем свой MCP-сервер с нуля"
 categories: tools
+translation_of: "/en/tools/claude-code-mcp-build/"
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 10

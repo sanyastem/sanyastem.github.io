@@ -2,18 +2,22 @@ web:
   label: Web
   label_en: Web
   color: web
+  og_image: /assets/og-web.png
 
 devops:
   label: DevOps
   label_en: DevOps
   color: devops
+  og_image: /assets/og-devops.png
 
 git:
   label: Git
   label_en: Git
   color: git
+  og_image: /assets/og-git.png
 
 tools:
   label: Инструменты
   label_en: Tools
   color: tools
+  og_image: /assets/og-tools.png

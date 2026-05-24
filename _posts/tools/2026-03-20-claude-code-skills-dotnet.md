@@ -2,6 +2,7 @@
 layout: post
 title: "Топ Skills для .NET + Angular + Docker в Claude Code"
 categories: tools
+translation_of: "/en/tools/claude-code-skills-dotnet/"
 date: 2026-03-20
 date_ru: "20 марта 2026"
 read_time: 10

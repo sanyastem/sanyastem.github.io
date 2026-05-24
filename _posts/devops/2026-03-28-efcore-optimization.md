@@ -2,6 +2,7 @@
 layout: post
 title: "EF Core 9/10: производительность и новые возможности"
 categories: devops
+translation_of: "/en/devops/efcore-optimization/"
 date: 2026-03-28
 date_ru: "28 марта 2026"
 read_time: 12

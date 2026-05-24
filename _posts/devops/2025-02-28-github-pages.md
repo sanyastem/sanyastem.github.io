@@ -2,6 +2,7 @@
 layout: post
 title: "Как запустить сайт на GitHub Pages за 5 минут"
 categories: devops
+translation_of: "/en/devops/github-pages/"
 date: 2025-02-28
 date_ru: "28 февраля 2025"
 read_time: 5

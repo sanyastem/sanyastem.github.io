@@ -2,6 +2,7 @@
 layout: post
 title: "GitHub Actions: автодеплой за 15 минут"
 categories: devops
+translation_of: "/en/devops/github-actions/"
 date: 2025-01-10
 date_ru: "10 января 2025"
 read_time: 5
