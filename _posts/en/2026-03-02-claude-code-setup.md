@@ -3,6 +3,7 @@ layout: post
 title: "Claude Code: install and basic setup"
 categories: tools
 date: 2026-03-02
+last_modified_at: 2026-05-24
 read_time: 6
 difficulty: beginner
 series: "Claude Code: complete guide"
@@ -140,7 +141,7 @@ Global settings live in `~/.claude/settings.json` — they apply to all projects
 | Auto mode | `claude --dangerously-skip-permissions` | No confirmations (use carefully) |
 | One-shot | `claude -p "task"` | Execute and exit |
 | Continue | `claude --continue` | Resume the last session |
-| Headless | `claude --headless` | No UI, controlled via API (Dispatch) |
+| Bare | `claude --bare -p "task"` | Fast mode for scripts — skips hooks/skills/MCP/CLAUDE.md |
 
 ## Useful hotkeys in a session
 

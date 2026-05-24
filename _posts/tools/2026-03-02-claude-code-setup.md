@@ -4,6 +4,7 @@ title: "Claude Code: установка и базовая настройка"
 categories: tools
 translation_of: "/en/tools/claude-code-setup/"
 date: 2026-03-02
+last_modified_at: 2026-05-24
 date_ru: "2 марта 2026"
 read_time: 6
 difficulty: beginner
@@ -150,7 +151,7 @@ E-commerce на Next.js + PostgreSQL.
 | Авторежим | `claude --dangerously-skip-permissions` | Без подтверждений (осторожно) |
 | Один запрос | `claude -p "задача"` | Выполнить и выйти |
 | Продолжить | `claude --continue` | Возобновить последнюю сессию |
-| Headless | `claude --headless` | Без UI, управление через API (Dispatch) |
+| Bare | `claude --bare -p "задача"` | Быстрый режим для скриптов — пропускает hooks/skills/MCP/CLAUDE.md |
 
 ## Полезные горячие клавиши в сессии
 

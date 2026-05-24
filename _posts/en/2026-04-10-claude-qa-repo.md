@@ -3,6 +3,7 @@ layout: post
 title: "Claude for QA engineers: the repository — next level"
 categories: tools
 date: 2026-04-10
+last_modified_at: 2026-05-24
 read_time: 15
 difficulty: intermediate
 series: "Claude for QA engineers"
@@ -72,10 +73,16 @@ A terminal is a text interface. You type a command, hit Enter, get a result. Not
 Type in the terminal and press Enter:
 
 ```text
-npm install -g @anthropic-ai/claude-code
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-Wait a couple minutes. Done.
+On Windows (PowerShell):
+
+```text
+irm https://claude.ai/install.ps1 | iex
+```
+
+Wait a couple minutes. Done. (The old `npm install -g` method is no longer recommended.)
 
 ### 4. Clone the repository
 

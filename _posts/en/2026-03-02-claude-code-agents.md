@@ -3,6 +3,7 @@ layout: post
 title: "Claude Code: Agents — parallel subagents and SDK"
 categories: tools
 date: 2026-03-02
+last_modified_at: 2026-05-24
 read_time: 7
 difficulty: advanced
 series: "Claude Code: complete guide"
@@ -44,6 +45,24 @@ worktree 2:    /project-agent-2  <- agent doing refactoring
 ```
 
 Once done, changes are merged or proposed as a PR.
+
+## Your own subagents — .claude/agents/
+
+Beyond auto-spawning, you can define a named subagent of your own — a `.claude/agents/<name>.md` file with frontmatter:
+
+```markdown
+---
+name: security-reviewer
+description: Audit changes for vulnerabilities — injection, leaks, unsafe dependencies
+model: opus
+tools: Read, Grep, Bash
+---
+
+Review the changes for vulnerabilities: SQL/command injection, secret leaks,
+unsafe dependencies. Return a list of findings with file and line.
+```
+
+Invoke it manually via `/agents`, or let Claude delegate the task itself by `description`. Global agents (for all projects) go in `~/.claude/agents/`.
 
 ## Claude Agent SDK
 

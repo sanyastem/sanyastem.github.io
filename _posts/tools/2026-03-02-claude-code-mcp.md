@@ -4,6 +4,7 @@ title: "Claude Code: MCP — подключаем внешние инструм�
 categories: tools
 translation_of: "/en/tools/claude-code-mcp/"
 date: 2026-03-02
+last_modified_at: 2026-05-24
 date_ru: "2 марта 2026"
 read_time: 8
 difficulty: intermediate
@@ -40,13 +41,18 @@ Claude Code ←→ MCP-клиент ←→ MCP-сервер ←→ Внешни�
 ### Через CLI (быстро)
 
 ```bash
-# Добавить сервер в конфиг проекта
-claude mcp add <название> <команда>
+# Локальный (stdio) сервер: опции идут ДО имени, команда отделяется `--`
+claude mcp add --transport stdio <название> -- npx -y <пакет> [аргументы]
+
+# Удалённый (HTTP) сервер:
+claude mcp add --transport http <название> <url>
 
 # Примеры:
-claude mcp add filesystem npx -y @modelcontextprotocol/server-filesystem /path/to/dir
-claude mcp add github npx -y @modelcontextprotocol/server-github
+claude mcp add --transport stdio filesystem -- npx -y @modelcontextprotocol/server-filesystem /path/to/dir
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer ${GITHUB_TOKEN}"
 ```
+
+По умолчанию сервер ставится в scope `local` (только ты, только этот проект). Добавь `--scope project`, чтобы записать его в `.mcp.json` и расшарить на команду.
 
 ### Через .mcp.json (рекомендуется для команды)
 
@@ -56,10 +62,10 @@ claude mcp add github npx -y @modelcontextprotocol/server-github
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_TOKEN}"
       }
     },
     "postgres": {
@@ -80,7 +86,8 @@ claude mcp add github npx -y @modelcontextprotocol/server-github
 ### GitHub MCP
 
 ```bash
-claude mcp add github npx -y @modelcontextprotocol/server-github
+# GitHub теперь hosted HTTP-сервер (старый npm-пакет @modelcontextprotocol/server-github устарел)
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer ${GITHUB_TOKEN}"
 ```
 
 Что умеет:
@@ -99,10 +106,10 @@ claude mcp add github npx -y @modelcontextprotocol/server-github
 
 ```bash
 # PostgreSQL
-claude mcp add postgres npx -y @modelcontextprotocol/server-postgres
+claude mcp add --transport stdio postgres -- npx -y @modelcontextprotocol/server-postgres
 
 # SQLite
-claude mcp add sqlite npx -y @modelcontextprotocol/server-sqlite --db-path ./db.sqlite
+claude mcp add --transport stdio sqlite -- npx -y @modelcontextprotocol/server-sqlite --db-path ./db.sqlite
 ```
 
 Что умеет:
@@ -119,19 +126,16 @@ claude mcp add sqlite npx -y @modelcontextprotocol/server-sqlite --db-path ./db.
 ### Filesystem MCP
 
 ```bash
-claude mcp add filesystem npx -y @modelcontextprotocol/server-filesystem /home/user/projects
+claude mcp add --transport stdio filesystem -- npx -y @modelcontextprotocol/server-filesystem /home/user/projects
 ```
 
 Расширенный доступ к файлам за пределами рабочей директории — например, к общим конфигам или другим проектам.
 
-### Puppeteer / Playwright MCP
+### Playwright MCP (браузер)
 
 ```bash
-# Puppeteer
-claude mcp add puppeteer npx -y @modelcontextprotocol/server-puppeteer
-
-# Playwright (более мощный)
-claude mcp add playwright npx -y @playwright/mcp
+# Playwright — актуальный браузерный сервер (reference-сервер puppeteer архивирован)
+claude mcp add --transport stdio playwright -- npx -y @playwright/mcp
 ```
 
 Что умеет:
@@ -149,7 +153,7 @@ claude mcp add playwright npx -y @playwright/mcp
 ### Brave Search MCP
 
 ```bash
-claude mcp add brave-search npx -y @modelcontextprotocol/server-brave-search
+claude mcp add --transport stdio brave-search -- npx -y @modelcontextprotocol/server-brave-search
 # Нужен BRAVE_API_KEY
 ```
 
@@ -158,7 +162,8 @@ claude mcp add brave-search npx -y @modelcontextprotocol/server-brave-search
 ### Sentry MCP
 
 ```bash
-claude mcp add sentry npx -y @modelcontextprotocol/server-sentry
+# Sentry — hosted HTTP-сервер
+claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 ```
 
 Доступ к ошибкам из Sentry:
@@ -169,7 +174,7 @@ claude mcp add sentry npx -y @modelcontextprotocol/server-sentry
 ### Linear MCP
 
 ```bash
-claude mcp add linear npx -y linear-mcp-server
+claude mcp add --transport stdio linear -- npx -y linear-mcp-server
 ```
 
 Работа с задачами в Linear:

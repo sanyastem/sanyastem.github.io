@@ -3,6 +3,7 @@ layout: post
 title: "Claude Code: MCP — connecting external tools"
 categories: tools
 date: 2026-03-02
+last_modified_at: 2026-05-24
 read_time: 8
 difficulty: intermediate
 series: "Claude Code: complete guide"
@@ -39,13 +40,18 @@ Claude Code <-> MCP client <-> MCP server <-> External service
 ### Via CLI (quick)
 
 ```bash
-# Add a server to the project config
-claude mcp add <name> <command>
+# Local (stdio) server: options come BEFORE the name, the command is separated by `--`
+claude mcp add --transport stdio <name> -- npx -y <package> [args]
+
+# Remote (HTTP) server:
+claude mcp add --transport http <name> <url>
 
 # Examples:
-claude mcp add filesystem npx -y @modelcontextprotocol/server-filesystem /path/to/dir
-claude mcp add github npx -y @modelcontextprotocol/server-github
+claude mcp add --transport stdio filesystem -- npx -y @modelcontextprotocol/server-filesystem /path/to/dir
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer ${GITHUB_TOKEN}"
 ```
+
+By default a server is added at `local` scope (just you, this project only). Add `--scope project` to write it to `.mcp.json` and share with the team.
 
 ### Via .mcp.json (recommended for teams)
 
@@ -55,10 +61,10 @@ Create `.mcp.json` in the project root:
 {
   "mcpServers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_TOKEN}"
       }
     },
     "postgres": {
@@ -79,7 +85,8 @@ This file is committed to the repository — everyone on the team gets the same 
 ### GitHub MCP
 
 ```bash
-claude mcp add github npx -y @modelcontextprotocol/server-github
+# GitHub is now a hosted HTTP server (the old npm package @modelcontextprotocol/server-github is deprecated)
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer ${GITHUB_TOKEN}"
 ```
 
 What it can do:
@@ -98,10 +105,10 @@ Usage example:
 
 ```bash
 # PostgreSQL
-claude mcp add postgres npx -y @modelcontextprotocol/server-postgres
+claude mcp add --transport stdio postgres -- npx -y @modelcontextprotocol/server-postgres
 
 # SQLite
-claude mcp add sqlite npx -y @modelcontextprotocol/server-sqlite --db-path ./db.sqlite
+claude mcp add --transport stdio sqlite -- npx -y @modelcontextprotocol/server-sqlite --db-path ./db.sqlite
 ```
 
 What it can do:
@@ -118,19 +125,16 @@ Example:
 ### Filesystem MCP
 
 ```bash
-claude mcp add filesystem npx -y @modelcontextprotocol/server-filesystem /home/user/projects
+claude mcp add --transport stdio filesystem -- npx -y @modelcontextprotocol/server-filesystem /home/user/projects
 ```
 
 Extended file access beyond the working directory — for example, to shared configs or other projects.
 
-### Puppeteer / Playwright MCP
+### Playwright MCP (browser)
 
 ```bash
-# Puppeteer
-claude mcp add puppeteer npx -y @modelcontextprotocol/server-puppeteer
-
-# Playwright (more powerful)
-claude mcp add playwright npx -y @playwright/mcp
+# Playwright is the current browser server (the puppeteer reference server is archived)
+claude mcp add --transport stdio playwright -- npx -y @playwright/mcp
 ```
 
 What it can do:
@@ -148,7 +152,7 @@ Example:
 ### Brave Search MCP
 
 ```bash
-claude mcp add brave-search npx -y @modelcontextprotocol/server-brave-search
+claude mcp add --transport stdio brave-search -- npx -y @modelcontextprotocol/server-brave-search
 # Requires BRAVE_API_KEY
 ```
 
@@ -157,7 +161,8 @@ Web search right from the session — useful when you need to find current docum
 ### Sentry MCP
 
 ```bash
-claude mcp add sentry npx -y @modelcontextprotocol/server-sentry
+# Sentry is a hosted HTTP server
+claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 ```
 
 Access to errors from Sentry:
@@ -168,7 +173,7 @@ Access to errors from Sentry:
 ### Linear MCP
 
 ```bash
-claude mcp add linear npx -y linear-mcp-server
+claude mcp add --transport stdio linear -- npx -y linear-mcp-server
 ```
 
 Working with tasks in Linear:

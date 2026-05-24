@@ -3,6 +3,7 @@ layout: post
 title: "Claude Code: Skills — your own commands for the agent"
 categories: tools
 date: 2026-03-02
+last_modified_at: 2026-05-24
 read_time: 5
 difficulty: intermediate
 series: "Claude Code: complete guide"
@@ -19,12 +20,12 @@ Skills are Markdown files with instructions for the agent. Write once, reuse in 
 
 ## Skills and slash commands — now one thing
 
-In 2026 Anthropic merged two previously separate concepts:
+In 2026 Anthropic merged the old custom commands into Skills — it's now **one system**, and Skills became the primary, fuller-featured format:
 
-- **Slash commands** (old format `.claude/commands/*.md`) — you invoke manually via `/name`
-- **Agent Skills** (new format `.claude/skills/<name>/SKILL.md`) — Claude can invoke them **itself** when a task matches the `description`
+- **Slash commands** (old format `.claude/commands/*.md`) — you invoke manually via `/name`, kept for backward compatibility
+- **Agent Skills** (primary format `.claude/skills/<name>/SKILL.md`) — the same `/name`, plus Claude can invoke them **itself** by `description`; they support frontmatter and helper files alongside
 
-It's now **one system**: files in both folders create a `/command`. The difference is **who invokes**:
+Files in both folders create a `/command`. The difference is **who invokes**:
 
 | | Who triggers | When to use |
 |---|---|---|
@@ -88,6 +89,7 @@ Save as `.claude/skills/review/SKILL.md` — and the `/review` command is now av
 | `effort` | `low` / `medium` / `high` — depth of work (more = more tokens) |
 | `context: fork` | Run in a subagent (isolation) |
 | `user-invocable: false` | Only Claude can invoke, not the user |
+| `disable-model-invocation: true` | Manual `/name` only — Claude won't auto-invoke it |
 
 ## Example: skill for commits
 
@@ -166,12 +168,29 @@ Claude Code ships with built-in commands and bundled skills:
 | `/rewind` | Roll back to a previous checkpoint |
 | `/batch` | Parallel changes across a large codebase |
 | `/loop` | Repeat a task on a schedule (`/loop 5m /check`) |
-| `/simplify` | Review changes for quality and efficiency |
+| `/code-review` | Review changes for bugs and quality |
+| `/security-review` | Find vulnerabilities in the changes |
+| `/verify` | Run the app and confirm a change works |
+| `/run` | Launch the project's app |
+
+## Plugins and marketplaces
+
+To avoid copying `.claude/skills/` by hand between projects and teams, skills (along with commands, agents, hooks and MCP servers) are distributed as **plugins** from marketplaces:
+
+```bash
+# Add a marketplace
+/plugin marketplace add owner/repo
+
+# Install a plugin (with its skills/commands)
+/plugin install plugin-name@marketplace
+```
+
+The official marketplace (`claude-plugins-official`) is available out of the box. Skills from a plugin are invoked with a prefix: `/plugin-name:skill-name`.
 
 ## Summary
 
-- New format: `.claude/skills/<name>/SKILL.md` with frontmatter
-- Old format `.claude/commands/*.md` — still works
+- Primary format: `.claude/skills/<name>/SKILL.md` with frontmatter; `.claude/commands/*.md` for backward compatibility
 - `$ARGUMENTS` — for passing parameters
 - `allowed-tools` in frontmatter — restricts what the agent can do
 - `effort: high` — for complex tasks that need deep analysis
+- Share skills across projects — via plugins (`/plugin install`)
