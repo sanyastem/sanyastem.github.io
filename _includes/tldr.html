@@ -1,0 +1,14 @@
+{% if page.tldr %}
+{% assign tl_lang = page.lang | default: 'ru' %}
+{% assign tl_t = site.data.i18n[tl_lang] %}
+<aside class="tldr" aria-label="{{ tl_t.article.tldr_title }}">
+    <div class="tldr-title">{{ tl_t.article.tldr_title }}</div>
+    {% if page.tldr.first %}
+    <ul class="tldr-list">
+        {% for item in page.tldr %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% else %}
+    <p class="tldr-text">{{ page.tldr }}</p>
+    {% endif %}
+</aside>
+{% endif %}

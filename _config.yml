@@ -53,6 +53,7 @@ jekyll-minifier:
     - "sitemap.xml"
     - "robots.txt"
     - "llms.txt"
+    - "llms-full.txt"
     - "pagefind/**/*"
 
 author:

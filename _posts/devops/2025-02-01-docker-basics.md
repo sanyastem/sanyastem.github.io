@@ -13,6 +13,11 @@ description: "Что такое Docker-контейнер, первый docker r
 excerpt_text: "Что такое контейнер, первый docker run и docker-compose на простом примере"
 keywords: "docker, контейнеры, dockerfile, docker-compose, docker для начинающих, devops"
 translation_of: "/en/devops/docker-basics/"
+tldr:
+  - "Контейнер — изолированный процесс со своей файловой системой; в отличие от ВМ не тащит целую ОС, стартует за секунды и весит мегабайты."
+  - "Первый запуск: docker run hello-world, затем docker run -d -p 8080:80 nginx — сервер на http://localhost:8080."
+  - "Dockerfile (FROM, WORKDIR, COPY, RUN, EXPOSE, CMD) — воспроизводимый рецепт сборки своего образа: docker build -t my-app ."
+  - "docker-compose оркеструет несколько связанных сервисов (app + db) одной командой docker compose up; не забудь .dockerignore."
 howto:
   name: "Запуск первого Docker-контейнера за 10 минут"
   totalTime: "PT10M"

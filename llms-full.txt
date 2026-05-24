@@ -1,0 +1,24 @@
+---
+permalink: /llms-full.txt
+sitemap: false
+---
+# {{ site.title }} — полный текст статей (для LLM)
+
+> {{ site.description }}
+
+Автор: {{ site.author.name }} · Обновлено: {{ site.time | date: "%Y-%m-%d" }}
+Кураторский индекс: {{ "/llms.txt" | prepend: site.url }}
+Это агрегированный полный текст RU-статей для индексации ИИ-ассистентами. Английские версии — по ссылке «English» под каждой статьёй.
+
+{% assign ru_posts = site.posts | where: "lang", "ru" | sort: "date" | reverse -%}
+{% for post in ru_posts %}
+---
+
+## {{ post.title }}
+
+URL: {{ post.url | prepend: site.url }}
+{% if post.translation_of %}English: {{ post.translation_of | prepend: site.url }}
+{% endif %}{% if post.description %}{{ post.description }}
+{% endif %}
+{{ post.content | strip_html | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&quot;', '"' | replace: '&#39;', "'" | replace: '&amp;', '&' | strip }}
+{% endfor %}

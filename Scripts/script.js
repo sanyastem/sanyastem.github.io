@@ -1,3 +1,6 @@
+// Respect prefers-reduced-motion for JS-driven scrolling
+const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Fade-in on scroll (only on first load)
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -45,10 +48,10 @@ function bindFilterBar(barId, key, getter, setter) {
         btn.addEventListener('click', () => {
             bar.querySelectorAll('.filter-btn').forEach(b => {
                 b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
+                b.setAttribute('aria-pressed', 'false');
             });
             btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
+            btn.setAttribute('aria-pressed', 'true');
             setter(btn.dataset[key]);
             applyFilter();
             syncUrl();
@@ -75,7 +78,7 @@ const params = new URLSearchParams(window.location.search);
 const scrollTopBtn = document.getElementById('scrollTop');
 if (scrollTopBtn) {
     window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('visible', window.scrollY > 400));
-    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' }));
 }
 
 // ========== Burger ==========
@@ -227,7 +230,9 @@ if (progressBar) {
                 progressBar.style.width = (pct * 100) + '%';
                 if (progressText && articleReadTime > 0) {
                     const left = Math.max(0, Math.ceil(articleReadTime * (1 - pct)));
-                    progressText.textContent = left > 0 ? left + ' мин до конца' : 'готово';
+                    const suffix = progressText.dataset.suffix || 'мин до конца';
+                    const done = progressText.dataset.done || 'готово';
+                    progressText.textContent = left > 0 ? left + ' ' + suffix : done;
                 }
             }
             ticking = false;

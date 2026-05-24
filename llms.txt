@@ -35,3 +35,7 @@
 
 - [Terminal Commands](https://sanyastem.github.io/tools/terminal-commands/): Ctrl+R, алиасы, навигация
 - [VSCode Extensions](https://sanyastem.github.io/tools/vscode-extensions/): Prettier, GitLens, Error Lens
+
+## Full text
+
+- [Полный текст всех статей одним файлом](https://sanyastem.github.io/llms-full.txt): агрегированный plain-text всех RU-статей для индексации LLM

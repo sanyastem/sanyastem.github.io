@@ -12,6 +12,11 @@ part: 1
 description: "Устанавливаем Claude Code, разбираемся с CLAUDE.md, настройками и первыми командами. Стартовый гайд для разработчиков."
 excerpt_text: "Устанавливаем Claude Code, настраиваем CLAUDE.md и запускаем первые команды в терминале"
 keywords: "claude code, установка claude code, claude code настройка, CLAUDE.md, Anthropic CLI"
+tldr:
+  - "Claude Code — CLI-агент от Anthropic: работает в терминале с твоим репозиторием — читает код, запускает команды, вносит правки."
+  - "Установка одной командой: curl -fsSL https://claude.ai/install.sh | bash (Node.js не нужен); на Windows — irm-скрипт или winget."
+  - "CLAUDE.md в корне проекта задаёт агенту контекст (стек, команды, правила) — чем точнее, тем меньше объяснений в каждой сессии."
+  - "Разрешения настраиваются в .claude/settings.json через allow/deny для Bash и инструментов."
 howto:
   name: "Установка и первая настройка Claude Code"
   totalTime: "PT15M"

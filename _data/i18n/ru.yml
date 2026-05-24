@@ -24,6 +24,7 @@ article:
   read_time_suffix: "мин"
   updated: "обновлено"
   contents: "Содержание"
+  tldr_title: "Кратко"
   share: "Поделиться:"
   share_x: "Поделиться в X (Twitter)"
   share_in: "Поделиться в LinkedIn"
@@ -55,6 +56,7 @@ a11y:
   menu: "Меню"
   section_link: "Ссылка на раздел"
   copy_code: "Скопировать код"
+  scroll_top: "Наверх"
 
 footer:
   copy: "Пишу про разработку — коротко и по делу"

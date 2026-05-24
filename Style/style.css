@@ -1212,6 +1212,27 @@ code {
 .highlight .nt                             { color: #7ee787; }
 
 /* ========== FAQ Section ========== */
+/* ========== TL;DR ========== */
+.tldr {
+    margin: 0 0 28px;
+    padding: 16px 20px;
+    background: var(--accent-dim);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+}
+.tldr-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+.tldr-list { margin: 0; padding-left: 20px; }
+.tldr-list li { font-size: 0.92rem; color: var(--text-dim); line-height: 1.65; margin: 4px 0; }
+.tldr-text { margin: 0; font-size: 0.92rem; color: var(--text-dim); line-height: 1.65; }
+
 .faq-section { margin: 40px 0 0; }
 .faq-section h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
 

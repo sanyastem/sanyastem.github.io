@@ -10,6 +10,11 @@ description: "What a Docker container is, your first docker run, Dockerfile, and
 excerpt_text: "What a container is, your first docker run, and docker-compose on a simple example"
 keywords: "docker, containers, dockerfile, docker-compose, docker for beginners, devops"
 translation_of: "/devops/docker-basics/"
+tldr:
+  - "A container is an isolated process with its own filesystem; unlike a VM it doesn't carry a whole OS, starts in seconds and weighs megabytes."
+  - "First run: docker run hello-world, then docker run -d -p 8080:80 nginx — a server on http://localhost:8080."
+  - "A Dockerfile (FROM, WORKDIR, COPY, RUN, EXPOSE, CMD) is a reproducible recipe to build your own image: docker build -t my-app ."
+  - "docker-compose orchestrates several linked services (app + db) with a single docker compose up; don't forget .dockerignore."
 faq:
   - q: "How is a container different from a virtual machine?"
     a: "A VM virtualizes hardware and runs a whole guest OS — usually gigabytes of RAM and minutes to boot. A container shares the host kernel and isolates processes via namespaces/cgroups, so it weighs tens of megabytes and starts in seconds."

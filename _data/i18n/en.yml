@@ -24,6 +24,7 @@ article:
   read_time_suffix: "min"
   updated: "updated"
   contents: "Contents"
+  tldr_title: "TL;DR"
   share: "Share:"
   share_x: "Share on X (Twitter)"
   share_in: "Share on LinkedIn"
@@ -55,6 +56,7 @@ a11y:
   menu: "Menu"
   section_link: "Link to section"
   copy_code: "Copy code"
+  scroll_top: "Back to top"
 
 footer:
   copy: "Practical writing about software development"

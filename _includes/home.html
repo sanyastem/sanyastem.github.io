@@ -48,23 +48,23 @@
         <div class="filters-wrap">
             <div class="filter-row">
                 <span class="filter-label">{{ t.filters.topic }}</span>
-                <div class="filter-bar" id="cat-bar" role="tablist">
-                    <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">{{ t.filters.all }}</button>
+                <div class="filter-bar" id="cat-bar" role="group" aria-label="{{ t.filters.topic }}">
+                    <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">{{ t.filters.all }}</button>
                     {% for cat in site.data.categories %}
                     {% assign cat_label = cat[1].label %}
                     {% if lang == 'en' %}{% assign cat_label = cat[1].label_en | default: cat[1].label %}{% endif %}
-                    <button class="filter-btn" data-filter="{{ cat[0] }}" role="tab" aria-selected="false">{{ cat_label }}</button>
+                    <button type="button" class="filter-btn" data-filter="{{ cat[0] }}" aria-pressed="false">{{ cat_label }}</button>
                     {% endfor %}
                 </div>
             </div>
             <div class="filter-row">
                 <span class="filter-label">{{ t.filters.level }}</span>
-                <div class="filter-bar" id="diff-bar" role="tablist">
-                    <button class="filter-btn active" data-diff="all" role="tab" aria-selected="true">{{ t.filters.all }}</button>
+                <div class="filter-bar" id="diff-bar" role="group" aria-label="{{ t.filters.level }}">
+                    <button type="button" class="filter-btn active" data-diff="all" aria-pressed="true">{{ t.filters.all }}</button>
                     {% for d in site.data.difficulties %}
                     {% assign d_label = d[1].label %}
                     {% if lang == 'en' %}{% assign d_label = d[1].label_en | default: d[1].label %}{% endif %}
-                    <button class="filter-btn diff-{{ d[0] }}" data-diff="{{ d[0] }}" role="tab" aria-selected="false">{{ d_label }}</button>
+                    <button type="button" class="filter-btn diff-{{ d[0] }}" data-diff="{{ d[0] }}" aria-pressed="false">{{ d_label }}</button>
                     {% endfor %}
                 </div>
             </div>

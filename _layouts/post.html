@@ -2,11 +2,12 @@
 layout: default
 ---
 
-<div class="reading-progress"></div>
-<div class="reading-progress-text" aria-hidden="true"></div>
-
 {% assign lang = page.lang | default: 'ru' %}
 {% assign t = site.data.i18n[lang] %}
+
+<div class="reading-progress"></div>
+<div class="reading-progress-text" aria-hidden="true" data-suffix="{{ t.article.mins_left_suffix }}" data-done="{{ t.article.reading_done }}"></div>
+
 {% assign cat_key  = page.categories[0] %}
 {% assign diff_key = page.difficulty | default: 'beginner' %}
 {% assign cat  = site.data.categories[cat_key] %}
@@ -88,6 +89,8 @@ layout: default
             <summary>{{ t.article.contents }}</summary>
             <nav id="article-toc-m" class="article-toc"></nav>
         </details>
+
+        {% include tldr.html %}
 
         {{ content }}
 

@@ -70,7 +70,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 {% include cookie-banner.html %}
 
-<button class="scroll-top" id="scrollTop">↑</button>
+<button type="button" class="scroll-top" id="scrollTop" aria-label="{{ t.a11y.scroll_top }}">↑</button>
 {% assign jsbust = site.time | date: '%s' %}
 <script src="/Scripts/script.js?v={{ jsbust }}"></script>
 {% unless page.layout == "post" %}

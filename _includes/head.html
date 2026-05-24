@@ -53,6 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <link rel="manifest" href="/site.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icon-180.png">
 
 {% assign p_lang = page.lang | default: 'ru' %}
 {% assign t_site = site.data.i18n[p_lang] %}
@@ -138,6 +139,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "articleSection": {{ page.categories[0] | default: "general" | jsonify }},
     "wordCount": {{ content | number_of_words }},
     "timeRequired": "PT{{ page.read_time | default: 5 }}M"
+    {% if page.tldr %},
+    "abstract": {% if page.tldr.first %}{{ page.tldr | join: " " | jsonify }}{% else %}{{ page.tldr | jsonify }}{% endif %}
+    {% endif %}
     {% if page.series %},
     "isPartOf": {
       "@type": "CreativeWorkSeries",
