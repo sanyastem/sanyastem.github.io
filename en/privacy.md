@@ -12,10 +12,7 @@ description: "What data sanyastem.github.io collects, what it's used for, and ho
 
 <p><em>Effective date: 1 January 2025. Last updated: 8 May 2026.</em></p>
 
-<h2>1. Who we are</h2>
-<p><strong>sanyastem.github.io</strong> is a personal developer blog. Data controller: <strong>Aliaksandr Rubis</strong>, Poland. Contact: <a href="https://github.com/sanyastem">GitHub @sanyastem</a>.</p>
-
-<h2>2. What we collect</h2>
+<h2>1. What we collect</h2>
 <ul>
   <li><strong>IP address and user-agent</strong> — standard GitHub Pages web server logs, automatic</li>
   <li><strong>Site behavior</strong> — which pages you open, time on site, traffic source (Google Analytics, optional)</li>
@@ -25,14 +22,14 @@ description: "What data sanyastem.github.io collects, what it's used for, and ho
 
 <p>We <strong>don't collect</strong>: name, email, phone, payment data. The site has no registration form.</p>
 
-<h2>3. Why we collect it</h2>
+<h2>2. Why we collect it</h2>
 <ul>
   <li>To understand which topics interest readers (improve content)</li>
   <li>Technical logs for security (DDoS protection — on GitHub Pages' side)</li>
   <li>To show relevant ads, if you've consented to cookies (helps cover hosting)</li>
 </ul>
 
-<h2>4. Cookies and trackers</h2>
+<h2>3. Cookies and trackers</h2>
 
 <p>The site uses cookies in these categories:</p>
 
@@ -47,7 +44,7 @@ description: "What data sanyastem.github.io collects, what it's used for, and ho
 
 <p>By using the site you agree to necessary cookies. Others — only after explicit consent in the banner.</p>
 
-<h2>5. Third parties</h2>
+<h2>4. Third parties</h2>
 
 <p>We share your data with the following services only after your consent:</p>
 
@@ -59,7 +56,7 @@ description: "What data sanyastem.github.io collects, what it's used for, and ho
   <li><strong>Cloudflare/GitHub Pages</strong> — hosting infrastructure, sees your IP</li>
 </ul>
 
-<h2>6. Your rights under GDPR</h2>
+<h2>5. Your rights under GDPR</h2>
 
 <p>You have the right to:</p>
 <ul>
@@ -73,20 +70,20 @@ description: "What data sanyastem.github.io collects, what it's used for, and ho
 
 <p>To exercise these rights — contact via <a href="https://github.com/sanyastem">GitHub @sanyastem</a>.</p>
 
-<h2>7. Retention</h2>
+<h2>6. Retention</h2>
 <ul>
   <li>Google Analytics — 14 months (GA4 default)</li>
   <li>Consent cookies — 13 months in your browser</li>
   <li>GitHub Pages logs — managed by GitHub, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">their policy</a></li>
 </ul>
 
-<h2>8. Children</h2>
+<h2>7. Children</h2>
 <p>The site is not directed at users under 16 (the EU GDPR threshold for cookie consent).</p>
 
-<h2>9. Policy changes</h2>
+<h2>8. Policy changes</h2>
 <p>On material changes we'll update the date at the top. Material changes apply only to new visits — past consents are not retroactively revisited.</p>
 
-<h2>10. Manage cookies</h2>
+<h2>9. Manage cookies</h2>
 <p>Open <a href="#" onclick="event.preventDefault();window.__openCookieSettings&&window.__openCookieSettings();">cookie settings</a> to revisit your consent at any time.</p>
 
 </article>
