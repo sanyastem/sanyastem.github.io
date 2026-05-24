@@ -15,13 +15,27 @@ translation_of: "/tools/claude-code-skills/"
 
 ## What are Skills
 
-Skills are custom commands for Claude Code, invoked via `/name` right in a session. Essentially, they are Markdown files with instructions: what to do when the user calls the command.
+Skills are Markdown files with instructions for the agent. Write once, reuse in any session. Instead of explaining "do a code review by our standards" every time — you write a skill once and type `/review`.
 
-Instead of explaining "do a code review by our standards" to the agent every time, you write a skill once and then just type `/review`.
+## Skills and slash commands — now one thing
+
+In 2026 Anthropic merged two previously separate concepts:
+
+- **Slash commands** (old format `.claude/commands/*.md`) — you invoke manually via `/name`
+- **Agent Skills** (new format `.claude/skills/<name>/SKILL.md`) — Claude can invoke them **itself** when a task matches the `description`
+
+It's now **one system**: files in both folders create a `/command`. The difference is **who invokes**:
+
+| | Who triggers | When to use |
+|---|---|---|
+| **User-invoked** | You manually `/deploy` | Side-effect actions you control |
+| **Agent-invoked** | Claude itself by `description` | Capabilities the model applies automatically (formatting, checks) |
+
+A single `SKILL.md` gives you **both**: an auto-trigger by description and a manual `/command`. Control behavior via frontmatter (`user-invocable`, `disable-model-invocation`).
 
 ## Where Skills are stored
 
-The new recommended format — a folder with `SKILL.md`:
+The recommended format — a folder with `SKILL.md`:
 
 ```
 .claude/
@@ -34,7 +48,7 @@ The new recommended format — a folder with `SKILL.md`:
         └── SKILL.md     # /deploy-check
 ```
 
-The old format `.claude/commands/*.md` still works, but the new one supports frontmatter with settings.
+The old format `.claude/commands/*.md` still works (backward compatibility), but new skills are better placed in `.claude/skills/` — it supports frontmatter, helper files alongside, and agent auto-invocation.
 
 Global skills (for all projects):
 
