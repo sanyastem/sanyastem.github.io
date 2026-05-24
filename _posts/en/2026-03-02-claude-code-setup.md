@@ -16,7 +16,7 @@ howto:
   totalTime: "PT15M"
   steps:
     - name: "Install Claude Code"
-      text: "Install via npm: npm install -g @anthropic-ai/claude-code. Requires Node.js 18+."
+      text: "Native installer: curl -fsSL https://claude.ai/install.sh | bash (macOS/Linux/WSL) or irm https://claude.ai/install.ps1 | iex (Windows). No Node.js required."
     - name: "Authenticate"
       text: "Run claude in the terminal — a browser opens for login to your Anthropic account."
     - name: "Create CLAUDE.md in the project"

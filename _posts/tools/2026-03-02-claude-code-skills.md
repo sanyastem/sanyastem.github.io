@@ -80,7 +80,7 @@ effort: medium
 | `description` | Описание (до 1024 символов) — Claude понимает когда применять |
 | `allowed-tools` | Ограничить инструменты (Read, Edit, Write, Bash...) |
 | `argument-hint` | Подсказка какие аргументы принимает |
-| `effort` | `low` / `medium` / `high` / `max` — глубина проработки |
+| `effort` | `low` / `medium` / `high` — глубина проработки (больше = больше токенов) |
 | `context: fork` | Запустить в субагенте (изоляция) |
 | `user-invocable: false` | Только Claude может вызывать, не пользователь |
 

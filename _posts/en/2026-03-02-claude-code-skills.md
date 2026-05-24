@@ -71,7 +71,7 @@ Save as `.claude/skills/review/SKILL.md` — and the `/review` command is now av
 | `description` | Description (up to 1024 chars) — Claude understands when to use it |
 | `allowed-tools` | Restrict tools (Read, Edit, Write, Bash...) |
 | `argument-hint` | Hint about the arguments accepted |
-| `effort` | `low` / `medium` / `high` / `max` — depth of work |
+| `effort` | `low` / `medium` / `high` — depth of work (more = more tokens) |
 | `context: fork` | Run in a subagent (isolation) |
 | `user-invocable: false` | Only Claude can invoke, not the user |
 

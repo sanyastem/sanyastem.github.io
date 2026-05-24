@@ -16,7 +16,7 @@ howto:
   totalTime: "PT15M"
   steps:
     - name: "Установить Claude Code"
-      text: "Установить через npm: npm install -g @anthropic-ai/claude-code. Требуется Node.js 18+."
+      text: "Нативный установщик: curl -fsSL https://claude.ai/install.sh | bash (macOS/Linux/WSL) или irm https://claude.ai/install.ps1 | iex (Windows). Node.js не требуется."
     - name: "Авторизоваться"
       text: "Запустить команду claude в терминале — откроется браузер для логина в Anthropic-аккаунт."
     - name: "Создать CLAUDE.md в проекте"
@@ -29,7 +29,7 @@ faq:
   - q: "Сколько стоит Claude Code?"
     a: "Сам Claude Code бесплатный. Платишь только за модель: подписка Pro $20/мес — 5х лимиты vs free; Max $100-200/мес — больше токенов и доступ к Opus. Через API — pay-as-you-go, разработчику в среднем $10-50/мес."
   - q: "Работает ли Claude Code на Windows?"
-    a: "Да, через WSL2 (Windows Subsystem for Linux) — рекомендуемый способ. Нативно на Windows тоже работает но с ограничениями. Установи WSL2 + Ubuntu, потом npm install -g @anthropic-ai/claude-code внутри WSL — всё работает идентично macOS/Linux."
+    a: "Да. Нативно через установщик irm https://claude.ai/install.ps1 | iex или winget install Anthropic.ClaudeCode. Также работает в WSL2 (Ubuntu) — там используй curl -fsSL https://claude.ai/install.sh | bash."
   - q: "Что писать в CLAUDE.md?"
     a: "Контекст проекта в 1-2 страницы: технологии, команды (build/test/lint), архитектурные правила, стиль коммитов, путь к docs, что НЕ трогать. Цель — чтобы агент сразу понимал контекст без расспросов. Используй /init команду чтобы Claude сам сгенерировал черновик."
 ---
