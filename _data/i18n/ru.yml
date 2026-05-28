@@ -90,3 +90,10 @@ nav_extra:
   cheats: "Шпаргалки"
   paths: "Курсы"
   builders: "Утилиты"
+
+newsletter:
+  title: "Письма по делу"
+  desc: "Раз в неделю — лучшее про Claude Code, AI и DevOps. Без спама."
+  placeholder: "you@email.com"
+  button: "Подписаться"
+  note: "Без спама. Отписаться в один клик."

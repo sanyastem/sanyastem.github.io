@@ -90,3 +90,19 @@ adsense:
     sidebar: ""                          # slot ID для sidebar (под TOC на десктопе)
     end_of_article: ""                   # slot ID после статьи (перед related)
     home_grid: "8156486913"              # responsive auto, между карточками на главной
+
+# Newsletter (Buttondown) — после регистрации на https://buttondown.com:
+# 1. enabled: true
+# 2. buttondown_username: "<твой_username>"  (URL https://buttondown.com/<username>)
+# 3. Готово — форма появится в конце каждого поста и на главной.
+newsletter:
+  enabled: false
+  buttondown_username: ""
+
+# Telegram-канал — заведи канал в TG, узнай его @username:
+# 1. enabled: true
+# 2. channel: "sanyastem"  (без @)
+# 3. Готово — иконка появится в подвале.
+telegram:
+  enabled: false
+  channel: ""

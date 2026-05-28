@@ -1220,6 +1220,57 @@ code {
 .highlight .nt                             { color: #7ee787; }
 
 /* ========== FAQ Section ========== */
+/* ========== Newsletter ========== */
+.newsletter {
+    margin: 32px 0;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, var(--accent-dim) 0%, rgba(167,139,250,0.08) 100%);
+    border: 1px solid rgba(0,183,229,0.25);
+    border-radius: var(--radius);
+}
+.newsletter-inner { display: grid; gap: 14px; }
+.newsletter-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+}
+.newsletter-desc {
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin: 0;
+}
+.newsletter-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.newsletter-form input[type="email"] {
+    flex: 1; min-width: 200px;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    transition: border-color 0.15s;
+}
+.newsletter-form input[type="email"]:focus { border-color: var(--accent); outline: none; }
+.newsletter-form button {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 20px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.15s;
+}
+.newsletter-form button:hover { opacity: 0.9; transform: translateY(-1px); }
+.newsletter-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
 /* ========== Quick reference strip ========== */
 .quick-ref-strip { margin: -16px 0 32px; }
 .quick-ref-grid {

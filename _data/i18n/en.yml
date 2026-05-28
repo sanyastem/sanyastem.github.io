@@ -90,3 +90,10 @@ nav_extra:
   cheats: "Cheat sheets"
   paths: "Courses"
   builders: "Builders"
+
+newsletter:
+  title: "Practical newsletter"
+  desc: "Once a week — the best of Claude Code, AI and DevOps. No spam."
+  placeholder: "you@email.com"
+  button: "Subscribe"
+  note: "No spam. Unsubscribe in one click."

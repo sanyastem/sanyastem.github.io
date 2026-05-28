@@ -1,0 +1,21 @@
+{% if site.newsletter.enabled and site.newsletter.buttondown_username != "" %}
+{% assign nl_lang = page.lang | default: 'ru' %}
+{% assign nl_t = site.data.i18n[nl_lang].newsletter %}
+<aside class="newsletter" aria-label="{{ nl_t.title }}">
+    <div class="newsletter-inner">
+        <div class="newsletter-text">
+            <h3 class="newsletter-title">{{ nl_t.title }}</h3>
+            <p class="newsletter-desc">{{ nl_t.desc }}</p>
+        </div>
+        <form action="https://buttondown.com/api/emails/embed-subscribe/{{ site.newsletter.buttondown_username }}"
+              method="post"
+              target="popupwindow"
+              onsubmit="window.open('https://buttondown.com/{{ site.newsletter.buttondown_username }}', 'popupwindow')"
+              class="newsletter-form">
+            <input type="email" name="email" placeholder="{{ nl_t.placeholder }}" required aria-label="Email">
+            <button type="submit">{{ nl_t.button }}</button>
+        </form>
+        {% if nl_t.note %}<p class="newsletter-note">{{ nl_t.note }}</p>{% endif %}
+    </div>
+</aside>
+{% endif %}
