@@ -12,7 +12,14 @@ translation_of: /builders/claude-md/
 <div class="container builder-wrap">
     <header class="builder-hero">
         <h1>CLAUDE.md builder</h1>
-        <p class="builder-intro">Fill in the form — get a ready <code>CLAUDE.md</code> for your project. Drop it into the repo root and Claude Code picks up the context.</p>
+        <p class="builder-intro">Edit fields — <code>CLAUDE.md</code> builds <strong>live on the right</strong> (or below on mobile). When ready, hit «Copy» and drop the file into your repo root.</p>
+        <ol class="builder-steps">
+            <li>Pick a preset (Next.js, .NET, Python…) — stack and commands get filled in</li>
+            <li>Tweak fields for your project</li>
+            <li>Copy the result → save as <code>CLAUDE.md</code> in the repo root</li>
+            <li>Run <code>claude</code> — the agent now has your context</li>
+        </ol>
+        <a href="#builder-output-anchor" class="builder-jump-mobile">↓ Jump to result</a>
     </header>
 
     <div class="builder-layout">
@@ -73,9 +80,12 @@ prisma/migrations/</textarea>
             </fieldset>
         </form>
 
-        <aside class="builder-output">
+        <aside class="builder-output" id="builder-output-anchor">
             <div class="builder-output-head">
-                <span class="builder-output-title">CLAUDE.md</span>
+                <span class="builder-output-title">
+                    CLAUDE.md
+                    <span class="live-badge" title="Updates automatically"><span class="live-dot"></span>LIVE</span>
+                </span>
                 <button type="button" class="copy-btn" id="cmd-copy">Copy</button>
             </div>
             <pre><code id="cmd-output"></code></pre>

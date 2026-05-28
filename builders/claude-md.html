@@ -12,7 +12,14 @@ translation_of: /en/builders/claude-md/
 <div class="container builder-wrap">
     <header class="builder-hero">
         <h1>CLAUDE.md builder</h1>
-        <p class="builder-intro">Заполни форму — получи готовый <code>CLAUDE.md</code> под свой проект. Скопируй в корень репо — Claude Code сразу понимает контекст.</p>
+        <p class="builder-intro">Меняй поля — <code>CLAUDE.md</code> собирается <strong>в реальном времени справа</strong> (или ниже на мобиле). Готов — жми «Скопировать» и положи файл в корень репо.</p>
+        <ol class="builder-steps">
+            <li>Выбери пресет (Next.js, .NET, Python…) — стек и команды подставятся</li>
+            <li>Поправь поля под свой проект</li>
+            <li>Скопируй результат → положи в <code>CLAUDE.md</code> в корне репо</li>
+            <li>Запусти <code>claude</code> — агент уже с твоим контекстом</li>
+        </ol>
+        <a href="#builder-output-anchor" class="builder-jump-mobile">↓ К результату</a>
     </header>
 
     <div class="builder-layout">
@@ -73,9 +80,12 @@ prisma/migrations/</textarea>
             </fieldset>
         </form>
 
-        <aside class="builder-output">
+        <aside class="builder-output" id="builder-output-anchor">
             <div class="builder-output-head">
-                <span class="builder-output-title">CLAUDE.md</span>
+                <span class="builder-output-title">
+                    CLAUDE.md
+                    <span class="live-badge" title="Обновляется автоматически"><span class="live-dot"></span>LIVE</span>
+                </span>
                 <button type="button" class="copy-btn" id="cmd-copy">Скопировать</button>
             </div>
             <pre><code id="cmd-output"></code></pre>

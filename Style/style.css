@@ -1301,7 +1301,89 @@ code {
 .builder-wrap { max-width: 1100px; margin: calc(var(--nav-height) + 56px) auto 100px; padding: 0 24px; }
 .builder-hero { margin-bottom: 28px; }
 .builder-hero h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; color: var(--text); }
-.builder-intro { font-size: 1rem; color: var(--text-dim); line-height: 1.55; margin: 0; max-width: 720px; }
+.builder-intro { font-size: 1rem; color: var(--text-dim); line-height: 1.55; margin: 0 0 16px; max-width: 720px; }
+.builder-intro strong { color: var(--accent); font-weight: 600; }
+.builder-steps {
+    list-style: none;
+    counter-reset: bstep;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+    max-width: 720px;
+}
+.builder-steps li {
+    counter-increment: bstep;
+    position: relative;
+    padding: 2px 0 2px 32px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+}
+.builder-steps li::before {
+    content: counter(bstep);
+    position: absolute; left: 0; top: 2px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent-dim); color: var(--accent);
+    font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+.builder-steps li code {
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.8rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--accent-dim);
+    color: var(--accent);
+}
+.builder-jump-mobile {
+    display: none;
+    margin-top: 16px;
+    padding: 10px 16px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.builder-jump-mobile:hover { opacity: 0.9; }
+
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 8px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #4ade80;
+    text-transform: uppercase;
+    background: rgba(74,222,128,0.12);
+    border: 1px solid rgba(74,222,128,0.3);
+    border-radius: 4px;
+    padding: 2px 6px;
+    vertical-align: middle;
+}
+.live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: live-pulse 1.6s ease-in-out infinite;
+}
+@keyframes live-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .live-dot { animation: none; }
+}
+
+@media (max-width: 900px) {
+    .builder-jump-mobile { display: inline-block; }
+}
 
 .builder-layout {
     display: grid;
