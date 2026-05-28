@@ -1,6 +1,6 @@
 site:
-  description: "Блог разработчика — гайды по Web, DevOps, Git и инструментам"
-  keywords: "web разработка, devops, git, docker, css, javascript, туториалы"
+  description: "Блог разработчика — гайды по AI/Claude Code, QA, Web, .NET, DevOps, Git и базам данных"
+  keywords: "claude code, ai для разработки, qa тестирование, web разработка, .net, c#, ef core, mysql, devops, docker, git, css, javascript, туториалы"
 
 nav:
   switch_to: "EN"

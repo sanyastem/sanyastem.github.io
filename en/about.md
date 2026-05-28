@@ -3,21 +3,25 @@ layout: default
 lang: en
 title: "About"
 permalink: /en/about/
-description: "sanyastem — a developer blog on the modern stack: Web, DevOps, Git, and AI tools."
+description: "sanyastem — a developer blog on the modern stack: AI/Claude Code, QA, Web, .NET, DevOps, Git, and databases."
 ---
 
 <article class="article-body" style="max-width:720px; margin:calc(var(--nav-height) + 56px) auto 100px; padding:0 24px;">
 
 <h1>About</h1>
 
-<p><strong>sanyastem</strong> is a blog about the modern developer stack: Web, DevOps, Git, and AI tools. Short, practical guides without fluff.</p>
+<p><strong>sanyastem</strong> is a blog about the modern developer stack: AI/Claude Code, QA, Web, .NET, DevOps, Git, and databases. Short, practical guides without fluff.</p>
 
 <h2>Topics</h2>
 <ul>
+  <li><a href="/en/?filter=ai#posts">AI</a> — Claude Code, agents, MCP, Skills</li>
+  <li><a href="/en/?filter=qa#posts">QA</a> — testing with AI, test cases, checklists</li>
   <li><a href="/en/?filter=web#posts">Web</a> — Angular, CSS, frontend practice</li>
-  <li><a href="/en/?filter=devops#posts">DevOps</a> — Docker, .NET, MySQL, CI/CD</li>
+  <li><a href="/en/?filter=dotnet#posts">.NET</a> — migration, C# 12-14, EF Core</li>
+  <li><a href="/en/?filter=devops#posts">DevOps</a> — Docker, CI/CD, deployment</li>
   <li><a href="/en/?filter=git#posts">Git</a> — workflow, rebases, teamwork</li>
-  <li><a href="/en/?filter=tools#posts">Tools</a> — Claude Code, AI for development and QA</li>
+  <li><a href="/en/?filter=databases#posts">Databases</a> — MySQL: security and optimization</li>
+  <li><a href="/en/?filter=tools#posts">Tools</a> — VS Code, terminal, developer utilities</li>
 </ul>
 
 <h2>Contact</h2>

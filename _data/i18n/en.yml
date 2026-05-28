@@ -1,6 +1,6 @@
 site:
-  description: "Developer blog — practical guides on Web, DevOps, Git, and tools"
-  keywords: "web development, devops, git, docker, css, javascript, tutorials"
+  description: "Developer blog — practical guides on AI/Claude Code, QA, Web, .NET, DevOps, Git, and databases"
+  keywords: "claude code, ai for development, qa testing, web development, .net, c#, ef core, mysql, devops, docker, git, css, javascript, tutorials"
 
 nav:
   switch_to: "RU"
