@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Claude Code под стек .NET + Angular + MySQL + MongoDB + Docker"
-categories: tools
-translation_of: "/en/tools/claude-code-dotnet-angular/"
+categories: ai
+translation_of: "/en/ai/claude-code-dotnet-angular/"
 date: 2026-03-02
 date_ru: "2 марта 2026"
 read_time: 9

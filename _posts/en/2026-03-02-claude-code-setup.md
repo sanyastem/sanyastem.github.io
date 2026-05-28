@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude Code: install and basic setup"
-categories: tools
+categories: ai
 date: 2026-03-02
 last_modified_at: 2026-05-24
 read_time: 6
@@ -11,7 +11,7 @@ part: 1
 description: "Install Claude Code, learn about CLAUDE.md, settings and the first commands. A starter guide for developers."
 excerpt_text: "Install Claude Code, configure CLAUDE.md and run your first commands in the terminal"
 keywords: "claude code, install claude code, claude code setup, CLAUDE.md, Anthropic CLI"
-translation_of: "/tools/claude-code-setup/"
+translation_of: "/ai/claude-code-setup/"
 tldr:
   - "Claude Code is Anthropic's CLI agent: it runs in your terminal against your repo — reads code, runs commands, makes edits."
   - "One-line install: curl -fsSL https://claude.ai/install.sh | bash (no Node.js needed); on Windows use the irm script or winget."

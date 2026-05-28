@@ -1,19 +1,19 @@
 # sanyastem
 
-> Блог разработчика — гайды и туториалы по Web-разработке, DevOps, Git и инструментам. Автор: Aliaksandr Rubis. Язык: русский.
+> Блог разработчика — гайды и туториалы по AI/Claude Code, тестированию с AI, Web, DevOps, Git, .NET и базам данных. Автор: Aliaksandr Rubis. Язык: русский.
 
 Практические статьи с примерами кода для разработчиков и тестировщиков уровня junior-middle. Формат: пошаговые гайды, чеклисты, сравнения.
 
 ## Серии статей
 
+- [Claude Code: полный гайд](https://sanyastem.github.io/ai/claude-code-setup/): 5 частей — установка, Skills, Agents/SDK, подключение MCP, написание своего MCP-сервера
+- [Claude для тестировщика](https://sanyastem.github.io/qa/claude-qa-start/): 5 частей — от первого промпта до полного рабочего цикла с AI
+- [AI для мануального тестировщика](https://sanyastem.github.io/qa/ai-qa-basics/): 3 части — тест-кейсы, исследовательское тестирование, планирование
 - [Docker: от установки до продакшна](https://sanyastem.github.io/devops/docker-basics/): 4 части — контейнеры, Dockerfile, Compose, деплой на VPS
-- [Claude Code: полный гайд](https://sanyastem.github.io/tools/claude-code-setup/): 5 частей — установка, Skills, Agents/SDK, подключение MCP, написание своего MCP-сервера
-- [Claude для тестировщика](https://sanyastem.github.io/tools/claude-qa-start/): 5 частей — от первого промпта до полного рабочего цикла с AI
-- [.NET: от старого к новому](https://sanyastem.github.io/devops/dotnet-migration/): 3 части — миграция .NET Framework → .NET 10, C# 12-14, EF Core
-- [MySQL: безопасность и производительность](https://sanyastem.github.io/devops/mysql-security/): 2 части — безопасность 8.4, индексы и оптимизация
-- [AI для мануального тестировщика](https://sanyastem.github.io/tools/ai-qa-basics/): 3 части — тест-кейсы, исследовательское тестирование, планирование
+- [.NET: от старого к новому](https://sanyastem.github.io/dotnet/dotnet-migration/): 3 части — миграция .NET Framework → .NET 10, C# 12-14, EF Core
+- [MySQL: безопасность и производительность](https://sanyastem.github.io/databases/mysql-security/): 2 части — безопасность 8.4, индексы и оптимизация
 
-## Frontend
+## Web
 
 - [CSS Flexbox vs Grid](https://sanyastem.github.io/web/flexbox-vs-grid/): Когда что использовать, практические примеры
 - [Responsive Design](https://sanyastem.github.io/web/responsive-design/): Mobile-first, clamp(), media queries
@@ -31,7 +31,7 @@
 - [.gitignore](https://sanyastem.github.io/git/gitignore/): Что исключать, глобальный gitignore
 - [git rebase vs merge](https://sanyastem.github.io/git/git-rebase-vs-merge/): Реальные кейсы, interactive rebase, force-with-lease, reflog
 
-## Optional
+## Tools
 
 - [Terminal Commands](https://sanyastem.github.io/tools/terminal-commands/): Ctrl+R, алиасы, навигация
 - [VSCode Extensions](https://sanyastem.github.io/tools/vscode-extensions/): Prettier, GitLens, Error Lens

@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "Top Skills for .NET + Angular + Docker in Claude Code"
-categories: tools
+categories: ai
 date: 2026-03-20
 read_time: 10
 difficulty: intermediate
 description: "Ready-to-use Skills for Claude Code on a .NET, Angular, MySQL, MongoDB, and Docker stack: /review, /test, /api, /component, /debug, /db — copy and use."
 excerpt_text: "Ready-to-use /review, /test, /api, /component, /debug, and /db for your stack — copy and use"
 keywords: "claude code skills dotnet, claude code angular skills, .claude/commands, SKILL.md, claude code slash commands"
-translation_of: "/tools/claude-code-skills-dotnet/"
+translation_of: "/ai/claude-code-skills-dotnet/"
 ---
 
 ## New format: SKILL.md with frontmatter

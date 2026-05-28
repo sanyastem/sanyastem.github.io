@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Skills для миграции: .NET 10, MySQL 8.4, Angular 20"
-categories: tools
-translation_of: "/en/tools/claude-code-skills-migration/"
+categories: ai
+translation_of: "/en/ai/claude-code-skills-migration/"
 date: 2026-04-10
 date_ru: "10 апреля 2026"
 read_time: 9

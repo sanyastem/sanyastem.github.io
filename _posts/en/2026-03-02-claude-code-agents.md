@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude Code: Agents — parallel subagents and SDK"
-categories: tools
+categories: ai
 date: 2026-03-02
 last_modified_at: 2026-05-24
 read_time: 7
@@ -11,7 +11,7 @@ part: 3
 description: "How Claude Code spawns subagents for parallel tasks, what the Claude Agent SDK is and how to build your own AI workflows."
 excerpt_text: "Subagents for parallel tasks, the Claude Agent SDK and how to build your own AI workflows"
 keywords: "claude code agents, claude subagents, claude agent sdk, AI agents, claude code parallel tasks"
-translation_of: "/tools/claude-code-agents/"
+translation_of: "/ai/claude-code-agents/"
 ---
 
 ## Agents in Claude Code

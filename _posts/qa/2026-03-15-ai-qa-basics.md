@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "AI для тестировщика: пишем тест-кейсы быстрее"
-categories: tools
-translation_of: "/en/tools/ai-qa-basics/"
+categories: qa
+translation_of: "/en/qa/ai-qa-basics/"
 date: 2026-03-15
 date_ru: "15 марта 2026"
 read_time: 5

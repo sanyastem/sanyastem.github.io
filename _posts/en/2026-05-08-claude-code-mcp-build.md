@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude Code: building your own MCP server from scratch"
-categories: tools
+categories: ai
 date: 2026-05-08
 read_time: 10
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 5
 description: "Step-by-step guide: write an MCP server in TypeScript, hook it into Claude Code, debug via MCP Inspector, and share with your team."
 excerpt_text: "Your own MCP server — when the ready-made ones aren't enough: real example with searching internal docs, debugging, and npm publishing"
 keywords: "MCP server, model context protocol, build your own, claude code custom mcp, mcp sdk typescript, mcp inspector"
-translation_of: "/tools/claude-code-mcp-build/"
+translation_of: "/ai/claude-code-mcp-build/"
 ---
 
 In [the previous part](/en/tools/claude-code-mcp/) we connected existing MCP servers. But sometimes you need your own: internal API, niche database, corporate service with no public connector. Let's build a working server from scratch — in one sitting.

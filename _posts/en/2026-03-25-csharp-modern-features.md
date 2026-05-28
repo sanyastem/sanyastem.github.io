@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "C# 12-14: what's new and when to use it"
-categories: devops
+categories: dotnet
 date: 2026-03-25
 read_time: 11
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 2
 description: "A walkthrough of the key features of C# 12, 13 and 14: primary constructors, collection expressions, records, pattern matching, the field keyword, extension members, and null-conditional assignment."
 excerpt_text: "Primary constructors, collection expressions, C# 14 extension members and other features — with examples of when to actually use them"
 keywords: "C# 12 13 14 new features, primary constructor C#, collection expressions, pattern matching C# 14, extension members C# 14, field keyword C#"
-translation_of: "/devops/csharp-modern-features/"
+translation_of: "/dotnet/csharp-modern-features/"
 ---
 
 ## What changed and in which version

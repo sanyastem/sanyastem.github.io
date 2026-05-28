@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude Code: MCP — connecting external tools"
-categories: tools
+categories: ai
 date: 2026-03-02
 last_modified_at: 2026-05-24
 read_time: 8
@@ -11,7 +11,7 @@ part: 4
 description: "What MCP (Model Context Protocol) is, how to connect servers to Claude Code, and which MCPs are useful for development."
 excerpt_text: "MCP extends Claude Code's capabilities: databases, GitHub, browser, filesystem and more"
 keywords: "MCP claude code, model context protocol, mcp server, claude code extensions, mcp development"
-translation_of: "/tools/claude-code-mcp/"
+translation_of: "/ai/claude-code-mcp/"
 faq:
   - q: "MCP vs Skills — what's the difference?"
     a: "Skills are Markdown prompts + (optionally) a script, executed by Claude Code itself. MCP is an external process over JSON-RPC that gives Claude additional tools/resources. Skills are simpler for helper commands; MCP is for integrating with external systems (DB, API, browser)."

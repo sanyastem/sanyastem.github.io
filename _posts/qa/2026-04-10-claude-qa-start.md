@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Claude для тестировщика: начинаем без кода"
-categories: tools
-translation_of: "/en/tools/claude-qa-start/"
+categories: qa
+translation_of: "/en/qa/claude-qa-start/"
 date: 2026-04-10
 date_ru: "10 апреля 2026"
 read_time: 10

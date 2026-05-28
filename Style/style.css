@@ -112,6 +112,10 @@
     --tag-devops: #f59e0b;     --tag-devops-bg: rgba(245,158,11,0.12);
     --tag-git: #f97316;        --tag-git-bg: rgba(249,115,22,0.12);
     --tag-tools: #a78bfa;      --tag-tools-bg: rgba(167,139,250,0.12);
+    --tag-ai: #10b981;         --tag-ai-bg: rgba(16,185,129,0.12);
+    --tag-qa: #ec4899;         --tag-qa-bg: rgba(236,72,153,0.12);
+    --tag-dotnet: #6366f1;     --tag-dotnet-bg: rgba(99,102,241,0.12);
+    --tag-databases: #06b6d4;  --tag-databases-bg: rgba(6,182,212,0.12);
 
     --diff-beginner:    #4ade80; --diff-beginner-bg:    rgba(74,222,128,0.1);
     --diff-intermediate:#fbbf24; --diff-intermediate-bg:rgba(251,191,36,0.1);
@@ -259,10 +263,14 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
     white-space: nowrap;
 }
 
-.tag-web    { background: var(--tag-web-bg);    color: var(--tag-web);    border: 1px solid rgba(59,130,246,0.2); }
-.tag-devops { background: var(--tag-devops-bg); color: var(--tag-devops); border: 1px solid rgba(245,158,11,0.2); }
-.tag-git    { background: var(--tag-git-bg);    color: var(--tag-git);    border: 1px solid rgba(249,115,22,0.2); }
-.tag-tools  { background: var(--tag-tools-bg);  color: var(--tag-tools);  border: 1px solid rgba(167,139,250,0.2); }
+.tag-web       { background: var(--tag-web-bg);       color: var(--tag-web);       border: 1px solid rgba(59,130,246,0.2); }
+.tag-devops    { background: var(--tag-devops-bg);    color: var(--tag-devops);    border: 1px solid rgba(245,158,11,0.2); }
+.tag-git       { background: var(--tag-git-bg);       color: var(--tag-git);       border: 1px solid rgba(249,115,22,0.2); }
+.tag-tools     { background: var(--tag-tools-bg);     color: var(--tag-tools);     border: 1px solid rgba(167,139,250,0.2); }
+.tag-ai        { background: var(--tag-ai-bg);        color: var(--tag-ai);        border: 1px solid rgba(16,185,129,0.2); }
+.tag-qa        { background: var(--tag-qa-bg);        color: var(--tag-qa);        border: 1px solid rgba(236,72,153,0.2); }
+.tag-dotnet    { background: var(--tag-dotnet-bg);    color: var(--tag-dotnet);    border: 1px solid rgba(99,102,241,0.2); }
+.tag-databases { background: var(--tag-databases-bg); color: var(--tag-databases); border: 1px solid rgba(6,182,212,0.2); }
 
 /* ========== Hero (modern) ========== */
 .hero-modern {

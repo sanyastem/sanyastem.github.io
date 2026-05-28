@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AI for QA engineers: write test cases faster"
-categories: tools
+categories: qa
 date: 2026-03-15
 read_time: 5
 difficulty: beginner
@@ -10,7 +10,7 @@ part: 1
 description: "How to use ChatGPT and other AI assistants to generate test cases, test data, and analyze requirements."
 excerpt_text: "Generate test cases, test data, and find gaps in requirements with AI"
 keywords: "AI testing, ChatGPT test cases, QA automation, test generation, prompt QA"
-translation_of: "/tools/ai-qa-basics/"
+translation_of: "/qa/ai-qa-basics/"
 ---
 
 ## AI doesn't replace the QA engineer — it removes the routine

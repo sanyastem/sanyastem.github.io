@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "C# 12–14: что добавили и зачем это использовать"
-categories: devops
-translation_of: "/en/devops/csharp-modern-features/"
+categories: dotnet
+translation_of: "/en/dotnet/csharp-modern-features/"
 date: 2026-03-25
 date_ru: "25 марта 2026"
 read_time: 11

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude for QA engineers: daily tasks"
-categories: tools
+categories: qa
 date: 2026-04-10
 read_time: 15
 difficulty: beginner
@@ -10,7 +10,7 @@ part: 2
 description: "How to use Claude every day — test cases from user stories, bug reports, test data, API work, and error analysis."
 excerpt_text: "Test cases, bug reports, test data — a full workday with Claude"
 keywords: "claude testing, test cases, bug report, test data, qa daily, manual qa engineer"
-translation_of: "/tools/claude-qa-daily/"
+translation_of: "/qa/claude-qa-daily/"
 ---
 
 ## Morning: planning the day's testing

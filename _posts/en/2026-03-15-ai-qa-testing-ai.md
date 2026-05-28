@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AI for QA engineers: planning, risks, and growth"
-categories: tools
+categories: qa
 date: 2026-03-15
 read_time: 6
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 3
 description: "How AI helps plan regression, set priorities, analyze sprint results, and grow as a specialist."
 excerpt_text: "Plan regression, set priorities, and analyze bugs together with AI"
 keywords: "AI regression testing, test prioritization, QA retrospective, AI for QA, AI test plan"
-translation_of: "/tools/ai-qa-testing-ai/"
+translation_of: "/qa/ai-qa-testing-ai/"
 ---
 
 ## Plan regression

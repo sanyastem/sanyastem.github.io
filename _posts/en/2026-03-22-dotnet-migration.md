@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Migrating from .NET Framework to .NET 10: a step-by-step plan"
-categories: devops
+categories: dotnet
 date: 2026-03-22
 read_time: 12
 difficulty: advanced
@@ -10,7 +10,7 @@ part: 1
 description: "How to move from .NET Framework 4.x to .NET 10 LTS: what changed in the architecture, common migration pitfalls, and the tools that help."
 excerpt_text: "A full plan for moving from .NET Framework 4.x to .NET 10 LTS — what breaks and how to fix it"
 keywords: "migration .NET Framework .NET 10, upgrade assistant dotnet, web.config appsettings, Global.asax Program.cs, breaking changes dotnet"
-translation_of: "/devops/dotnet-migration/"
+translation_of: "/dotnet/dotnet-migration/"
 ---
 
 ## Why migrate and when

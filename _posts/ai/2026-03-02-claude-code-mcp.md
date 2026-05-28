@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Claude Code: MCP — подключаем внешние инструменты"
-categories: tools
-translation_of: "/en/tools/claude-code-mcp/"
+categories: ai
+translation_of: "/en/ai/claude-code-mcp/"
 date: 2026-03-02
 last_modified_at: 2026-05-24
 date_ru: "2 марта 2026"

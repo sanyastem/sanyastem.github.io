@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "MySQL 8.4: безопасность — от установки до продакшна"
-categories: devops
-translation_of: "/en/devops/mysql-security/"
+categories: databases
+translation_of: "/en/databases/mysql-security/"
 date: 2026-04-01
 date_ru: "1 апреля 2026"
 read_time: 10

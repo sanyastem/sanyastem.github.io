@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude Code: Skills — your own commands for the agent"
-categories: tools
+categories: ai
 date: 2026-03-02
 last_modified_at: 2026-05-24
 read_time: 5
@@ -11,7 +11,7 @@ part: 2
 description: "What Skills are in Claude Code, how to write your own command scripts and invoke them via /command right inside a session."
 excerpt_text: "Skills are your own /commands for Claude Code. Write once, invoke in any session"
 keywords: "claude code skills, slash commands claude, custom commands claude code, .claude/commands"
-translation_of: "/tools/claude-code-skills/"
+translation_of: "/ai/claude-code-skills/"
 ---
 
 ## What are Skills

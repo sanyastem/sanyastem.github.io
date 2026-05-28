@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "MySQL 8.4: indexes, EXPLAIN, and query optimization"
-categories: devops
+categories: databases
 date: 2026-04-05
 read_time: 12
 difficulty: advanced
@@ -10,7 +10,7 @@ part: 2
 description: "How to read EXPLAIN ANALYZE, build composite indexes, find slow queries, and choose between cursor and OFFSET pagination in MySQL 8.4."
 excerpt_text: "EXPLAIN ANALYZE, composite indexes, slow query log, and cursor pagination — optimizing MySQL 8.4"
 keywords: "MySQL EXPLAIN ANALYZE, composite index MySQL, slow query log MySQL 8.4, cursor pagination MySQL, MySQL query optimization"
-translation_of: "/devops/mysql-optimization/"
+translation_of: "/databases/mysql-optimization/"
 ---
 
 ## Reading EXPLAIN ANALYZE

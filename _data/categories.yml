@@ -16,6 +16,30 @@ git:
   color: git
   og_image: /assets/og-git.png
 
+ai:
+  label: AI
+  label_en: AI
+  color: ai
+  og_image: /assets/og-ai.png
+
+qa:
+  label: QA
+  label_en: QA
+  color: qa
+  og_image: /assets/og-qa.png
+
+dotnet:
+  label: .NET
+  label_en: .NET
+  color: dotnet
+  og_image: /assets/og-dotnet.png
+
+databases:
+  label: Базы данных
+  label_en: Databases
+  color: databases
+  og_image: /assets/og-databases.png
+
 tools:
   label: Инструменты
   label_en: Tools

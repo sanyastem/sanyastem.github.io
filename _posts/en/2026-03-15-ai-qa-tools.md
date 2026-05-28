@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AI for QA engineers: exploratory testing and bug reports"
-categories: tools
+categories: qa
 date: 2026-03-15
 read_time: 6
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 2
 description: "How AI helps with exploratory testing: invents scenarios you might have missed and helps describe bugs quickly and accurately."
 excerpt_text: "AI as a partner for exploratory testing — scenarios, bug reports, reproduction"
 keywords: "AI exploratory testing, ChatGPT bug report, QA exploratory testing, manual QA AI"
-translation_of: "/tools/ai-qa-tools/"
+translation_of: "/qa/ai-qa-tools/"
 ---
 
 ## AI as a partner during a session

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude for QA engineers: the full workflow"
-categories: tools
+categories: qa
 date: 2026-04-10
 read_time: 12
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 5
 description: "A full day with Claude — from morning planning to evening report. CLAUDE.md for QA, custom skills, and integration with Jira, Postman, TestRail."
 excerpt_text: "A full day with Claude: planning, test cases, data, bug report, report"
 keywords: "claude workflow qa, claude jira, claude postman, qa automation, claude skills qa"
-translation_of: "/tools/claude-qa-workflow/"
+translation_of: "/qa/claude-qa-workflow/"
 ---
 
 ## A full day with Claude

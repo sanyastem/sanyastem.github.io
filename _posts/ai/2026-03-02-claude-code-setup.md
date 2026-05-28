@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Claude Code: установка и базовая настройка"
-categories: tools
-translation_of: "/en/tools/claude-code-setup/"
+categories: ai
+translation_of: "/en/ai/claude-code-setup/"
 date: 2026-03-02
 last_modified_at: 2026-05-24
 date_ru: "2 марта 2026"

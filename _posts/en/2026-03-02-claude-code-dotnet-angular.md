@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "Claude Code for the .NET + Angular + MySQL + MongoDB + Docker stack"
-categories: tools
+categories: ai
 date: 2026-03-02
 read_time: 9
 difficulty: intermediate
 description: "Configuring Claude Code for the .NET, Angular, MySQL, MongoDB and Docker stack: CLAUDE.md, permissions, useful MCPs and ready-made Skills."
 excerpt_text: "A ready-made CLAUDE.md template, settings and Skills for .NET + Angular + MySQL + MongoDB + Docker"
 keywords: "claude code dotnet, claude code angular, claude code setup, CLAUDE.md template, claude code docker"
-translation_of: "/tools/claude-code-dotnet-angular/"
+translation_of: "/ai/claude-code-dotnet-angular/"
 ---
 
 ## Project structure

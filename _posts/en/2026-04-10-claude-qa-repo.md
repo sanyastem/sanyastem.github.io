@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude for QA engineers: the repository — next level"
-categories: tools
+categories: qa
 date: 2026-04-10
 last_modified_at: 2026-05-24
 read_time: 15
@@ -11,7 +11,7 @@ part: 4
 description: "You've been given repo access — how to use Claude Code to analyze code, generate test cases from real logic, and find bugs in code."
 excerpt_text: "Repo access + Claude Code = test cases from real code, not from documentation"
 keywords: "claude code, qa repository access, qa git, test cases from code, PR analysis, finding bugs in code"
-translation_of: "/tools/claude-qa-repo/"
+translation_of: "/qa/claude-qa-repo/"
 ---
 
 ## Why QA should look at the code

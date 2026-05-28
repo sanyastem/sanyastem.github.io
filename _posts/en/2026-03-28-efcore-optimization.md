@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "EF Core 9/10: performance and new features"
-categories: devops
+categories: dotnet
 date: 2026-03-28
 read_time: 12
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 3
 description: "EF Core 9 and 10: compiled queries, AsNoTracking, JSON columns, the N+1 problem, auto-compiled models, and how to avoid killing your database."
 excerpt_text: "How not to kill your DB with EF Core: N+1, compiled queries, AsNoTracking, JSON columns, and what's new in 9/10"
 keywords: "EF Core 9 10 optimization, compiled queries ef core, AsNoTracking, N+1 problem, JSON columns EF Core, auto-compiled model"
-translation_of: "/devops/efcore-optimization/"
+translation_of: "/dotnet/efcore-optimization/"
 ---
 
 ## What's new in EF Core 9 and 10

@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "AI для тестировщика: исследовательское тестирование и баг-репорты"
-categories: tools
-translation_of: "/en/tools/ai-qa-tools/"
+categories: qa
+translation_of: "/en/qa/ai-qa-tools/"
 date: 2026-03-15
 date_ru: "15 марта 2026"
 read_time: 6

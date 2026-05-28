@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude for QA engineers: starting without code"
-categories: tools
+categories: qa
 date: 2026-04-10
 read_time: 10
 difficulty: beginner
@@ -10,7 +10,7 @@ part: 1
 description: "How a manual QA engineer can start using Claude — no terminal, no code, through the browser. First commands and prompt templates."
 excerpt_text: "Start working with Claude — no code, through the browser. 5 first commands for a QA engineer"
 keywords: "claude, QA engineer, qa, manual testing, ai testing, test cases, bug report"
-translation_of: "/tools/claude-qa-start/"
+translation_of: "/qa/claude-qa-start/"
 ---
 
 ## Why a QA engineer needs an AI assistant

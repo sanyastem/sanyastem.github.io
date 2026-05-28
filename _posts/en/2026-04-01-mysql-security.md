@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "MySQL 8.4: security — from install to production"
-categories: devops
+categories: databases
 date: 2026-04-01
 read_time: 10
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 1
 description: "Secure MySQL 8.4 LTS configuration: least privileges, SSL/TLS, SQL injection defense, caching_sha2_password, audit, and migration from 8.0."
 excerpt_text: "Least privileges, SSL/TLS, caching_sha2_password and SQL injection defense — a secure MySQL 8.4"
 keywords: "MySQL 8.4 security, MySQL least privileges, SSL TLS MySQL, SQL injection defense, caching_sha2_password, MySQL 8.0 EOL"
-translation_of: "/devops/mysql-security/"
+translation_of: "/databases/mysql-security/"
 faq:
   - q: "Why move to MySQL 8.4 if 8.0 still works?"
     a: "MySQL 8.0 finished its innovation cycle, regular updates have stopped, only Extended Support and security patches remain. 8.4 is the current LTS, supported for at least 5 years. For new projects the choice is obvious; for old ones — migrate within a year or two."

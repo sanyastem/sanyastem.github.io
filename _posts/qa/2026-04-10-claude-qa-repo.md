@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Claude для тестировщика: репозиторий — новый уровень"
-categories: tools
-translation_of: "/en/tools/claude-qa-repo/"
+categories: qa
+translation_of: "/en/qa/claude-qa-repo/"
 date: 2026-04-10
 last_modified_at: 2026-05-24
 date_ru: "10 апреля 2026"

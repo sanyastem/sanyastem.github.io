@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Claude for QA engineers: templates and advanced techniques"
-categories: tools
+categories: qa
 date: 2026-04-10
 read_time: 12
 difficulty: intermediate
@@ -10,7 +10,7 @@ part: 3
 description: "Ready-to-use prompt templates for QA, working with documentation, release prep, reporting, cross-browser testing, and career growth."
 excerpt_text: "Ready-to-use prompt templates, reporting for managers, release checklists, and growth to middle QA"
 keywords: "qa templates, testing prompts, test plan, regression, cross-browser testing, wcag, qa career"
-translation_of: "/tools/claude-qa-templates/"
+translation_of: "/qa/claude-qa-templates/"
 ---
 
 ## Ready-to-use prompt templates
