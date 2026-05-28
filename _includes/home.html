@@ -55,12 +55,20 @@
 </section>
 
 <section class="quick-ref-strip">
-    <div class="container">
+    <div class="container quick-ref-grid">
         <a href="{% if lang == 'en' %}/en/cheats/claude-code/{% else %}/cheats/claude-code/{% endif %}" class="quick-ref-card">
             <span class="qr-icon" aria-hidden="true">📌</span>
             <span class="qr-text">
                 <span class="qr-eyebrow">{{ t.nav_extra.cheats }}</span>
                 <span class="qr-title">Claude Code — {% if lang == 'en' %}all commands on one page{% else %}все команды одной страницей{% endif %}</span>
+            </span>
+            <span class="qr-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="{% if lang == 'en' %}/en/builders/claude-md/{% else %}/builders/claude-md/{% endif %}" class="quick-ref-card">
+            <span class="qr-icon" aria-hidden="true">🛠️</span>
+            <span class="qr-text">
+                <span class="qr-eyebrow">{{ t.nav_extra.builders }}</span>
+                <span class="qr-title">{% if lang == 'en' %}CLAUDE.md builder — generate a context file for your stack{% else %}CLAUDE.md builder — собрать файл под свой стек{% endif %}</span>
             </span>
             <span class="qr-arrow" aria-hidden="true">→</span>
         </a>

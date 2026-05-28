@@ -1,0 +1,185 @@
+---
+layout: default
+lang: en
+title: "CLAUDE.md builder — context file generator for Claude Code"
+permalink: /en/builders/claude-md/
+description: "Fill in the form — get a ready CLAUDE.md for your stack. Presets for Next.js, .NET, Python, Go. Pure browser, no backend."
+keywords: "CLAUDE.md, claude code, generator, builder, agent context, template"
+og_image: /assets/og-ai.png
+translation_of: /builders/claude-md/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>CLAUDE.md builder</h1>
+        <p class="builder-intro">Fill in the form — get a ready <code>CLAUDE.md</code> for your project. Drop it into the repo root and Claude Code picks up the context.</p>
+    </header>
+
+    <div class="builder-layout">
+        <form class="builder-form" id="cmd-form" autocomplete="off">
+            <fieldset>
+                <legend>Project</legend>
+                <label>Name
+                    <input type="text" id="f-name" value="My App" placeholder="My App">
+                </label>
+                <label>Description (1-2 lines)
+                    <textarea id="f-desc" rows="2" placeholder="What this project is">E-commerce on Next.js with PostgreSQL.</textarea>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Stack</legend>
+                <label>Preset
+                    <select id="f-preset">
+                        <option value="nextjs">Next.js + TypeScript + Prisma</option>
+                        <option value="dotnet">.NET 10 + Angular + MySQL</option>
+                        <option value="python">Python + Django + PostgreSQL</option>
+                        <option value="go">Go + sqlc + PostgreSQL</option>
+                        <option value="rust">Rust + Axum + sqlx</option>
+                        <option value="custom">Custom stack</option>
+                    </select>
+                </label>
+                <label>Technologies (one per line)
+                    <textarea id="f-stack" rows="6"></textarea>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Commands</legend>
+                <label>Dev <input type="text" id="f-cmd-dev"></label>
+                <label>Test <input type="text" id="f-cmd-test"></label>
+                <label>Lint <input type="text" id="f-cmd-lint"></label>
+                <label>Build <input type="text" id="f-cmd-build"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Rules (one per line)</legend>
+                <textarea id="f-rules" rows="6">Write in TypeScript, don't use any
+Components in src/components/, one file = one component
+Commits in Conventional Commits style
+Tests required for business logic</textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Don't touch (one path per line)</legend>
+                <textarea id="f-avoid" rows="3">src/generated/
+public/vendor/
+prisma/migrations/</textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Hint for the agent (optional)</legend>
+                <textarea id="f-hint" rows="2" placeholder="Any architecture- or constraint-specific notes"></textarea>
+            </fieldset>
+        </form>
+
+        <aside class="builder-output">
+            <div class="builder-output-head">
+                <span class="builder-output-title">CLAUDE.md</span>
+                <button type="button" class="copy-btn" id="cmd-copy">Copy</button>
+            </div>
+            <pre><code id="cmd-output"></code></pre>
+            <p class="builder-tip">💡 Save the file, then run <code>claude</code> in the repo root — the agent picks up the context. Refine later with <code>/init</code> or <code>/memory</code>.</p>
+        </aside>
+    </div>
+</div>
+
+<script>
+(function() {
+    const PRESETS = {
+        nextjs: {
+            stack: ['Next.js 15 (App Router)', 'TypeScript (strict)', 'Prisma ORM', 'PostgreSQL 16', 'Tailwind CSS', 'Vitest'],
+            cmds: { dev: 'npm run dev', test: 'npm run test', lint: 'npm run lint', build: 'npm run build' }
+        },
+        dotnet: {
+            stack: ['.NET 10', 'C# 14', 'EF Core 10', 'Angular 20 (Signals, standalone)', 'MySQL 8.4', 'Docker Compose'],
+            cmds: { dev: 'dotnet watch run --project src/Api', test: 'dotnet test', lint: 'dotnet format --verify-no-changes', build: 'dotnet build -c Release' }
+        },
+        python: {
+            stack: ['Python 3.12', 'Django 5', 'PostgreSQL 16', 'pytest', 'ruff'],
+            cmds: { dev: 'python manage.py runserver', test: 'pytest', lint: 'ruff check .', build: 'python manage.py collectstatic --no-input' }
+        },
+        go: {
+            stack: ['Go 1.23', 'chi router', 'sqlc', 'PostgreSQL 16', 'testify'],
+            cmds: { dev: 'go run ./cmd/api', test: 'go test ./...', lint: 'golangci-lint run', build: 'go build -o bin/api ./cmd/api' }
+        },
+        rust: {
+            stack: ['Rust 1.82', 'Axum 0.7', 'sqlx (PostgreSQL)', 'tokio', 'tracing'],
+            cmds: { dev: 'cargo watch -x run', test: 'cargo test', lint: 'cargo clippy -- -D warnings', build: 'cargo build --release' }
+        },
+        custom: {
+            stack: ['Technology 1', 'Technology 2'],
+            cmds: { dev: 'run command', test: 'test command', lint: 'lint command', build: 'build command' }
+        }
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const fields = {
+        name: $('f-name'), desc: $('f-desc'), preset: $('f-preset'),
+        stack: $('f-stack'), cmdDev: $('f-cmd-dev'), cmdTest: $('f-cmd-test'),
+        cmdLint: $('f-cmd-lint'), cmdBuild: $('f-cmd-build'),
+        rules: $('f-rules'), avoid: $('f-avoid'), hint: $('f-hint')
+    };
+
+    function applyPreset(key) {
+        const p = PRESETS[key];
+        if (!p) return;
+        fields.stack.value = p.stack.join('\n');
+        fields.cmdDev.value = p.cmds.dev;
+        fields.cmdTest.value = p.cmds.test;
+        fields.cmdLint.value = p.cmds.lint;
+        fields.cmdBuild.value = p.cmds.build;
+    }
+
+    function bullets(text) {
+        return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => '- ' + l).join('\n');
+    }
+
+    function render() {
+        const name = fields.name.value.trim() || 'Project';
+        const desc = fields.desc.value.trim();
+        const stack = bullets(fields.stack.value);
+        const rules = bullets(fields.rules.value);
+        const avoid = bullets(fields.avoid.value);
+        const hint = fields.hint.value.trim();
+
+        const cmds = [];
+        const cmdEntries = [
+            ['dev', fields.cmdDev.value.trim(), 'dev server'],
+            ['test', fields.cmdTest.value.trim(), 'tests'],
+            ['lint', fields.cmdLint.value.trim(), 'linter'],
+            ['build', fields.cmdBuild.value.trim(), 'build']
+        ];
+        for (const [, cmd, label] of cmdEntries) {
+            if (cmd) cmds.push('- `' + cmd + '` — ' + label);
+        }
+
+        let out = '# ' + name + '\n\n';
+        if (desc) out += desc + '\n\n';
+        if (stack) out += '## Stack\n\n' + stack + '\n\n';
+        if (cmds.length) out += '## Commands\n\n' + cmds.join('\n') + '\n\n';
+        if (rules) out += '## Rules\n\n' + rules + '\n\n';
+        if (avoid) out += "## Don't touch\n\n" + avoid + '\n\n';
+        if (hint) out += '## Hint\n\n' + hint + '\n';
+
+        $('cmd-output').textContent = out.trimEnd() + '\n';
+    }
+
+    fields.preset.addEventListener('change', (e) => { applyPreset(e.target.value); render(); });
+    Object.values(fields).forEach(el => el.addEventListener('input', render));
+
+    $('cmd-copy').addEventListener('click', () => {
+        const text = $('cmd-output').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = $('cmd-copy');
+            const orig = btn.textContent;
+            btn.textContent = 'Copied ✓';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+        });
+    });
+
+    applyPreset(fields.preset.value);
+    render();
+})();
+</script>

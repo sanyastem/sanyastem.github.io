@@ -1222,6 +1222,14 @@ code {
 /* ========== FAQ Section ========== */
 /* ========== Quick reference strip ========== */
 .quick-ref-strip { margin: -16px 0 32px; }
+.quick-ref-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+@media (max-width: 720px) {
+    .quick-ref-grid { grid-template-columns: 1fr; }
+}
 .quick-ref-card {
     display: flex; align-items: center; gap: 16px;
     background: var(--bg-card); border: 1px solid var(--border);
@@ -1237,6 +1245,141 @@ code {
 .qr-title { font-size: 0.95rem; font-weight: 500; color: var(--text); }
 .qr-arrow { color: var(--accent); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.2s; }
 .quick-ref-card:hover .qr-arrow { transform: translateX(4px); }
+
+/* ========== Builder pages (CLAUDE.md etc.) ========== */
+.builder-wrap { max-width: 1100px; margin: calc(var(--nav-height) + 56px) auto 100px; padding: 0 24px; }
+.builder-hero { margin-bottom: 28px; }
+.builder-hero h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; color: var(--text); }
+.builder-intro { font-size: 1rem; color: var(--text-dim); line-height: 1.55; margin: 0; max-width: 720px; }
+
+.builder-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.builder-form { display: grid; gap: 14px; }
+.builder-form fieldset {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px 18px;
+    background: var(--bg-card);
+    display: grid;
+    gap: 12px;
+}
+.builder-form legend {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    padding: 0 6px;
+}
+.builder-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+.builder-form input[type="text"],
+.builder-form textarea,
+.builder-form select {
+    width: 100%;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    transition: border-color 0.15s;
+}
+.builder-form textarea { resize: vertical; min-height: 60px; }
+.builder-form input[type="text"]:focus,
+.builder-form textarea:focus,
+.builder-form select:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+.builder-output {
+    position: sticky;
+    top: calc(var(--nav-height) + 16px);
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.builder-output-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+}
+.builder-output-title {
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.builder-output-head .copy-btn {
+    position: static;
+    opacity: 1;
+    font-size: 0.78rem;
+    padding: 6px 12px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid rgba(0,183,229,0.25);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.builder-output-head .copy-btn:hover { background: rgba(0,183,229,0.18); }
+.builder-output-head .copy-btn.copied { background: rgba(74,222,128,0.18); color: #4ade80; border-color: rgba(74,222,128,0.3); }
+.builder-output pre {
+    margin: 0;
+    padding: 18px;
+    background: var(--bg-card);
+    overflow: auto;
+    max-height: 70vh;
+}
+.builder-output pre code {
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.builder-tip {
+    margin: 0;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+}
+.builder-tip code {
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.78rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--accent-dim);
+    color: var(--accent);
+}
+
+@media (max-width: 900px) {
+    .builder-layout { grid-template-columns: minmax(0, 1fr); }
+    .builder-output { position: static; }
+}
 
 /* ========== Reading paths / Courses ========== */
 .paths-wrap { max-width: 820px; margin: calc(var(--nav-height) + 56px) auto 100px; padding: 0 24px; }

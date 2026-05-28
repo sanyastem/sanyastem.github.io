@@ -1,0 +1,186 @@
+---
+layout: default
+lang: ru
+title: "CLAUDE.md builder — генератор контекстного файла для Claude Code"
+permalink: /builders/claude-md/
+description: "Заполни форму — получи готовый CLAUDE.md под свой стек. Готовые пресеты для Next.js, .NET, Python, Go. Всё в браузере, без бэкенда."
+keywords: "CLAUDE.md, claude code, генератор, builder, контекст для AI, agent context, шаблон"
+og_image: /assets/og-ai.png
+translation_of: /en/builders/claude-md/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>CLAUDE.md builder</h1>
+        <p class="builder-intro">Заполни форму — получи готовый <code>CLAUDE.md</code> под свой проект. Скопируй в корень репо — Claude Code сразу понимает контекст.</p>
+    </header>
+
+    <div class="builder-layout">
+        <form class="builder-form" id="cmd-form" autocomplete="off">
+            <fieldset>
+                <legend>Проект</legend>
+                <label>Название
+                    <input type="text" id="f-name" value="My App" placeholder="My App">
+                </label>
+                <label>Описание (1-2 строки)
+                    <textarea id="f-desc" rows="2" placeholder="Что это за проект">E-commerce на Next.js с PostgreSQL.</textarea>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Стек</legend>
+                <label>Пресет
+                    <select id="f-preset">
+                        <option value="nextjs">Next.js + TypeScript + Prisma</option>
+                        <option value="dotnet">.NET 10 + Angular + MySQL</option>
+                        <option value="python">Python + Django + PostgreSQL</option>
+                        <option value="go">Go + sqlc + PostgreSQL</option>
+                        <option value="rust">Rust + Axum + sqlx</option>
+                        <option value="custom">Свой стек</option>
+                    </select>
+                </label>
+                <label>Список технологий (одна на строку)
+                    <textarea id="f-stack" rows="6"></textarea>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Команды</legend>
+                <label>Dev <input type="text" id="f-cmd-dev"></label>
+                <label>Test <input type="text" id="f-cmd-test"></label>
+                <label>Lint <input type="text" id="f-cmd-lint"></label>
+                <label>Build <input type="text" id="f-cmd-build"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Правила (одна на строку)</legend>
+                <textarea id="f-rules" rows="6">Пиши на TypeScript, не используй any
+Компоненты — в src/components/, один файл = один компонент
+Коммиты в стиле Conventional Commits
+Тесты обязательны для бизнес-логики</textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Что НЕ трогать (одна папка/файл на строку)</legend>
+                <textarea id="f-avoid" rows="3">src/generated/
+public/vendor/
+prisma/migrations/</textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Подсказка для агента (опционально)</legend>
+                <textarea id="f-hint" rows="2" placeholder="Любые специфичные подсказки про архитектуру, ограничения"></textarea>
+            </fieldset>
+        </form>
+
+        <aside class="builder-output">
+            <div class="builder-output-head">
+                <span class="builder-output-title">CLAUDE.md</span>
+                <button type="button" class="copy-btn" id="cmd-copy">Скопировать</button>
+            </div>
+            <pre><code id="cmd-output"></code></pre>
+            <p class="builder-tip">💡 После создания файла запусти <code>claude</code> в корне проекта — агент сам подтянет контекст. Если что-то пропустил, доработай через <code>/init</code> или <code>/memory</code>.</p>
+        </aside>
+    </div>
+</div>
+
+<script>
+(function() {
+    const PRESETS = {
+        nextjs: {
+            stack: ['Next.js 15 (App Router)', 'TypeScript (strict)', 'Prisma ORM', 'PostgreSQL 16', 'Tailwind CSS', 'Vitest'],
+            cmds: { dev: 'npm run dev', test: 'npm run test', lint: 'npm run lint', build: 'npm run build' }
+        },
+        dotnet: {
+            stack: ['.NET 10', 'C# 14', 'EF Core 10', 'Angular 20 (Signals, standalone)', 'MySQL 8.4', 'Docker Compose'],
+            cmds: { dev: 'dotnet watch run --project src/Api', test: 'dotnet test', lint: 'dotnet format --verify-no-changes', build: 'dotnet build -c Release' }
+        },
+        python: {
+            stack: ['Python 3.12', 'Django 5', 'PostgreSQL 16', 'pytest', 'ruff'],
+            cmds: { dev: 'python manage.py runserver', test: 'pytest', lint: 'ruff check .', build: 'python manage.py collectstatic --no-input' }
+        },
+        go: {
+            stack: ['Go 1.23', 'chi router', 'sqlc', 'PostgreSQL 16', 'testify'],
+            cmds: { dev: 'go run ./cmd/api', test: 'go test ./...', lint: 'golangci-lint run', build: 'go build -o bin/api ./cmd/api' }
+        },
+        rust: {
+            stack: ['Rust 1.82', 'Axum 0.7', 'sqlx (PostgreSQL)', 'tokio', 'tracing'],
+            cmds: { dev: 'cargo watch -x run', test: 'cargo test', lint: 'cargo clippy -- -D warnings', build: 'cargo build --release' }
+        },
+        custom: {
+            stack: ['Технология 1', 'Технология 2'],
+            cmds: { dev: 'команда запуска', test: 'команда тестов', lint: 'команда линтера', build: 'команда сборки' }
+        }
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const fields = {
+        name: $('f-name'), desc: $('f-desc'), preset: $('f-preset'),
+        stack: $('f-stack'), cmdDev: $('f-cmd-dev'), cmdTest: $('f-cmd-test'),
+        cmdLint: $('f-cmd-lint'), cmdBuild: $('f-cmd-build'),
+        rules: $('f-rules'), avoid: $('f-avoid'), hint: $('f-hint')
+    };
+
+    function applyPreset(key) {
+        const p = PRESETS[key];
+        if (!p) return;
+        fields.stack.value = p.stack.join('\n');
+        fields.cmdDev.value = p.cmds.dev;
+        fields.cmdTest.value = p.cmds.test;
+        fields.cmdLint.value = p.cmds.lint;
+        fields.cmdBuild.value = p.cmds.build;
+    }
+
+    function bullets(text) {
+        return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => '- ' + l).join('\n');
+    }
+
+    function render() {
+        const name = fields.name.value.trim() || 'Project';
+        const desc = fields.desc.value.trim();
+        const stack = bullets(fields.stack.value);
+        const rules = bullets(fields.rules.value);
+        const avoid = bullets(fields.avoid.value);
+        const hint = fields.hint.value.trim();
+
+        const cmds = [];
+        const cmdEntries = [
+            ['dev', fields.cmdDev.value.trim(), 'dev-сервер'],
+            ['test', fields.cmdTest.value.trim(), 'тесты'],
+            ['lint', fields.cmdLint.value.trim(), 'линтер'],
+            ['build', fields.cmdBuild.value.trim(), 'сборка']
+        ];
+        for (const [, cmd, label] of cmdEntries) {
+            if (cmd) cmds.push('- `' + cmd + '` — ' + label);
+        }
+
+        let out = '# ' + name + '\n\n';
+        if (desc) out += desc + '\n\n';
+        if (stack) out += '## Стек\n\n' + stack + '\n\n';
+        if (cmds.length) out += '## Команды\n\n' + cmds.join('\n') + '\n\n';
+        if (rules) out += '## Правила\n\n' + rules + '\n\n';
+        if (avoid) out += '## Что НЕ трогать\n\n' + avoid + '\n\n';
+        if (hint) out += '## Подсказка\n\n' + hint + '\n';
+
+        $('cmd-output').textContent = out.trimEnd() + '\n';
+    }
+
+    fields.preset.addEventListener('change', (e) => { applyPreset(e.target.value); render(); });
+    Object.values(fields).forEach(el => el.addEventListener('input', render));
+
+    $('cmd-copy').addEventListener('click', () => {
+        const text = $('cmd-output').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = $('cmd-copy');
+            const orig = btn.textContent;
+            btn.textContent = 'Скопировано ✓';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+        });
+    });
+
+    // Initial
+    applyPreset(fields.preset.value);
+    render();
+})();
+</script>
