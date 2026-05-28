@@ -235,6 +235,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="{{ page.url | prepend: site.url }}">
 
+  {% comment %} hreflang for non-post pages with translation_of (about, privacy, cheats, etc.) {% endcomment %}
+  {% if page.translation_of %}
+    <link rel="alternate" hreflang="{{ p_lang }}" href="{{ page.url | prepend: site.url }}">
+    {% if p_lang == 'en' %}
+      <link rel="alternate" hreflang="ru" href="{{ page.translation_of | prepend: site.url }}">
+      {% assign x_default_url = page.translation_of %}
+    {% else %}
+      <link rel="alternate" hreflang="en" href="{{ page.translation_of | prepend: site.url }}">
+      {% assign x_default_url = page.url %}
+    {% endif %}
+    <link rel="alternate" hreflang="x-default" href="{{ x_default_url | prepend: site.url }}">
+  {% endif %}
+
   {% assign og_img = page.og_image | default: "/assets/og-default.png" | prepend: site.url %}
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ page.url | prepend: site.url }}">

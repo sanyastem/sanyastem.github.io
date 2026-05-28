@@ -31,6 +31,18 @@
                     {% endif %}
                     <div class="featured-meta">
                         <span class="post-date">{% if lang == 'en' %}{{ featured.date | date: "%-d %b %Y" }}{% else %}{{ featured.date_ru }}{% endif %}</span>
+                        {% if featured.last_modified_at %}
+                            {% assign fd_orig = featured.date | date: '%Y-%m-%d' %}
+                            {% assign fd_upd = featured.last_modified_at | date: '%Y-%m-%d' %}
+                            {% if fd_orig != fd_upd %}
+                                {% assign f_upd_ts = featured.last_modified_at | date: '%s' | plus: 0 %}
+                                {% assign f_now_ts = site.time | date: '%s' | plus: 0 %}
+                                {% assign f_diff = f_now_ts | minus: f_upd_ts %}
+                                {% if f_diff <= 5184000 %}
+                                <span class="post-updated-badge" title="{{ featured.last_modified_at | date: '%-d.%m.%Y' }}">↻ {{ t.article.updated }} {{ featured.last_modified_at | date: '%-d.%m' }}</span>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
                         <span class="dot">·</span>
                         <span class="read-time">{{ featured.read_time }} {{ t.article.read_time_suffix }}</span>
                         <span class="featured-arrow" aria-hidden="true">→</span>
@@ -39,6 +51,19 @@
             </a>
             {% endif %}
         </div>
+    </div>
+</section>
+
+<section class="quick-ref-strip">
+    <div class="container">
+        <a href="{% if lang == 'en' %}/en/cheats/claude-code/{% else %}/cheats/claude-code/{% endif %}" class="quick-ref-card">
+            <span class="qr-icon" aria-hidden="true">📌</span>
+            <span class="qr-text">
+                <span class="qr-eyebrow">{{ t.nav_extra.cheats }}</span>
+                <span class="qr-title">Claude Code — {% if lang == 'en' %}all commands on one page{% else %}все команды одной страницей{% endif %}</span>
+            </span>
+            <span class="qr-arrow" aria-hidden="true">→</span>
+        </a>
     </div>
 </section>
 
@@ -107,6 +132,18 @@
                 {% endif %}
                 <div class="card-bottom">
                     <span class="post-date">{% if lang == 'en' %}{{ post.date | date: "%-d %b %Y" }}{% else %}{{ post.date_ru }}{% endif %}</span>
+                    {% if post.last_modified_at %}
+                        {% assign d_orig = post.date | date: '%Y-%m-%d' %}
+                        {% assign d_upd = post.last_modified_at | date: '%Y-%m-%d' %}
+                        {% if d_orig != d_upd %}
+                            {% assign upd_ts = post.last_modified_at | date: '%s' | plus: 0 %}
+                            {% assign now_ts = site.time | date: '%s' | plus: 0 %}
+                            {% assign diff_age = now_ts | minus: upd_ts %}
+                            {% if diff_age <= 5184000 %}
+                            <span class="post-updated-badge" title="{{ post.last_modified_at | date: '%-d.%m.%Y' }}">↻ {{ t.article.updated }} {{ post.last_modified_at | date: '%-d.%m' }}</span>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
                     {% if post.difficulty %}
                     <span class="diff-badge diff-{{ post.difficulty }}">{{ diff_label }}</span>
                     {% endif %}

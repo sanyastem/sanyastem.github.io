@@ -1,0 +1,50 @@
+---
+layout: default
+lang: ru
+title: "Курсы — учим тему по шагам"
+permalink: /paths/
+description: "Готовые серии из статей: Claude Code, Claude для тестировщика, AI для тестировщика, Docker, .NET, MySQL. Иди по порядку и закрой тему целиком."
+keywords: "курсы, серии статей, claude code, docker, .NET, MySQL, пошагово, обучение"
+og_image: /assets/og-ai.png
+translation_of: /en/paths/
+---
+
+<div class="container paths-wrap">
+    <header class="paths-hero">
+        <h1>Курсы</h1>
+        <p class="paths-intro">Готовые серии из статей блога — иди по шагам и закрой тему целиком. Прогресс остаётся в URL — можешь поделиться или вернуться позже.</p>
+    </header>
+
+    <div class="paths-list">
+        {% assign series_groups = site.posts | where: "lang", page.lang | group_by: "series" %}
+        {% for group in series_groups %}
+            {% if group.name != "" %}
+                {% assign parts = group.items | sort: "part" %}
+                {% assign first = parts | first %}
+                {% assign count = parts | size %}
+                {% assign cat_key = first.categories[0] %}
+                {% assign cat = site.data.categories[cat_key] %}
+                {% assign cat_label = cat.label %}
+                <article class="path-card">
+                    <div class="path-card-head">
+                        <div class="path-card-meta">
+                            <span class="tag tag-{{ cat_key }}">{{ cat_label }}</span>
+                            <span class="path-eyebrow">{{ count }} частей</span>
+                        </div>
+                        <h2 class="path-title">
+                            <a href="{{ first.url | relative_url }}">{{ group.name }}</a>
+                        </h2>
+                        {% if first.description %}
+                        <p class="path-desc">{{ first.description }}</p>
+                        {% endif %}
+                    </div>
+                    <ol class="path-steps">
+                        {% for p in parts %}
+                        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+                        {% endfor %}
+                    </ol>
+                </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

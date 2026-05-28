@@ -52,6 +52,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p class="footer-copy">{{ t.footer.copy }}</p>
             </div>
             <nav class="footer-meta" aria-label="footer">
+                <a href="{% if lang == 'en' %}/en/paths/{% else %}/paths/{% endif %}" class="footer-link">{{ t.nav_extra.paths }}</a>
+                <a href="{% if lang == 'en' %}/en/cheats/claude-code/{% else %}/cheats/claude-code/{% endif %}" class="footer-link">{{ t.nav_extra.cheats }}</a>
                 <a href="{% if lang == 'en' %}/en/about/{% else %}/about/{% endif %}" class="footer-link">{{ t.nav_extra.about }}</a>
                 <a href="{% if lang == 'en' %}/en/privacy/{% else %}/privacy/{% endif %}" class="footer-link">{{ t.nav_extra.privacy }}</a>
                 <button type="button" class="footer-link footer-link-btn" onclick="window.__openCookieSettings && window.__openCookieSettings()">{{ t.cookies.manage }}</button>
