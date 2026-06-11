@@ -14,6 +14,17 @@ tldr:
   - "In .claude/settings.json allow Bash(dotnet *), Bash(npm run *), Bash(docker compose *); deny git push, docker compose down --volumes and dotnet ef database drop."
   - ".mcp.json wires up MySQL (@benborla29/mcp-server-mysql), MongoDB (mongodb-mcp-server) and GitHub MCP; secrets only via environment variables from .env."
   - "Ready-made skills in .claude/commands/: /migrate (EF Core migrations), /feature (feature scaffold), /check (build, test, lint before commit), /logs (Docker log analysis)."
+faq:
+  - q: "What should CLAUDE.md contain for a .NET + Angular project?"
+    a: "Three blocks: the stack (.NET 10 + C# 14, Angular 20 with standalone components and Signals, MySQL 8.4, MongoDB 7, Docker), the commands (dotnet build, dotnet test, npm run start, docker compose up -d) and the conventions — Repository pattern, DTOs instead of entities, OnPush, inject() instead of constructor injection. Plus a 'do not touch' section: src/Migrations/, dist/ and .env files. The file lives at the monorepo root."
+  - q: "Which permissions should I set in .claude/settings.json for a .NET + Docker stack?"
+    a: "Allow the everyday commands: Bash(dotnet *), Bash(npm run *), Bash(ng *), Bash(docker compose *), plus git diff, git status, git add and git commit. Deny the destructive ones: Bash(git push *), Bash(docker compose down --volumes) and Bash(dotnet ef database drop *). That way Claude works autonomously, but pushing and dropping the database still require manual confirmation."
+  - q: "How do I connect MySQL and MongoDB to Claude Code via MCP?"
+    a: "Declare the servers in a .mcp.json at the project root: @benborla29/mcp-server-mysql for MySQL, mongodb-mcp-server for MongoDB and @modelcontextprotocol/server-github for GitHub — all launched via npx. No hardcoded secrets: the config uses references like ${MYSQL_PASSWORD}, and Claude picks the values up from environment variables loaded from .env via source .env or direnv."
+  - q: "Which slash commands (skills) are useful for a .NET + Angular project?"
+    a: "Four basics: /migrate creates and applies an EF Core migration and reviews its contents, /feature scaffolds a feature (controller, service, repository, DTOs on the backend and a standalone component with service and routes on the frontend), /check runs dotnet build, dotnet test, npm run lint and npm run build before a commit, and /logs shows and analyzes docker compose logs. Each one is a Markdown file in .claude/commands/."
+  - q: "How does Claude Code handle secrets so they never reach the repository?"
+    a: "Only an .env.example with empty or placeholder values is committed; the real .env is in .gitignore. The configs (.mcp.json, docker-compose.yml) reference environment variables like ${MYSQL_PASSWORD}, which Claude Code picks up from the current shell. The 'do not touch' section in CLAUDE.md additionally forbids committing .env files."
 ---
 
 ## Project structure

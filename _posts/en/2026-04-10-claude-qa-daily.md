@@ -16,6 +16,17 @@ tldr:
   - "Claude formats a raw bug description into a ready Jira report with title, steps, severity, and environment — 2 minutes instead of 10."
   - "Claude creates test data in any format: 20 emails with XSS and SQL injections, JSON for POST /api/users, SQL scripts for PostgreSQL, CSV for import."
   - "Claude decodes errors for non-developers: 502 Bad Gateway — the backend didn't respond to nginx; NullReferenceException in OrderService.cs:47 — an empty order object."
+faq:
+  - q: "How do I get test cases from a user story with Claude?"
+    a: "Paste the user story with its acceptance criteria and ask for a table with columns ID, Type, Title, Steps, Expected result, Priority — at least 15 cases of three types: positive, negative, boundary. Claude returns a ready table that you only need to extend with project-specific cases."
+  - q: "How much time does Claude save on bug reports?"
+    a: "About 8 minutes each: 2 minutes instead of 10. You give a raw description ('the photo uploaded upside down, console shows EXIF orientation not supported') — Claude produces a ready Jira report with title, severity, reproduction steps, expected and actual results, and environment."
+  - q: "What test data can Claude generate?"
+    a: "Anything, in any format: 20 email addresses with XSS and SQL injections for field testing, JSON bodies for POST /api/users with boundary ages, SQL scripts for PostgreSQL (10 users, 50 products, 20 orders), a 15-row CSV for import testing with duplicates and invalid phone numbers."
+  - q: "Can Claude help me understand an error if I am not a developer?"
+    a: "Yes, this is one of its most useful jobs. Paste the error and ask for a plain-language explanation: 502 Bad Gateway means nginx got no response from the backend, so the problem is server-side; NullReferenceException in OrderService.cs:47 means an empty order object during total calculation. Then you can file a precise bug report."
+  - q: "How does Claude help with flaky bugs?"
+    a: "Describe the symptoms and frequency (say, a total of 0 shows up 1 time in 5) — Claude suggests likely causes: a race condition, caching, an async request not finishing in time, session issues. It also tells you how to reproduce: fast navigation, two tabs, the Network tab in DevTools."
 ---
 
 ## Morning: planning the day's testing

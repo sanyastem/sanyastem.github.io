@@ -14,6 +14,17 @@ tldr:
   - "/review runs git diff HEAD and checks a checklist: async/await for IO, DTOs instead of entities, standalone components, OnPush, no any or Console.WriteLine."
   - "/test writes unit tests: xUnit + Moq for C# (Method_Condition_ExpectedResult naming), Jasmine/Jest for Angular; it runs the tests after generating them."
   - "Frontmatter sets name, description and allowed-tools; the more precise the description, the better Claude auto-invokes the skill; the old .claude/commands/ format still works."
+faq:
+  - q: "How does the SKILL.md format differ from the old commands in .claude/commands/?"
+    a: "A skill now lives in .claude/skills/<name>/SKILL.md and carries frontmatter with name, description and allowed-tools fields. There is no behavioral difference from the old .claude/commands/review.md format — it still works, the new one just supports more settings. The allowed-tools field restricts tooling: /review only needs Read and Bash, while /test also needs Write."
+  - q: "What does the /review skill check during a .NET + Angular code review?"
+    a: "It runs git diff HEAD and walks a checklist. For C#: async/await on IO, DTOs instead of entities in controllers, no Console.WriteLine, Repository pattern, no magic strings. For Angular: standalone components, OnPush, subscriptions via async pipe or takeUntilDestroyed(), inject() instead of constructor injection, explicit types with no any. The output is three lists: what is good, what violates the standards (with file and line), and debatable points."
+  - q: "How do I make Claude write unit tests that follow project standards?"
+    a: "The /test skill pins the rules in SKILL.md: for C# — xUnit + Moq, test names like Method_Condition_ExpectedResult, mocked dependencies instead of a real database, coverage of the happy path, null inputs, boundary values and expected exceptions. For Angular — Jasmine/TestBed or Jest with jasmine.createSpyObj and HttpClientTestingModule. After generating the tests, the skill runs them itself and verifies they pass."
+  - q: "How does Claude Code decide when to invoke a skill automatically?"
+    a: "Through the description field in the frontmatter: Claude matches the user's request against the descriptions of available skills. The more precise the description, the more likely the auto-invocation — write it as an answer to 'when should this skill run?'. For example, 'Check current changes against project standards' fires on a review request even without an explicit /review."
+  - q: "How do I pass arguments to a Claude Code skill?"
+    a: "Via the $ARGUMENTS placeholder in the SKILL.md body: everything typed after the command name is substituted in its place. For example, /test ProductService passes ProductService, and /db 'find last month's orders with total > 1000' passes the whole query description. A skill can also handle an empty argument — /debug with no parameters grabs the logs itself via docker compose logs --tail=50 api."
 ---
 
 ## New format: SKILL.md with frontmatter

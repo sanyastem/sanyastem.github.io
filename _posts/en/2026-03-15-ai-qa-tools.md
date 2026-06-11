@@ -16,6 +16,17 @@ tldr:
   - "For a 'Transfer amount' field (1–1,000,000) AI produces boundary values: 0, 0.01, 0.99, 1.01, 999,999.99, 1,000,000.01, a comma instead of a dot, a space inside the number."
   - "From a free-form bug description AI builds a structured report: title, numbered steps, actual and expected results, Severity — you only review and submit."
   - "For a flaky bug (1 in 5 attempts) AI lists the conditions that matter: slow connection, fast double click, authorization state, cart size."
+faq:
+  - q: "How does AI help with exploratory testing?"
+    a: "AI acts as a conversation partner before a session: describe the feature and it suggests 15 non-obvious scenarios that are typically missed. For a mobile bank's account section, that means things like changing the email from two devices at once, changing the password while the session expires, or unlinking a social account during an active login through it."
+  - q: "How do I find boundary values for a field with AI?"
+    a: "Describe the field and its limits — AI returns a set of values to check. For a transfer amount field (1 to 1,000,000) that is: 0, 0.01, 0.99, 1.01, 999,999.99, 1,000,000.01, negative numbers, a comma instead of a dot, a space inside the number. You would have written part of that list yourself — but not all of it."
+  - q: "How do I write a bug report quickly with AI?"
+    a: "Describe what happened in your own words and ask for a report with a title, numbered reproduction steps, actual and expected results, and Severity. AI returns a clean structured document — you only review and submit."
+  - q: "Can AI help reproduce a flaky bug?"
+    a: "Yes. Describe the symptoms and frequency (for example, a button fails 1 time in 5) — AI lists the conditions that may matter: slow connection, fast double click, authorization state, cart size. That gives you concrete hypotheses for reproducing the bug reliably."
+  - q: "Will AI replace manual QA engineers?"
+    a: "No. AI does not see the screen and does not know your product or business logic — it does not replace a tester's intuition, it widens the angle of view. Use it like an experienced colleague who has seen a lot: for generating ideas, checklists, and quick dives into unfamiliar topics like OAuth 2.0."
 ---
 
 ## AI as a partner during a session

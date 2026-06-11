@@ -8,6 +8,15 @@ tldr:
   - "Переключение — одна строка JS: html.setAttribute('data-theme', isDark ? 'light' : 'dark'); выбор сохраняй в localStorage и восстанавливай при загрузке."
   - "Системную тему CSS подхватывает сам через @media (prefers-color-scheme: dark); проверяй сначала localStorage, потом системную настройку."
   - "Для плавного перехода: transition: background 0.2s, color 0.2s на body; не вешай transition: all — это замедлит анимации."
+faq:
+  - q: "Как сделать тёмную тему на CSS-переменных без библиотек?"
+    a: "Объяви цвета в :root (--bg, --text, --accent), а в селекторе [data-theme='dark'] переопредели их тёмными значениями. Все элементы используют var(--bg) и var(--text), поэтому смена атрибута data-theme на html мгновенно перекрашивает страницу."
+  - q: "Как переключать тему одной строкой JavaScript?"
+    a: "document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark'), где isDark читается из текущего атрибута. Выбор пользователя сохраняй через localStorage.setItem('theme', ...) и восстанавливай при загрузке страницы."
+  - q: "Как подхватить системную тёмную тему пользователя?"
+    a: "Через медиазапрос @media (prefers-color-scheme: dark) — внутри него переопредели переменные в :root, и CSS применит тёмные цвета без всякого JS. Можно комбинировать с ручным переключателем: сначала проверяй localStorage, потом системную настройку."
+  - q: "Как сделать плавный переход между светлой и тёмной темой?"
+    a: "Добавь на body правило transition: background 0.2s, color 0.2s. Не используй transition: all — это замедлит остальные анимации; перечисляй только конкретные свойства: background, color, border-color."
 date: 2025-02-10
 date_ru: "10 февраля 2025"
 read_time: 6

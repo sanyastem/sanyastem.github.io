@@ -8,6 +8,17 @@ tldr:
   - "/review запускает git diff HEAD и проверяет чеклист: async/await для IO, DTO вместо entity, standalone компоненты, OnPush, отсутствие any и Console.WriteLine."
   - "/test пишет unit-тесты: xUnit + Moq для C# (имя МетодНазвание_Условие_ОжидаемыйРезультат), Jasmine/Jest для Angular; после генерации запускает тесты."
   - "Frontmatter задаёт name, description и allowed-tools; чем точнее description, тем лучше Claude вызывает скилл сам; старый формат .claude/commands/ тоже работает."
+faq:
+  - q: "Чем формат SKILL.md отличается от старых команд в .claude/commands/?"
+    a: "Скилл теперь живёт в папке .claude/skills/<имя>/SKILL.md и имеет frontmatter с полями name, description и allowed-tools. Разницы в поведении со старым форматом .claude/commands/review.md нет — он продолжает работать, просто новый поддерживает больше настроек. Поле allowed-tools ограничивает инструменты: например, /review хватает Read и Bash, а /test нужен ещё Write."
+  - q: "Что проверяет скилл /review при код-ревью .NET + Angular проекта?"
+    a: "Он запускает git diff HEAD и идёт по чеклисту. Для C#: async/await на IO, DTO вместо entity в контроллерах, отсутствие Console.WriteLine, Repository pattern, никаких магических строк. Для Angular: standalone-компоненты, OnPush, подписки через async pipe или takeUntilDestroyed(), inject() вместо constructor injection, явные типы без any. Результат — три списка: что хорошо, что нарушает стандарты (файл и строка) и спорные моменты."
+  - q: "Как заставить Claude писать unit-тесты по стандартам проекта?"
+    a: "Скилл /test фиксирует правила в SKILL.md: для C# — xUnit + Moq, имя теста МетодНазвание_Условие_ОжидаемыйРезультат, мок зависимостей вместо реальной БД, покрытие happy path, null-входов, граничных значений и исключений. Для Angular — Jasmine/TestBed или Jest с jasmine.createSpyObj и HttpClientTestingModule. После генерации скилл сам запускает тесты и проверяет, что они зелёные."
+  - q: "Как Claude Code решает, когда вызвать скилл автоматически?"
+    a: "По полю description в frontmatter: Claude сопоставляет запрос пользователя с описаниями доступных скиллов. Чем точнее description, тем выше шанс автоматического вызова — пиши его как ответ на вопрос «когда запускать этот скилл?». Например, «Проверить текущие изменения на соответствие стандартам проекта» сработает на просьбу сделать ревью без явного /review."
+  - q: "Как передать аргументы в скилл Claude Code?"
+    a: "Через плейсхолдер $ARGUMENTS в теле SKILL.md: всё, что написано после имени команды, подставляется на его место. Например, /test ProductService подставит ProductService, а /db «найти заказы за месяц с суммой > 1000» передаст всё описание запроса. Скилл может предусмотреть и пустой аргумент — /debug без параметров сам возьмёт логи через docker compose logs --tail=50 api."
 date: 2026-03-20
 date_ru: "20 марта 2026"
 read_time: 10

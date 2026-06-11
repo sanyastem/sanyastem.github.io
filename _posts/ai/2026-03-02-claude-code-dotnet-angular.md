@@ -8,6 +8,17 @@ tldr:
   - "В .claude/settings.json разрешай Bash(dotnet *), Bash(npm run *), Bash(docker compose *); запрещай git push, docker compose down --volumes и dotnet ef database drop."
   - ".mcp.json подключает MySQL (@benborla29/mcp-server-mysql), MongoDB (mongodb-mcp-server) и GitHub MCP; секреты — только через переменные окружения из .env."
   - "Готовые skills в .claude/commands/: /migrate (миграции EF Core), /feature (скелет фичи), /check (build, test, lint перед коммитом), /logs (анализ логов Docker)."
+faq:
+  - q: "Что писать в CLAUDE.md для проекта на .NET и Angular?"
+    a: "Три блока: стек (.NET 10 + C# 14, Angular 20 со standalone-компонентами и Signals, MySQL 8.4, MongoDB 7, Docker), команды (dotnet build, dotnet test, npm run start, docker compose up -d) и соглашения — Repository pattern, DTO вместо entity, OnPush, inject() вместо constructor injection. Плюс секция «Не трогать»: src/Migrations/, dist/ и .env. Файл кладётся в корень монорепо."
+  - q: "Какие разрешения настроить в .claude/settings.json для стека .NET + Docker?"
+    a: "В allow — повседневные команды: Bash(dotnet *), Bash(npm run *), Bash(ng *), Bash(docker compose *), а также git diff, git status, git add и git commit. В deny — деструктивные операции: Bash(git push *), Bash(docker compose down --volumes) и Bash(dotnet ef database drop *). Так Claude работает автономно, но пуш и дроп БД требуют ручного подтверждения."
+  - q: "Как подключить MySQL и MongoDB к Claude Code через MCP?"
+    a: "В .mcp.json в корне проекта прописываются серверы: @benborla29/mcp-server-mysql для MySQL, mongodb-mcp-server для MongoDB и @modelcontextprotocol/server-github для GitHub — все запускаются через npx. Секреты не хардкодятся: в конфиге ссылки вида ${MYSQL_PASSWORD}, а значения Claude берёт из переменных окружения, загруженных из .env через source .env или direnv."
+  - q: "Какие slash-команды (skills) полезны для .NET + Angular проекта?"
+    a: "Четыре базовых: /migrate создаёт и применяет миграцию EF Core с проверкой содержимого, /feature генерирует скелет фичи (controller, service, repository, DTO на бэке и standalone-компонент с сервисом и маршрутами на фронте), /check прогоняет dotnet build, dotnet test, npm run lint и npm run build перед коммитом, /logs показывает и анализирует docker compose logs. Каждый — Markdown-файл в .claude/commands/."
+  - q: "Как Claude Code работает с секретами, чтобы они не попали в репозиторий?"
+    a: "В репозиторий коммитится только .env.example с пустыми или заглушечными значениями, а реальный .env добавлен в .gitignore. Конфиги (.mcp.json, docker-compose.yml) ссылаются на переменные окружения вида ${MYSQL_PASSWORD} — Claude Code подхватывает их из текущего shell. В CLAUDE.md секция «Не трогать» дополнительно запрещает коммитить .env."
 date: 2026-03-02
 date_ru: "2 марта 2026"
 read_time: 9

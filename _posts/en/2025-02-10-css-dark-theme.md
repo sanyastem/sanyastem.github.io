@@ -14,6 +14,15 @@ tldr:
   - "Switching is one line of JS: html.setAttribute('data-theme', isDark ? 'light' : 'dark'); persist the choice in localStorage and restore it on load."
   - "CSS picks up the system theme by itself via @media (prefers-color-scheme: dark); check localStorage first, then the system setting."
   - "For a smooth switch: transition: background 0.2s, color 0.2s on body; do not use transition: all — it slows animations down."
+faq:
+  - q: "How do I build a dark theme with CSS variables and no libraries?"
+    a: "Declare your colors in :root (--bg, --text, --accent) and override them in a [data-theme='dark'] selector with dark values. Every element uses var(--bg) and var(--text), so flipping the data-theme attribute on html instantly recolors the page."
+  - q: "How do I toggle the theme with one line of JavaScript?"
+    a: "document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark'), where isDark is read from the current attribute. Persist the choice with localStorage.setItem('theme', ...) and restore it on page load."
+  - q: "How do I pick up the user's system dark theme?"
+    a: "Use the @media (prefers-color-scheme: dark) media query — override the :root variables inside it and CSS applies the dark colors with no JS at all. You can combine it with a manual toggle: check localStorage first, then the system setting."
+  - q: "How do I make the switch between light and dark themes smooth?"
+    a: "Add transition: background 0.2s, color 0.2s to body. Do not use transition: all — it slows down other animations; list only the specific properties: background, color, border-color."
 ---
 
 ## What CSS variables are
