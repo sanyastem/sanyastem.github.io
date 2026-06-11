@@ -9,6 +9,11 @@ description: "GitHub Pages — free hosting straight from a repository. Step by 
 excerpt_text: "Free hosting straight from a repository — step by step from zero to a working site"
 keywords: "github pages, hosting, free hosting, static site, deploy"
 translation_of: "/devops/github-pages/"
+tldr:
+  - "A repository named username.github.io plus an index.html in the root = a free site; enable it in Settings → Pages → Deploy from a branch, deploy takes 1-2 minutes."
+  - "Custom domain: enter it in the Custom domain field and add a DNS CNAME record pointing to username.github.io; HTTPS turns on automatically via Let's Encrypt."
+  - "Static files only (HTML/CSS/JS), no server-side logic; limits: repo and site up to 1 GB, 100 MB per file, about 100 GB of traffic per month."
+  - "Getting a 404 — check the file is named index.html in lowercase and sits in the root; site not updating — wrong branch pushed or the CDN is caching."
 ---
 
 ## What is GitHub Pages

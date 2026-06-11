@@ -9,6 +9,11 @@ description: "Use :root and CSS custom properties to switch between dark and lig
 excerpt_text: "Switch the dark theme via :root and one line of JS — no libraries"
 keywords: "css variables, dark theme, dark mode, css custom properties, prefers-color-scheme"
 translation_of: "/web/css-dark-theme/"
+tldr:
+  - "Declare colors as CSS variables in :root (--bg, --text, --accent), and a [data-theme='dark'] selector overrides them for the dark theme — no libraries."
+  - "Switching is one line of JS: html.setAttribute('data-theme', isDark ? 'light' : 'dark'); persist the choice in localStorage and restore it on load."
+  - "CSS picks up the system theme by itself via @media (prefers-color-scheme: dark); check localStorage first, then the system setting."
+  - "For a smooth switch: transition: background 0.2s, color 0.2s on body; do not use transition: all — it slows animations down."
 ---
 
 ## What CSS variables are

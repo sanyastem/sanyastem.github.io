@@ -3,6 +3,11 @@ layout: post
 title: "C# 12–14: что добавили и зачем это использовать"
 categories: dotnet
 translation_of: "/en/dotnet/csharp-modern-features/"
+tldr:
+  - "C# 12 (поставляется с .NET 8) добавил primary constructors и collection expressions [1, 2, 3] со spread-оператором ..; пустая коллекция [] эффективнее new List<T>()."
+  - "C# 13 (с .NET 9) разрешил params для любых коллекций, включая params ReadOnlySpan<T> — без heap-аллокации на hot paths."
+  - "C# 14 (с .NET 10) ввёл field keyword — логика в auto-property без явного backing field — и extension members: свойства расширения через блок extension(string s)."
+  - "Records подходят для DTO и value objects (readonly record struct Money), но не для сущностей EF Core — проблемы с отслеживанием изменений."
 date: 2026-03-25
 date_ru: "25 марта 2026"
 read_time: 11

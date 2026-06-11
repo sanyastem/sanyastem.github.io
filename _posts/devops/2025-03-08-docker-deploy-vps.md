@@ -3,6 +3,11 @@ layout: post
 title: "Docker: деплой на VPS с нуля"
 categories: devops
 translation_of: "/en/devops/docker-deploy-vps/"
+tldr:
+  - "Минимум для Docker на VPS — 2 CPU и 4 ГБ RAM (Hetzner от €4.5/мес); Docker ставится одной командой: curl -fsSL https://get.docker.com | sh."
+  - "Создай пользователя deploy (usermod -aG docker deploy), склонируй репо, заполни .env и запусти docker compose up -d --build — приложение на порту 3000."
+  - "Nginx в compose проксирует 80/443 на app:3000 через proxy_pass; контейнер приложения наружу не торчит — у него expose вместо ports."
+  - "Автодеплой: workflow на push в main заходит по SSH (appleboy/ssh-action), делает git pull, docker compose up -d --build и docker image prune -f."
 date: 2025-03-08
 date_ru: "8 марта 2025"
 last_modified_at: 2026-05-08

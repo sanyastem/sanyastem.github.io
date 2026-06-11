@@ -11,6 +11,11 @@ description: "How to use Claude every day — test cases from user stories, bug 
 excerpt_text: "Test cases, bug reports, test data — a full workday with Claude"
 keywords: "claude testing, test cases, bug report, test data, qa daily, manual qa engineer"
 translation_of: "/qa/claude-qa-daily/"
+tldr:
+  - "Claude turns a user story into a table of 15+ test cases (positive, negative, boundary) with ID, steps, expected result, and priority."
+  - "Claude formats a raw bug description into a ready Jira report with title, steps, severity, and environment — 2 minutes instead of 10."
+  - "Claude creates test data in any format: 20 emails with XSS and SQL injections, JSON for POST /api/users, SQL scripts for PostgreSQL, CSV for import."
+  - "Claude decodes errors for non-developers: 502 Bad Gateway — the backend didn't respond to nginx; NullReferenceException in OrderService.cs:47 — an empty order object."
 ---
 
 ## Morning: planning the day's testing

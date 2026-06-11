@@ -9,6 +9,11 @@ description: "Mobile-first approach, breakpoints, clamp() instead of piles of me
 excerpt_text: "Mobile-first, clamp() and minimal code for a responsive site on any screen"
 keywords: "responsive design, media queries, mobile first, responsive, clamp css"
 translation_of: "/web/responsive-design/"
+tldr:
+  - "Write mobile-first: base styles target mobile, while @media (min-width: 768px) and (min-width: 1024px) expand the grid to 2 and 3 columns."
+  - "clamp(min, preferred, max) scales sizes without media queries: font-size: clamp(1.2rem, 5vw, 2.4rem), padding: clamp(16px, 5vw, 80px)."
+  - "A responsive grid without a single media query: grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))."
+  - "Without the viewport meta tag (width=device-width, initial-scale=1.0) mobile browsers render the page as desktop; replace fixed width: 960px with max-width plus width: 100%."
 ---
 
 ## Mobile-first — write for mobile first

@@ -3,6 +3,11 @@ layout: post
 title: "Angular 20 Signal Store: переписываем NgRx за вечер"
 categories: web
 translation_of: "/en/web/angular-signal-store/"
+tldr:
+  - "Signal Store из @ngrx/signals заменяет NgRx Classic: один файл вместо 4–5 (actions, reducer, selectors, effects), кода выходит примерно в 3 раза меньше."
+  - "Стор собирается из withState, withComputed и withMethods; чтение — прямой доступ store.cart(), изменение — только через patchState, иммутабельность остаётся на тебе."
+  - "Async-логика — через rxMethod с RxJS-pipeline (debounceTime, switchMap) или обычный async-метод; это эквивалент NgRx effects, но без actions."
+  - "DevTools подключаются через withDevtools('cart'), но без классического time-travel; NgRx Classic оставляй для сложных effects, аудит-истории действий и больших команд."
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 10

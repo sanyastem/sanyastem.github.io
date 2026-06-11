@@ -3,6 +3,11 @@ layout: post
 title: "Angular 20: Signals, Zoneless и новый синтаксис шаблонов"
 categories: web
 translation_of: "/en/web/angular-20-signals/"
+tldr:
+  - "В Angular 20 Signals API полностью стабилен (signal, computed, effect, linkedSignal), Zoneless change detection стабилен с версии 20.2, нужен TypeScript 5.8+."
+  - "Zoneless включается строкой provideZonelessChangeDetection() и убирает ~100KB Zone.js из бандла; компонентам обязателен ChangeDetectionStrategy.OnPush."
+  - "Новый control flow @if/@for/@switch встроен в компилятор и не требует импорта; в @for параметр track обязателен — без него ошибка компиляции."
+  - "resource() и httpResource() загружают async-данные со встроенными .value(), .isLoading(), .error() и .reload() и сами перезагружаются при смене входных сигналов."
 date: 2026-04-08
 date_ru: "8 апреля 2026"
 read_time: 13

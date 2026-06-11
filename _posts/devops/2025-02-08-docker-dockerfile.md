@@ -3,6 +3,11 @@ layout: post
 title: "Docker: пишем Dockerfile и собираем образы"
 categories: devops
 translation_of: "/en/devops/docker-dockerfile/"
+tldr:
+  - "Каждая инструкция Dockerfile создаёт слой, слои кэшируются: редко меняющееся (COPY package*.json и RUN npm ci) ставь выше кода — COPY . . в самом конце."
+  - "Multi-stage сборка (FROM ... AS builder, затем COPY --from=builder) уменьшает образ в 5-10 раз: Node.js-проект — с 1.2 ГБ до 120 МБ."
+  - "Alpine-образы экономят место: node:20 весит 1.1 ГБ, node:20-alpine — 180 МБ; кэш apt чисти в той же RUN-инструкции (rm -rf /var/lib/apt/lists/*)."
+  - "В .dockerignore добавь node_modules, .git, .env; в продакшне не запускай контейнер от root — поставь USER node перед CMD."
 date: 2025-02-08
 date_ru: "8 февраля 2025"
 last_modified_at: 2026-05-08

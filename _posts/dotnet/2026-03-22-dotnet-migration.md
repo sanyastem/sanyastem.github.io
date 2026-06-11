@@ -3,6 +3,11 @@ layout: post
 title: "Миграция с .NET Framework на .NET 10: пошаговый план"
 categories: dotnet
 translation_of: "/en/dotnet/dotnet-migration/"
+tldr:
+  - "Начни с dotnet tool install -g upgrade-assistant и upgrade-assistant analyze MySolution.sln — отчёт покажет несовместимые пакеты и устаревшие API."
+  - ".NET 10 — LTS с поддержкой до ноября 2028 и в 2–5 раз быстрее Framework; Global.asax заменяется на Program.cs, Web.config — на appsettings.json."
+  - "System.Web удалён полностью, WCF не поддерживается (замена — REST, gRPC или CoreWCF), синхронный I/O в контроллерах по умолчанию запрещён."
+  - "Для больших проектов — стратегия Strangler Fig: nginx роутит новые эндпоинты на .NET 10, остальные на старый Framework; big bang — только до ~50K строк кода."
 date: 2026-03-22
 date_ru: "22 марта 2026"
 read_time: 12

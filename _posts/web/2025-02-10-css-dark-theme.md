@@ -3,6 +3,11 @@ layout: post
 title: "CSS-переменные: тёмная тема без лишнего кода"
 categories: web
 translation_of: "/en/web/css-dark-theme/"
+tldr:
+  - "Объяви цвета как CSS-переменные в :root (--bg, --text, --accent), а селектор [data-theme='dark'] переопределяет их для тёмной темы — без библиотек."
+  - "Переключение — одна строка JS: html.setAttribute('data-theme', isDark ? 'light' : 'dark'); выбор сохраняй в localStorage и восстанавливай при загрузке."
+  - "Системную тему CSS подхватывает сам через @media (prefers-color-scheme: dark); проверяй сначала localStorage, потом системную настройку."
+  - "Для плавного перехода: transition: background 0.2s, color 0.2s на body; не вешай transition: all — это замедлит анимации."
 date: 2025-02-10
 date_ru: "10 февраля 2025"
 read_time: 6

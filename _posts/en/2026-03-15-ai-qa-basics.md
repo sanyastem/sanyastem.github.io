@@ -11,6 +11,11 @@ description: "How to use ChatGPT and other AI assistants to generate test cases,
 excerpt_text: "Generate test cases, test data, and find gaps in requirements with AI"
 keywords: "AI testing, ChatGPT test cases, QA automation, test generation, prompt QA"
 translation_of: "/qa/ai-qa-basics/"
+tldr:
+  - "AI generates 15–20 test cases from a feature description in seconds; the tester's job is to review them and add the business logic AI doesn't know."
+  - "Three rules for a good prompt: give context (fields, limits, business rules), show a format example (ID | Title | Steps | Expected result), and iterate."
+  - "AI finds problems in requirements before testing starts: ambiguities, missing acceptance criteria, edge cases, and security risks in a user story."
+  - "From a stack trace AI drafts a bug report with steps, expected and actual results, and Severity, but a human always verifies the final cause and priority."
 ---
 
 ## AI doesn't replace the QA engineer — it removes the routine

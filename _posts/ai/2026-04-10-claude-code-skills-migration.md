@@ -3,6 +3,11 @@ layout: post
 title: "Skills для миграции: .NET 10, MySQL 8.4, Angular 20"
 categories: ai
 translation_of: "/en/ai/claude-code-skills-migration/"
+tldr:
+  - "Шесть скиллов для миграций в .claude/skills/: /dotnet-migrate, /csharp-modernize, /efcore-optimize, /mysql-audit, /mysql-explain, /ng-upgrade."
+  - "/dotnet-migrate переводит .NET Framework на .NET 10: csproj в SDK-style с net10.0, Program.cs с WebApplication.CreateBuilder, Web.config → appsettings.json."
+  - "/efcore-optimize находит N+1, запросы без AsNoTracking и меняет bulk-циклы на ExecuteDeleteAsync; /mysql-explain читает EXPLAIN ANALYZE и строит индексы по правилу ESR."
+  - "/ng-upgrade мигрирует компоненты на Angular 20: input()/output() вместо декораторов, signal() вместо BehaviorSubject, @if/@for, inject() и OnPush."
 date: 2026-04-10
 date_ru: "10 апреля 2026"
 read_time: 9

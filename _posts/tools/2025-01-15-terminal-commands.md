@@ -3,6 +3,11 @@ layout: post
 title: "Терминал: команды которые экономят время"
 categories: tools
 translation_of: "/en/tools/terminal-commands/"
+tldr:
+  - "Ctrl+R — обратный поиск по истории: начни вводить текст, и терминал найдёт последнюю команду с ним; быстрее, чем листать стрелкой вверх."
+  - "Сокращения через alias в ~/.bashrc или ~/.zshrc: alias gs='git status', gc='git commit -m', dcu='docker-compose up -d'; применить — source ~/.zshrc."
+  - "&& выполняет следующую команду только при успехе предыдущей (npm run build && npm start), || — только при ошибке."
+  - "cd - возвращает в предыдущую директорию, history | grep docker ищет по истории, !42 выполняет команду с номером 42."
 date: 2025-01-15
 date_ru: "15 января 2025"
 read_time: 4

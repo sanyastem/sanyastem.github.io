@@ -11,6 +11,11 @@ description: "A walkthrough of the key features of C# 12, 13 and 14: primary con
 excerpt_text: "Primary constructors, collection expressions, C# 14 extension members and other features — with examples of when to actually use them"
 keywords: "C# 12 13 14 new features, primary constructor C#, collection expressions, pattern matching C# 14, extension members C# 14, field keyword C#"
 translation_of: "/dotnet/csharp-modern-features/"
+tldr:
+  - "C# 12 (ships with .NET 8) added primary constructors and collection expressions [1, 2, 3] with the spread operator ..; an empty collection [] beats new List<T>()."
+  - "C# 13 (with .NET 9) allowed params for any collection type, including params ReadOnlySpan<T> — no heap allocation on hot paths."
+  - "C# 14 (with .NET 10) introduced the field keyword — logic in an auto-property without an explicit backing field — and extension members: extension properties via an extension(string s) block."
+  - "Records fit DTOs and value objects (readonly record struct Money), but not EF Core entities — change tracking issues."
 ---
 
 ## What changed and in which version

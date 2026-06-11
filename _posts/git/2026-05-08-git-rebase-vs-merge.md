@@ -3,6 +3,11 @@ layout: post
 title: "git rebase vs merge: когда что использовать на реальном проекте"
 categories: git
 translation_of: "/en/git/git-rebase-vs-merge/"
+tldr:
+  - "Правило выбора: своя ветка — git rebase main для линейной истории; общая ветка — только merge, иначе force-push сломает коммиты коллег."
+  - "После rebase пушь через git push --force-with-lease — он откажется перезаписывать ветку, если кто-то запушил в неё после твоего fetch."
+  - "Перед PR чисти историю через git rebase -i: fixup склеивает WIP-коммиты без сообщений, squash — с объединением сообщений, drop удаляет коммит."
+  - "Потерянные после rebase коммиты ищи в git reflog (хранит движения HEAD 90 дней): git reset --hard <sha> вернёт всё как было."
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 8

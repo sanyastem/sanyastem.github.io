@@ -11,6 +11,11 @@ description: "How AI helps plan regression, set priorities, analyze sprint resul
 excerpt_text: "Plan regression, set priorities, and analyze bugs together with AI"
 keywords: "AI regression testing, test prioritization, QA retrospective, AI for QA, AI test plan"
 translation_of: "/qa/ai-qa-testing-ai/"
+tldr:
+  - "Before a regression run AI explains module dependencies: a discount change affects the payment module, receipts, and order history — dependent areas won't drop out of the run."
+  - "When time is short (200 test cases, time for 50), AI prioritizes: critical purchase path → directly affected modules → adjacent ones → the rest of the regression."
+  - "From a sprint's bug list AI spots patterns (cross-browser issues, data input, caching) and suggests what to automate first."
+  - "AI works as a growth trainer: it asks 10 Middle QA-level interview questions with feedback and explains the difference between smoke, sanity, and regression with store examples."
 ---
 
 ## Plan regression

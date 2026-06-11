@@ -11,6 +11,11 @@ description: "A full day with Claude — from morning planning to evening report
 excerpt_text: "A full day with Claude: planning, test cases, data, bug report, report"
 keywords: "claude workflow qa, claude jira, claude postman, qa automation, claude skills qa"
 translation_of: "/qa/claude-qa-workflow/"
+tldr:
+  - "A typical QA day with Claude: sprint test planning in the morning, test cases from a PR description, JSON data, a bug report in 30 seconds, an evening report for the lead in 2 minutes."
+  - "A CLAUDE.md file in the repo root stores the stack, environments, test accounts, and business rules — Claude Code reads it in every session and knows the project context."
+  - "Custom skills are created in .claude/skills/name/SKILL.md: the /qa-testcases command generates test cases, /qa-bugreport formats a bug from a free-form description."
+  - "Claude integrates with tools through formats: a JSON collection for Postman, Jira markdown for bugs, CSV for import into TestRail and Excel."
 ---
 
 ## A full day with Claude

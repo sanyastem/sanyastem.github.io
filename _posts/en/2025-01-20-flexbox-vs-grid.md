@@ -9,6 +9,11 @@ description: "Simple rule: Flexbox for one direction, Grid for two-dimensional l
 excerpt_text: "A simple rule and real examples with code — once and for all"
 keywords: "flexbox, css grid, flexbox vs grid, css layout, layout"
 translation_of: "/web/flexbox-vs-grid/"
+tldr:
+  - "Simple rule: Flexbox for one direction (a row or a column), Grid for a two-dimensional layout where rows and columns matter at the same time."
+  - "A typical page: Grid for the layout (grid-template-columns: 260px 1fr) and the card grid, Flexbox for navigation and card internals."
+  - "A responsive grid without media queries: repeat(auto-fill, minmax(280px, 1fr)) works out how many columns fit on its own."
+  - "auto-fill reserves empty columns and keeps cell size, auto-fit stretches items to the full width; for cards you usually want auto-fill."
 ---
 
 ## The simple rule

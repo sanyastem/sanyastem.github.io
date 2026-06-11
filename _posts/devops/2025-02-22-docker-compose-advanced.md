@@ -3,6 +3,11 @@ layout: post
 title: "Docker Compose: оркестрация многоконтейнерных приложений"
 categories: devops
 translation_of: "/en/devops/docker-compose-advanced/"
+tldr:
+  - "Compose описывает все сервисы (app, postgres:16-alpine, redis:7-alpine) в одном docker-compose.yml и поднимает их одной командой docker-compose up -d."
+  - "depends_on задаёт лишь порядок старта; чтобы дождаться готовности БД, нужен healthcheck (pg_isready) плюс condition: service_healthy."
+  - "Секреты выноси в .env рядом с compose-файлом и добавляй его в .gitignore — Compose подхватывает переменные вида POSTGRES_PASSWORD автоматически."
+  - "Профили разделяют конфигурации: docker-compose --profile dev up -d поднимет pgadmin только в dev; docker-compose down -v удалит и данные volumes."
 date: 2025-02-22
 date_ru: "22 февраля 2025"
 last_modified_at: 2026-05-08

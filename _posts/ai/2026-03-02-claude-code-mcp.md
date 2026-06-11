@@ -3,6 +3,11 @@ layout: post
 title: "Claude Code: MCP — подключаем внешние инструменты"
 categories: ai
 translation_of: "/en/ai/claude-code-mcp/"
+tldr:
+  - "MCP (Model Context Protocol) даёт Claude Code доступ к внешним инструментам — БД, GitHub, браузер; сервер добавляется командой claude mcp add --transport stdio|http."
+  - "Для команды серверы фиксируют в .mcp.json в корне репозитория (или claude mcp add --scope project); проверка — claude mcp list или /mcp внутри сессии."
+  - "Актуальные серверы: GitHub — hosted HTTP (https://api.githubcopilot.com/mcp/), браузер — @playwright/mcp (puppeteer архивирован), плюс Postgres, SQLite, Sentry, Linear."
+  - "Секреты не хардкодят в .mcp.json — только подстановка переменных вида ${GITHUB_TOKEN}; свой сервер пишется на @modelcontextprotocol/sdk (TypeScript или Python)."
 date: 2026-03-02
 last_modified_at: 2026-05-24
 date_ru: "2 марта 2026"

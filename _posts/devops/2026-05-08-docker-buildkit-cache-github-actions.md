@@ -3,6 +3,11 @@ layout: post
 title: "Docker BuildKit cache в GitHub Actions: -80% времени .NET-билда"
 categories: devops
 translation_of: "/en/devops/docker-buildkit-cache-github-actions/"
+tldr:
+  - "BuildKit-кэш с cache-from/cache-to type=gha сокращает сборку .NET-образа в Actions с 5-7 минут до ~1.5 — кэш живёт в GitHub Actions cache (10 ГБ, бесплатно)."
+  - "mode=max обязателен для multi-stage: экспортирует все промежуточные слои, а не только финальные; mode=min годится лишь для микро-Dockerfile."
+  - "Порядок слоёв решает: сначала COPY *.csproj и dotnet restore, потом COPY . . — иначе любой правленный .cs инвалидирует restore (+2-3 минуты на билд)."
+  - "Частые причины cache miss: лишние файлы в context из-за неполного .dockerignore (bin/, obj/), обновлённый base image и вытеснение по LRU при превышении 10 ГБ."
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 8

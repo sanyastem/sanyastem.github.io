@@ -3,6 +3,11 @@ layout: post
 title: "Claude Code под стек .NET + Angular + MySQL + MongoDB + Docker"
 categories: ai
 translation_of: "/en/ai/claude-code-dotnet-angular/"
+tldr:
+  - "CLAUDE.md в корне монорепо описывает стек (.NET 10, Angular 20, MySQL 8.4, MongoDB 7), команды (dotnet build, npm run start, docker compose up -d) и соглашения."
+  - "В .claude/settings.json разрешай Bash(dotnet *), Bash(npm run *), Bash(docker compose *); запрещай git push, docker compose down --volumes и dotnet ef database drop."
+  - ".mcp.json подключает MySQL (@benborla29/mcp-server-mysql), MongoDB (mongodb-mcp-server) и GitHub MCP; секреты — только через переменные окружения из .env."
+  - "Готовые skills в .claude/commands/: /migrate (миграции EF Core), /feature (скелет фичи), /check (build, test, lint перед коммитом), /logs (анализ логов Docker)."
 date: 2026-03-02
 date_ru: "2 марта 2026"
 read_time: 9

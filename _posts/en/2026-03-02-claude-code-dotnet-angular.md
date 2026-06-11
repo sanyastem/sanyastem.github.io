@@ -9,6 +9,11 @@ description: "Configuring Claude Code for the .NET, Angular, MySQL, MongoDB and 
 excerpt_text: "A ready-made CLAUDE.md template, settings and Skills for .NET + Angular + MySQL + MongoDB + Docker"
 keywords: "claude code dotnet, claude code angular, claude code setup, CLAUDE.md template, claude code docker"
 translation_of: "/ai/claude-code-dotnet-angular/"
+tldr:
+  - "CLAUDE.md at the monorepo root describes the stack (.NET 10, Angular 20, MySQL 8.4, MongoDB 7), commands (dotnet build, npm run start, docker compose up -d) and conventions."
+  - "In .claude/settings.json allow Bash(dotnet *), Bash(npm run *), Bash(docker compose *); deny git push, docker compose down --volumes and dotnet ef database drop."
+  - ".mcp.json wires up MySQL (@benborla29/mcp-server-mysql), MongoDB (mongodb-mcp-server) and GitHub MCP; secrets only via environment variables from .env."
+  - "Ready-made skills in .claude/commands/: /migrate (EF Core migrations), /feature (feature scaffold), /check (build, test, lint before commit), /logs (Docker log analysis)."
 ---
 
 ## Project structure

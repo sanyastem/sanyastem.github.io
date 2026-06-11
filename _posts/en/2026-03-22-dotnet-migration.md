@@ -11,6 +11,11 @@ description: "How to move from .NET Framework 4.x to .NET 10 LTS: what changed i
 excerpt_text: "A full plan for moving from .NET Framework 4.x to .NET 10 LTS — what breaks and how to fix it"
 keywords: "migration .NET Framework .NET 10, upgrade assistant dotnet, web.config appsettings, Global.asax Program.cs, breaking changes dotnet"
 translation_of: "/dotnet/dotnet-migration/"
+tldr:
+  - "Start with dotnet tool install -g upgrade-assistant and upgrade-assistant analyze MySolution.sln — the report shows incompatible packages and deprecated APIs."
+  - ".NET 10 is an LTS supported until November 2028 and 2-5x faster than Framework; Global.asax becomes Program.cs, Web.config becomes appsettings.json."
+  - "System.Web is removed entirely, WCF is unsupported (replace with REST, gRPC or CoreWCF), and synchronous I/O in controllers is blocked by default."
+  - "For large projects use the Strangler Fig strategy: nginx routes new endpoints to .NET 10 and the rest to the old Framework; big bang only up to ~50K lines of code."
 ---
 
 ## Why migrate and when

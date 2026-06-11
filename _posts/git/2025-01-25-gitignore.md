@@ -3,6 +3,11 @@ layout: post
 title: ".gitignore: что туда класть и почему"
 categories: git
 translation_of: "/en/git/gitignore/"
+tldr:
+  - "В .gitignore обязательно: node_modules и прочие зависимости, .env с секретами, артефакты сборки (dist/, build/, __pycache__/) и системные .DS_Store, Thumbs.db."
+  - "Уже закоммиченный файл .gitignore не скроет — убери его из индекса через git rm --cached .env; если в .env были секреты, смени все скомпрометированные ключи."
+  - "Системный мусор выноси в глобальный игнор: git config --global core.excludesfile ~/.gitignore_global — не придётся дублировать в каждом проекте."
+  - "Готовый .gitignore под стек генерирует gitignore.io — вводишь «Node», «Python», «macOS» и получаешь полный файл."
 date: 2025-01-25
 date_ru: "25 января 2025"
 read_time: 3

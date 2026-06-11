@@ -3,6 +3,11 @@ layout: post
 title: "Claude Code: Agents — параллельные субагенты и SDK"
 categories: ai
 translation_of: "/en/ai/claude-code-agents/"
+tldr:
+  - "Субагенты — независимые экземпляры Claude с изолированным контекстом; работают параллельно и могут использовать отдельные git worktree, не мешая основной ветке."
+  - "Свой субагент описывается файлом .claude/agents/<имя>.md с frontmatter (name, description, model, tools); глобальные агенты кладут в ~/.claude/agents/."
+  - "Claude Agent SDK встраивает агентов в свои скрипты: npm install @anthropic-ai/claude-agent-sdk или pip install claude-agent-sdk, функция query() с maxTurns и cwd."
+  - "Hooks в .claude/settings.json запускают shell-команды на события (PostToolUse, Stop, SubagentStop); permissions с allow/deny блокируют опасное вроде git push и rm."
 date: 2026-03-02
 last_modified_at: 2026-05-24
 date_ru: "2 марта 2026"

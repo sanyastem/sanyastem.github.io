@@ -3,6 +3,11 @@ layout: post
 title: "Как запустить сайт на GitHub Pages за 5 минут"
 categories: devops
 translation_of: "/en/devops/github-pages/"
+tldr:
+  - "Репозиторий с именем username.github.io плюс index.html в корне = бесплатный сайт; включается в Settings → Pages → Deploy from a branch, деплой за 1-2 минуты."
+  - "Кастомный домен: вписать в поле Custom domain и добавить DNS-запись CNAME на username.github.io; HTTPS включается сам через Let's Encrypt."
+  - "Только статика (HTML/CSS/JS), серверной логики нет; лимиты: репо и сайт до 1 ГБ, файл до 100 МБ, около 100 ГБ трафика в месяц."
+  - "Страница 404 — проверь, что файл называется index.html строчными и лежит в корне; сайт не обновляется — пушишь не в ту ветку или кэшируется CDN."
 date: 2025-02-28
 date_ru: "28 февраля 2025"
 read_time: 5

@@ -3,6 +3,11 @@ layout: post
 title: "Claude для тестировщика: ежедневные задачи"
 categories: qa
 translation_of: "/en/qa/claude-qa-daily/"
+tldr:
+  - "Claude генерирует из user story таблицу из 15+ тест-кейсов (позитивные, негативные, граничные) с ID, шагами, ожидаемым результатом и приоритетом."
+  - "Сырое описание бага Claude оформляет в готовый Jira-репорт с заголовком, шагами, severity и окружением — 2 минуты вместо 10."
+  - "Claude создаёт тестовые данные в любом формате: 20 email с XSS и SQL-инъекциями, JSON для POST /api/users, SQL-скрипты для PostgreSQL, CSV для импорта."
+  - "Claude расшифровывает ошибки для не-разработчика: 502 Bad Gateway — backend не ответил nginx; NullReferenceException в OrderService.cs:47 — пустой объект заказа."
 date: 2026-04-10
 date_ru: "10 апреля 2026"
 read_time: 15

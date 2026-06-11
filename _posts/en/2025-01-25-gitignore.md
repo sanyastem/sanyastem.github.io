@@ -11,6 +11,11 @@ description: "node_modules, .env, .DS_Store — what should never end up in a re
 excerpt_text: "node_modules, .env, .DS_Store — what should never end up in a repository"
 keywords: ".gitignore, git ignore, node_modules, .env, gitignore templates"
 translation_of: "/git/gitignore/"
+tldr:
+  - "Must-haves in .gitignore: node_modules and other dependencies, .env with secrets, build artifacts (dist/, build/, __pycache__/) and system files .DS_Store, Thumbs.db."
+  - ".gitignore will not hide an already committed file — remove it from the index with git rm --cached .env; if .env held secrets, rotate every compromised key."
+  - "Move system junk to a global ignore: git config --global core.excludesfile ~/.gitignore_global — no need to duplicate it in every project."
+  - "gitignore.io generates a ready-made .gitignore for your stack — type in Node, Python, macOS and get a complete file."
 ---
 
 ## What is .gitignore

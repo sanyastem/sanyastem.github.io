@@ -9,6 +9,11 @@ description: "Setting up a CI/CD pipeline: every push to main automatically runs
 excerpt_text: "CI/CD pipeline from scratch — tests and deploy on every push to main"
 keywords: "github actions, ci/cd, auto-deploy, workflow yml, continuous integration"
 translation_of: "/devops/github-actions/"
+tldr:
+  - "A workflow is a .yml file in .github/workflows; triggers on: push and pull_request to main, the job runs on runs-on: ubuntu-latest."
+  - "Basic CI: actions/checkout@v4, setup-node@v4 with cache: npm, then npm ci, npm test and npm run build — runs on every push."
+  - "SSH deploy via appleboy/ssh-action@v1: git pull, npm ci --production, pm2 restart app; host, user and private key live in Secrets."
+  - "Secrets are stored in Settings → Secrets and variables → Actions and injected via the secrets context — values never show up in logs."
 ---
 
 ## How it works

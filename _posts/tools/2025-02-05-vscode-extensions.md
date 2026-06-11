@@ -3,6 +3,11 @@ layout: post
 title: "VS Code: расширения которые я использую каждый день"
 categories: tools
 translation_of: "/en/tools/vscode-extensions/"
+tldr:
+  - "Базовый набор: Prettier (формат при сохранении), GitLens (blame-аннотации в коде), Error Lens (ошибки прямо в строке), Path Intellisense, Thunder Client."
+  - "Для Prettier включи в settings.json: editor.formatOnSave: true и editor.defaultFormatter: esbenp.prettier-vscode; кастомные настройки — в .prettierrc."
+  - "Thunder Client — лёгкая замена Postman внутри VS Code: коллекции, переменные среды, история запросов."
+  - "Полезные настройки сразу: files.autoSave: onFocusChange, editor.rulers: [80], лигатуры с Fira Code; открыть settings.json — Ctrl+Shift+P → «Open User Settings (JSON)»."
 date: 2025-02-05
 date_ru: "5 февраля 2025"
 read_time: 3

@@ -9,6 +9,11 @@ description: "alias, history, ctrl+r, && and || — basic terminal tricks every 
 excerpt_text: "alias, history, ctrl+r and other tricks every developer should know"
 keywords: "terminal commands, bash commands, alias bash, command history, unix commands"
 translation_of: "/tools/terminal-commands/"
+tldr:
+  - "Ctrl+R is reverse history search: start typing and the terminal finds the last matching command; faster than scrolling with the up arrow."
+  - "Shortcuts via alias in ~/.bashrc or ~/.zshrc: alias gs='git status', gc='git commit -m', dcu='docker-compose up -d'; apply with source ~/.zshrc."
+  - "&& runs the next command only if the previous one succeeded (npm run build && npm start), || only if it failed."
+  - "cd - returns to the previous directory, history | grep docker searches your history, !42 runs command number 42."
 ---
 
 ## Ctrl+R — search history

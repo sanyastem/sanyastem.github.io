@@ -12,6 +12,11 @@ description: "How Claude Code spawns subagents for parallel tasks, what the Clau
 excerpt_text: "Subagents for parallel tasks, the Claude Agent SDK and how to build your own AI workflows"
 keywords: "claude code agents, claude subagents, claude agent sdk, AI agents, claude code parallel tasks"
 translation_of: "/ai/claude-code-agents/"
+tldr:
+  - "Subagents are independent Claude instances with isolated context; they run in parallel and can use separate git worktrees without touching the main branch."
+  - "A custom subagent is a .claude/agents/<name>.md file with frontmatter (name, description, model, tools); global agents go in ~/.claude/agents/."
+  - "The Claude Agent SDK embeds agents in your own scripts: npm install @anthropic-ai/claude-agent-sdk or pip install claude-agent-sdk, the query() function with maxTurns and cwd."
+  - "Hooks in .claude/settings.json run shell commands on events (PostToolUse, Stop, SubagentStop); permissions with allow/deny block dangerous things like git push and rm."
 ---
 
 ## Agents in Claude Code

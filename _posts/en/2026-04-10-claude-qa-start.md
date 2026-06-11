@@ -11,6 +11,11 @@ description: "How a manual QA engineer can start using Claude — no terminal, n
 excerpt_text: "Start working with Claude — no code, through the browser. 5 first commands for a QA engineer"
 keywords: "claude, QA engineer, qa, manual testing, ai testing, test cases, bug report"
 translation_of: "/qa/claude-qa-start/"
+tldr:
+  - "You can start without a terminal or code: sign up at claude.ai in the browser; the free plan is enough for a tester's first tasks."
+  - "A prompt formula for 90% of tasks: what I'm testing + platform + user role + desired output; the more business rules in the context, the more accurate the answer."
+  - "5 first commands: test cases for a registration form, a bug report from a free-form description, a 40–50 item cart checklist, test emails, and a console error breakdown."
+  - "The Projects section in claude.ai stores the spec and a system instruction — every new chat inside the project gets that context automatically."
 ---
 
 ## Why a QA engineer needs an AI assistant

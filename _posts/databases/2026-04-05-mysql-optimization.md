@@ -3,6 +3,11 @@ layout: post
 title: "MySQL 8.4: индексы, EXPLAIN и оптимизация запросов"
 categories: databases
 translation_of: "/en/databases/mysql-optimization/"
+tldr:
+  - "EXPLAIN ANALYZE показывает план и реальное время: «Table scan» — нет индекса, Sort перед Limit — нужен индекс на сортировку, actual rows >> estimated — ANALYZE TABLE."
+  - "Составной индекс строится по правилу ESR: сначала поля с равенством (=), затем колонка сортировки ORDER BY, диапазоны (>, <, BETWEEN) — последними."
+  - "OFFSET-пагинация сканирует все пропущенные строки; cursor-пагинация WHERE id > :last_id ORDER BY id LIMIT 20 работает за O(log n) через индекс."
+  - "Медленные запросы ловят через slow_query_log с long_query_time = 1 и mysqldumpslow -s t -t 10; неиспользуемые индексы видны в performance_schema."
 date: 2026-04-05
 date_ru: "5 апреля 2026"
 read_time: 12

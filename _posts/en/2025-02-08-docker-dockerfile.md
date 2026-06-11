@@ -12,6 +12,11 @@ description: "A walkthrough of every Dockerfile instruction, image layers, build
 excerpt_text: "Dockerfile instruction by instruction, layers, build cache and image size optimization"
 keywords: "dockerfile, docker image, docker build, docker layers, docker optimization, multi-stage"
 translation_of: "/devops/docker-dockerfile/"
+tldr:
+  - "Every Dockerfile instruction creates a layer and layers are cached: put rarely-changing parts (COPY package*.json and RUN npm ci) above the code — COPY . . goes last."
+  - "A multi-stage build (FROM ... AS builder, then COPY --from=builder) shrinks the image 5-10x: a Node.js project goes from 1.2 GB to 120 MB."
+  - "Alpine images save space: node:20 weighs 1.1 GB, node:20-alpine — 180 MB; clean the apt cache in the same RUN instruction (rm -rf /var/lib/apt/lists/*)."
+  - "Add node_modules, .git and .env to .dockerignore; never run production containers as root — set USER node before CMD."
 ---
 
 ## How a Docker image is structured

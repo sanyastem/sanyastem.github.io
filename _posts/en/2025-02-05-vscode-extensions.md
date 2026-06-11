@@ -9,6 +9,11 @@ description: "Prettier, GitLens, Error Lens, Path Intellisense, Thunder Client �
 excerpt_text: "Prettier, GitLens, Error Lens — what to install first"
 keywords: "vs code extensions, vscode extensions, prettier, gitlens, error lens, vs code setup"
 translation_of: "/tools/vscode-extensions/"
+tldr:
+  - "The core set: Prettier (format on save), GitLens (blame annotations in code), Error Lens (inline errors), Path Intellisense, Thunder Client."
+  - "For Prettier enable in settings.json: editor.formatOnSave: true and editor.defaultFormatter: esbenp.prettier-vscode; custom options go in .prettierrc."
+  - "Thunder Client is a lightweight Postman replacement inside VS Code: collections, environment variables, request history."
+  - "Settings worth enabling right away: files.autoSave: onFocusChange, editor.rulers: [80], font ligatures with Fira Code; open settings.json via Ctrl+Shift+P → Open User Settings (JSON)."
 ---
 
 ## Prettier — code formatting

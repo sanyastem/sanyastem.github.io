@@ -12,6 +12,11 @@ description: "You've been given repo access — how to use Claude Code to analyz
 excerpt_text: "Repo access + Claude Code = test cases from real code, not from documentation"
 keywords: "claude code, qa repository access, qa git, test cases from code, PR analysis, finding bugs in code"
 translation_of: "/qa/claude-qa-repo/"
+tldr:
+  - "Installing Claude Code: curl -fsSL https://claude.ai/install.sh | bash (Windows: install.ps1 via irm), then git clone, cd into the project folder, and the claude command."
+  - "Claude Code reads the code for the tester: it finds all API endpoints, user roles, and validations — including ones missing from the documentation."
+  - "Test cases from code beat documentation: it surfaces mismatches like 'password min 6 characters on the frontend, 8 on the backend' and fields without validation — ready-made bugs."
+  - "From git history Claude shows what changed over the week and what might break; from a stack trace it opens the file and the exact line causing the bug (OrderService.cs:47)."
 ---
 
 ## Why QA should look at the code

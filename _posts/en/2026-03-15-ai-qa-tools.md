@@ -11,6 +11,11 @@ description: "How AI helps with exploratory testing: invents scenarios you might
 excerpt_text: "AI as a partner for exploratory testing — scenarios, bug reports, reproduction"
 keywords: "AI exploratory testing, ChatGPT bug report, QA exploratory testing, manual QA AI"
 translation_of: "/qa/ai-qa-tools/"
+tldr:
+  - "Before an exploratory testing session AI suggests 15 non-obvious scenarios — for example, changing the email from two devices at once or unlinking a social account during an active login."
+  - "For a 'Transfer amount' field (1–1,000,000) AI produces boundary values: 0, 0.01, 0.99, 1.01, 999,999.99, 1,000,000.01, a comma instead of a dot, a space inside the number."
+  - "From a free-form bug description AI builds a structured report: title, numbered steps, actual and expected results, Severity — you only review and submit."
+  - "For a flaky bug (1 in 5 attempts) AI lists the conditions that matter: slow connection, fast double click, authorization state, cart size."
 ---
 
 ## AI as a partner during a session

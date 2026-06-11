@@ -11,6 +11,11 @@ description: "When rebase makes history cleaner and when it breaks someone else'
 excerpt_text: "Clean history via rebase or safe merge — the choice depends on the branch. Both scenarios on real cases"
 keywords: "git rebase vs merge, interactive rebase, force-with-lease, git reflog, squash commits, clean git history"
 translation_of: "/git/git-rebase-vs-merge/"
+tldr:
+  - "Rule of thumb: your own branch — git rebase main for a linear history; a shared branch — merge only, otherwise a force-push breaks teammates' commits."
+  - "After a rebase push with git push --force-with-lease — it refuses to overwrite the branch if someone pushed to it after your last fetch."
+  - "Clean up history before a PR with git rebase -i: fixup squashes WIP commits discarding messages, squash merges them keeping messages, drop deletes a commit."
+  - "Commits lost after a rebase live in git reflog (keeps HEAD movements for 90 days): git reset --hard <sha> brings everything back."
 ---
 
 Every team has a holy war: rebase or merge. The truth — each has its own scenarios, and the choice depends not on taste but on **where the branch lives**: yours or shared.

@@ -3,6 +3,11 @@ layout: post
 title: "Claude Code: Skills — собственные команды для агента"
 categories: ai
 translation_of: "/en/ai/claude-code-skills/"
+tldr:
+  - "Skills — Markdown-инструкции для Claude Code: файл .claude/skills/<имя>/SKILL.md создаёт /команду; старый формат .claude/commands/*.md работает для совместимости."
+  - "Один SKILL.md даёт и ручную /команду, и авто-вызов агентом по description; поведение управляется frontmatter: user-invocable, disable-model-invocation."
+  - "Frontmatter поддерживает allowed-tools (ограничение инструментов), argument-hint, effort (low/medium/high), context: fork — запуск в субагенте; аргументы — через $ARGUMENTS."
+  - "Шарить skills между проектами — через плагины: /plugin marketplace add owner/repo, затем /plugin install имя@маркетплейс; вызов с префиксом /плагин:скилл."
 date: 2026-03-02
 last_modified_at: 2026-05-24
 date_ru: "2 марта 2026"

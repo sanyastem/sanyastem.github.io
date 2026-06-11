@@ -9,6 +9,11 @@ description: "How to cut Docker .NET image build time from 6 minutes to 1.5 via 
 excerpt_text: "BuildKit cache in Actions: from 6 min to 1.5 on a .NET project — full workflow, multi-stage Dockerfile, cache miss analysis"
 keywords: "docker buildkit cache github actions, dotnet docker cache, cache-from gha, buildx, multi-stage dockerfile .net"
 translation_of: "/devops/docker-buildkit-cache-github-actions/"
+tldr:
+  - "BuildKit cache with cache-from/cache-to type=gha cuts a .NET image build in Actions from 5-7 minutes to ~1.5 — the cache lives in GitHub Actions cache (10 GB, free)."
+  - "mode=max is mandatory for multi-stage: it exports all intermediate layers, not just the final ones; mode=min only suits micro-Dockerfiles."
+  - "Layer order decides everything: first COPY *.csproj and dotnet restore, then COPY . . — otherwise any edited .cs file invalidates restore (+2-3 minutes per build)."
+  - "Common cache-miss causes: extra files in the context due to an incomplete .dockerignore (bin/, obj/), an updated base image and LRU eviction past the 10 GB limit."
 ---
 
 A .NET Docker image build in GitHub Actions without cache takes 5-7 minutes. With BuildKit cache properly set up — 1-1.5. The difference is hours of CI time saved per week and faster PR feedback.

@@ -3,6 +3,11 @@ layout: post
 title: "GitHub Actions: автодеплой за 15 минут"
 categories: devops
 translation_of: "/en/devops/github-actions/"
+tldr:
+  - "Workflow — это .yml-файл в .github/workflows; триггеры on: push и pull_request в main, job выполняется на runs-on: ubuntu-latest."
+  - "Базовый CI: actions/checkout@v4, setup-node@v4 с cache: npm, затем npm ci, npm test и npm run build — прогоняется при каждом пуше."
+  - "Деплой по SSH через appleboy/ssh-action@v1: git pull, npm ci --production, pm2 restart app; хост, юзер и приватный ключ — в Secrets."
+  - "Секреты хранятся в Settings → Secrets and variables → Actions и подставляются через контекст secrets — значения не видны в логах."
 date: 2025-01-10
 date_ru: "10 января 2025"
 read_time: 5

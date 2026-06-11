@@ -11,6 +11,11 @@ description: "Ready-to-use prompt templates for QA, working with documentation, 
 excerpt_text: "Ready-to-use prompt templates, reporting for managers, release checklists, and growth to middle QA"
 keywords: "qa templates, testing prompts, test plan, regression, cross-browser testing, wcag, qa career"
 translation_of: "/qa/claude-qa-templates/"
+tldr:
+  - "Six ready-made prompt templates: test cases, bug report, feature checklist, regression, test plan, and test data — replace the placeholders in brackets and send."
+  - "Before a release Claude builds a 30-minute smoke checklist, a post-deploy production checklist, and gives a Go/No-Go recommendation based on test results."
+  - "From a spec Claude extracts testable requirements with priority and an automatable flag, and builds a traceability matrix: requirement — test cases — coverage."
+  - "Separate checklists for cross-browser testing (Chrome, Firefox, Safari, Edge), WCAG 2.1 level AA accessibility, and localization (RTL, date and number formats)."
 ---
 
 ## Ready-to-use prompt templates

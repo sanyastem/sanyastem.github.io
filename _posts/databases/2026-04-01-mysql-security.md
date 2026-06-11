@@ -3,6 +3,11 @@ layout: post
 title: "MySQL 8.4: безопасность — от установки до продакшна"
 categories: databases
 translation_of: "/en/databases/mysql-security/"
+tldr:
+  - "MySQL 8.0 — EOL апрель 2026; текущая LTS — 8.4 с поддержкой до апреля 2032. После установки сразу запускай mysql_secure_installation."
+  - "Приложение не должно ходить под root: отдельный пользователь с GRANT SELECT, INSERT, UPDATE, DELETE ON myapp.* и хостом 10.0.0.%; отдельные юзеры для отчётов и миграций."
+  - "Дефолтная аутентификация — caching_sha2_password (SHA-256); для внешних подключений REQUIRE SSL, политика паролей — validate_password.policy и length = 12."
+  - "Сетевая изоляция: bind-address = 127.0.0.1, local_infile = 0, в Docker не пробрасывай порт 3306 наружу; бэкапы mysqldump шифруй openssl enc -aes-256-cbc."
 date: 2026-04-01
 date_ru: "1 апреля 2026"
 read_time: 10

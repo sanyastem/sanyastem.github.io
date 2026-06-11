@@ -12,6 +12,11 @@ description: "A complete walkthrough of docker-compose.yml: networks, volumes, e
 excerpt_text: "Networks, volumes, env vars, health checks and deploy via docker-compose"
 keywords: "docker-compose, docker networks, volumes, health check, docker profiles, docker deploy"
 translation_of: "/devops/docker-compose-advanced/"
+tldr:
+  - "Compose describes all services (app, postgres:16-alpine, redis:7-alpine) in one docker-compose.yml and brings them up with a single docker-compose up -d."
+  - "depends_on only sets startup order; to wait until the database is actually ready you need a healthcheck (pg_isready) plus condition: service_healthy."
+  - "Keep secrets in a .env file next to the compose file and add it to .gitignore — Compose picks up variables like POSTGRES_PASSWORD automatically."
+  - "Profiles split configurations: docker-compose --profile dev up -d starts pgadmin only in dev; docker-compose down -v also deletes volume data."
 ---
 
 ## Why Docker Compose

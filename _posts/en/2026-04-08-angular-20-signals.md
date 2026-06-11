@@ -10,6 +10,11 @@ excerpt_text: "Signals stable, Zoneless stable, @if/@for, resource() and httpRes
 excerpt: "What's new in Angular 20: Signals are fully stable, Zoneless graduated from experimental, new @if/@for, resource() and httpResource()."
 keywords: "Angular 20 Signals, Zoneless Angular, Angular control flow @if @for, httpResource Angular 20, linkedSignal, standalone components Angular 20"
 translation_of: "/web/angular-20-signals/"
+tldr:
+  - "In Angular 20 the Signals API is fully stable (signal, computed, effect, linkedSignal), Zoneless change detection is stable since 20.2, TypeScript 5.8+ required."
+  - "Zoneless is enabled with one line — provideZonelessChangeDetection() — and drops ~100KB of Zone.js from the bundle; components must use ChangeDetectionStrategy.OnPush."
+  - "The new @if/@for/@switch control flow is built into the compiler and needs no imports; in @for the track parameter is mandatory — omitting it is a compile error."
+  - "resource() and httpResource() load async data with built-in .value(), .isLoading(), .error() and .reload(), and re-fetch automatically when input signals change."
 ---
 
 {% raw %}

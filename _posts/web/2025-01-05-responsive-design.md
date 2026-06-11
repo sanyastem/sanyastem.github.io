@@ -3,6 +3,11 @@ layout: post
 title: "Адаптивный дизайн: media queries без боли"
 categories: web
 translation_of: "/en/web/responsive-design/"
+tldr:
+  - "Пиши mobile-first: базовые стили — для мобильных, а @media (min-width: 768px) и (min-width: 1024px) расширяют сетку до 2 и 3 колонок."
+  - "clamp(min, preferred, max) масштабирует размеры без медиазапросов: font-size: clamp(1.2rem, 5vw, 2.4rem), padding: clamp(16px, 5vw, 80px)."
+  - "Адаптивная сетка без единого медиазапроса: grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))."
+  - "Без meta viewport (width=device-width, initial-scale=1.0) мобильные браузеры рендерят страницу как десктоп; фиксированный width: 960px заменяй на max-width + width: 100%."
 date: 2025-01-05
 date_ru: "5 января 2025"
 read_time: 4

@@ -3,6 +3,11 @@ layout: post
 title: "EF Core 9/10: производительность и новые возможности"
 categories: dotnet
 translation_of: "/en/dotnet/efcore-optimization/"
+tldr:
+  - "Для read-only запросов всегда вызывай AsNoTracking() — Change Tracker отключается, экономия памяти 30–70%; для записи трекинг оставляй."
+  - "Проблема N+1 лечится Include() или проекцией Select() в DTO; ловить её помогает логирование запросов через .LogTo(Console.WriteLine, LogLevel.Information)."
+  - "ExecuteUpdateAsync и ExecuteDeleteAsync делают массовый UPDATE/DELETE одним SQL-запросом без загрузки сущностей в память — идеально для фоновых чисток."
+  - "Auto-compiled models (EFCoreAutoCompiledModels в .csproj или dotnet ef dbcontext optimize) ускоряют старт EF Core 9 на 30–70% при 50+ сущностях."
 date: 2026-03-28
 date_ru: "28 марта 2026"
 read_time: 12

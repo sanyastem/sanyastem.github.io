@@ -3,6 +3,11 @@ layout: post
 title: "Топ Skills для .NET + Angular + Docker в Claude Code"
 categories: ai
 translation_of: "/en/ai/claude-code-skills-dotnet/"
+tldr:
+  - "Шесть готовых скиллов под .NET + Angular: /review, /test, /api, /component, /debug, /db — каждый лежит в .claude/skills/<имя>/SKILL.md с frontmatter."
+  - "/review запускает git diff HEAD и проверяет чеклист: async/await для IO, DTO вместо entity, standalone компоненты, OnPush, отсутствие any и Console.WriteLine."
+  - "/test пишет unit-тесты: xUnit + Moq для C# (имя МетодНазвание_Условие_ОжидаемыйРезультат), Jasmine/Jest для Angular; после генерации запускает тесты."
+  - "Frontmatter задаёт name, description и allowed-tools; чем точнее description, тем лучше Claude вызывает скилл сам; старый формат .claude/commands/ тоже работает."
 date: 2026-03-20
 date_ru: "20 марта 2026"
 read_time: 10

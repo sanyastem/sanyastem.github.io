@@ -12,6 +12,11 @@ description: "Renting a VPS, installing Docker, deploying via docker-compose, co
 excerpt_text: "VPS, Docker, Nginx and auto-deploy via GitHub Actions — the full path from code to production"
 keywords: "docker vps deploy, docker-compose production, nginx reverse proxy docker, github actions docker deploy, server deploy"
 translation_of: "/devops/docker-deploy-vps/"
+tldr:
+  - "Minimum for Docker on a VPS — 2 CPUs and 4 GB RAM (Hetzner from €4.5/mo); Docker installs with one command: curl -fsSL https://get.docker.com | sh."
+  - "Create a deploy user (usermod -aG docker deploy), clone the repo, fill in .env and run docker compose up -d --build — the app is live on port 3000."
+  - "Nginx in compose proxies 80/443 to app:3000 via proxy_pass; the app container is not reachable from outside — it uses expose instead of ports."
+  - "Auto-deploy: a workflow on push to main connects over SSH (appleboy/ssh-action), runs git pull, docker compose up -d --build and docker image prune -f."
 ---
 
 ## What you need to start

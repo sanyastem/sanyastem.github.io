@@ -11,6 +11,11 @@ description: "EF Core 9 and 10: compiled queries, AsNoTracking, JSON columns, th
 excerpt_text: "How not to kill your DB with EF Core: N+1, compiled queries, AsNoTracking, JSON columns, and what's new in 9/10"
 keywords: "EF Core 9 10 optimization, compiled queries ef core, AsNoTracking, N+1 problem, JSON columns EF Core, auto-compiled model"
 translation_of: "/dotnet/efcore-optimization/"
+tldr:
+  - "For read-only queries always call AsNoTracking() — the Change Tracker is switched off, saving 30-70% memory; keep tracking for writes."
+  - "The N+1 problem is fixed with Include() or a Select() projection into a DTO; catch it by logging queries via .LogTo(Console.WriteLine, LogLevel.Information)."
+  - "ExecuteUpdateAsync and ExecuteDeleteAsync run bulk UPDATE/DELETE as a single SQL statement without loading entities into memory — ideal for background cleanup jobs."
+  - "Auto-compiled models (EFCoreAutoCompiledModels in .csproj or dotnet ef dbcontext optimize) speed up EF Core 9 startup by 30-70% with 50+ entities."
 ---
 
 ## What's new in EF Core 9 and 10

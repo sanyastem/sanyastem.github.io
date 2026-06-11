@@ -3,6 +3,11 @@ layout: post
 title: "Claude Code: пишем свой MCP-сервер с нуля"
 categories: ai
 translation_of: "/en/ai/claude-code-mcp-build/"
+tldr:
+  - "Свой MCP-сервер на TypeScript: npm install @modelcontextprotocol/sdk zod, класс Server + StdioServerTransport и хендлеры ListTools/CallToolRequestSchema."
+  - "Подключение: npm run build, затем .mcp.json с command: node и args: путь к dist/index.js; после перезапуска /mcp покажет сервер и его инструменты."
+  - "Отладка — npx @modelcontextprotocol/inspector node ./dist/index.js: UI в браузере с raw JSON-запросами; логи только в stderr — console.log в stdout ломает протокол."
+  - "Безопасность: валидируй пути (full.startsWith(DOCS_DIR) против path traversal); для команды публикуй пакет в npm и подключай через npx -y @your-org/mcp-server."
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 10
