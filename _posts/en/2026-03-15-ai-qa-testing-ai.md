@@ -16,6 +16,17 @@ tldr:
   - "When time is short (200 test cases, time for 50), AI prioritizes: critical purchase path → directly affected modules → adjacent ones → the rest of the regression."
   - "From a sprint's bug list AI spots patterns (cross-browser issues, data input, caching) and suggests what to automate first."
   - "AI works as a growth trainer: it asks 10 Middle QA-level interview questions with feedback and explains the difference between smoke, sanity, and regression with store examples."
+faq:
+  - q: "How does AI help plan regression testing?"
+    a: "List the sprint's changes (new discount calculation, Face ID login, push notifications) and ask which modules beyond the changed ones to include in regression. AI explains the dependency chains: discounts affect the total, which affects the payment module, receipts, and order history — so dependent areas won't drop out of the run."
+  - q: "How do I prioritize test cases when time is short?"
+    a: "Describe the situation concretely: 200 test cases, time for 50, release tomorrow, these are the main changes. AI gives a prioritization logic: critical purchase path first, then directly affected modules (e.g. promo codes), then adjacent modules, and the rest of the regression last."
+  - q: "What does analyzing sprint bugs with AI give you?"
+    a: "Feed AI the sprint's bug list — it finds patterns: cross-browser issues, data input errors, caching problems. Based on those patterns AI points out the product's risky areas and what's worth automating first."
+  - q: "Can AI explain a technical stack trace to a tester without a dev background?"
+    a: "Yes. Paste the error from the logs and ask for a plain-language explanation of what happened. AI translates the technical details into something understandable and suggests which UI scenarios to try to reproduce the problem."
+  - q: "How can I use AI for professional growth in QA?"
+    a: "As a trainer: ask it to pose 10 interview questions for a Middle QA position with feedback after each answer. Or ask it to explain the difference between smoke, sanity, and regression testing with online-store examples — a live dialogue instead of long articles."
 ---
 
 ## Plan regression

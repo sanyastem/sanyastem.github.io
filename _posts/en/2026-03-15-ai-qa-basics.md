@@ -16,6 +16,17 @@ tldr:
   - "Three rules for a good prompt: give context (fields, limits, business rules), show a format example (ID | Title | Steps | Expected result), and iterate."
   - "AI finds problems in requirements before testing starts: ambiguities, missing acceptance criteria, edge cases, and security risks in a user story."
   - "From a stack trace AI drafts a bug report with steps, expected and actual results, and Severity, but a human always verifies the final cause and priority."
+faq:
+  - q: "Can AI fully replace a manual QA engineer?"
+    a: "No. AI removes the routine: it generates 15–20 test cases from a feature description in seconds, invents test data, and drafts bug reports. But it doesn't know the business context, doesn't sense UX, and doesn't find non-obvious scenarios — that part stays with the human."
+  - q: "How do I write a prompt so AI produces good test cases?"
+    a: "Three rules: give context (fields, limits, business rules like 'the promo code doesn't apply to discounted items'), show a format example (ID | Title | Steps | Expected result), and iterate — refine the output with follow-up messages. A vague prompt like 'write tests for the cart' gives a vague result."
+  - q: "Which QA tasks should be handed to AI first?"
+    a: "Test cases from a user story or spec, test data (names, phone numbers, invalid formats), regression checklists, and bug reproduction steps. That's the text routine AI does in seconds, while the tester reviews it and adds the business logic."
+  - q: "How does AI help analyze requirements before testing starts?"
+    a: "You paste a user story or spec and ask it to find ambiguities, missing acceptance criteria, edge cases, and security risks. AI points out gaps in the requirements that would otherwise turn into bugs during testing."
+  - q: "Can you trust bug reports written by AI?"
+    a: "From a stack trace AI produces a structured report: title, reproduction steps, actual and expected results, Severity and Priority with reasoning. But AI describes 'what happened', not 'why' in your project's context — a human always verifies the final cause and priority."
 ---
 
 ## AI doesn't replace the QA engineer — it removes the routine
