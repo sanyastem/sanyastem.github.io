@@ -14,6 +14,15 @@ tldr:
   - "Basic CI: actions/checkout@v4, setup-node@v4 with cache: npm, then npm ci, npm test and npm run build — runs on every push."
   - "SSH deploy via appleboy/ssh-action@v1: git pull, npm ci --production, pm2 restart app; host, user and private key live in Secrets."
   - "Secrets are stored in Settings → Secrets and variables → Actions and injected via the secrets context — values never show up in logs."
+faq:
+  - q: "How many free minutes does GitHub Actions give you?"
+    a: "Unlimited for public repos. Private repos get 2000 minutes/month on the Free plan, 3000 on Pro. A Linux runner counts as 1x minute, Windows as 2x, macOS as 10x. The trick: even on the Free plan, a public repo means unlimited CI."
+  - q: "Where should I store secrets for workflows?"
+    a: "Settings → Secrets and variables → Actions. Never put tokens in code or a .env inside the repo. In a workflow you use them as \\${{ secrets.MY_TOKEN }}. Environments let you scope secrets to production/staging."
+  - q: "Why does my workflow not run on a PR?"
+    a: "Three reasons: 1) on: pull_request is not specified (only push), 2) the PR comes from a forked repo — the workflow has no access to secrets for security reasons, 3) the first PR from a new contributor requires maintainer approval."
+  - q: "Self-hosted runner or GitHub-hosted?"
+    a: "GitHub-hosted (the default) — a clean VM for every job, convenient but paid beyond the limit. Self-hosted — your own server, the cache persists between runs (faster), free but needs maintenance. For a blog/MVP — hosted; for enterprise with heavy builds — self-hosted."
 ---
 
 ## How it works

@@ -17,6 +17,17 @@ tldr:
   - "One SKILL.md gives both a manual /command and auto-invocation by the agent based on description; behavior is controlled by frontmatter: user-invocable, disable-model-invocation."
   - "Frontmatter supports allowed-tools (tool restrictions), argument-hint, effort (low/medium/high), context: fork — run in a subagent; arguments come in via $ARGUMENTS."
   - "Share skills across projects with plugins: /plugin marketplace add owner/repo, then /plugin install name@marketplace; invoke with the /plugin:skill prefix."
+faq:
+  - q: "Skills vs slash commands — are they different things?"
+    a: "In 2026 they were unified — files in .claude/commands/*.md and .claude/skills/<name>/SKILL.md create the same kind of /command. The difference is who invokes it: a slash command is run by you manually, while an agent skill can be invoked by Claude itself when a task matches the description. One SKILL.md gives you both."
+  - q: "Skills vs Subagents — what is the difference?"
+    a: "A skill is a prompt template that Claude executes in the current session (it sees the full context). A subagent is an isolated sub-session with its own context (it does not see the main one). Skills are for routine tasks, subagents are for heavy parallel work or for shielding the main context from noise."
+  - q: "Where do I keep skills shared across all projects?"
+    a: "In ~/.claude/skills/ — global, available in every project. In <project>/.claude/skills/ — local, only in that project. Local ones override global ones on a name clash. Keep a command where it is used most often."
+  - q: "Can a skill call another skill?"
+    a: "Yes, via /command in the instructions. For example, /commit can include 'after writing, run /lint'. But chains longer than 2-3 rarely pay off — it is easier to write one big skill with branching logic."
+  - q: "Do Skills and MCP work together?"
+    a: "Yes, very well. A skill is the 'how to do it', MCP is the 'where to reach'. A /create-jira-ticket skill uses the Jira MCP server to create the ticket, plus its own formatting logic. The combination often beats either one on its own."
 ---
 
 ## What are Skills

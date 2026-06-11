@@ -17,6 +17,15 @@ tldr:
   - "One-line install: curl -fsSL https://claude.ai/install.sh | bash (no Node.js needed); on Windows use the irm script or winget."
   - "A CLAUDE.md file at the project root gives the agent context (stack, commands, rules) — the more precise it is, the less you explain each session."
   - "Permissions are configured in .claude/settings.json via allow/deny rules for Bash and tools."
+faq:
+  - q: "Do I need an Anthropic API key?"
+    a: "No, not if you work through a Claude subscription (Pro $20/mo or Max). An API key is only needed if you want token-based billing through the API (pay for actual usage, no limits). For most tasks a Pro subscription is enough."
+  - q: "How much does Claude Code cost?"
+    a: "Claude Code itself is free. You only pay for the model: the Pro subscription at $20/mo gives 5x the free limits; Max at $100-200/mo gives more tokens and access to Opus. Via the API it is pay-as-you-go — on average $10-50/mo for a developer."
+  - q: "Does Claude Code work on Windows?"
+    a: "Yes. Natively via the installer irm https://claude.ai/install.ps1 | iex or winget install Anthropic.ClaudeCode. It also works in WSL2 (Ubuntu) — there use curl -fsSL https://claude.ai/install.sh | bash."
+  - q: "What should go in CLAUDE.md?"
+    a: "Project context in 1-2 pages: technologies, commands (build/test/lint), architecture rules, commit style, path to docs, what NOT to touch. The goal is for the agent to grasp the context immediately without asking questions. Use the /init command to have Claude generate a draft itself."
 howto:
   name: "Install and first-time setup of Claude Code"
   totalTime: "PT15M"

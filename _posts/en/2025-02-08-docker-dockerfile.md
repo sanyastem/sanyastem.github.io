@@ -17,6 +17,15 @@ tldr:
   - "A multi-stage build (FROM ... AS builder, then COPY --from=builder) shrinks the image 5-10x: a Node.js project goes from 1.2 GB to 120 MB."
   - "Alpine images save space: node:20 weighs 1.1 GB, node:20-alpine — 180 MB; clean the apt cache in the same RUN instruction (rm -rf /var/lib/apt/lists/*)."
   - "Add node_modules, .git and .env to .dockerignore; never run production containers as root — set USER node before CMD."
+faq:
+  - q: "CMD vs ENTRYPOINT — what is the difference?"
+    a: "ENTRYPOINT defines the executable (it always runs), CMD provides default arguments (can be overridden in docker run). A typical combo: ENTRYPOINT set to node plus CMD set to server.js. If you keep only CMD, the user can replace the command entirely."
+  - q: "Why is my image too big?"
+    a: "Most often: a python:latest base image (1 GB) instead of python:3.12-slim (50 MB), copying node_modules instead of running npm ci inside the Dockerfile, no .dockerignore, and a single stage instead of multi-stage. Run docker history image_name to see which layer is bloated."
+  - q: "What is a multi-stage build?"
+    a: "Multiple FROM statements in one Dockerfile. The first stage is the build (with the compiler and all the tooling), the second is the runtime (minimal, only the output is copied via COPY --from=build). The final image is 10x smaller: for .NET, 250 MB instead of 2 GB."
+  - q: "Why COPY package.json separately from the code?"
+    a: "Docker caches layers. If package.json has not changed, npm install will not run again — saving 30-60 seconds on every build. Copy all the code in one line and any .js edit invalidates the install. Rule: copy what changes rarely first."
 ---
 
 ## How a Docker image is structured

@@ -17,6 +17,15 @@ tldr:
   - "A custom subagent is a .claude/agents/<name>.md file with frontmatter (name, description, model, tools); global agents go in ~/.claude/agents/."
   - "The Claude Agent SDK embeds agents in your own scripts: npm install @anthropic-ai/claude-agent-sdk or pip install claude-agent-sdk, the query() function with maxTurns and cwd."
   - "Hooks in .claude/settings.json run shell commands on events (PostToolUse, Stop, SubagentStop); permissions with allow/deny block dangerous things like git push and rm."
+faq:
+  - q: "When to use a subagent vs the main session?"
+    a: "Subagent — for heavy independent tasks (review, searching a large codebase, migrating individual modules) and for protecting the main context from noise. Main session — when you need to keep the dialogue going and context loads in iteratively. Rule of thumb: if the task is 'go do it and bring back the result' — subagent."
+  - q: "How many subagents can run in parallel?"
+    a: "Technically — a lot (15+). In practice the sweet spot is 3-5: beyond that you start hitting API rate limits and tracking gets harder. Agents launched in a single message run in parallel. Very heavy ones are better run sequentially in background mode."
+  - q: "Does a subagent see the main session context?"
+    a: "No, each one has its own context. It only receives the prompt you launch it with. So the prompt must be self-contained: what to look for, where (paths), output format. The golden rule: write the brief as if for a new colleague — they have not seen the conversation."
+  - q: "How do I pass a subagent result into the main work?"
+    a: "The subagent returns a text result. The main agent sees it in the tool_result. From there a human usually summarizes the result and feeds it into the next steps. You can chain: subagent A result → subagent B prompt, but that runs as a manual step."
 ---
 
 ## Agents in Claude Code

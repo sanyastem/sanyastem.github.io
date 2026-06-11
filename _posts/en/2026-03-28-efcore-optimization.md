@@ -16,6 +16,15 @@ tldr:
   - "The N+1 problem is fixed with Include() or a Select() projection into a DTO; catch it by logging queries via .LogTo(Console.WriteLine, LogLevel.Information)."
   - "ExecuteUpdateAsync and ExecuteDeleteAsync run bulk UPDATE/DELETE as a single SQL statement without loading entities into memory — ideal for background cleanup jobs."
   - "Auto-compiled models (EFCoreAutoCompiledModels in .csproj or dotnet ef dbcontext optimize) speed up EF Core 9 startup by 30-70% with 50+ entities."
+faq:
+  - q: "Does AsNoTracking affect Include?"
+    a: "No, navigation properties load as usual. AsNoTracking only disables the Change Tracker — entities get no entity tracking entries, saving 30-70% memory. For read-only — always AsNoTracking. For writes — keep tracking on."
+  - q: "Do compiled queries make a difference on small tables?"
+    a: "The difference is small (~5-10 ms per query), but at 100+ calls of the same query per second the savings add up. The real win shows on hot paths — product catalog, shopping cart, user profile. For one-off admin-panel queries there is no point."
+  - q: "Does a JSON column in EF Core replace a separate table?"
+    a: "It does, when the document fields are not used in JOINs. A shipping address on an order, user settings — perfect cases. If you often need to filter or search by JSON fields — a separate table with indexes is better; JSON_VALUE() in WHERE is slow on large data."
+  - q: "Does ExecuteUpdate fire triggers?"
+    a: "Yes, database triggers fire (at the SQL level). But the EF Core change tracker and SaveChanges interceptors do not — EF bypasses them entirely. If your AuditLog goes through DbContext.SaveChanges() — it will NOT be written. For critical auditing do it at the database level (triggers) or duplicate it explicitly."
 ---
 
 ## What's new in EF Core 9 and 10

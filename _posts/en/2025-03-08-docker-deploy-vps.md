@@ -17,6 +17,15 @@ tldr:
   - "Create a deploy user (usermod -aG docker deploy), clone the repo, fill in .env and run docker compose up -d --build — the app is live on port 3000."
   - "Nginx in compose proxies 80/443 to app:3000 via proxy_pass; the app container is not reachable from outside — it uses expose instead of ports."
   - "Auto-deploy: a workflow on push to main connects over SSH (appleboy/ssh-action), runs git pull, docker compose up -d --build and docker image prune -f."
+faq:
+  - q: "Which VPS should I pick for Docker?"
+    a: "At least 2 CPUs + 4 GB RAM — otherwise you hit swap during builds. Hetzner CX22 (€4.5/mo), DigitalOcean Basic ($6), Vultr — the best price/performance ratios. Hetzner is cheaper in the EU; AWS Lightsail is pricier but more convenient for multi-region."
+  - q: "Do I need Kubernetes if I have 1 server?"
+    a: "No. For a single server docker-compose is enough. K8s gives auto-scaling, self-healing and rolling updates — but requires 3+ nodes and an admin. Overkill for pet projects and MVPs, a must for enterprise."
+  - q: "How do I update a container without downtime?"
+    a: "Via an nginx reverse proxy + docker compose up -d with a healthcheck. Compose replaces the old container only after the new one passes the healthcheck. The alternative is a blue/green deploy: run the new version in parallel, switch nginx over, shut down the old one."
+  - q: "How do I back up data from volumes?"
+    a: "The simplest: docker run --rm -v db_data:/data -v $(pwd):/backup alpine tar czf /backup/db-$(date +%Y%m%d).tar.gz /data. Run it via cron once a day. For databases, mysqldump/pg_dump inside the container is better: docker exec db mysqldump > backup.sql."
 ---
 
 ## What you need to start

@@ -15,6 +15,15 @@ tldr:
   - "Zoneless is enabled with one line — provideZonelessChangeDetection() — and drops ~100KB of Zone.js from the bundle; components must use ChangeDetectionStrategy.OnPush."
   - "The new @if/@for/@switch control flow is built into the compiler and needs no imports; in @for the track parameter is mandatory — omitting it is a compile error."
   - "resource() and httpResource() load async data with built-in .value(), .isLoading(), .error() and .reload(), and re-fetch automatically when input signals change."
+faq:
+  - q: "Can I use Signals with NgRx Classic?"
+    a: "Yes, they coexist nicely. The NgRx store exposes Observables through selectors, and you convert them to Signals with toSignal(). The hybrid is common in large projects: shared state (auth, router) on NgRx Classic, new features on Signal Store. A year in, Classic remains only where it is genuinely needed."
+  - q: "Does Zoneless require rewriting the whole app?"
+    a: "No. You enable provideZonelessChangeDetection() — Zone.js is removed. Components on Signals work right away. Components on OnPush + Observable via the async pipe work too. Only components without OnPush that rely on zone-patched setTimeout/setInterval break — and those need rewriting anyway."
+  - q: "OnPush + Zone.js — what should I do?"
+    a: "Nothing — they keep working as before. Zoneless is opt-in, so you can migrate gradually: write new components Signal-first, leave old ones on OnPush. Once 80%+ is covered by Signals — switch zoneless on globally."
+  - q: "linkedSignal vs computed — when to use which?"
+    a: "computed is a read-only derived signal, recomputed automatically from its dependencies. linkedSignal is derived + writable: you can overwrite it from above, and it resets again when the source changes. Example: the current pagination page — linkedSignal({source: category, computation: () => 1}) resets to 1 when the category changes."
 ---
 
 {% raw %}

@@ -17,6 +17,15 @@ tldr:
   - "depends_on only sets startup order; to wait until the database is actually ready you need a healthcheck (pg_isready) plus condition: service_healthy."
   - "Keep secrets in a .env file next to the compose file and add it to .gitignore — Compose picks up variables like POSTGRES_PASSWORD automatically."
   - "Profiles split configurations: docker-compose --profile dev up -d starts pgadmin only in dev; docker-compose down -v also deletes volume data."
+faq:
+  - q: "docker-compose vs Kubernetes — when to use which?"
+    a: "Compose — a single server, dev/staging, up to 10 services. Kubernetes — multiple servers, auto-scaling, production with high availability. For an MVP or a blog — Compose; for scalable SaaS — K8s."
+  - q: "depends_on vs healthcheck — what is the difference?"
+    a: "depends_on sets the startup order but does not wait for the service to be ready. healthcheck verifies the container is actually ready to accept requests. For databases it is a must: depends_on with condition: service_healthy."
+  - q: "Where do I keep the .env with passwords for compose?"
+    a: "A .env file next to docker-compose.yml, added to .gitignore. Compose picks up the variables automatically. In production — Docker secrets or an external vault (HashiCorp, AWS Secrets Manager)."
+  - q: "Can I run compose in production?"
+    a: "Yes, for small single-server deployments it is the norm. Use a separate compose.prod.yml with restart: always, no bind mounts of the code, and mandatory volume backups."
 ---
 
 ## Why Docker Compose

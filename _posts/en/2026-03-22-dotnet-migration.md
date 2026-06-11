@@ -16,6 +16,15 @@ tldr:
   - ".NET 10 is an LTS supported until November 2028 and 2-5x faster than Framework; Global.asax becomes Program.cs, Web.config becomes appsettings.json."
   - "System.Web is removed entirely, WCF is unsupported (replace with REST, gRPC or CoreWCF), and synchronous I/O in controllers is blocked by default."
   - "For large projects use the Strangler Fig strategy: nginx routes new endpoints to .NET 10 and the rest to the old Framework; big bang only up to ~50K lines of code."
+faq:
+  - q: "Can I migrate only some of the projects?"
+    a: "Yes, migration is done incrementally. First move individual libraries (DLLs) to .NET Standard or .NET 10, then the tests, then the web project. The key is to set InternalsVisibleTo and make sure the dependencies are compatible (NuGet target frameworks)."
+  - q: "What to do with System.Web and WebForms dependencies?"
+    a: "Not supported in .NET 10. WebForms → rewrite to Razor Pages or ASP.NET Core MVC. System.Web.HttpContext → Microsoft.AspNetCore.Http.HttpContext. If there are many pages — run the old framework in a Docker container alongside."
+  - q: "How long does a migration take?"
+    a: "A small Web API (~10k LOC) — 1-2 weeks. A mid-size enterprise app (~100k LOC, 20+ projects) — 2-6 months. The main bottlenecks: WebForms / WCF / EF 6 → EF Core. Upgrade Assistant speeds things up but does not resolve every breaking change."
+  - q: ".NET 10 LTS or wait for .NET 12?"
+    a: ".NET 10 is LTS until November 2028. If you are migrating now — take 10, with 3 years of support. .NET 12 ships in 2027 (LTS until 2030). If you can wait a year and the project is not urgent — the tooling improves with every release."
 ---
 
 ## Why migrate and when

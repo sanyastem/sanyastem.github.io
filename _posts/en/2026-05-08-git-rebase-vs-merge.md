@@ -16,6 +16,15 @@ tldr:
   - "After a rebase push with git push --force-with-lease — it refuses to overwrite the branch if someone pushed to it after your last fetch."
   - "Clean up history before a PR with git rebase -i: fixup squashes WIP commits discarding messages, squash merges them keeping messages, drop deletes a commit."
   - "Commits lost after a rebase live in git reflog (keeps HEAD movements for 90 days): git reset --hard <sha> brings everything back."
+faq:
+  - q: "What to do if teammates cannot pull after my rebase?"
+    a: "If you rebased a shared branch and force-pushed, teammates need to: 1) save their local commits (git stash), 2) git fetch + git reset --hard origin/branch, 3) reapply their commits with cherry-pick. Lesson: rebasing shared branches is taboo."
+  - q: "Is squash merge in a PR a rebase or a merge?"
+    a: "Technically a merge with an automatic squash of all the feature commits into one. GitHub/GitLab do it with a single button. The main history is linear (as with rebase), but without rewriting the feature branch. The best compromise for most teams."
+  - q: "Does --force-with-lease protect you 100%?"
+    a: "No, but almost. It protects you if someone pushed after your fetch. It does NOT protect you if you just fetched and immediately ran force-with-lease — a colleague could push something in those 2 seconds. In practice it works in 99% of cases."
+  - q: "Where can I see commits lost after a rebase?"
+    a: "In git reflog — the journal of all HEAD movements for the last 90 days. git reflog show HEAD displays the history, and you can git reset --hard <sha> onto any lost commit. It gets cleared by git gc — which nobody runs by hand anyway."
 ---
 
 Every team has a holy war: rebase or merge. The truth — each has its own scenarios, and the choice depends not on taste but on **where the branch lives**: yours or shared.

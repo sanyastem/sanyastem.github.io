@@ -16,6 +16,15 @@ tldr:
   - "Hooking it up: npm run build, then .mcp.json with command: node and args: path to dist/index.js; after a restart /mcp shows the server and its tools."
   - "Debugging — npx @modelcontextprotocol/inspector node ./dist/index.js: a browser UI with raw JSON requests; log to stderr only — console.log on stdout breaks the protocol."
   - "Security: validate paths (full.startsWith(DOCS_DIR) against path traversal); for a team, publish the package to npm and connect via npx -y @your-org/mcp-server."
+faq:
+  - q: "When to write your own vs take an existing one?"
+    a: "Your own — for internal APIs without a connector, niche databases, regularly used workflows. An existing one from the registry — for standard things (GitHub, Postgres, Slack). Do not write your own for one-off tasks — a bash script + skill handles that."
+  - q: "Remote MCP or Stdio?"
+    a: "Stdio is the standard for local Claude Code scenarios (a Python/Node process spawned per session). HTTP/SSE is for remote MCP (access from the cloud, shared between users). For most teams Stdio is simpler and safer."
+  - q: "Where should an MCP server write its logs?"
+    a: "To stderr or a file — NOT to stdout. stdout is reserved for the protocol. console.log will break the parser on the Claude side and the server will die with an error. Use process.stderr.write."
+  - q: "Can I pass secrets through MCP env?"
+    a: "Yes, via the env block in .mcp.json: set API_KEY to \\${API_KEY} — it gets substituted from the system environment. Do not hardcode tokens in .mcp.json — the file is committed to the repo."
 ---
 
 In [the previous part](/en/tools/claude-code-mcp/) we connected existing MCP servers. But sometimes you need your own: internal API, niche database, corporate service with no public connector. Let's build a working server from scratch — in one sitting.

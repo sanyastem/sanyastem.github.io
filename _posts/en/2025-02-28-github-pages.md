@@ -14,6 +14,15 @@ tldr:
   - "Custom domain: enter it in the Custom domain field and add a DNS CNAME record pointing to username.github.io; HTTPS turns on automatically via Let's Encrypt."
   - "Static files only (HTML/CSS/JS), no server-side logic; limits: repo and site up to 1 GB, 100 MB per file, about 100 GB of traffic per month."
   - "Getting a 404 — check the file is named index.html in lowercase and sits in the root; site not updating — wrong branch pushed or the CDN is caching."
+faq:
+  - q: "Can I use React/Vue/Angular?"
+    a: "Yes. Build the app (npm run build), commit the contents of dist/ to a gh-pages branch or main. For production builds set up GitHub Actions with upload-pages-artifact + deploy-pages — automatic deploy on push."
+  - q: "Are there size limits?"
+    a: "Repo up to 1GB, site up to 1GB, a soft limit of 100GB of traffic per month. Files up to 100MB each. For a blog, documentation or a landing page that is overkill. If you do hit the limits — consider Vercel or Cloudflare Pages."
+  - q: "Does GitHub Pages support a backend?"
+    a: "No, static files only (HTML/CSS/JS). If you need a backend — GitHub Pages frontend plus a separate API (Cloudflare Workers, AWS Lambda, Vercel Functions). Or use Jekyll/Hugo for SSG."
+  - q: "Can I hide the site from indexing?"
+    a: "Put a robots.txt with Disallow: / in the root. But Pages cannot be made private — public repos always mean public sites. For private sites you need GitHub Enterprise or different hosting."
 ---
 
 ## What is GitHub Pages
