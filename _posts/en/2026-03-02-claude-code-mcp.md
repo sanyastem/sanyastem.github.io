@@ -12,6 +12,11 @@ description: "What MCP (Model Context Protocol) is, how to connect servers to Cl
 excerpt_text: "MCP extends Claude Code's capabilities: databases, GitHub, browser, filesystem and more"
 keywords: "MCP claude code, model context protocol, mcp server, claude code extensions, mcp development"
 translation_of: "/ai/claude-code-mcp/"
+tldr:
+  - "MCP (Model Context Protocol) gives Claude Code access to external tools — databases, GitHub, a browser; add a server with claude mcp add --transport stdio|http."
+  - "For a team, servers are pinned in .mcp.json at the repo root (or claude mcp add --scope project); verify with claude mcp list or /mcp inside a session."
+  - "Current servers: GitHub — hosted HTTP (https://api.githubcopilot.com/mcp/), browser — @playwright/mcp (puppeteer is archived), plus Postgres, SQLite, Sentry, Linear."
+  - "Never hardcode secrets in .mcp.json — only ${GITHUB_TOKEN}-style variable substitution; a custom server is built on @modelcontextprotocol/sdk (TypeScript or Python)."
 faq:
   - q: "MCP vs Skills — what's the difference?"
     a: "Skills are Markdown prompts + (optionally) a script, executed by Claude Code itself. MCP is an external process over JSON-RPC that gives Claude additional tools/resources. Skills are simpler for helper commands; MCP is for integrating with external systems (DB, API, browser)."

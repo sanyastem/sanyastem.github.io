@@ -11,7 +11,7 @@ keywords: "Angular Signal Store, ngrx signals, withComputed, withMethods, rxMeth
 translation_of: "/web/angular-signal-store/"
 tldr:
   - "Signal Store from @ngrx/signals replaces NgRx Classic: one file instead of 4-5 (actions, reducer, selectors, effects), roughly 3x less code."
-  - "A store is composed from withState, withComputed and withMethods; reading is direct access store.cart(), mutation goes only through patchState — immutability is still on you."
+  - "A store is built from withState, withComputed and withMethods; reading is direct store.cart(), mutation only via patchState — immutability is still on you."
   - "Async logic goes through rxMethod with an RxJS pipeline (debounceTime, switchMap) or a plain async method; it is the equivalent of NgRx effects, but without actions."
   - "DevTools hook up via withDevtools('cart'), but without classic time-travel; keep NgRx Classic for complex effects, an action audit trail and large teams."
 ---

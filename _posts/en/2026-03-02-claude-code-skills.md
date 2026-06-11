@@ -12,6 +12,11 @@ description: "What Skills are in Claude Code, how to write your own command scri
 excerpt_text: "Skills are your own /commands for Claude Code. Write once, invoke in any session"
 keywords: "claude code skills, slash commands claude, custom commands claude code, .claude/commands"
 translation_of: "/ai/claude-code-skills/"
+tldr:
+  - "Skills are Markdown instructions for Claude Code: a .claude/skills/<name>/SKILL.md file creates a /command; the old .claude/commands/*.md format still works for compatibility."
+  - "One SKILL.md gives both a manual /command and auto-invocation by the agent based on description; behavior is controlled by frontmatter: user-invocable, disable-model-invocation."
+  - "Frontmatter supports allowed-tools (tool restrictions), argument-hint, effort (low/medium/high), context: fork — run in a subagent; arguments come in via $ARGUMENTS."
+  - "Share skills across projects with plugins: /plugin marketplace add owner/repo, then /plugin install name@marketplace; invoke with the /plugin:skill prefix."
 ---
 
 ## What are Skills

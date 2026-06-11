@@ -9,6 +9,11 @@ description: "Ready-to-use Skills for Claude Code on a .NET, Angular, MySQL, Mon
 excerpt_text: "Ready-to-use /review, /test, /api, /component, /debug, and /db for your stack — copy and use"
 keywords: "claude code skills dotnet, claude code angular skills, .claude/commands, SKILL.md, claude code slash commands"
 translation_of: "/ai/claude-code-skills-dotnet/"
+tldr:
+  - "Six ready-made skills for .NET + Angular: /review, /test, /api, /component, /debug, /db — each lives in .claude/skills/<name>/SKILL.md with frontmatter."
+  - "/review runs git diff HEAD and checks a checklist: async/await for IO, DTOs instead of entities, standalone components, OnPush, no any or Console.WriteLine."
+  - "/test writes unit tests: xUnit + Moq for C# (Method_Condition_ExpectedResult naming), Jasmine/Jest for Angular; it runs the tests after generating them."
+  - "Frontmatter sets name, description and allowed-tools; the more precise the description, the better Claude auto-invokes the skill; the old .claude/commands/ format still works."
 ---
 
 ## New format: SKILL.md with frontmatter

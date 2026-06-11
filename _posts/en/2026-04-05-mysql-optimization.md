@@ -11,6 +11,11 @@ description: "How to read EXPLAIN ANALYZE, build composite indexes, find slow qu
 excerpt_text: "EXPLAIN ANALYZE, composite indexes, slow query log, and cursor pagination — optimizing MySQL 8.4"
 keywords: "MySQL EXPLAIN ANALYZE, composite index MySQL, slow query log MySQL 8.4, cursor pagination MySQL, MySQL query optimization"
 translation_of: "/databases/mysql-optimization/"
+tldr:
+  - "EXPLAIN ANALYZE shows the plan plus real timings: a Table scan means a missing index, Sort before Limit needs a sort index, actual rows >> estimated — run ANALYZE TABLE."
+  - "Build composite indexes by the ESR rule: equality (=) columns first, then the ORDER BY column, range conditions (>, <, BETWEEN) last."
+  - "OFFSET pagination scans every skipped row; cursor pagination WHERE id > :last_id ORDER BY id LIMIT 20 stays O(log n) via the index."
+  - "Catch slow queries with slow_query_log and long_query_time = 1 plus mysqldumpslow -s t -t 10; find unused indexes via performance_schema."
 ---
 
 ## Reading EXPLAIN ANALYZE

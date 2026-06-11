@@ -11,6 +11,11 @@ description: "Secure MySQL 8.4 LTS configuration: least privileges, SSL/TLS, SQL
 excerpt_text: "Least privileges, SSL/TLS, caching_sha2_password and SQL injection defense — a secure MySQL 8.4"
 keywords: "MySQL 8.4 security, MySQL least privileges, SSL TLS MySQL, SQL injection defense, caching_sha2_password, MySQL 8.0 EOL"
 translation_of: "/databases/mysql-security/"
+tldr:
+  - "MySQL 8.0 hits EOL in April 2026; the current LTS is 8.4, supported until April 2032. Run mysql_secure_installation right after install."
+  - "The app must not connect as root: a dedicated user with GRANT SELECT, INSERT, UPDATE, DELETE ON myapp.* and a 10.0.0.% host; separate users for reports and migrations."
+  - "Default authentication is caching_sha2_password (SHA-256); use REQUIRE SSL for external connections, password policy via validate_password.policy and length = 12."
+  - "Network isolation: bind-address = 127.0.0.1, local_infile = 0, do not expose port 3306 from Docker; encrypt mysqldump backups with openssl enc -aes-256-cbc."
 faq:
   - q: "Why move to MySQL 8.4 if 8.0 still works?"
     a: "MySQL 8.0 finished its innovation cycle, regular updates have stopped, only Extended Support and security patches remain. 8.4 is the current LTS, supported for at least 5 years. For new projects the choice is obvious; for old ones — migrate within a year or two."

@@ -11,6 +11,11 @@ description: "Step-by-step guide: write an MCP server in TypeScript, hook it int
 excerpt_text: "Your own MCP server — when the ready-made ones aren't enough: real example with searching internal docs, debugging, and npm publishing"
 keywords: "MCP server, model context protocol, build your own, claude code custom mcp, mcp sdk typescript, mcp inspector"
 translation_of: "/ai/claude-code-mcp-build/"
+tldr:
+  - "A custom MCP server in TypeScript: npm install @modelcontextprotocol/sdk zod, a Server class + StdioServerTransport and ListTools/CallToolRequestSchema handlers."
+  - "Hooking it up: npm run build, then .mcp.json with command: node and args: path to dist/index.js; after a restart /mcp shows the server and its tools."
+  - "Debugging — npx @modelcontextprotocol/inspector node ./dist/index.js: a browser UI with raw JSON requests; log to stderr only — console.log on stdout breaks the protocol."
+  - "Security: validate paths (full.startsWith(DOCS_DIR) against path traversal); for a team, publish the package to npm and connect via npx -y @your-org/mcp-server."
 ---
 
 In [the previous part](/en/tools/claude-code-mcp/) we connected existing MCP servers. But sometimes you need your own: internal API, niche database, corporate service with no public connector. Let's build a working server from scratch — in one sitting.
