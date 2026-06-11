@@ -8,6 +8,17 @@ tldr:
   - "Составной индекс строится по правилу ESR: сначала поля с равенством (=), затем колонка сортировки ORDER BY, диапазоны (>, <, BETWEEN) — последними."
   - "OFFSET-пагинация сканирует все пропущенные строки; cursor-пагинация WHERE id > :last_id ORDER BY id LIMIT 20 работает за O(log n) через индекс."
   - "Медленные запросы ловят через slow_query_log с long_query_time = 1 и mysqldumpslow -s t -t 10; неиспользуемые индексы видны в performance_schema."
+faq:
+  - q: "Чем EXPLAIN ANALYZE отличается от обычного EXPLAIN в MySQL?"
+    a: "EXPLAIN показывает только предполагаемый план выполнения, а EXPLAIN ANALYZE реально выполняет запрос и выводит план с фактическим временем (actual time) и числом строк (actual rows) для каждого шага. Это позволяет увидеть, где план разошёлся с реальностью: если actual rows сильно больше estimated — статистика устарела и нужен ANALYZE TABLE, а строка «Table scan» означает отсутствие индекса."
+  - q: "В каком порядке располагать колонки в составном индексе MySQL?"
+    a: "По правилу ESR: сначала поля с равенством (=), затем колонка сортировки из ORDER BY, последними — диапазоны (>, <, BETWEEN). Для запроса WHERE user_id = 42 AND status = 'completed' ORDER BY created_at DESC правильный индекс — CREATE INDEX idx_good ON orders (user_id, status, created_at), а индекс с created_at в начале работать на фильтрацию не будет."
+  - q: "Почему OFFSET-пагинация медленная и чем её заменить?"
+    a: "LIMIT 20 OFFSET 19980 заставляет MySQL просмотреть и отбросить все 19 980 пропущенных строк — на миллионной таблице OFFSET 999980 равен скану почти всей таблицы. Замена — cursor-пагинация: WHERE id > :last_id ORDER BY id LIMIT 20, где :last_id — последний id предыдущей страницы; такой запрос работает за O(log n) через индекс. Для сортировки по неуникальному полю добавляется id как tie-breaker и индекс (category_id, created_at DESC, id DESC)."
+  - q: "Как найти медленные запросы в MySQL 8.4?"
+    a: "Включи slow_query_log = 1 с long_query_time = 1 (логировать запросы дольше секунды) и log_queries_not_using_indexes = 1 в mysqld.cnf, затем анализируй лог: mysqldumpslow -s t -t 10 /var/log/mysql/slow.log покажет топ-10 самых медленных. Альтернатива без лога — performance_schema: запрос к events_statements_summary_by_digest с сортировкой по SUM_TIMER_WAIT даёт топ запросов по суммарному времени, а table_io_waits_summary_by_index_usage показывает индексы с COUNT_READ = 0, которые можно удалить."
+  - q: "Что такое covering index и когда он нужен?"
+    a: "Это индекс, который содержит все колонки, нужные запросу — MySQL читает данные прямо из индекса, не обращаясь к таблице; в EXPLAIN это видно как «Using index». Например, для SELECT id, name, price WHERE category_id = 5 AND is_active = 1 ORDER BY name подойдёт CREATE INDEX idx_cover ON products (category_id, is_active, name, price, id). Но не стоит делать covering index из 10 колонок — он становится тяжёлым; используй только для реально частых и тяжёлых запросов."
 date: 2026-04-05
 date_ru: "5 апреля 2026"
 read_time: 12

@@ -8,6 +8,17 @@ tldr:
   - "/dotnet-migrate переводит .NET Framework на .NET 10: csproj в SDK-style с net10.0, Program.cs с WebApplication.CreateBuilder, Web.config → appsettings.json."
   - "/efcore-optimize находит N+1, запросы без AsNoTracking и меняет bulk-циклы на ExecuteDeleteAsync; /mysql-explain читает EXPLAIN ANALYZE и строит индексы по правилу ESR."
   - "/ng-upgrade мигрирует компоненты на Angular 20: input()/output() вместо декораторов, signal() вместо BehaviorSubject, @if/@for, inject() и OnPush."
+faq:
+  - q: "Как мигрировать проект с .NET Framework на .NET 10 через Claude Code?"
+    a: "Скилл /dotnet-migrate из .claude/skills/dotnet-migrate/SKILL.md работает пошагово: сначала анализ — поиск всех .csproj (исключая obj/), Global.asax, Web.config и packages.config, затем перевод csproj в SDK-style с TargetFramework net10.0, создание Program.cs с WebApplication.CreateBuilder, перенос настроек из Web.config в appsettings.json. В конце скилл запускает dotnet build и предупреждает, если остались зависимости от System.Web, а после каждого исправленного файла делает commit."
+  - q: "Как найти проблемы N+1 и лишние запросы в EF Core автоматически?"
+    a: "Скилл /efcore-optimize ищет файлы с .Include(, ToListAsync и DbContext и проверяет типовые проблемы: N+1 (цикл по навигационным свойствам после ToListAsync), запросы без AsNoTracking там, где нет SaveChanges, лишние Include, OFFSET-пагинацию через Skip и bulk-циклы ToList → RemoveRange → SaveChanges, которые заменяет на ExecuteDeleteAsync/ExecuteUpdateAsync. Дополнительно он включает логирование SQL в Development и прогоняет dotnet build и dotnet test."
+  - q: "Что такое правило ESR для составных индексов MySQL?"
+    a: "Это порядок колонок в составном индексе: сначала поля с равенством (Equality, =), затем колонка сортировки из ORDER BY (Sort), и последними — диапазоны (Range: >, <, BETWEEN). Например, для запроса WHERE category_id = 5 AND status = 'active' ORDER BY created_at DESC правильный индекс — CREATE INDEX idx ON table (category_id, status, created_at DESC). Скилл /mysql-explain применяет это правило после чтения EXPLAIN ANALYZE."
+  - q: "Что проверяет скилл /mysql-audit в конфигурации MySQL?"
+    a: "Шесть SQL-проверок по таблице mysql.user и переменным сервера: пользователи с избыточными правами (Super_priv, Grant_priv, File_priv), учётки без пароля, доступ с любого хоста (host = '%'), пользователи без SSL, статус local_infile (должен быть OFF) и версию сервера — MySQL 8.0 достигает EOL в апреле 2026. Для каждой находки скилл выдаёт риск, SQL для исправления и приоритет, но ничего не меняет автоматически."
+  - q: "Как обновить Angular-компонент до стиля Angular 20 с Signals?"
+    a: "Скилл /ng-upgrade переводит компонент на современные паттерны: standalone вместо NgModule, ChangeDetectionStrategy.OnPush (обязательно для Zoneless), input.required<number>() и output<User>() вместо декораторов @Input/@Output, signal() вместо BehaviorSubject, @if/@for вместо *ngIf/*ngFor, inject() вместо constructor injection и toSignal() вместо async pipe. Логика не переписывается — только паттерны, а в конце прогоняются ng build и npm test."
 date: 2026-04-10
 date_ru: "10 апреля 2026"
 read_time: 9

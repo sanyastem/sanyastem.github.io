@@ -14,6 +14,17 @@ tldr:
   - "mode=max is mandatory for multi-stage: it exports all intermediate layers, not just the final ones; mode=min only suits micro-Dockerfiles."
   - "Layer order decides everything: first COPY *.csproj and dotnet restore, then COPY . . — otherwise any edited .cs file invalidates restore (+2-3 minutes per build)."
   - "Common cache-miss causes: extra files in the context due to an incomplete .dockerignore (bin/, obj/), an updated base image and LRU eviction past the 10 GB limit."
+faq:
+  - q: "Why are Docker layers not cached between GitHub Actions runs?"
+    a: "Each job runs on a clean VM — image layers from the previous build do not persist, so docker build pulls the base image and restores all NuGet packages from scratch every time. The standard actions/cache saves ~/.nuget/packages on the host but does not speed up the build inside Docker. The fix is BuildKit with the gha backend (buildx 0.10+): cache-from: type=gha and cache-to: type=gha,mode=max export the layers into the native GitHub Actions cache."
+  - q: "What is the difference between mode=max and mode=min in cache-to?"
+    a: "mode=min caches only the final layers of the last multi-stage step — the cache is small, but any Dockerfile change rebuilds almost everything. mode=max exports all intermediate layers, including the build stage with dotnet restore, and lets the build resume from any point. For .NET with a multi-stage Dockerfile, always use max; min only suits a three-line micro-Dockerfile."
+  - q: "How should I structure a .NET Dockerfile so the cache actually works?"
+    a: "Rarely changing layers go above frequently changing ones: first COPY the .sln and .csproj files, then dotnet restore --no-cache (the longest step, ~1 minute), and only then COPY . . and dotnet publish --no-restore. If you put COPY . . at the top, every edited .cs file invalidates the restore layer and all NuGet packages are downloaded again — adding 2-3 minutes to every build."
+  - q: "What real speedup does the BuildKit cache give on a .NET project?"
+    a: "On a .NET 9 API with ~30 NuGet packages and ~150 .cs files: the first uncached build takes 5:42, a README change 0:48, a .cs file edit 1:24, adding a NuGet package 3:12, and a base image update 5:30 (cache fully reset). The average across real PRs is about 1:30 — four times faster than an uncached build."
+  - q: "What should I check when the build cache misses?"
+    a: "Three common causes: an incomplete .dockerignore — if bin/, obj/ or .git/ end up in the context, the COPY . . layer invalidates on every build (verify with docker build --progress=plain .); an updated base image in FROM — the cache resets completely, which is normal; and LRU eviction past the 10 GB per-repository limit. For parallel jobs, scope the cache per branch: cache-to: type=gha,mode=max,scope=branch-name, and if 10 GB is not enough, use a registry cache via type=registry in GHCR."
 ---
 
 A .NET Docker image build in GitHub Actions without cache takes 5-7 minutes. With BuildKit cache properly set up — 1-1.5. The difference is hours of CI time saved per week and faster PR feedback.

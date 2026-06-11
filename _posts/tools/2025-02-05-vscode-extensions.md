@@ -8,6 +8,17 @@ tldr:
   - "Для Prettier включи в settings.json: editor.formatOnSave: true и editor.defaultFormatter: esbenp.prettier-vscode; кастомные настройки — в .prettierrc."
   - "Thunder Client — лёгкая замена Postman внутри VS Code: коллекции, переменные среды, история запросов."
   - "Полезные настройки сразу: files.autoSave: onFocusChange, editor.rulers: [80], лигатуры с Fira Code; открыть settings.json — Ctrl+Shift+P → «Open User Settings (JSON)»."
+faq:
+  - q: "Какие расширения VS Code поставить в первую очередь?"
+    a: "Базовый набор: Prettier (форматирование при сохранении), GitLens (blame-аннотации прямо в коде), Error Lens (ошибки рядом со строкой), Path Intellisense (автодополнение путей в импортах), Thunder Client (REST-клиент) и Auto Rename Tag для HTML-тегов."
+  - q: "Как настроить Prettier на форматирование при сохранении?"
+    a: "В settings.json добавь editor.formatOnSave: true и editor.defaultFormatter: esbenp.prettier-vscode. Кастомные настройки — ширина строки, одиночные или двойные кавычки, точка с запятой — выноси в файл .prettierrc в корне проекта."
+  - q: "Чем Thunder Client отличается от Postman?"
+    a: "Это лёгкий REST-клиент прямо внутри VS Code — не нужно переключаться в отдельное приложение. Поддерживает коллекции, переменные среды и историю запросов; для повседневной работы с API этого достаточно."
+  - q: "Какие настройки VS Code стоит включить сразу?"
+    a: "files.autoSave: onFocusChange (автосохранение при потере фокуса), editor.rulers: [80] (вертикальная линейка), editor.fontLigatures: true со шрифтом Fira Code и editor.renderWhitespace: boundary. Быстро открыть settings.json: Ctrl+Shift+P → «Open User Settings (JSON)»."
+  - q: "Что делает GitLens и зачем он нужен?"
+    a: "GitLens показывает blame-аннотации прямо в коде: наводишь на строку — видишь последний коммит, его автора и сообщение. Бесценно при разборе чужого кода, когда нужно понять, кто, когда и зачем написал строку."
 date: 2025-02-05
 date_ru: "5 февраля 2025"
 read_time: 3

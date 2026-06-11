@@ -14,6 +14,17 @@ tldr:
   - "clamp(min, preferred, max) scales sizes without media queries: font-size: clamp(1.2rem, 5vw, 2.4rem), padding: clamp(16px, 5vw, 80px)."
   - "A responsive grid without a single media query: grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))."
   - "Without the viewport meta tag (width=device-width, initial-scale=1.0) mobile browsers render the page as desktop; replace fixed width: 960px with max-width + width: 100%."
+faq:
+  - q: "What is mobile-first and why is it better than desktop-first?"
+    a: "Mobile-first means the base styles target mobile, while @media (min-width: 768px) and (min-width: 1024px) expand the layout for tablet and desktop. With min-width you end up with fewer overrides than with max-width: each media query only adds rules instead of undoing ones already written."
+  - q: "Which breakpoints should I use in a responsive layout?"
+    a: "Three or four are enough: up to 480px — mobile (base styles), from 768px — tablet, from 1024px — desktop, from 1280px — wide screens. Do not tie them to specific devices — put breakpoints where the layout actually breaks."
+  - q: "How does clamp() replace media queries?"
+    a: "clamp(min, preferred, max) smoothly scales a value between the minimum and maximum depending on screen width. For example, font-size: clamp(1.2rem, 5vw, 2.4rem) for a heading or padding: clamp(16px, 5vw, 80px) for a section — and not a single @media."
+  - q: "Can I build a responsive grid without a single media query?"
+    a: "Yes: grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) works out how many columns fit on its own — one on mobile, two on tablet, three or more on desktop. For the container add width: min(1200px, 100% - 48px) with margin: 0 auto."
+  - q: "Why do I need the viewport meta tag and what happens without it?"
+    a: "The meta name=viewport tag with content=width=device-width, initial-scale=1.0 tells the mobile browser to use the real screen width. Without it the page is rendered as desktop and shrunk down to fit the screen, and media queries effectively never fire."
 ---
 
 ## Mobile-first — write for mobile first

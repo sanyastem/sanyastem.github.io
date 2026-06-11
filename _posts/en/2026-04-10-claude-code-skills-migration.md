@@ -14,6 +14,17 @@ tldr:
   - "/dotnet-migrate moves .NET Framework code to .NET 10: SDK-style csproj with net10.0, Program.cs with WebApplication.CreateBuilder, Web.config → appsettings.json."
   - "/efcore-optimize finds N+1 queries and missing AsNoTracking and swaps bulk loops for ExecuteDeleteAsync; /mysql-explain reads EXPLAIN ANALYZE and builds indexes by the ESR rule."
   - "/ng-upgrade migrates components to Angular 20: input()/output() instead of decorators, signal() instead of BehaviorSubject, @if/@for, inject() and OnPush."
+faq:
+  - q: "How do I migrate a project from .NET Framework to .NET 10 with Claude Code?"
+    a: "The /dotnet-migrate skill from .claude/skills/dotnet-migrate/SKILL.md works step by step: first analysis — finding all .csproj files (excluding obj/), Global.asax, Web.config and packages.config; then converting csproj to SDK-style with TargetFramework net10.0, creating a Program.cs with WebApplication.CreateBuilder, and moving settings from Web.config to appsettings.json. Finally the skill runs dotnet build and warns about remaining System.Web dependencies, committing after each fixed file."
+  - q: "How can I find N+1 problems and wasteful EF Core queries automatically?"
+    a: "The /efcore-optimize skill looks for files containing .Include(, ToListAsync and DbContext and checks the typical issues: N+1 (looping over navigation properties after ToListAsync), queries missing AsNoTracking where there is no SaveChanges, unnecessary Includes, OFFSET pagination via Skip, and bulk loops of ToList → RemoveRange → SaveChanges, which it replaces with ExecuteDeleteAsync/ExecuteUpdateAsync. It also enables SQL logging in Development and runs dotnet build and dotnet test."
+  - q: "What is the ESR rule for composite MySQL indexes?"
+    a: "It is the column order in a composite index: equality fields (Equality, =) first, then the ORDER BY column (Sort), and range conditions last (Range: >, <, BETWEEN). For example, for WHERE category_id = 5 AND status = 'active' ORDER BY created_at DESC the right index is CREATE INDEX idx ON table (category_id, status, created_at DESC). The /mysql-explain skill applies this rule after reading EXPLAIN ANALYZE."
+  - q: "What does the /mysql-audit skill check in a MySQL configuration?"
+    a: "Six SQL checks against the mysql.user table and server variables: users with excessive privileges (Super_priv, Grant_priv, File_priv), accounts without a password, access from any host (host = '%'), users without SSL, the local_infile status (should be OFF) and the server version — MySQL 8.0 reaches EOL in April 2026. For each finding the skill reports the risk, the SQL to fix it and a priority, but never applies changes automatically."
+  - q: "How do I upgrade an Angular component to the Angular 20 style with Signals?"
+    a: "The /ng-upgrade skill converts a component to modern patterns: standalone instead of NgModule, ChangeDetectionStrategy.OnPush (mandatory for Zoneless), input.required<number>() and output<User>() instead of the @Input/@Output decorators, signal() instead of BehaviorSubject, @if/@for instead of *ngIf/*ngFor, inject() instead of constructor injection, and toSignal() instead of the async pipe. It does not rewrite logic — only patterns — and finishes with ng build and npm test."
 ---
 
 ## Structure

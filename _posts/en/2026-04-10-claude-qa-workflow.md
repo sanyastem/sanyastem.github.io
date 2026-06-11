@@ -16,6 +16,17 @@ tldr:
   - "A CLAUDE.md file in the repo root stores the stack, environments, test accounts, and business rules — Claude Code reads it in every session and knows the project context."
   - "Custom skills are created in .claude/skills/name/SKILL.md: the /qa-testcases command generates test cases, /qa-bugreport formats a bug from a free-form description."
   - "Claude integrates with tools through formats: a JSON collection for Postman, Jira markdown for bugs, CSV for import into TestRail and Excel."
+faq:
+  - q: "What does a QA engineer's workday with Claude look like?"
+    a: "Morning — a sprint test plan from Jira tasks, prioritized by business risk. During the day — test cases from a PR description, JSON with 20 test products, a bug report in 30 seconds from a raw description. Before the release — a prioritized 3-hour regression checklist; in the evening — a 5-7 sentence report for the lead in 2 minutes."
+  - q: "What should go into CLAUDE.md for a QA project?"
+    a: "A CLAUDE.md file in the repo root should hold: the stack, environment URLs (dev, staging, prod), test accounts, business rules (minimum order 500 RUB, maximum 10 items in the cart), critical modules, and known limitations. Claude Code reads it in every session and knows the project context right away."
+  - q: "How do I create my own skill for Claude Code?"
+    a: "Create a file at .claude/skills/name/SKILL.md with frontmatter (name, description, allowed-tools) and the prompt text. For example, /qa-testcases generates test cases as a table and /qa-bugreport formats a bug from a free-form description. Create it once — use it every day instead of a long prompt."
+  - q: "How do I integrate Claude with Jira, Postman, and TestRail?"
+    a: "Through output formats: from swagger documentation Claude generates a JSON collection for Postman import with a pre-request script and tests; bug reports and acceptance criteria come out in Jira markdown; test cases go to CSV with Title, Preconditions, Steps, and Expected Result fields for TestRail import; bug summaries to CSV for Excel."
+  - q: "How much time does Claude save a QA engineer?"
+    a: "Test cases in minutes instead of hours, a bug report in 30 seconds instead of 10 minutes, a manager report in 2 minutes. Plus analyzing project code without programming knowledge and bug reports with the file and line number. Start with one command a day — within a week it becomes part of your workflow."
 ---
 
 ## A full day with Claude

@@ -14,6 +14,17 @@ tldr:
   - "A store is built from withState, withComputed and withMethods; reading is direct store.cart(), mutation only via patchState — immutability is still on you."
   - "Async logic goes through rxMethod with an RxJS pipeline (debounceTime, switchMap) or a plain async method; it is the equivalent of NgRx effects, but without actions."
   - "DevTools hook up via withDevtools('cart'), but without classic time-travel; keep NgRx Classic for complex effects, an action audit trail and large teams."
+faq:
+  - q: "How is Signal Store different from classic NgRx?"
+    a: "Signal Store from @ngrx/signals fits in one file instead of 4-5 (actions, reducer, selectors, effects): withState holds the state, withComputed derives values, withMethods defines methods. Reading is direct access like store.cart() instead of selectors, mutation is store.addItem(item) instead of dispatch — roughly 3x less code."
+  - q: "How do I update state in Signal Store?"
+    a: "Only via patchState: either with an object, patchState(store, { loading: true }), or the functional form patchState(store, ({ items }) => ({ items: [...items, item] })) when the new value depends on the old one. Direct mutation (store.items().push(item)) does not work — immutability is still on you."
+  - q: "How do I handle async requests and debouncing in Signal Store?"
+    a: "Use rxMethod from @ngrx/signals/rxjs-interop: inside it is a regular RxJS pipeline with debounceTime, distinctUntilChanged, switchMap and tap with patchState — the equivalent of NgRx effects, but without actions. If you do not need RxJS, write a plain async method with await firstValueFrom(api.getCatalog())."
+  - q: "Do Redux DevTools work with Signal Store?"
+    a: "Yes, via withDevtools('cart') from @ngrx/signals: Redux DevTools shows every patchState call as an event with a state diff, named after the method (addItem, removeItem). There is no classic time-travel with action objects, and withDevtools should only be enabled in dev builds via environment.production."
+  - q: "When should I stay on NgRx Classic?"
+    a: "When a large team has established practices, you have complex effects with coordination (concatLatestFrom), need an audit trail of actions, or rely on plugins like entity-adapter and router-store. Otherwise a hybrid works: Classic keeps shared state (auth, router) while new features are built on Signal Store."
 ---
 
 NgRx has been the standard for state in Angular for years, but on top of Signals a lighter option has appeared — Signal Store. The same predictable state, but no actions, reducers or effects. Today we rewrite a real cart store from NgRx to Signal Store and tally up what we win and where the trade-offs are.

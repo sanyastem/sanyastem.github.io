@@ -14,6 +14,17 @@ tldr:
   - "Shortcuts via alias in ~/.bashrc or ~/.zshrc: alias gs='git status', gc='git commit -m', dcu='docker-compose up -d'; apply with source ~/.zshrc."
   - "&& runs the next command only if the previous one succeeded (npm run build && npm start), || only if it failed."
   - "cd - returns to the previous directory, history | grep docker searches your history, !42 runs command number 42."
+faq:
+  - q: "How do I quickly find a command I typed earlier in the terminal?"
+    a: "Press Ctrl+R and start typing — reverse search finds the last command containing that text: Enter runs it, the arrow keys let you edit it. Other options: history | grep docker searches your whole history, and !42 runs command number 42."
+  - q: "How do I create an alias in bash or zsh?"
+    a: "Add a line like alias gs='git status' to ~/.bashrc or ~/.zshrc and apply the changes with source ~/.zshrc. Handy shortcuts from the article: ga='git add .', gc='git commit -m', gp='git push', dcu='docker-compose up -d', ll='ls -la'."
+  - q: "What is the difference between && and || on the command line?"
+    a: "&& runs the next command only if the previous one succeeded: npm run build && npm start launches the app only after a successful build. || is the opposite — it fires only when the previous command failed."
+  - q: "Which terminal keyboard shortcuts are worth memorizing?"
+    a: "Ctrl+C interrupts the current command, Ctrl+L clears the screen, Ctrl+A and Ctrl+E jump to the start and end of the line, Ctrl+W deletes the previous word. Tab autocompletes, double Tab shows all options, and cd - returns to the previous directory."
+  - q: "What does zsh with Oh My Zsh give you over plain bash?"
+    a: "Smart autocompletion, command highlighting and ready-made git plugins. Aliases are declared the same way — in ~/.zshrc — and applied with source ~/.zshrc."
 ---
 
 ## Ctrl+R — search history

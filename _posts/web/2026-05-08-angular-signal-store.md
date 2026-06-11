@@ -8,6 +8,17 @@ tldr:
   - "Стор собирается из withState, withComputed и withMethods; чтение — прямой доступ store.cart(), изменение — только через patchState, иммутабельность остаётся на тебе."
   - "Async-логика — через rxMethod с RxJS-pipeline (debounceTime, switchMap) или обычный async-метод; это эквивалент NgRx effects, но без actions."
   - "DevTools подключаются через withDevtools('cart'), но без классического time-travel; NgRx Classic оставляй для сложных effects, аудит-истории действий и больших команд."
+faq:
+  - q: "Чем Signal Store отличается от классического NgRx?"
+    a: "Signal Store из @ngrx/signals собирается в один файл вместо 4–5 (actions, reducer, selectors, effects): withState даёт стейт, withComputed — производные значения, withMethods — методы. Чтение — прямой доступ store.cart() вместо селекторов, изменение — store.addItem(item) вместо dispatch; кода выходит примерно в 3 раза меньше."
+  - q: "Как изменять состояние в Signal Store?"
+    a: "Только через patchState: либо объектом patchState(store, { loading: true }), либо функциональной формой patchState(store, ({ items }) => ({ items: [...items, item] })), когда новое значение зависит от старого. Мутировать напрямую (store.items().push(item)) нельзя — иммутабельность остаётся на тебе."
+  - q: "Как делать async-запросы и дебаунс в Signal Store?"
+    a: "Через rxMethod из @ngrx/signals/rxjs-interop: внутри обычный RxJS-pipeline с debounceTime, distinctUntilChanged, switchMap и tap с patchState — эквивалент NgRx effects, но без actions. Если RxJS не нужен, пиши обычный async-метод с await firstValueFrom(api.getCatalog())."
+  - q: "Работают ли Redux DevTools с Signal Store?"
+    a: "Да, через withDevtools('cart') из @ngrx/signals: в Redux DevTools видно все patchState-вызовы как события с диффом стейта, названные именами методов (addItem, removeItem). Классического time-travel с action-объектами нет, а сам withDevtools подключай только в dev-сборке через environment.production."
+  - q: "Когда лучше остаться на NgRx Classic?"
+    a: "Когда у большой команды устоявшиеся практики, есть сложные effects с координацией (concatLatestFrom), нужна аудит-история действий или плагины вроде entity-adapter и router-store. В остальных случаях работает гибрид: Classic держит общий стейт (auth, router), а новые фичи пишутся на Signal Store."
 date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 10

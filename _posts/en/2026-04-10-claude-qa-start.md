@@ -16,6 +16,17 @@ tldr:
   - "A prompt formula for 90% of tasks: what I'm testing + platform + user role + desired output; the more business rules in the context, the more accurate the answer."
   - "5 first commands: test cases for a registration form, a bug report from a free-form description, a 40–50 item cart checklist, test emails, and a console error breakdown."
   - "The Projects section in claude.ai stores the spec and a system instruction — every new chat inside the project gets that context automatically."
+faq:
+  - q: "Does a QA engineer need to know how to code to work with Claude?"
+    a: "No. A browser is enough: open claude.ai, sign up with a Google account or email, and start working. No terminal, no package installs, no programming languages, no API keys — and the free plan covers a tester's first tasks."
+  - q: "How do I write a good testing prompt?"
+    a: "Use the formula that covers 90% of tasks: what I'm testing + platform + user role + desired output. Add business rules (limits, validations, account lockout after 5 failed attempts) and the answer format — table, Gherkin, or checklist. A bare prompt like 'write test cases for login' produces useless generic output."
+  - q: "Which tasks should a QA engineer hand to Claude first?"
+    a: "Five commands: test cases for a registration form (returns a table of 20-30 cases), a bug report from a free-form description, a 40-50 item cart checklist with P1-P3 priorities, test data for an email field (valid, invalid, boundary), and a plain-language breakdown of a confusing console error."
+  - q: "What is Projects in claude.ai and why does a tester need it?"
+    a: "Projects is a folder where you upload files (specs, user stories) and write a system instruction with context: product, platform, user roles, test case format. Every new chat inside the project gets that context automatically — no need to repeat 'I'm testing an online store' in every conversation."
+  - q: "What can't Claude do in testing?"
+    a: "It doesn't see the screen or click buttons, doesn't know your project's business context, and can make mistakes — inventing nonexistent constraints or misjudging severity. Review every result, and never paste real user data, passwords, or tokens. The working scheme: Claude generates 80%, you add 20% from your own experience."
 ---
 
 ## Why a QA engineer needs an AI assistant

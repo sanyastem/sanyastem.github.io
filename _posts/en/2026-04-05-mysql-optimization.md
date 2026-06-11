@@ -16,6 +16,17 @@ tldr:
   - "Build composite indexes by the ESR rule: equality (=) columns first, then the ORDER BY column, range conditions (>, <, BETWEEN) last."
   - "OFFSET pagination scans every skipped row; cursor pagination WHERE id > :last_id ORDER BY id LIMIT 20 stays O(log n) via the index."
   - "Catch slow queries with slow_query_log and long_query_time = 1 plus mysqldumpslow -s t -t 10; find unused indexes via performance_schema."
+faq:
+  - q: "How is EXPLAIN ANALYZE different from plain EXPLAIN in MySQL?"
+    a: "EXPLAIN only shows the estimated execution plan, while EXPLAIN ANALYZE actually runs the query and prints the plan with real timings (actual time) and row counts (actual rows) for every step. That reveals where the plan diverged from reality: if actual rows is far above the estimate, the statistics are stale and you need ANALYZE TABLE, and a 'Table scan' line means a missing index."
+  - q: "In what order should columns go in a composite MySQL index?"
+    a: "Follow the ESR rule: equality (=) fields first, then the ORDER BY column, and range conditions (>, <, BETWEEN) last. For WHERE user_id = 42 AND status = 'completed' ORDER BY created_at DESC the right index is CREATE INDEX idx_good ON orders (user_id, status, created_at), while an index starting with created_at will not help the filtering at all."
+  - q: "Why is OFFSET pagination slow and what should replace it?"
+    a: "LIMIT 20 OFFSET 19980 forces MySQL to read and discard all 19,980 skipped rows — on a million-row table OFFSET 999980 is nearly a full table scan. The replacement is cursor pagination: WHERE id > :last_id ORDER BY id LIMIT 20, where :last_id is the last id of the previous page; that query stays O(log n) via the index. For sorting by a non-unique column, add id as a tie-breaker and an index like (category_id, created_at DESC, id DESC)."
+  - q: "How do I find slow queries in MySQL 8.4?"
+    a: "Enable slow_query_log = 1 with long_query_time = 1 (log queries longer than one second) and log_queries_not_using_indexes = 1 in mysqld.cnf, then analyze the log: mysqldumpslow -s t -t 10 /var/log/mysql/slow.log shows the top 10 slowest queries. The log-free alternative is performance_schema: querying events_statements_summary_by_digest ordered by SUM_TIMER_WAIT gives the top queries by total time, and table_io_waits_summary_by_index_usage exposes indexes with COUNT_READ = 0 that can be dropped."
+  - q: "What is a covering index and when do you need one?"
+    a: "It is an index containing every column the query needs — MySQL reads the data straight from the index without touching the table; EXPLAIN shows it as 'Using index'. For SELECT id, name, price WHERE category_id = 5 AND is_active = 1 ORDER BY name a fitting index is CREATE INDEX idx_cover ON products (category_id, is_active, name, price, id). But do not build a covering index out of 10 columns — it gets heavy; reserve it for genuinely frequent and expensive queries."
 ---
 
 ## Reading EXPLAIN ANALYZE

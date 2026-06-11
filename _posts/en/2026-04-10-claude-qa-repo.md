@@ -17,6 +17,17 @@ tldr:
   - "Claude Code reads the code for the tester: it finds all API endpoints, user roles, and validations — including ones missing from the documentation."
   - "Test cases from code beat documentation: it surfaces mismatches like 'password min 6 characters on the frontend, 8 on the backend' and fields without validation — ready-made bugs."
   - "From git history Claude shows what changed over the week and what might break; from a stack trace it opens the file and the exact line causing the bug (OrderService.cs:47)."
+faq:
+  - q: "Why would a tester need repo access if they can't read code?"
+    a: "Code doesn't lie, documentation goes stale: the code shows the real validations, the places where validation is missing (that's where the bugs are), and exactly what changed in a release. You don't read the code yourself — Claude Code reads it for you and answers in plain language, and read-only access means you can't break anything."
+  - q: "How do I install Claude Code?"
+    a: "Install Node.js from nodejs.org, open a terminal, and run curl -fsSL https://claude.ai/install.sh | bash (on Windows in PowerShell: irm https://claude.ai/install.ps1 | iex). Then git clone with the repository URL, cd into the project folder, and run the claude command. The old npm install -g method is no longer recommended."
+  - q: "How do I get test cases from code instead of documentation?"
+    a: "Ask Claude Code to find all validations for a form: which field, which rule, which error message — it checks both frontend and backend. Mismatches like 'password minimum 6 characters on the frontend but 8 on the backend' or a phone field with no validation at all are ready-made bugs that no document mentions."
+  - q: "How does Claude Code help me figure out what to test in a new release?"
+    a: "It reads git history and tells you what changed over the week: which files, which features are affected, what might break. Given a list of changed files (say, PaymentService.cs and DiscountCalculator.cs), it does a risk assessment and suggests which test cases to run in regression."
+  - q: "Can I find the exact cause of a bug from a stack trace?"
+    a: "Yes: paste an error like NullReferenceException at OrderService.cs:line 47 — Claude opens the file, shows the line, and explains the cause, for example, Customer can be null if the user deleted their account. A bug report with the file and line number saves the developer an hour of digging."
 ---
 
 ## Why QA should look at the code

@@ -16,6 +16,17 @@ tldr:
   - "C# 13 (with .NET 9) allowed params for any collection type, including params ReadOnlySpan<T> — no heap allocation on hot paths."
   - "C# 14 (with .NET 10) added the field keyword — logic in auto-properties without a backing field — and extension members: properties via an extension(string s) block."
   - "Records fit DTOs and value objects (readonly record struct Money), but not EF Core entities — change tracking issues."
+faq:
+  - q: "Which C# version ships with which .NET version?"
+    a: "C# 12 ships with .NET 8, C# 13 with .NET 9, and C# 14 with .NET 10 (November 2025). C# 12 brought primary constructors and collection expressions, C# 13 added params for any collection type and System.Threading.Lock, and C# 14 introduced the field keyword, extension members and null-conditional assignment."
+  - q: "When should I use primary constructors — and when not?"
+    a: "Use them for DI services, repositories and any class whose constructor only assigns dependencies: public class OrderService(IOrderRepository repo, ILogger<OrderService> logger) removes the boilerplate fields and assignments. Avoid them when the constructor needs logic — checks or transformations — where an explicit constructor is better. Keep in mind: primary constructor parameters are captured variables, not fields, and they do not exist on this."
+  - q: "Can I use records for EF Core entities?"
+    a: "No — records have change-tracking issues in EF Core, like any type that was designed to be immutable. Records fit Request/Response DTOs in APIs, value objects in the domain model (readonly record struct Money(decimal Amount, string Currency) is a stack-allocated value type) and configuration objects; changes are expressed via with-expressions."
+  - q: "What does the field keyword do in C# 14?"
+    a: "It lets you add logic to an auto-property without declaring an explicit backing field: the compiler creates the field for you and you access it via the field keyword. For example, set => field = value?.Trim() ?? string.Empty normalizes a string on write, and a setter can also include validation that throws ArgumentOutOfRangeException. Previously you had to declare a private string _name by hand."
+  - q: "What are extension members in C# 14 and how do they beat extension methods?"
+    a: "It is an extension(string s) { ... } block where you can declare not only extension methods but also properties and indexers — previously only static methods with a this parameter were possible. For example, the property public bool IsValidEmail => s.Contains('@') is used as email.IsValidEmail without parentheses. It also works for interfaces: extension(IEnumerable<Order> orders) adds a TotalRevenue property without inheritance."
 ---
 
 ## What changed and in which version

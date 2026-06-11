@@ -14,6 +14,17 @@ tldr:
   - "A typical page: Grid for the layout (grid-template-columns: 260px 1fr) and the card grid, Flexbox for navigation and card internals."
   - "A responsive grid without media queries: repeat(auto-fill, minmax(280px, 1fr)) works out how many columns fit on its own."
   - "auto-fill reserves empty columns and keeps cell size, auto-fit stretches items to the full width; for cards you usually want auto-fill."
+faq:
+  - q: "When should I use Flexbox and when Grid?"
+    a: "The simple rule: Flexbox when items line up in one direction (a row or a column) — navigation, button rows, centering. Grid when you need rows and columns at the same time: page layout, galleries, card grids."
+  - q: "Can I use Flexbox and Grid together?"
+    a: "Yes, they are not competitors. A typical page: Grid for the main layout (grid-template-columns: 260px 1fr) and the card grid, Flexbox for navigation and the content inside each card (flex-direction: column with gap)."
+  - q: "What is the difference between auto-fill and auto-fit?"
+    a: "Both create responsive columns, but auto-fill reserves empty columns and keeps the cell size, while auto-fit stretches the remaining items to the full width. For a card grid you usually want auto-fill — cards do not balloon to huge sizes."
+  - q: "How do I build a responsive card grid without media queries?"
+    a: "grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) with gap: 20px — the browser works out how many columns fit on its own. You get one column on mobile, two on tablet, three or more on desktop."
+  - q: "How do I center an element horizontally and vertically?"
+    a: "Easiest with Flexbox: display: flex, align-items: center and justify-content: center on the container — the element sits at the center of both axes. It is one of the main uses of Flexbox alongside navigation."
 ---
 
 ## The simple rule

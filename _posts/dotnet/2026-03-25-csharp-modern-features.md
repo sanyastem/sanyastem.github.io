@@ -8,6 +8,17 @@ tldr:
   - "C# 13 (с .NET 9) разрешил params для любых коллекций, включая params ReadOnlySpan<T> — без heap-аллокации на hot paths."
   - "C# 14 (с .NET 10) ввёл field keyword — логика в auto-property без явного backing field — и extension members: свойства расширения через блок extension(string s)."
   - "Records подходят для DTO и value objects (readonly record struct Money), но не для сущностей EF Core — проблемы с отслеживанием изменений."
+faq:
+  - q: "Какая версия C# идёт с какой версией .NET?"
+    a: "C# 12 поставляется с .NET 8, C# 13 — с .NET 9, C# 14 — с .NET 10 (ноябрь 2025). C# 12 принёс primary constructors и collection expressions, C# 13 — params для любых коллекций и System.Threading.Lock, C# 14 — field keyword, extension members и null-conditional assignment."
+  - q: "Когда стоит и когда не стоит использовать primary constructors?"
+    a: "Стоит — для сервисов с DI, репозиториев и любых классов, где конструктор только присваивает зависимости: public class OrderService(IOrderRepository repo, ILogger<OrderService> logger) убирает шаблонные поля и присвоения. Не стоит — когда в конструкторе нужна логика (проверки, трансформации): тогда лучше явный конструктор. Важно помнить: параметры primary constructor — это захваченные переменные, а не поля, их нет в this."
+  - q: "Можно ли использовать records для сущностей EF Core?"
+    a: "Нет — у records проблемы с отслеживанием изменений в EF Core, как и у любых объектов, которые задумывались изменяемыми. Records подходят для Request/Response DTO в API, value objects в доменной модели (readonly record struct Money(decimal Amount, string Currency) — value type со стек-аллокацией) и конфигурационных объектов; изменения выражаются через with-expression."
+  - q: "Что делает field keyword в C# 14?"
+    a: "Позволяет добавить логику в auto-property без объявления явного backing field: компилятор сам создаёт поле, к которому обращаешься через слово field. Например, set => field = value?.Trim() ?? string.Empty нормализует строку при записи, а в setter можно вставить и валидацию с throw new ArgumentOutOfRangeException. Раньше для этого пришлось бы вручную заводить private string _name."
+  - q: "Что такое extension members в C# 14 и чем они лучше методов расширения?"
+    a: "Это блок extension(string s) { ... }, внутри которого можно объявлять не только методы расширения, но и свойства и индексаторы — раньше были доступны только статические методы с this-параметром. Например, свойство public bool IsValidEmail => s.Contains('@') вызывается как email.IsValidEmail без скобок. Удобно и для интерфейсов: extension(IEnumerable<Order> orders) добавляет свойство TotalRevenue без наследования."
 date: 2026-03-25
 date_ru: "25 марта 2026"
 read_time: 11

@@ -16,6 +16,17 @@ tldr:
   - "Before a release Claude builds a 30-minute smoke checklist, a post-deploy production checklist, and gives a Go/No-Go recommendation based on test results."
   - "From a spec Claude extracts testable requirements with priority and an automatable flag, and builds a traceability matrix: requirement — test cases — coverage."
   - "Separate checklists for cross-browser testing (Chrome, Firefox, Safari, Edge), WCAG 2.1 level AA accessibility, and localization (RTL, date and number formats)."
+faq:
+  - q: "Which ready-made prompt templates does a QA engineer need?"
+    a: "Six basic ones: test cases (a table with positive/negative/edge/security types), a Jira bug report, a feature checklist, a regression checklist, a test plan, and test data. Copy, replace the placeholders in square brackets, add your project context at the top — and send."
+  - q: "How does Claude help prepare for a release?"
+    a: "With three checklists: a 30-minute smoke test (2-3 critical checks per module), post-deploy production checks (site opens, SSL is valid, a test payment goes through, logs are clean), and a Go/No-Go recommendation. Give it the test results — say, 112 passed out of 120 with 2 open majors — and you get a decision with the risks explained."
+  - q: "How do I extract testable requirements from a spec?"
+    a: "Paste the document and ask Claude to extract all testable requirements: for each one — ID, wording, check type, priority, and whether it can be automated. Then, from the requirements list, Claude builds a traceability matrix (requirement — test cases — coverage — status) so you can see gaps in coverage."
+  - q: "How do I test cross-browser compatibility and accessibility with Claude?"
+    a: "Ask for a checklist covering Chrome, Firefox, Safari, and Edge (last 2 versions) at resolutions from 1920x1080 down to 360x800: layout, fonts, forms, animations, modals. For accessibility — a separate WCAG 2.1 level AA checklist: contrast, keyboard navigation, screen reader support, visible focus, label-input association."
+  - q: "Can Claude help a QA engineer grow professionally?"
+    a: "Yes, in three roles: a mentor that explains techniques like boundary value analysis with concrete examples; an interviewer that asks 10 middle-QA-level questions and reviews your answers; and an automation teacher that writes your first Python + Selenium test and explains every line for someone with no programming background."
 ---
 
 ## Ready-to-use prompt templates
