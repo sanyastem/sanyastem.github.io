@@ -31,7 +31,7 @@ faq:
 
 ## Ready-to-use prompt templates
 
-Templates are prompts you adapt to your project. Copy, replace placeholders in square brackets, send to Claude.
+Templates are prompts you adapt to your project. Copy, replace placeholders in square brackets, send to Claude. The foundation is the context formula from [part one](/en/qa/claude-qa-start/) and the [daily scenarios](/en/qa/claude-qa-daily/) from part two.
 
 ### Template: test cases
 
@@ -340,4 +340,4 @@ Explain each line as if to someone who's never coded.
 
 You don't have to automate right now. But understanding how it works makes you more valuable.
 
-> In the next part — your first contact with the project repository. Don't panic: Claude reads the code, not you.
+> In the [next part](/en/qa/claude-qa-repo/) — your first contact with the project repository. Don't panic: Claude reads the code, not you.

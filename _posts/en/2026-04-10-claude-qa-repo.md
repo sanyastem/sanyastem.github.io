@@ -71,7 +71,7 @@ You don't need to understand every file. You need to know that **Claude Code can
 
 ## Installing Claude Code
 
-Step by step, no panic.
+Step by step, no panic. If you want a deeper install walkthrough from a developer's perspective, there's a [dedicated guide](/en/ai/claude-code-setup/).
 
 ### 1. Install Node.js
 
@@ -281,4 +281,4 @@ Now your bug report looks like this:
 
 The developer gets the bug and knows where to look right away. You save them an hour of work.
 
-> Now you're not just a QA — you're a QA who understands the system from inside. In the final part — full workflow with Claude, your own skills, and integration with tools.
+> Now you're not just a QA — you're a QA who understands the system from inside. In the [final part](/en/qa/claude-qa-workflow/) — full workflow with Claude, your own skills, and integration with tools.

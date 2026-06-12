@@ -31,7 +31,7 @@ faq:
 
 ## Plan regression
 
-Before a regression run, ask AI what's important to check:
+If [test-case generation](/en/qa/ai-qa-basics/) is already in your toolkit, planning is the next step. Before a regression run, ask AI what's important to check:
 
 ```
 This sprint we changed:
@@ -123,6 +123,6 @@ Explain the difference between smoke, sanity, and regression testing.
 Give examples from an online store.
 ```
 
-Instead of reading long articles — a live conversation with examples in your context.
+Instead of reading long articles — a live conversation with examples in your context. And for hands-on practice, see [exploratory testing and bug reports with AI](/en/qa/ai-qa-tools/).
 
 > Make it a habit: before each testing session, ask AI one question about the feature. It takes 2 minutes and often reveals an angle you'd otherwise miss.

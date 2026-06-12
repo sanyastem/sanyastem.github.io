@@ -31,7 +31,7 @@ faq:
 
 ## A full day with Claude
 
-Let's go through a typical QA engineer day and show where Claude saves time.
+Let's go through a typical QA engineer day and show where Claude saves time. This part ties together everything from the [earlier parts of the series](/en/qa/claude-qa-start/) — from first prompts to [working with the repository](/en/qa/claude-qa-repo/).
 
 ### 09:00 — Morning: planning
 
@@ -188,7 +188,7 @@ Now every time you ask Claude Code about the project, it already knows the conte
 
 ## Custom skills
 
-Skills are saved commands for Claude Code. You type `/qa-testcases` instead of a long prompt.
+Skills are saved commands for Claude Code. You type `/qa-testcases` instead of a long prompt. How skills work under the hood is covered in a [separate article](/en/ai/claude-code-skills/).
 
 ### How to create one
 

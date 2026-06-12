@@ -72,7 +72,7 @@ Claude is available as an app for macOS and Windows. Download from [claude.ai/do
 
 Just a browser and a keyboard. If you can write in a messenger — you can work with Claude.
 
-> There's also Claude Code — a tool for developers that runs in the terminal and can edit files in a project. We'll get to it in parts 4-5, when we talk about automation. For now, forget about it.
+> There's also [Claude Code](/en/ai/claude-code-setup/) — a tool for developers that runs in the terminal and can edit files in a project. We'll get to it in parts 4-5, when we talk about automation. For now, forget about it.
 
 ## Context — the main rule
 
@@ -344,8 +344,8 @@ Short checklist to get started:
 
 In the next parts of the series we'll go deeper:
 
-- **Part 2** — advanced prompts: templates for regression, smoke tests, API testing via Postman
-- **Part 3** — Claude for requirements analysis and sprint planning preparation
-- **Part 4-5** — Claude Code: when a QA engineer is ready to automate
+- **[Part 2](/en/qa/claude-qa-daily/)** — advanced prompts: templates for regression, smoke tests, API testing via Postman
+- **[Part 3](/en/qa/claude-qa-templates/)** — Claude for requirements analysis and sprint planning preparation
+- **Part 4-5** — [Claude Code](/en/qa/claude-qa-workflow/): when a QA engineer is ready to automate
 
 > Try it right now: open claude.ai and ask it to write test cases for the last feature you tested. Use the context formula from this article. The difference from a "bare" prompt will be obvious.

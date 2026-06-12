@@ -31,7 +31,7 @@ faq:
 
 ## AI as a partner during a session
 
-Exploratory testing is when there are no scripts — you test by hand, with your brain switched on. This is where AI is useful not as an automator, but as a **conversation partner**.
+Exploratory testing is when there are no scripts — you test by hand, with your brain switched on. This is where AI is useful not as an automator, but as a **conversation partner**. The basics — [generating test cases and data](/en/qa/ai-qa-basics/) — come in handy here too.
 
 Before the session, ask:
 
@@ -116,4 +116,4 @@ to reproduce it consistently?
 
 AI will suggest: slow connection, fast double-click, switch from mobile to desktop, authorization state, cart size.
 
-> AI doesn't replace your tester's intuition — it widens your field of view. Ask it questions like an experienced colleague who's seen a lot.
+> AI doesn't replace your tester's intuition — it widens your field of view. Ask it questions like an experienced colleague who's seen a lot. To fit this into your sprint, see [planning and prioritization](/en/qa/ai-qa-testing-ai/).

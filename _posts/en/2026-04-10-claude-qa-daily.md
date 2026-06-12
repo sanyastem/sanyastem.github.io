@@ -31,7 +31,7 @@ faq:
 
 ## Morning: planning the day's testing
 
-First thing in the morning — you check sprint tasks. Instead of writing the test plan yourself, hand it to Claude.
+First thing in the morning — you check sprint tasks. Instead of writing the test plan yourself, hand it to Claude (how to set up the context is covered in [part one of the series](/en/qa/claude-qa-start/)).
 
 ```text
 Here's a Jira user story:
@@ -123,7 +123,7 @@ For each: method, URL, request body, expected code and response body.
 
 ## Exploratory testing
 
-When standard scenarios are exhausted — ask Claude to think for you.
+When standard scenarios are exhausted — ask Claude to think for you. We've also covered dedicated [exploratory-testing techniques with AI](/en/qa/ai-qa-tools/).
 
 ```text
 I'm testing file upload to cloud storage.
@@ -292,4 +292,4 @@ What info should I collect for the developer?
 
 Claude suggests: race condition, caching, an async request that doesn't complete in time, session issues. It'll prompt you: try rapid navigation, open two tabs, check the Network tab in DevTools.
 
-> Next part — ready-to-use prompt templates, release prep, and reporting for managers.
+> [Next part](/en/qa/claude-qa-templates/) — ready-to-use prompt templates, release prep, and reporting for managers.

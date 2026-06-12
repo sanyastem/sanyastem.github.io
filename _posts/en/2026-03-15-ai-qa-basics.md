@@ -31,7 +31,7 @@ faq:
 
 ## AI doesn't replace the QA engineer — it removes the routine
 
-Writing test cases by hand from a spec, inventing test data, drafting bug reports — AI does all of this in seconds. What's left for you is what AI can't do: knowing the business context, sensing UX, finding non-obvious scenarios.
+Writing test cases by hand from a spec, inventing test data, drafting bug reports — AI does all of this in seconds. What's left for you is what AI can't do: knowing the business context, sensing UX, finding non-obvious scenarios. All examples work in any chat assistant — and if you use Claude, there's a dedicated series on how to [start without code](/en/qa/claude-qa-start/).
 
 ## Generating test cases
 
@@ -49,8 +49,8 @@ AI will produce 15–20 cases. Your job is to review and add the business logic 
 **What's good to delegate to AI:**
 - Test cases from a user story or spec
 - Test data (names, phones, invalid formats)
-- Regression checklists
-- Bug reproduction steps
+- [Regression checklists](/en/qa/ai-qa-testing-ai/)
+- [Bug reproduction steps](/en/qa/ai-qa-tools/)
 
 ## How to get a good result
 
