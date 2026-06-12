@@ -44,7 +44,7 @@ After install, add to `settings.json`:
 
 ## GitLens — Git superpowers
 
-Shows who, when and why wrote each line right inside the code (blame annotations). Hover over a line — see the last commit, author and message. Invaluable when reading someone else's code.
+Shows who, when and why wrote each line right inside the code (blame annotations). Hover over a line — see the last commit, author and message. Invaluable when reading someone else's code. (Branching practices themselves are in the [Git flow article](/en/git/git-flow/).)
 
 ## Error Lens — errors right on the line
 
@@ -74,4 +74,4 @@ Rename an opening HTML tag — the closing one updates automatically.
 }
 ```
 
-> Quick way to open `settings.json`: `Ctrl+Shift+P` -> "Open User Settings (JSON)".
+> Quick way to open `settings.json`: `Ctrl+Shift+P` -> "Open User Settings (JSON)". The other half of productivity is the [terminal and its shortcuts](/en/tools/terminal-commands/).

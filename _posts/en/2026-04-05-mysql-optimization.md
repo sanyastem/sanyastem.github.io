@@ -202,6 +202,8 @@ ORDER BY OBJECT_SCHEMA, OBJECT_NAME;
 
 ## Pagination: OFFSET kills performance
 
+The same problem exists at the ORM level — see [cursor pagination in EF Core](/en/dotnet/efcore-optimization/).
+
 ```sql
 -- BAD — at page=1000 MySQL scans 20,000 rows
 SELECT id, name, price FROM products
@@ -307,4 +309,4 @@ WHERE TABLE_SCHEMA = 'myapp'
 ORDER BY DATA_FREE DESC;
 ```
 
-> 💡 Rule of thumb: an index speeds up SELECT but slows down INSERT/UPDATE/DELETE. On write-heavy tables keep only the necessary indexes — each added index is an extra write on every row change.
+> 💡 Rule of thumb: an index speeds up SELECT but slows down INSERT/UPDATE/DELETE. On write-heavy tables keep only the necessary indexes — each added index is an extra write on every row change. The database should also be secure — see the [MySQL 8.4 security guide](/en/databases/mysql-security/). Slow-query analysis is automated by the [/mysql-explain skill](/en/ai/claude-code-skills-migration/).

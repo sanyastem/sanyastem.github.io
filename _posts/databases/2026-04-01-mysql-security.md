@@ -193,6 +193,8 @@ var user = await context.Users
 
 ## Файервол и сетевая изоляция
 
+Если MySQL живёт в контейнере — про изоляцию сетей и секреты в compose есть [отдельная статья](/devops/docker-compose-advanced/).
+
 ```ini
 # /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -275,4 +277,4 @@ rm /tmp/mysql_creds.cnf
 
 **Почему не пароль в командной строке:** `ps aux` покажет все аргументы процессов — пароль будет виден всем пользователям системы.
 
-> 💡 После настройки запусти `mysqlcheck --all-databases -u root -p` — проверит целостность таблиц. И включи `innodb_file_per_table=ON` если ещё не включено — проще делать бэкапы и освобождать место.
+> 💡 После настройки запусти `mysqlcheck --all-databases -u root -p` — проверит целостность таблиц. И включи `innodb_file_per_table=ON` если ещё не включено — проще делать бэкапы и освобождать место. Следующий шаг после безопасности — [индексы и оптимизация запросов](/databases/mysql-optimization/). Авто-аудит конфигурации умеет [скилл /mysql-audit для Claude Code](/ai/claude-code-skills-migration/).

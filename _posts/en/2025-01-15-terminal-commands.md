@@ -39,7 +39,7 @@ Press `Ctrl+R` and start typing — the terminal finds the last command containi
 
 ## alias — short commands
 
-Add to `~/.bashrc` or `~/.zshrc`:
+Add to `~/.bashrc` or `~/.zshrc` (the git commands themselves are covered in [Git flow](/en/git/git-flow/)):
 
 ```bash
 # Git shortcuts
@@ -101,4 +101,4 @@ history | grep docker   # find commands containing docker
 - `Tab` — autocomplete
 - `Tab Tab` — show all options
 
-> Try **zsh + Oh My Zsh** — smart autocomplete, command highlighting, handy git plugins.
+> Try **zsh + Oh My Zsh** — smart autocomplete, command highlighting, handy git plugins. And if you live in VS Code, the built-in terminal plus the [right extensions](/en/tools/vscode-extensions/) cover 90% of tasks.

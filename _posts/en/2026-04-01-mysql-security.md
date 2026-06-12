@@ -192,6 +192,8 @@ var user = await context.Users
 
 ## Firewall and network isolation
 
+If MySQL lives in a container, network isolation and secrets in compose are covered in a [separate article](/en/devops/docker-compose-advanced/).
+
 ```ini
 # /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -274,4 +276,4 @@ rm /tmp/mysql_creds.cnf
 
 **Why not the password on the command line:** `ps aux` shows all process arguments — the password is visible to every system user.
 
-> 💡 After setup, run `mysqlcheck --all-databases -u root -p` — it checks table integrity. And enable `innodb_file_per_table=ON` if not already — easier backups and space reclamation.
+> 💡 After setup, run `mysqlcheck --all-databases -u root -p` — it checks table integrity. And enable `innodb_file_per_table=ON` if not already — easier backups and space reclamation. The next step after security is [indexes and query optimization](/en/databases/mysql-optimization/). Config auto-auditing is what the [/mysql-audit skill for Claude Code](/en/ai/claude-code-skills-migration/) does.
