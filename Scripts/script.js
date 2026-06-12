@@ -436,3 +436,36 @@ document.querySelectorAll('.post-share-copy').forEach(btn => {
         setTimeout(showBanner, 400);
     }
 })();
+
+// ========== Прожектор за курсором (featured-card) ==========
+document.querySelectorAll('.featured-card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+        if (prefersReducedMotion()) return;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+});
+
+// ========== Шапка: прячется вниз, появляется вверх ==========
+(function () {
+    const nav = document.querySelector('.navbar');
+    if (!nav) return;
+    let lastY = window.scrollY;
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const y = window.scrollY;
+            // Не прятать пока открыто мобильное меню
+            const menuOpen = document.querySelector('.nav-links.open');
+            if (!menuOpen && !prefersReducedMotion()) {
+                if (y > lastY && y > 160) nav.classList.add('nav-hidden');
+                else nav.classList.remove('nav-hidden');
+            }
+            lastY = y;
+            ticking = false;
+        });
+    }, { passive: true });
+})();
