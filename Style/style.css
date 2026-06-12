@@ -2465,3 +2465,73 @@ html[data-theme="light"] .filter-btn.active { color: #fff; }
 .ad-wrap.ad-unfilled .ad-label { display: none; }
 .post-card-ad.post-card-ad { transition: none; }
 .post-card-ad:hover { background: transparent; }
+
+/* ========== Прогресс учебных путей ========== */
+.path-steps li { display: flex; align-items: baseline; gap: 10px; }
+
+.path-check {
+    appearance: none;
+    width: 16px; height: 16px;
+    flex-shrink: 0;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.path-check:hover { border-color: var(--border-hover); }
+.path-check:active { transform: scale(0.85); }
+
+.path-check:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.path-check:checked::after {
+    content: "";
+    position: absolute;
+    left: 4.5px; top: 1.5px;
+    width: 4px; height: 8px;
+    border: solid #14110a;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.path-steps li.is-done a {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--border-strong);
+}
+
+.path-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.path-progress-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.path-progress-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.path-progress-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}

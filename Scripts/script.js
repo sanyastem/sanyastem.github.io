@@ -473,3 +473,41 @@ document.querySelectorAll('.ad-wrap').forEach(wrap => {
     setTimeout(check, 2500);
     new MutationObserver(check).observe(ins, { attributes: true, attributeFilter: ['data-ad-status'] });
 });
+
+// ========== Прогресс учебных путей (localStorage) ==========
+(function() {
+    const KEY = 'path-progress';
+    const lists = document.querySelectorAll('.path-steps');
+    if (!lists.length) return;
+    function state() {
+        try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { return {}; }
+    }
+    function save(map) { localStorage.setItem(KEY, JSON.stringify(map)); }
+
+    function refreshCard(card) {
+        const items = card.querySelectorAll('.path-steps li');
+        const done = card.querySelectorAll('.path-steps li.is-done').length;
+        const wrap = card.querySelector('.path-progress');
+        if (!wrap) return;
+        wrap.hidden = done === 0;
+        const fill = wrap.querySelector('.path-progress-fill');
+        const label = wrap.querySelector('.path-progress-label');
+        if (fill) fill.style.width = Math.round(done / items.length * 100) + '%';
+        if (label) label.textContent = done + '/' + items.length + ' ' + (label.dataset.suffix || '');
+    }
+
+    const s0 = state();
+    document.querySelectorAll('.path-steps li[data-step-url]').forEach(li => {
+        const url = li.dataset.stepUrl;
+        const cb = li.querySelector('.path-check');
+        if (s0[url]) { li.classList.add('is-done'); if (cb) cb.checked = true; }
+        if (cb) cb.addEventListener('change', () => {
+            const s = state();
+            if (cb.checked) s[url] = 1; else delete s[url];
+            save(s);
+            li.classList.toggle('is-done', cb.checked);
+            refreshCard(li.closest('.path-card'));
+        });
+    });
+    document.querySelectorAll('.path-card').forEach(refreshCard);
+})();

@@ -40,9 +40,16 @@ translation_of: /paths/
                     </div>
                     <ol class="path-steps">
                         {% for p in parts %}
-                        <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+                        <li data-step-url="{{ p.url }}">
+                            <input type="checkbox" class="path-check" aria-label="Mark “{{ p.title }}” as done">
+                            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+                        </li>
                         {% endfor %}
                     </ol>
+                    <div class="path-progress" hidden>
+                        <div class="path-progress-bar"><span class="path-progress-fill"></span></div>
+                        <span class="path-progress-label" data-suffix="done"></span>
+                    </div>
                 </article>
             {% endif %}
         {% endfor %}
