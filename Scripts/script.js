@@ -447,25 +447,16 @@ document.querySelectorAll('.featured-card').forEach(card => {
     });
 });
 
-// ========== Шапка: прячется вниз, появляется вверх ==========
-(function () {
-    const nav = document.querySelector('.navbar');
-    if (!nav) return;
-    let lastY = window.scrollY;
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-            const y = window.scrollY;
-            // Не прятать пока открыто мобильное меню
-            const menuOpen = document.querySelector('.nav-links.open');
-            if (!menuOpen && !prefersReducedMotion()) {
-                if (y > lastY && y > 160) nav.classList.add('nav-hidden');
-                else nav.classList.remove('nav-hidden');
-            }
-            lastY = y;
-            ticking = false;
-        });
-    }, { passive: true });
-})();
+// ========== Счётчики в hero ==========
+document.querySelectorAll('.hs-num[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count, 10);
+    if (!target || prefersReducedMotion()) { el.textContent = target; return; }
+    const dur = 900;
+    const t0 = performance.now();
+    function tick(t) {
+        const p = Math.min((t - t0) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+});

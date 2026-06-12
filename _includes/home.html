@@ -19,6 +19,11 @@
                 <h1 class="hero-title-modern">{{ t.hero.title_html }}</h1>
                 <p class="hero-sub-modern">{{ t.hero.sub }}</p>
                 <p class="hero-slogan-modern">&gt; build. break. learn. repeat.</p>
+                <div class="hero-stats">
+                    <span class="hero-stat"><span class="hs-num" data-count="{{ all_posts.size }}">0</span> {% if lang == 'en' %}articles{% else %}статей{% endif %}</span>
+                    <span class="hero-stat"><span class="hs-num" data-count="8">0</span> {% if lang == 'en' %}topics{% else %}тем{% endif %}</span>
+                    <span class="hero-stat"><span class="hs-num">RU·EN</span></span>
+                </div>
             </div>
             {% if featured %}
             <a href="{{ featured.url | relative_url }}" class="featured-card">
@@ -77,6 +82,8 @@
 
 <section class="posts-section" id="posts">
     <div class="container">
+
+        <h2 class="section-title"><span class="st-num">01</span>{% if lang == 'en' %}All articles{% else %}Все статьи{% endif %}</h2>
 
         <div class="filters-wrap">
             <div class="filter-row">
