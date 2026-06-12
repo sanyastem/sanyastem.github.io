@@ -14,7 +14,7 @@ read_time: 8
 difficulty: intermediate
 series: "Git workflow: профессиональная работа"
 part: 3
-description: "Когда rebase делает историю чище, а когда ломает чужие ветки. Реальные сценарии, force-with-lease, interactive rebase для подготовки PR и восстановление через reflog."
+description: "Когда rebase делает историю чище, а когда ломает чужие ветки: реальные сценарии, force-with-lease, interactive rebase, восстановление через reflog."
 excerpt_text: "Чистая история через rebase или безопасный merge — выбор зависит от ветки. Разбираем оба сценария на реальных кейсах"
 keywords: "git rebase vs merge, interactive rebase, force-with-lease, git reflog, squash коммитов, чистая git история"
 faq:

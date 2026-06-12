@@ -4,6 +4,7 @@ lang: en
 title: "Privacy Policy"
 permalink: /en/privacy/
 description: "What data sanyastem.github.io collects, what it's used for, and how to manage it."
+translation_of: "/privacy/"
 ---
 
 <article class="article-body" style="max-width:720px; margin:calc(var(--nav-height) + 56px) auto 100px; padding:0 24px;">

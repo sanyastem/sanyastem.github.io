@@ -5,7 +5,7 @@ categories: devops
 date: 2026-05-08
 read_time: 8
 difficulty: intermediate
-description: "How to cut Docker .NET image build time from 6 minutes to 1.5 via BuildKit cache-from/cache-to with type=gha. Full workflow, multi-stage Dockerfile, cache miss reasons."
+description: "Cut Docker .NET build time from 6 minutes to 1.5 with BuildKit cache type=gha: full workflow, multi-stage Dockerfile, cache-miss reasons."
 excerpt_text: "BuildKit cache in Actions: from 6 min to 1.5 on a .NET project — full workflow, multi-stage Dockerfile, cache miss analysis"
 keywords: "docker buildkit cache github actions, dotnet docker cache, cache-from gha, buildx, multi-stage dockerfile .net"
 translation_of: "/devops/docker-buildkit-cache-github-actions/"

@@ -23,7 +23,7 @@ date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 8
 difficulty: intermediate
-description: "Как сократить время сборки .NET-образа в Docker с 6 минут до 1.5 через BuildKit cache-from/cache-to с типом gha. Полный workflow, multi-stage Dockerfile, причины cache miss."
+description: "Сборка .NET-образа в Docker с 6 минут до 1.5 через BuildKit cache type=gha: полный workflow, multi-stage Dockerfile, причины cache miss."
 excerpt_text: "BuildKit cache в Actions: с 6 минут до 1.5 на .NET-проекте — полный workflow, multi-stage Dockerfile, разбор cache miss"
 keywords: "docker buildkit cache github actions, dotnet docker cache, cache-from gha, buildx, multi-stage dockerfile .net"
 ---

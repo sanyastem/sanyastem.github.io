@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Claude Code for the .NET + Angular + MySQL + MongoDB + Docker stack"
+title: "Claude Code for .NET + Angular + MySQL + MongoDB + Docker"
 categories: ai
 date: 2026-03-02
 read_time: 9

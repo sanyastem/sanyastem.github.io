@@ -4,6 +4,7 @@ lang: ru
 title: "О блоге"
 permalink: /about/
 description: "sanyastem — блог разработчика про современный стек: AI/Claude Code, QA, Web, .NET, DevOps, Git и базы данных."
+translation_of: "/en/about/"
 ---
 
 <article class="article-body" style="max-width:720px; margin:calc(var(--nav-height) + 56px) auto 100px; padding:0 24px;">

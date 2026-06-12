@@ -23,7 +23,7 @@ date: 2026-05-08
 date_ru: "8 мая 2026"
 read_time: 10
 difficulty: intermediate
-description: "Signal Store из @ngrx/signals — современная замена классическому NgRx. Разбираем миграцию реального стейта, withComputed, withMethods, rxMethod и чем расплачиваемся за простоту."
+description: "Signal Store из @ngrx/signals — замена классическому NgRx: миграция реального стейта, withComputed, withMethods, rxMethod и цена простоты."
 excerpt_text: "Signal Store без actions, reducers и effects: тот же стейт в 3 раза меньше кода. Реальный пример миграции корзины"
 keywords: "Angular Signal Store, ngrx signals, withComputed, withMethods, rxMethod, миграция NgRx, замена NgRx, signalStore"
 ---

@@ -5,7 +5,7 @@ categories: web
 date: 2026-05-08
 read_time: 10
 difficulty: intermediate
-description: "Signal Store from @ngrx/signals — a modern replacement for classic NgRx. We walk through migrating real state, withComputed, withMethods, rxMethod, and what we trade for the simplicity."
+description: "Signal Store from @ngrx/signals as a modern NgRx replacement: migrating real state, withComputed, withMethods, rxMethod and the trade-offs."
 excerpt_text: "Signal Store with no actions, reducers or effects: the same state in 3x less code. A real cart migration example"
 keywords: "Angular Signal Store, ngrx signals, withComputed, withMethods, rxMethod, NgRx migration, NgRx replacement, signalStore"
 translation_of: "/web/angular-signal-store/"

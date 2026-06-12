@@ -5,7 +5,7 @@ categories: web
 date: 2026-04-08
 read_time: 13
 difficulty: intermediate
-description: "Angular 20 — Signals are fully stable, Zoneless graduated from experimental, new control flow (@if/@for), resource() and httpResource() for async data, standalone by default."
+description: "Angular 20: stable Signals, Zoneless out of experimental, new @if/@for control flow, resource() for async data, standalone by default."
 excerpt_text: "Signals stable, Zoneless stable, @if/@for, resource() and httpResource() — Angular 20 with no compromises"
 excerpt: "What's new in Angular 20: Signals are fully stable, Zoneless graduated from experimental, new @if/@for, resource() and httpResource()."
 keywords: "Angular 20 Signals, Zoneless Angular, Angular control flow @if @for, httpResource Angular 20, linkedSignal, standalone components Angular 20"

@@ -7,7 +7,7 @@ read_time: 8
 difficulty: intermediate
 series: "Git workflow: professional practice"
 part: 3
-description: "When rebase makes history cleaner and when it breaks someone else's branches. Real scenarios, force-with-lease, interactive rebase for PR prep, and recovery via reflog."
+description: "When rebase cleans history and when it breaks shared branches: real scenarios, force-with-lease, interactive rebase, reflog recovery."
 excerpt_text: "Clean history via rebase or safe merge — the choice depends on the branch. Both scenarios on real cases"
 keywords: "git rebase vs merge, interactive rebase, force-with-lease, git reflog, squash commits, clean git history"
 translation_of: "/git/git-rebase-vs-merge/"

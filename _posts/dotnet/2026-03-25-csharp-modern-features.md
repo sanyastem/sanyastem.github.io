@@ -25,7 +25,7 @@ read_time: 11
 difficulty: intermediate
 series: ".NET: от старого к новому"
 part: 2
-description: "Разбор ключевых фич C# 12, 13 и 14: primary constructors, collection expressions, записи, pattern matching, field keyword, расширения типов и null-conditional assignment."
+description: "Ключевые фичи C# 12–14: primary constructors, collection expressions, записи, pattern matching, field keyword и extension members."
 excerpt_text: "Primary constructors, collection expressions, extension members C#14 и другие фичи — с примерами когда реально применять"
 keywords: "C# 12 13 14 новые фичи, primary constructor C#, collection expressions, pattern matching C# 14, extension members C# 14, field keyword C#"
 ---

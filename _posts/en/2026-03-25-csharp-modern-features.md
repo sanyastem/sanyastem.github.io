@@ -7,7 +7,7 @@ read_time: 11
 difficulty: intermediate
 series: ".NET: from legacy to modern"
 part: 2
-description: "A walkthrough of the key features of C# 12, 13 and 14: primary constructors, collection expressions, records, pattern matching, the field keyword, extension members, and null-conditional assignment."
+description: "Key features of C# 12-14: primary constructors, collection expressions, records, pattern matching, field keyword, extension members."
 excerpt_text: "Primary constructors, collection expressions, C# 14 extension members and other features — with examples of when to actually use them"
 keywords: "C# 12 13 14 new features, primary constructor C#, collection expressions, pattern matching C# 14, extension members C# 14, field keyword C#"
 translation_of: "/dotnet/csharp-modern-features/"

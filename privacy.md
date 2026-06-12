@@ -4,6 +4,7 @@ lang: ru
 title: "Политика конфиденциальности"
 permalink: /privacy/
 description: "Какие данные собирает sanyastem.github.io, для чего и как ими управлять."
+translation_of: "/en/privacy/"
 ---
 
 <article class="article-body" style="max-width:720px; margin:calc(var(--nav-height) + 56px) auto 100px; padding:0 24px;">

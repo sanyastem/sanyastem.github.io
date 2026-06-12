@@ -12,7 +12,7 @@ date: 2026-04-08
 date_ru: "8 апреля 2026"
 read_time: 13
 difficulty: intermediate
-description: "Angular 20 — Signals полностью стабильны, Zoneless вышел из experimental, новый control flow (@if/@for), resource() и httpResource() для async данных, standalone по умолчанию."
+description: "Angular 20: стабильные Signals, Zoneless вышел из experimental, новый control flow @if/@for, resource() для async-данных, standalone по умолчанию."
 excerpt_text: "Signals stable, Zoneless stable, @if/@for, resource() и httpResource() — Angular 20 без компромиссов"
 excerpt: "Что нового в Angular 20: Signals полностью стабильны, Zoneless вышел из experimental, новый @if/@for, resource() и httpResource()."
 keywords: "Angular 20 Signals, Zoneless Angular, Angular control flow @if @for, httpResource Angular 20, linkedSignal, standalone компоненты Angular 20"

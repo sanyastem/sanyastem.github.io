@@ -5,7 +5,7 @@ categories: ai
 date: 2026-04-10
 read_time: 9
 difficulty: intermediate
-description: "Ready-made Skills for Claude Code for migration and optimization tasks: /dotnet-migrate, /csharp-modernize, /efcore-optimize, /mysql-audit, /mysql-explain, /ng-upgrade."
+description: "Ready-made Claude Code Skills for migrations: /dotnet-migrate, /csharp-modernize, /efcore-optimize, /mysql-audit, /ng-upgrade."
 excerpt_text: "Copy and use: 6 ready-made Skills for migrating to .NET 10, MySQL 8.4, and Angular 20"
 keywords: "claude code skills dotnet migration, claude code angular upgrade, mysql audit claude, efcore optimize skill, ng-upgrade claude code"
 translation_of: "/ai/claude-code-skills-migration/"
