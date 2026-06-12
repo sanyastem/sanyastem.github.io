@@ -34,7 +34,7 @@ NgRx годами был стандартом для стейта в Angular, н
 
 Классический NgRx — Redux-pattern с большим оверхедом: actions, action creators, reducers, selectors, effects. Для каждой фичи ~5 файлов. Когда стейт сложный и команда привычная — оправдано. Когда стейт средний или ты пишешь приложение в одиночку — оверкилл.
 
-Signal Store (`@ngrx/signals`) — то же самое, но:
+Signal Store (`@ngrx/signals`) построен на Signals из Angular 20 ([подробный разбор Signals](/web/angular-20-signals/) — в отдельной статье) — то же самое, но:
 
 | | NgRx Classic | Signal Store |
 |---|---|---|
@@ -278,5 +278,7 @@ export class HeaderComponent {
 - DevTools работают через `withDevtools()`, но без классической time-travel-семантики
 - Не мигрируй существующий NgRx ради миграции — гибридный подход быстрее окупается
 - Когда стейт сложный и команда большая — Classic всё ещё может быть оправдан
+
+Рутину переписывания (actions → patchState, selectors → withComputed) можно отдать [Claude Code](/ai/claude-code-skills-migration/).
 
 Дальше — пробуй: возьми один store с 1–2 фичами, перепиши, замерь LoC. У меня выходит сокращение в 3 раза при том же поведении и тестируемости.

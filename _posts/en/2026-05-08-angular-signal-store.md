@@ -33,7 +33,7 @@ NgRx has been the standard for state in Angular for years, but on top of Signals
 
 Classic NgRx — a Redux pattern with a lot of overhead: actions, action creators, reducers, selectors, effects. Roughly 5 files per feature. When the state is complex and the team is used to it — it's justified. When the state is medium-sized or you're solo — it's overkill.
 
-Signal Store (`@ngrx/signals`) — the same thing, but:
+Signal Store (`@ngrx/signals`) is built on Angular 20 Signals (see the [deep dive on Signals](/en/web/angular-20-signals/)) — the same thing, but:
 
 | | NgRx Classic | Signal Store |
 |---|---|---|
@@ -277,5 +277,7 @@ export class HeaderComponent {
 - DevTools work via `withDevtools()`, but without classic time-travel semantics
 - Don't migrate existing NgRx for the sake of migration — a hybrid approach pays off faster
 - When the state is complex and the team is large — Classic can still be justified
+
+The rewriting routine (actions → patchState, selectors → withComputed) can be handed to [Claude Code](/en/ai/claude-code-skills-migration/).
 
 Next — try it: take one store with 1–2 features, rewrite it, measure LoC. I get a 3x reduction with the same behavior and testability.

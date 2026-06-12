@@ -385,6 +385,8 @@ export class ProductListComponent {
 
 ## Миграция с Zone.js на Signals
 
+Для управления состоянием на Signals есть отдельная статья — [Signal Store вместо NgRx](/web/angular-signal-store/). Автоматизировать рутину миграции помогает [Claude Code со скиллом /ng-upgrade](/ai/claude-code-skills-migration/).
+
 Постепенный путь:
 
 1. Обнови до Angular 20, добавь TypeScript 5.8+

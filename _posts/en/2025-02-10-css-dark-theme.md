@@ -27,7 +27,7 @@ faq:
 
 ## What CSS variables are
 
-CSS custom properties — named values that you declare once and use everywhere. Change the value in one place — it changes everywhere.
+CSS custom properties — named values that you declare once and use everywhere. Change the value in one place — it changes everywhere. (If you're just getting into modern CSS, also check [Flexbox vs Grid](/en/web/flexbox-vs-grid/).)
 
 ```css
 /* Declare variables in :root — they are global */
@@ -85,7 +85,7 @@ if (saved) document.documentElement.setAttribute('data-theme', saved);
 
 ## Automatically follow system settings
 
-You can skip the button entirely — CSS will pick up the system theme on its own:
+You can skip the button entirely — CSS will pick up the system theme on its own (the same media-query approach as in [responsive design](/en/web/responsive-design/)):
 
 ```css
 @media (prefers-color-scheme: dark) {

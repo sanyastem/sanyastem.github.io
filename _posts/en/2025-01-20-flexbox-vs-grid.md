@@ -84,7 +84,7 @@ Ideal for: page layout, galleries, grids with a fixed number of columns.
 
 ## Real example: blog cards
 
-For a card grid — Grid. Inside each card — Flexbox.
+For a card grid — Grid. Inside each card — Flexbox. (Which breakpoints to pick, and when a grid needs no media queries at all, is covered in [responsive design](/en/web/responsive-design/).)
 
 ```css
 /* Card grid — Grid */
@@ -117,3 +117,5 @@ Both create responsive columns, but differently:
 - `auto-fit` — stretches the remaining items to full width
 
 For cards you usually want `auto-fill` — cards don't blow up to giant sizes.
+
+The next step after layout is a [dark theme on CSS variables](/en/web/css-dark-theme/).

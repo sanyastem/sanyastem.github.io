@@ -89,6 +89,8 @@ h1 {
 
 ## Responsive grid without media queries
 
+More on choosing between layout systems in [Flexbox vs Grid](/en/web/flexbox-vs-grid/).
+
 ```css
 .cards {
   display: grid;
@@ -107,4 +109,4 @@ h1 {
 
 Without this tag, mobile browsers scale the page as if it were desktop.
 
-> ⚠️ Never use fixed widths like `width: 960px` — it breaks layout on mobile. Use `max-width` + `width: 100%`.
+> ⚠️ Never use fixed widths like `width: 960px` — it breaks layout on mobile. Use `max-width` + `width: 100%`. And for device-aware color schemes there are [CSS variables and dark theme](/en/web/css-dark-theme/).
