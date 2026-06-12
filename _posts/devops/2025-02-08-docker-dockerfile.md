@@ -6,11 +6,11 @@ translation_of: "/en/devops/docker-dockerfile/"
 tldr:
   - "Каждая инструкция Dockerfile создаёт слой, слои кэшируются: редко меняющееся (COPY package*.json и RUN npm ci) ставь выше кода — COPY . . в самом конце."
   - "Multi-stage сборка (FROM ... AS builder, затем COPY --from=builder) уменьшает образ в 5-10 раз: Node.js-проект — с 1.2 ГБ до 120 МБ."
-  - "Alpine-образы экономят место: node:20 весит 1.1 ГБ, node:20-alpine — 180 МБ; кэш apt чисти в той же RUN-инструкции (rm -rf /var/lib/apt/lists/*)."
+  - "Alpine-образы экономят место: node:22 весит 1.1 ГБ, node:22-alpine — 180 МБ; кэш apt чисти в той же RUN-инструкции (rm -rf /var/lib/apt/lists/*)."
   - "В .dockerignore добавь node_modules, .git, .env; в продакшне не запускай контейнер от root — поставь USER node перед CMD."
 date: 2025-02-08
 date_ru: "8 февраля 2025"
-last_modified_at: 2026-05-08
+last_modified_at: 2026-06-12
 read_time: 8
 difficulty: intermediate
 series: "Docker: от установки до продакшна"
@@ -23,7 +23,7 @@ howto:
   totalTime: "PT20M"
   steps:
     - name: "Выбрать базовый образ"
-      text: "Использовать минимальный официальный образ под язык (node:20-alpine вместо node:20, python:3.12-slim вместо python:3.12). Это уменьшает финальный размер в 5-10 раз."
+      text: "Использовать минимальный официальный образ под язык (node:22-alpine вместо node:22, python:3.12-slim вместо python:3.12). Это уменьшает финальный размер в 5-10 раз."
     - name: "Скопировать manifest зависимостей"
       text: "COPY package*.json ./ или requirements.txt отдельно от кода. Кэш Docker не инвалидирует слой если файл не менялся, npm install не выполнится повторно."
     - name: "Установить зависимости"
@@ -55,7 +55,7 @@ faq:
 
 ```dockerfile
 # FROM — базовый образ. Всегда первая инструкция
-FROM node:20-alpine
+FROM node:22-alpine
 
 # WORKDIR — рабочая директория внутри контейнера
 # Лучше явно задавать, а не работать в корне
@@ -93,7 +93,7 @@ CMD ["node", "index.js"]
 
 ```dockerfile
 # ❌ Плохо — при любом изменении кода переустанавливаем зависимости
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY . .              # Копируем всё сразу
 RUN npm install       # Этот слой сбросится при ЛЮБОМ изменении файла
@@ -102,7 +102,7 @@ CMD ["node", "index.js"]
 
 ```dockerfile
 # ✅ Хорошо — зависимости кэшируются отдельно от кода
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY package*.json ./   # Только package.json — меняется редко
 RUN npm ci              # Этот слой кэшируется пока package.json не изменится
@@ -116,7 +116,7 @@ CMD ["node", "index.js"]
 
 ```dockerfile
 # Стадия 1: сборка
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci                   # Устанавливаем ВСЕ зависимости включая devDependencies
@@ -124,7 +124,7 @@ COPY . .
 RUN npm run build            # Собираем проект
 
 # Стадия 2: продакшн образ
-FROM node:20-alpine AS production
+FROM node:22-alpine AS production
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production  # Только production зависимости
@@ -142,10 +142,10 @@ CMD ["node", "dist/index.js"]
 
 ```dockerfile
 # ❌ 1.1 ГБ
-FROM node:20
+FROM node:22
 
 # ✅ 180 МБ
-FROM node:20-alpine
+FROM node:22-alpine
 ```
 
 **Очищай кэш пакетного менеджера в одной инструкции RUN:**

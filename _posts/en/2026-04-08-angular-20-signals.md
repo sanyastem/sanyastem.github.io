@@ -3,6 +3,7 @@ layout: post
 title: "Angular 20: Signals, Zoneless and the new template syntax"
 categories: web
 date: 2026-04-08
+last_modified_at: 2026-06-12
 read_time: 13
 difficulty: intermediate
 description: "Angular 20: stable Signals, Zoneless out of experimental, new @if/@for control flow, resource() for async data, standalone by default."
@@ -29,7 +30,7 @@ faq:
 {% raw %}
 ## What changed in Angular 20
 
-Angular 20 was released in May 2025. It's the most significant release in several years.
+Angular 20 was released in May 2025 and became the most significant release in years. Since then Angular 21 (November 2025) and Angular 22 (June 2026) have shipped — but everything below still applies: Signals, Zoneless and the new control flow remain the framework's foundation, and Signal Forms reached stable in v22.
 
 **Highlights:**
 - Signals API — fully stable (`signal`, `computed`, `effect`, `linkedSignal`, `toSignal`, `toObservable`)

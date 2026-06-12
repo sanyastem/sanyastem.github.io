@@ -3,7 +3,7 @@ layout: post
 title: "Docker: writing a Dockerfile and building images"
 categories: devops
 date: 2025-02-08
-last_modified_at: 2026-05-08
+last_modified_at: 2026-06-12
 read_time: 8
 difficulty: intermediate
 series: "Docker: from install to production"
@@ -15,7 +15,7 @@ translation_of: "/devops/docker-dockerfile/"
 tldr:
   - "Every Dockerfile instruction creates a layer and layers are cached: put rarely-changing parts (COPY package*.json and RUN npm ci) above the code — COPY . . goes last."
   - "A multi-stage build (FROM ... AS builder, then COPY --from=builder) shrinks the image 5-10x: a Node.js project goes from 1.2 GB to 120 MB."
-  - "Alpine images save space: node:20 weighs 1.1 GB, node:20-alpine — 180 MB; clean the apt cache in the same RUN instruction (rm -rf /var/lib/apt/lists/*)."
+  - "Alpine images save space: node:22 weighs 1.1 GB, node:22-alpine — 180 MB; clean the apt cache in the same RUN instruction (rm -rf /var/lib/apt/lists/*)."
   - "Add node_modules, .git and .env to .dockerignore; never run production containers as root — set USER node before CMD."
 faq:
   - q: "CMD vs ENTRYPOINT — what is the difference?"
@@ -38,7 +38,7 @@ This is critical for build speed. Wrong instruction order — and the cache gets
 
 ```dockerfile
 # FROM — base image. Always the first instruction
-FROM node:20-alpine
+FROM node:22-alpine
 
 # WORKDIR — working directory inside the container
 # Better to set it explicitly than work in root
@@ -76,7 +76,7 @@ Main rule: **what changes less often goes higher, what changes more often goes l
 
 ```dockerfile
 # ❌ Bad — any code change reinstalls dependencies
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY . .              # Copy everything at once
 RUN npm install       # This layer is invalidated by ANY file change
@@ -85,7 +85,7 @@ CMD ["node", "index.js"]
 
 ```dockerfile
 # ✅ Good — dependencies cached separately from code
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY package*.json ./   # Only package.json — rarely changes
 RUN npm ci              # This layer is cached until package.json changes
@@ -99,7 +99,7 @@ A classic problem: you need dev tools (compilers, tests) for the build, but in p
 
 ```dockerfile
 # Stage 1: build
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci                   # Install ALL dependencies including devDependencies
@@ -107,7 +107,7 @@ COPY . .
 RUN npm run build            # Build the project
 
 # Stage 2: production image
-FROM node:20-alpine AS production
+FROM node:22-alpine AS production
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production  # Production dependencies only
@@ -125,10 +125,10 @@ CMD ["node", "dist/index.js"]
 
 ```dockerfile
 # ❌ 1.1 GB
-FROM node:20
+FROM node:22
 
 # ✅ 180 MB
-FROM node:20-alpine
+FROM node:22-alpine
 ```
 
 **Clean the package manager cache in the same RUN instruction:**

@@ -9,6 +9,7 @@ tldr:
   - "Новый control flow @if/@for/@switch встроен в компилятор и не требует импорта; в @for параметр track обязателен — без него ошибка компиляции."
   - "resource() и httpResource() загружают async-данные со встроенными .value(), .isLoading(), .error() и .reload() и сами перезагружаются при смене входных сигналов."
 date: 2026-04-08
+last_modified_at: 2026-06-12
 date_ru: "8 апреля 2026"
 read_time: 13
 difficulty: intermediate
@@ -30,7 +31,7 @@ faq:
 {% raw %}
 ## Что изменилось в Angular 20
 
-Angular 20 вышел в мае 2025. Это самый значительный релиз за несколько лет.
+Angular 20 вышел в мае 2025 и стал самым значительным релизом за несколько лет. С тех пор вышли Angular 21 (ноябрь 2025) и Angular 22 (июнь 2026) — но всё описанное ниже актуально и там: Signals, Zoneless и новый control flow остались фундаментом фреймворка, а Signal Forms в 22-й версии доведены до stable.
 
 **Главное:**
 - Signals API — полностью стабилен (`signal`, `computed`, `effect`, `linkedSignal`, `toSignal`, `toObservable`)

@@ -20,6 +20,7 @@ faq:
   - q: "Как обновить Angular-компонент до стиля Angular 20 с Signals?"
     a: "Скилл /ng-upgrade переводит компонент на современные паттерны: standalone вместо NgModule, ChangeDetectionStrategy.OnPush (обязательно для Zoneless), input.required<number>() и output<User>() вместо декораторов @Input/@Output, signal() вместо BehaviorSubject, @if/@for вместо *ngIf/*ngFor, inject() вместо constructor injection и toSignal() вместо async pipe. Логика не переписывается — только паттерны, а в конце прогоняются ng build и npm test."
 date: 2026-04-10
+last_modified_at: 2026-06-12
 date_ru: "10 апреля 2026"
 read_time: 9
 difficulty: intermediate
@@ -286,6 +287,8 @@ allowed-tools: Read, Bash
 ---
 
 ## /ng-upgrade
+
+С выходом Angular 21 и 22 (июнь 2026) скилл не меняется — паттерны Signals/standalone/OnPush те же, просто укажи в промпте актуальную целевую версию.
 
 `.claude/skills/ng-upgrade/SKILL.md`:
 

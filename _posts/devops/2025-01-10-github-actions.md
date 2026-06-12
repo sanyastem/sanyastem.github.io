@@ -9,6 +9,7 @@ tldr:
   - "Деплой по SSH через appleboy/ssh-action@v1: git pull, npm ci --production, pm2 restart app; хост, юзер и приватный ключ — в Secrets."
   - "Секреты хранятся в Settings → Secrets and variables → Actions и подставляются через контекст secrets — значения не видны в логах."
 date: 2025-01-10
+last_modified_at: 2026-06-12
 date_ru: "10 января 2025"
 read_time: 5
 difficulty: intermediate
@@ -69,7 +70,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies

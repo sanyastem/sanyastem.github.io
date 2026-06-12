@@ -3,7 +3,7 @@ layout: post
 title: "Docker for beginners: containers in 10 minutes"
 categories: devops
 date: 2025-02-01
-last_modified_at: 2026-05-08
+last_modified_at: 2026-06-12
 read_time: 7
 difficulty: beginner
 description: "What a Docker container is, your first docker run, Dockerfile, and docker-compose on a simple example. Explained simply."
@@ -40,7 +40,7 @@ Download **Docker Desktop** from the official site. After install:
 
 ```bash
 docker --version
-# Docker version 27.x.x
+# Docker version 28.x.x
 ```
 
 ## Your first container
@@ -76,7 +76,7 @@ This is just the basic example — a detailed walkthrough of the instructions an
 For a Node.js app:
 
 ```dockerfile
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install

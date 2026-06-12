@@ -3,6 +3,7 @@ layout: post
 title: "GitHub Actions: auto-deploy in 15 minutes"
 categories: devops
 date: 2025-01-10
+last_modified_at: 2026-06-12
 read_time: 5
 difficulty: intermediate
 description: "Setting up a CI/CD pipeline: every push to main automatically runs tests and deploys. Writing the .yml from scratch."
@@ -54,7 +55,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies

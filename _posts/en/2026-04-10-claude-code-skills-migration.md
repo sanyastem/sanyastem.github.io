@@ -3,6 +3,7 @@ layout: post
 title: "Skills for migration: .NET 10, MySQL 8.4, Angular 20"
 categories: ai
 date: 2026-04-10
+last_modified_at: 2026-06-12
 read_time: 9
 difficulty: intermediate
 description: "Ready-made Claude Code Skills for migrations: /dotnet-migrate, /csharp-modernize, /efcore-optimize, /mysql-audit, /ng-upgrade."
@@ -285,6 +286,8 @@ Usage: `/mysql-explain "SELECT * FROM orders WHERE user_id=? ORDER BY created_at
 ---
 
 ## /ng-upgrade
+
+With Angular 21 and 22 out (June 2026) the skill stays the same — the Signals/standalone/OnPush patterns are identical; just set the current target version in the prompt.
 
 `.claude/skills/ng-upgrade/SKILL.md`:
 
