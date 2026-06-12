@@ -460,3 +460,16 @@ document.querySelectorAll('.hs-num[data-count]').forEach(el => {
     }
     requestAnimationFrame(tick);
 });
+
+// ========== Заглушка для незагруженной рекламы ==========
+document.querySelectorAll('.ad-wrap').forEach(wrap => {
+    const ins = wrap.querySelector('ins.adsbygoogle');
+    if (!ins) return;
+    const check = () => {
+        const status = ins.getAttribute('data-ad-status');
+        const unfilled = status === 'unfilled' || (!status && !ins.querySelector('iframe'));
+        wrap.classList.toggle('ad-unfilled', unfilled);
+    };
+    setTimeout(check, 2500);
+    new MutationObserver(check).observe(ins, { attributes: true, attributeFilter: ['data-ad-status'] });
+});

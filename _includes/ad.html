@@ -20,6 +20,12 @@
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
+        {% assign ad_lang = include.lang | default: page.lang | default: 'ru' %}
+        <div class="ad-placeholder" aria-hidden="true">
+            <span class="ph-todo">// TODO: {% if ad_lang == 'en' %}ads{% else %}реклама{% endif %}</span>
+            <span class="ph-line">{% if ad_lang == 'en' %}Your ad could be here.{% else %}Тут могла бы быть ваша реклама.{% endif %}</span>
+            <span class="ph-sub">{% if ad_lang == 'en' %}For now it's just a cozy void. Read another article instead — it's free.{% else %}А пока тут уютная пустота. Почитайте ещё статью — это бесплатно.{% endif %}</span>
+        </div>
     </div>
 </div>
 {% endif %}
