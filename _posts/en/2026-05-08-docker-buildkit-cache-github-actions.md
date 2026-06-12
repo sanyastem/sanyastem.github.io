@@ -31,7 +31,7 @@ A .NET Docker image build in GitHub Actions without cache takes 5-7 minutes. Wit
 
 ## Why regular Docker cache doesn't work in Actions
 
-Each GitHub Actions job runs on a clean VM — image layers from the previous build don't persist between runs. `docker build` works "as if for the first time" — pulls the base image, restores all NuGet packages, rebuilds from scratch.
+Each [GitHub Actions](/en/devops/github-actions/) job runs on a clean VM — image layers from the previous build don't persist between runs. `docker build` works "as if for the first time" — pulls the base image, restores all NuGet packages, rebuilds from scratch.
 
 The standard `actions/cache` saves `~/.nuget/packages`, but it won't speed up the build **inside Docker** — the cache lives on the host, not in the container.
 
@@ -82,7 +82,7 @@ The key lines — `cache-from: type=gha` and `cache-to: type=gha,mode=max`. Firs
 
 ## A Dockerfile that actually caches
 
-Main rule — layers with **rarely changing** data go before layers with **frequently changing** data. For most .NET projects:
+Main rule — layers with **rarely changing** data go before layers with **frequently changing** data (layers and caching in detail are in the [Dockerfile article](/en/devops/docker-dockerfile/)). For most .NET projects:
 
 ```dockerfile
 # syntax=docker/dockerfile:1.7

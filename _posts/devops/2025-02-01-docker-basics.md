@@ -85,6 +85,8 @@ docker images
 
 ## Dockerfile — свой образ
 
+Здесь только базовый пример — подробный разбор инструкций и multi-stage сборки есть в [отдельной статье про Dockerfile](/devops/docker-dockerfile/).
+
 ```dockerfile
 # Берём базовый образ
 FROM node:20-alpine
@@ -115,6 +117,8 @@ docker run -p 3000:3000 my-app
 ```
 
 ## docker-compose — несколько сервисов
+
+Продвинутые сценарии — healthchecks, профили, зависимости — в [статье про Docker Compose](/devops/docker-compose-advanced/). А когда дойдёт до продакшна, есть гайд по [деплою на VPS](/devops/docker-deploy-vps/).
 
 ```yaml
 version: '3'

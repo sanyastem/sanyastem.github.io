@@ -30,7 +30,7 @@ faq:
 
 ## How a Docker image is structured
 
-An image is a stack of layers. Each instruction in the Dockerfile creates a new layer. Layers are cached: if a file hasn't changed, Docker doesn't rebuild that layer.
+An image is a stack of layers. Each instruction in the Dockerfile creates a new layer. Layers are cached: if a file hasn't changed, Docker doesn't rebuild that layer. (New to Docker? Start with the [container basics guide](/en/devops/docker-basics/).)
 
 This is critical for build speed. Wrong instruction order — and the cache gets invalidated on every code change.
 
@@ -72,7 +72,7 @@ CMD ["node", "index.js"]
 
 ## The right order for caching
 
-Main rule: **what changes less often goes higher, what changes more often goes lower**.
+Main rule: **what changes less often goes higher, what changes more often goes lower**. In CI this rule pays off the most — see [BuildKit cache in GitHub Actions](/en/devops/docker-buildkit-cache-github-actions/).
 
 ```dockerfile
 # ❌ Bad — any code change reinstalls dependencies

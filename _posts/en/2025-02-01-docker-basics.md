@@ -71,6 +71,8 @@ docker stop <id>         # stop by ID or name
 
 ## Writing your own Dockerfile
 
+This is just the basic example — a detailed walkthrough of the instructions and multi-stage builds is in the [dedicated Dockerfile article](/en/devops/docker-dockerfile/).
+
 For a Node.js app:
 
 ```dockerfile
@@ -91,6 +93,8 @@ docker run -p 3000:3000 myapp
 ```
 
 ## docker-compose for multi-container apps
+
+Advanced scenarios — healthchecks, profiles, dependencies — are in the [Docker Compose article](/en/devops/docker-compose-advanced/). And when you're ready for production, there's a guide to [deploying on a VPS](/en/devops/docker-deploy-vps/).
 
 `docker-compose.yml`:
 

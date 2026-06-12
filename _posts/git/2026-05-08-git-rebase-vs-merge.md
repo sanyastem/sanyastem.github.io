@@ -211,7 +211,7 @@ git config --global alias.fpush "push --force-with-lease"
 
 ## Git Flow vs trunk-based — где меньше rebase-конфликтов
 
-В **Git Flow** (long-lived `develop`/`feature` ветки) feature живёт неделями, отстаёт от main на десятки коммитов. Rebase каждые 3 дня — норма.
+В **[Git Flow](/git/git-flow/)** (long-lived `develop`/`feature` ветки) feature живёт неделями, отстаёт от main на десятки коммитов. Rebase каждые 3 дня — норма.
 
 В **trunk-based** (короткие feature, мерджишь в main за 1-2 дня) проблема почти не возникает: ветка живёт 1-2 дня, отставание минимальное, можно без rebase.
 
@@ -223,4 +223,4 @@ git config --global alias.fpush "push --force-with-lease"
 - **`--force-with-lease`**, никогда `--force`. Сделай алиас.
 - **`rebase -i` перед PR** — ёмкий инструмент: squash WIP-коммитов, fixup опечаток, reorder.
 - **`git reflog` спасает почти всегда** — 90 дней истории движений HEAD.
-- **Если конфликты постоянные** — ветки слишком долго живут, не Git виноват.
+- **Если конфликты постоянные** — ветки слишком долго живут, не Git виноват. Про базовую организацию веток — в статье о [Git flow](/git/git-flow/), а что не должно попадать в коммиты — в гайде по [.gitignore](/git/gitignore/).

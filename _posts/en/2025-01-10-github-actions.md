@@ -69,6 +69,8 @@ jobs:
 
 ## Deploying to a server over SSH
 
+If the app on your server runs in Docker, the full path from zero to production is covered in [deploying to a VPS](/en/devops/docker-deploy-vps/).
+
 ```yaml
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
@@ -90,6 +92,8 @@ Passwords and keys live in the repository's **Secrets**. Settings → Secrets an
 > ⚠️ Never paste passwords directly into the yml file. Use `${{ secrets.MY_SECRET }}` — the value is injected at runtime and is not visible in logs.
 
 ## Deploying to GitHub Pages
+
+How to set up a Pages site in the first place is in a [separate guide](/en/devops/github-pages/). The deploy workflow:
 
 ```yaml
 name: Deploy to Pages
@@ -117,4 +121,4 @@ jobs:
       - uses: actions/deploy-pages@v4
 ```
 
-> 💡 The status of the latest workflow shows up right on the repo page — a green check or red cross next to the commit.
+> 💡 The status of the latest workflow shows up right on the repo page — a green check or red cross next to the commit. If your pipeline builds Docker images, speed it up with [BuildKit cache](/en/devops/docker-buildkit-cache-github-actions/).

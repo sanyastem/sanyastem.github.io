@@ -37,13 +37,15 @@ A `.gitignore` file tells Git which files to ignore — don't track, don't inclu
 
 **Dependencies** — `node_modules`, `vendor`, `.venv`. Generated automatically by `npm install`, weighing hundreds of MB, different on every machine.
 
-**Environment files** — `.env`. Contains secrets: passwords, API keys, tokens. Commit it once and they're in your public repo.
+**Environment files** — `.env`. Contains secrets: passwords, API keys, tokens. Commit it once and they're in your public repo (how to pass them into containers safely is in the [Docker Compose article](/en/devops/docker-compose-advanced/)).
 
 > ⚠️ If you already committed `.env` — just adding it to .gitignore won't help. You need to remove the file from history and rotate all compromised keys.
 
 **System files** — `.DS_Store` (macOS), `Thumbs.db` (Windows).
 
 **Build artifacts** — `dist/`, `build/`, `.next/`, `__pycache__/`.
+
+How to organize the branches and commits themselves is covered in [Git flow](/en/git/git-flow/).
 
 ## Typical .gitignore for Node.js
 

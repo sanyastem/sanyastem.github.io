@@ -84,6 +84,8 @@ jobs:
 
 ## Деплой на сервер по SSH
 
+Если на сервере приложение крутится в Docker — полный путь от нуля до продакшна описан в [деплое на VPS](/devops/docker-deploy-vps/).
+
 ```yaml
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
@@ -105,6 +107,8 @@ jobs:
 > ⚠️ Никогда не вставляй пароли прямо в yml-файл. Используй `${{ secrets.MY_SECRET }}` — значение подставится при запуске, но не будет видно в логах.
 
 ## Деплой на GitHub Pages
+
+Как вообще завести сайт на Pages — в [отдельном гайде](/devops/github-pages/). Workflow для деплоя:
 
 ```yaml
 name: Deploy to Pages
@@ -132,4 +136,4 @@ jobs:
       - uses: actions/deploy-pages@v4
 ```
 
-> 💡 Статус последнего workflow виден прямо на странице репозитория — зелёная галочка или красный крест рядом с коммитом.
+> 💡 Статус последнего workflow виден прямо на странице репозитория — зелёная галочка или красный крест рядом с коммитом. Если в пайплайне собираются Docker-образы — ускорь сборку через [BuildKit cache](/devops/docker-buildkit-cache-github-actions/).

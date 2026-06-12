@@ -30,7 +30,7 @@ faq:
 
 ## Why Docker Compose
 
-Real applications have multiple services: backend, frontend, database, Redis, task queue. Starting each one manually with `docker run` is tedious. Compose describes all the services in one file and brings them up with a single command.
+Real applications have multiple services: backend, frontend, database, Redis, task queue. Starting each one manually with `docker run` is tedious. Compose describes all the services in one file and brings them up with a single command. (Basics are in [Docker for beginners](/en/devops/docker-basics/), images in the [Dockerfile article](/en/devops/docker-dockerfile/).)
 
 ## docker-compose.yml structure
 
@@ -110,7 +110,7 @@ volumes:
 
 ## Environment variables via .env
 
-Don't hard-code secrets in `docker-compose.yml`. Use a `.env` file:
+Don't hard-code secrets in `docker-compose.yml`. Use a `.env` file (and don't forget to add it to [.gitignore](/en/git/gitignore/)):
 
 ```bash
 # .env

@@ -29,7 +29,7 @@ faq:
 
 GitHub Pages takes the files from your repository and serves them as a static site. Works with HTML, CSS, JavaScript. Free, the default domain is `username.github.io`.
 
-Perfect for: portfolios, documentation, blogs, landing pages.
+Perfect for: portfolios, documentation, blogs, landing pages. (This blog lives on Pages too — deployed via [GitHub Actions](/en/devops/github-actions/).)
 
 ## Step 1 — Create a repository
 
@@ -84,4 +84,4 @@ To hook up your own domain:
 
 **404 page** — make sure the file is named exactly `index.html` (lowercase) and lives at the root, not in a subfolder.
 
-> ⚠️ GitHub Pages doesn't support server-side logic (Node.js, PHP, Python). Static only: HTML, CSS, JS.
+> ⚠️ GitHub Pages doesn't support server-side logic (Node.js, PHP, Python). Static only: HTML, CSS, JS. If you need a backend, see [deploying to a VPS](/en/devops/docker-deploy-vps/).

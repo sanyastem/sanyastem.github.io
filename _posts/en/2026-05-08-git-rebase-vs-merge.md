@@ -210,7 +210,7 @@ Now the habit of `git fpush` instead of `git push -f` saves you from disasters.
 
 ## Git Flow vs trunk-based — where rebase conflicts are rarer
 
-In **Git Flow** (long-lived `develop`/`feature` branches) a feature lives for weeks, lagging behind main by dozens of commits. Rebase every 3 days is normal.
+In **[Git Flow](/en/git/git-flow/)** (long-lived `develop`/`feature` branches) a feature lives for weeks, lagging behind main by dozens of commits. Rebase every 3 days is normal.
 
 In **trunk-based** (short features, merged into main in 1-2 days) the problem rarely appears: a branch lives 1-2 days, drift is minimal, you can skip rebases.
 
@@ -222,4 +222,4 @@ If the team suffers from constant rebase conflicts — maybe the problem isn't G
 - **`--force-with-lease`**, never `--force`. Set an alias.
 - **`rebase -i` before PR** — a powerful tool: squash WIP commits, fixup typos, reorder.
 - **`git reflog` saves you almost always** — 90 days of HEAD movement history.
-- **If conflicts are constant** — branches live too long, not Git's fault.
+- **If conflicts are constant** — branches live too long, not Git's fault. Branch organization basics are in [Git flow](/en/git/git-flow/), and what should never end up in commits is in the [.gitignore guide](/en/git/gitignore/).

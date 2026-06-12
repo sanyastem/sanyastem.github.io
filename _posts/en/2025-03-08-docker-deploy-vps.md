@@ -32,7 +32,7 @@ faq:
 
 - A VPS with Ubuntu 22.04 (any provider: Hetzner, DigitalOcean, Timeweb)
 - A domain or just an IP address
-- Locally: an SSH client and a repo with `Dockerfile` + `docker-compose.yml`
+- Locally: an SSH client and a repo with a [`Dockerfile`](/en/devops/docker-dockerfile/) + [`docker-compose.yml`](/en/devops/docker-compose-advanced/)
 
 ## Connecting to the server
 
@@ -176,7 +176,7 @@ server {
 
 ## Auto-deploy via GitHub Actions
 
-Every push to `main` triggers an automatic deploy to the server.
+Every push to `main` triggers an automatic deploy to the server (Actions basics are in a [separate article](/en/devops/github-actions/)).
 
 Create `.github/workflows/deploy.yml`:
 

@@ -49,7 +49,7 @@ faq:
 
 - VPS с Ubuntu 22.04 (от любого провайдера: Hetzner, DigitalOcean, Timeweb)
 - Домен или просто IP-адрес
-- Локально: SSH-клиент и репозиторий с `Dockerfile` + `docker-compose.yml`
+- Локально: SSH-клиент и репозиторий с [`Dockerfile`](/devops/docker-dockerfile/) + [`docker-compose.yml`](/devops/docker-compose-advanced/)
 
 ## Подключаемся к серверу
 
@@ -193,7 +193,7 @@ server {
 
 ## Автодеплой через GitHub Actions
 
-Каждый пуш в `main` — автоматический деплой на сервер.
+Каждый пуш в `main` — автоматический деплой на сервер (основы Actions — в [отдельной статье](/devops/github-actions/)).
 
 Создай `.github/workflows/deploy.yml`:
 
