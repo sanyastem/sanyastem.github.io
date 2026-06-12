@@ -32,7 +32,7 @@ faq:
 
 ## What are Skills
 
-Skills are Markdown files with instructions for the agent. Write once, reuse in any session. Instead of explaining "do a code review by our standards" every time — you write a skill once and type `/review`.
+Skills are Markdown files with instructions for the agent. Write once, reuse in any session. Instead of explaining "do a code review by our standards" every time — you write a skill once and type `/review`. If you don't have Claude Code installed yet, start with the [install and basic setup guide](/en/ai/claude-code-setup/).
 
 ## Skills and slash commands — now one thing
 
@@ -202,6 +202,8 @@ To avoid copying `.claude/skills/` by hand between projects and teams, skills (a
 ```
 
 The official marketplace (`claude-plugins-official`) is available out of the box. Skills from a plugin are invoked with a prefix: `/plugin-name:skill-name`.
+
+Ready-made skill collections for a concrete stack: [Top Skills for .NET + Angular + Docker](/en/ai/claude-code-skills-dotnet/) and [Skills for migration](/en/ai/claude-code-skills-migration/).
 
 ## Summary
 

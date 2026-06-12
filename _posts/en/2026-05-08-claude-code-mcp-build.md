@@ -27,7 +27,7 @@ faq:
     a: "Yes, via the env block in .mcp.json: set API_KEY to \\${API_KEY} — it gets substituted from the system environment. Do not hardcode tokens in .mcp.json — the file is committed to the repo."
 ---
 
-In [the previous part](/en/tools/claude-code-mcp/) we connected existing MCP servers. But sometimes you need your own: internal API, niche database, corporate service with no public connector. Let's build a working server from scratch — in one sitting.
+In [the previous part](/en/ai/claude-code-mcp/) we connected existing MCP servers. But sometimes you need your own: internal API, niche database, corporate service with no public connector. Let's build a working server from scratch — in one sitting.
 
 ## When to write your own vs use a ready-made one
 
@@ -235,7 +235,7 @@ await server.connect(new StdioServerTransport());
 
 ## Step 4. Hook into Claude Code
 
-Compile: `npm run build`. You get `dist/index.js`. Register in the project's `.mcp.json`:
+Compile: `npm run build`. You get `dist/index.js`. Register in the project's `.mcp.json` (like any server from the [MCP overview](/en/ai/claude-code-mcp/), it becomes available to the whole team; basic Claude Code setup is [here](/en/ai/claude-code-setup/)):
 
 ```json
 {

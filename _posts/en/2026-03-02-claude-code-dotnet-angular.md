@@ -148,6 +148,8 @@ Confirmation required before push and before destructive DB operations.
 
 ## .mcp.json — connecting tools
 
+How MCP works and why you need it is covered in a [separate article](/en/ai/claude-code-mcp/). The config for our stack:
+
 ```json
 {
   "mcpServers": {
@@ -183,6 +185,8 @@ Confirmation required before push and before destructive DB operations.
 Keep secrets in `.env` (don't commit) — Claude picks up environment variables from the shell.
 
 ## Skills — ready-made commands
+
+The skill format in detail is in the [Skills article](/en/ai/claude-code-skills/); an extended collection for this stack is in [Top Skills for .NET + Angular + Docker](/en/ai/claude-code-skills-dotnet/).
 
 ### /migrate — create and apply an EF migration
 

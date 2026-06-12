@@ -30,7 +30,7 @@ keywords: "claude code skills миграция dotnet, claude code angular upgra
 
 ## Структура
 
-Все скиллы кладём в `.claude/skills/`:
+Все скиллы кладём в `.claude/skills/` (про сам формат — в [статье о Skills](/ai/claude-code-skills/)):
 
 ```
 .claude/
@@ -355,6 +355,6 @@ items = toSignal(this.items$, { initialValue: [] });
     └── ng-upgrade/SKILL.md        # /ng-upgrade
 ```
 
-Плюс из предыдущих статей: `/review`, `/test`, `/api`, `/component`, `/debug`, `/db`.
+Плюс из [предыдущих статей](/ai/claude-code-skills-dotnet/): `/review`, `/test`, `/api`, `/component`, `/debug`, `/db`. Сами планы миграций — в статьях про [.NET 10](/dotnet/dotnet-migration/) и [MySQL 8.4](/databases/mysql-optimization/).
 
 > 💡 Скиллы из этой статьи уже лежат в репозитории в папке `.claude/skills/` — клонируй и используй сразу.

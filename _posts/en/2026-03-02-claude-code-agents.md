@@ -30,7 +30,7 @@ faq:
 
 ## Agents in Claude Code
 
-Claude Code can spawn **subagents** — separate Claude instances that work in parallel on independent tasks. This is useful when work splits into several streams: while one agent writes tests, another fixes the documentation.
+Claude Code can spawn **subagents** — separate Claude instances that work in parallel on independent tasks. This is useful when work splits into several streams: while one agent writes tests, another fixes the documentation. (If you haven't set up Claude Code yet, [start here](/en/ai/claude-code-setup/).)
 
 ## How it works
 
@@ -62,7 +62,7 @@ Once done, changes are merged or proposed as a PR.
 
 ## Your own subagents — .claude/agents/
 
-Beyond auto-spawning, you can define a named subagent of your own — a `.claude/agents/<name>.md` file with frontmatter:
+Beyond auto-spawning, you can define a named subagent of your own — a `.claude/agents/<name>.md` file with frontmatter (the format resembles [Skills](/en/ai/claude-code-skills/)):
 
 ```markdown
 ---

@@ -32,7 +32,7 @@ faq:
 
 ## What is MCP
 
-**MCP (Model Context Protocol)** is an open protocol that lets you connect external tools to Claude. Instead of Claude only knowing about files in your project, MCP servers give it access to databases, GitHub, the browser, Jira, Slack and much more.
+**MCP (Model Context Protocol)** is an open protocol that lets you connect external tools to Claude. Instead of Claude only knowing about files in your project, MCP servers give it access to databases, GitHub, the browser, Jira, Slack and much more. (Basic Claude Code setup is covered in the [first article of the series](/en/ai/claude-code-setup/).)
 
 The architecture is simple:
 
@@ -224,7 +224,7 @@ Never hardcode credentials in `.mcp.json` — use environment variables. The fil
 
 ## Your own MCP server
 
-If you need access to an internal system, you can write your own server — the MCP SDK is available for TypeScript and Python:
+If you need access to an internal system, you can write your own server — the MCP SDK is available for TypeScript and Python (a full from-scratch walkthrough is in [building your own MCP server](/en/ai/claude-code-mcp-build/)):
 
 ```bash
 npm install @modelcontextprotocol/sdk

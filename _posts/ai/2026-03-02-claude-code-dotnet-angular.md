@@ -149,6 +149,8 @@ project/
 
 ## .mcp.json — подключение инструментов
 
+Как устроен MCP и зачем он нужен — в [отдельной статье](/ai/claude-code-mcp/). Конфиг для нашего стека:
+
 ```json
 {
   "mcpServers": {
@@ -184,6 +186,8 @@ project/
 Секреты храни в `.env` (не коммитить) — Claude подхватывает переменные окружения из shell.
 
 ## Skills — готовые команды
+
+Подробно о формате скиллов — в [статье про Skills](/ai/claude-code-skills/), расширенная подборка под этот стек — в [топе Skills для .NET + Angular + Docker](/ai/claude-code-skills-dotnet/).
 
 ### /migrate — создать и применить миграцию EF
 

@@ -29,7 +29,7 @@ faq:
 
 ## Structure
 
-We put all skills in `.claude/skills/`:
+We put all skills in `.claude/skills/` (the format itself is covered in the [Skills article](/en/ai/claude-code-skills/)):
 
 ```
 .claude/
@@ -354,6 +354,6 @@ Usage: `/ng-upgrade product-list.component.ts` or `/ng-upgrade` (git diff)
     └── ng-upgrade/SKILL.md        # /ng-upgrade
 ```
 
-Plus from previous articles: `/review`, `/test`, `/api`, `/component`, `/debug`, `/db`.
+Plus from [previous articles](/en/ai/claude-code-skills-dotnet/): `/review`, `/test`, `/api`, `/component`, `/debug`, `/db`. The migration plans themselves are in the [.NET 10](/en/dotnet/dotnet-migration/) and [MySQL 8.4](/en/databases/mysql-optimization/) articles.
 
 > The skills from this article already live in the repository under `.claude/skills/` — clone and use them right away.

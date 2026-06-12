@@ -29,7 +29,7 @@ faq:
 
 ## New format: SKILL.md with frontmatter
 
-Skills used to be plain Markdown files in `.claude/commands/`. Now the recommended approach is a `.claude/skills/` folder with `SKILL.md` files and frontmatter:
+Skills used to be plain Markdown files in `.claude/commands/`. Now the recommended approach is a `.claude/skills/` folder with `SKILL.md` files and frontmatter (the [Skills basics](/en/ai/claude-code-skills/) are covered separately):
 
 ```
 .claude/
@@ -319,6 +319,6 @@ Usage: `/db find all orders for a user in the last month with total > 1000`
     └── db/SKILL.md          # /db — DB query
 ```
 
-Plus from the previous post: `/migrate`, `/feature`, `/check`, `/logs`.
+Plus from the [previous post](/en/ai/claude-code-dotnet-angular/): `/migrate`, `/feature`, `/check`, `/logs`.
 
 > 💡 The more precise the `description:`, the better Claude understands when to apply the skill automatically. Write it as an answer to "when should this skill run?".

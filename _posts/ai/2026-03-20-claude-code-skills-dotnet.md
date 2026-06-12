@@ -30,7 +30,7 @@ keywords: "claude code skills dotnet, claude code angular skills, .claude/comman
 
 ## Новый формат: SKILL.md с frontmatter
 
-Раньше скиллы были просто Markdown-файлами в `.claude/commands/`. Сейчас рекомендуемый подход — папка `.claude/skills/` и файл `SKILL.md` с frontmatter:
+Раньше скиллы были просто Markdown-файлами в `.claude/commands/`. Сейчас рекомендуемый подход — папка `.claude/skills/` и файл `SKILL.md` с frontmatter ([основы Skills](/ai/claude-code-skills/) — в отдельной статье):
 
 ```
 .claude/
@@ -320,6 +320,6 @@ allowed-tools: Read, Bash
     └── db/SKILL.md          # /db — запрос к БД
 ```
 
-Плюс из предыдущей статьи: `/migrate`, `/feature`, `/check`, `/logs`.
+Плюс из [предыдущей статьи](/ai/claude-code-dotnet-angular/): `/migrate`, `/feature`, `/check`, `/logs`.
 
 > 💡 Чем точнее описание в `description:` — тем лучше Claude понимает когда применять скилл автоматически. Пиши его как ответ на вопрос «когда запускать этот скилл?».

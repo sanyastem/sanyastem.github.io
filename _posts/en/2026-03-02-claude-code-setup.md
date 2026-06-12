@@ -178,3 +178,5 @@ Claude Code works not only in the terminal:
 - Configure `CLAUDE.md` with project description and commands
 - Restrict permissions via `.claude/settings.json`
 - Use `/help` inside a session — lots of useful stuff there
+
+Next in the series: [Skills — your own commands for the agent](/en/ai/claude-code-skills/) and [MCP — connecting external tools](/en/ai/claude-code-mcp/). To see it on a concrete stack, check [Claude Code for .NET + Angular](/en/ai/claude-code-dotnet-angular/).
