@@ -274,6 +274,8 @@ await context.Products
 
 ## Пагинация: cursor vs OFFSET
 
+На стороне базы для этого критичны правильные индексы — разбор с EXPLAIN есть в статье про [оптимизацию MySQL](/databases/mysql-optimization/).
+
 ```csharp
 // ПЛОХО — OFFSET пагинация, медленно на больших таблицах
 public async Task<List<Product>> GetPageAsync(int page, int pageSize)
@@ -329,4 +331,4 @@ public async Task<List<T>> ListAsync(Specification<T> spec) =>
 var products = await repo.ListAsync(new ActiveProductsSpec(categoryId: 5));
 ```
 
-> 💡 Самый быстрый запрос — тот который не попадает в БД. Внедри кеширование (IMemoryCache / Redis) поверх репозиториев для часто читаемых и редко меняемых данных.
+> 💡 Самый быстрый запрос — тот который не попадает в БД. Внедри кеширование (IMemoryCache / Redis) поверх репозиториев для часто читаемых и редко меняемых данных. Найти N+1 и недостающие AsNoTracking по всему проекту помогает [Claude Code со скиллом /efcore-optimize](/ai/claude-code-skills-migration/). Фичи EF Core 9/10 доступны после [миграции на .NET 10](/dotnet/dotnet-migration/).

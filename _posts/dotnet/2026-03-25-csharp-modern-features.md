@@ -43,7 +43,7 @@ keywords: "C# 12 13 14 новые фичи, primary constructor C#, collection e
 | Extension members | C# 14 |
 | `null-conditional assignment` (`??=`) улучшения | C# 14 |
 
-C# 14 поставляется с **.NET 10** (ноябрь 2025). C# 12 — с .NET 8, C# 13 — с .NET 9.
+C# 14 поставляется с **.NET 10** (ноябрь 2025). C# 12 — с .NET 8, C# 13 — с .NET 9. Если проект ещё на .NET Framework — сначала [миграция на .NET 10](/dotnet/dotnet-migration/).
 
 ## Primary Constructors (C# 12)
 
@@ -328,4 +328,4 @@ string template = $$"""
 
 **C# 14 (только .NET 10):** `field` keyword — когда нужна логика в property без полного поля. Extension members — для обогащения библиотечных типов.
 
-> 💡 Используй анализатор `dotnet-upgrade-assistant` и Roslyn analyzers — они подскажут места где можно применить новые паттерны автоматически.
+> 💡 Используй анализатор `dotnet-upgrade-assistant` и Roslyn analyzers — они подскажут места где можно применить новые паттерны автоматически. Массовый рефакторинг под новый синтаксис удобно отдать [Claude Code со скиллом /csharp-modernize](/ai/claude-code-skills-migration/).

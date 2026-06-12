@@ -42,7 +42,7 @@ faq:
 | Extension members | C# 14 |
 | `null-conditional assignment` (`??=`) improvements | C# 14 |
 
-C# 14 ships with **.NET 10** (November 2025). C# 12 — with .NET 8, C# 13 — with .NET 9.
+C# 14 ships with **.NET 10** (November 2025). C# 12 — with .NET 8, C# 13 — with .NET 9. If your project is still on .NET Framework, start with [migrating to .NET 10](/en/dotnet/dotnet-migration/).
 
 ## Primary Constructors (C# 12)
 
@@ -327,4 +327,4 @@ Especially handy for SQL, JSON templates, regex.
 
 **C# 14 (only on .NET 10):** `field` keyword — when you need property logic without a full field. Extension members — for enriching library types.
 
-> 💡 Use the `dotnet-upgrade-assistant` analyzer and Roslyn analyzers — they'll point out places where new patterns can be applied automatically.
+> 💡 Use the `dotnet-upgrade-assistant` analyzer and Roslyn analyzers — they'll point out places where new patterns can be applied automatically. Bulk refactoring to the new syntax is a good job for [Claude Code with the /csharp-modernize skill](/en/ai/claude-code-skills-migration/).

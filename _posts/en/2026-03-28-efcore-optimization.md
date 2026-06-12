@@ -273,6 +273,8 @@ Generates a single SQL query. Perfect for cleanup background jobs and bulk updat
 
 ## Pagination: cursor vs OFFSET
 
+On the database side this depends on proper indexes — see the EXPLAIN walkthrough in [MySQL optimization](/en/databases/mysql-optimization/).
+
 ```csharp
 // BAD — OFFSET pagination, slow on large tables
 public async Task<List<Product>> GetPageAsync(int page, int pageSize)
@@ -328,4 +330,4 @@ public async Task<List<T>> ListAsync(Specification<T> spec) =>
 var products = await repo.ListAsync(new ActiveProductsSpec(categoryId: 5));
 ```
 
-> 💡 The fastest query is the one that never hits the DB. Add caching (IMemoryCache / Redis) on top of repositories for frequently-read and rarely-changed data.
+> 💡 The fastest query is the one that never hits the DB. Add caching (IMemoryCache / Redis) on top of repositories for frequently-read and rarely-changed data. [Claude Code with the /efcore-optimize skill](/en/ai/claude-code-skills-migration/) helps find N+1 and missing AsNoTracking across the project. EF Core 9/10 features become available after [migrating to .NET 10](/en/dotnet/dotnet-migration/).

@@ -31,7 +31,7 @@ faq:
 
 **.NET Framework 4.8** is the final version of the "old" .NET. Microsoft still supports it but isn't adding new features. Everything new lives in `.NET 10`.
 
-**.NET 10** shipped in November 2025, an LTS release supported until November 2028. Reasons to migrate:
+**.NET 10** shipped in November 2025, an LTS release supported until November 2028. After the move you unlock [C# 12-14 features](/en/dotnet/csharp-modern-features/) and [modern EF Core](/en/dotnet/efcore-optimization/). Reasons to migrate:
 - Performance: .NET 10 is 2-5x faster than Framework on typical API workloads
 - Cross-platform: Linux containers, Docker, lower hosting costs
 - C# 14 and modern patterns
@@ -253,4 +253,4 @@ location / {
 
 Strangler Fig is safer for big projects — you can roll back at any moment.
 
-> 💡 .NET Upgrade Assistant can auto-convert project files, web.config, and some code. Run it first — saves a few hours of manual work.
+> 💡 .NET Upgrade Assistant can auto-convert project files, web.config, and some code. Run it first — saves a few hours of manual work. [Claude Code with the /dotnet-migrate skill](/en/ai/claude-code-skills-migration/) takes even more routine off your plate.
