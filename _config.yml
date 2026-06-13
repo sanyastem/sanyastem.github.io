@@ -110,3 +110,8 @@ newsletter:
 telegram:
   enabled: false
   channel: ""
+
+# GoatCounter — приватная аналитика без cookies (GDPR ок, баннер не нужен).
+# code: поддомен из URL счётчика (https://<code>.goatcounter.com).
+analytics:
+  goatcounter: "sanyastem"
