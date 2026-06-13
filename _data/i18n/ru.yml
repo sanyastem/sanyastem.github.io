@@ -89,7 +89,8 @@ nav_extra:
   privacy: "Конфиденциальность"
   cheats: "Шпаргалки"
   paths: "Курсы"
-  builders: "Утилиты"
+  builders: "Билдеры"
+  utils: "Утилиты"
 
 newsletter:
   title: "Письма по делу"

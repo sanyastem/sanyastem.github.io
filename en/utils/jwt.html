@@ -1,0 +1,107 @@
+---
+layout: default
+lang: en
+title: "JWT decoder: decode a token online"
+permalink: /en/utils/jwt/
+description: "Paste a JWT — see the header, payload and claims (exp, iat) as human-readable time. Decoded in the browser; the token never leaves your machine."
+keywords: "jwt decoder, jwt decode, decode jwt, json web token, jwt payload, jwt exp"
+og_image: /assets/og-tools.png
+translation_of: /utils/jwt/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>JWT decoder</h1>
+        <p class="builder-intro">Paste a JWT — the header and payload decode <strong>in the browser</strong>. The token <strong>never leaves your machine</strong>.</p>
+    </header>
+
+    <div class="util-tool">
+        <label class="util-label">JWT token
+            <textarea id="jwt-in" class="util-textarea-mono" spellcheck="false" style="min-height:90px">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsZXgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTYyMzkwMjIsImV4cCI6MjAzMTU5OTAyMn0.signature</textarea>
+        </label>
+
+        <div class="util-result" id="jwt-status"></div>
+
+        <div class="util-row">
+            <div class="util-block">
+                <span class="util-block-title">Header</span>
+                <div class="util-out-box" id="jwt-header"></div>
+            </div>
+            <div class="util-block">
+                <span class="util-block-title">Payload</span>
+                <div class="util-out-box" id="jwt-payload"></div>
+            </div>
+        </div>
+
+        <div class="util-block" id="jwt-claims-wrap" hidden>
+            <span class="util-block-title">Time claims</span>
+            <div class="util-out-box" id="jwt-claims"></div>
+        </div>
+
+        <p class="builder-tip">⚠️ This is a decoder, not a verifier — the signature is not checked (that needs the secret). Never paste production tokens from third-party services here. JWT in Claude Code and MCP — in the <a href="/en/ai/claude-code-mcp/">MCP</a> article.</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    const $ = (id) => document.getElementById(id);
+    const input = $('jwt-in');
+
+    function b64urlDecode(str) {
+        str = str.replace(/-/g, '+').replace(/_/g, '/');
+        while (str.length % 4) str += '=';
+        const bin = atob(str);
+        const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+        return new TextDecoder('utf-8').decode(bytes);
+    }
+
+    function pretty(jsonStr) {
+        try { return JSON.stringify(JSON.parse(jsonStr), null, 2); }
+        catch (e) { return jsonStr; }
+    }
+
+    function fmtTime(ts) { return new Date(ts * 1000).toLocaleString('en-US'); }
+
+    function run() {
+        const raw = input.value.trim();
+        const status = $('jwt-status');
+        const claimsWrap = $('jwt-claims-wrap');
+        if (!raw) { status.className = 'util-result'; status.textContent = 'Paste a token'; $('jwt-header').textContent = ''; $('jwt-payload').textContent = ''; claimsWrap.hidden = true; return; }
+        const parts = raw.split('.');
+        if (parts.length < 2) {
+            status.className = 'util-result is-error';
+            status.textContent = 'Doesn’t look like a JWT (need dot-separated parts: header.payload.signature)';
+            return;
+        }
+        try {
+            const header = b64urlDecode(parts[0]);
+            const payload = b64urlDecode(parts[1]);
+            $('jwt-header').textContent = pretty(header);
+            $('jwt-payload').textContent = pretty(payload);
+
+            const p = JSON.parse(payload);
+            const lines = [];
+            const now = Math.floor(Date.now() / 1000);
+            if (p.iat) lines.push('iat (issued):    ' + fmtTime(p.iat));
+            if (p.nbf) lines.push('nbf (not before):' + fmtTime(p.nbf));
+            if (p.exp) {
+                const expired = p.exp < now;
+                lines.push('exp (expires):   ' + fmtTime(p.exp) + (expired ? '  ⚠️ EXPIRED' : '  ✓ valid'));
+            }
+            if (lines.length) { claimsWrap.hidden = false; $('jwt-claims').textContent = lines.join('\n'); }
+            else claimsWrap.hidden = true;
+
+            const expNote = p.exp && p.exp < now ? ' — token expired' : '';
+            status.className = 'util-result is-ok';
+            status.textContent = 'Decoded: algorithm ' + (JSON.parse(header).alg || '?') + expNote;
+        } catch (e) {
+            status.className = 'util-result is-error';
+            status.textContent = 'Could not decode: ' + e.message;
+            claimsWrap.hidden = true;
+        }
+    }
+
+    input.addEventListener('input', run);
+    run();
+})();
+</script>

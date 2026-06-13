@@ -1,0 +1,197 @@
+---
+layout: default
+lang: ru
+title: "Cron-выражение: расшифровка и ближайшие запуски"
+permalink: /utils/cron/
+description: "Введи cron-выражение — получи расшифровку человеческим языком и ближайшие даты запуска. Поддержка */n, диапазонов, списков. Всё в браузере."
+keywords: "cron выражение, cron расшифровка, crontab генератор, cron parser, cron ближайшие запуски, что значит cron"
+og_image: /assets/og-devops.png
+translation_of: /en/utils/cron/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>Cron-выражение</h1>
+        <p class="builder-intro">Введи cron-выражение — получишь расшифровку человеческим языком и ближайшие запуски. Всё считается <strong>в браузере</strong>.</p>
+    </header>
+
+    <div class="util-tool">
+        <label class="util-label">Cron-выражение (5 полей: минута час день месяц день-недели)
+            <input type="text" id="cron-in" class="util-input-mono" value="0 20 * * 5" spellcheck="false" autocomplete="off">
+        </label>
+
+        <div class="util-presets" id="cron-presets">
+            <button type="button" data-cron="* * * * *">каждую минуту</button>
+            <button type="button" data-cron="*/15 * * * *">каждые 15 мин</button>
+            <button type="button" data-cron="0 * * * *">каждый час</button>
+            <button type="button" data-cron="0 9 * * *">каждый день 9:00</button>
+            <button type="button" data-cron="0 20 * * 5">по пятницам 20:00</button>
+            <button type="button" data-cron="0 0 1 * *">1-го числа</button>
+        </div>
+
+        <div class="util-result" id="cron-desc"></div>
+
+        <div class="util-block">
+            <span class="util-block-title">Ближайшие 5 запусков <span style="color:var(--text-muted);font-weight:400;">(локальное время)</span></span>
+            <ol class="util-runs" id="cron-runs"></ol>
+        </div>
+
+        <p class="builder-tip">💡 Cron в GitHub Actions и расписания деплоя — в статье <a href="/devops/github-actions/">GitHub Actions</a>. Поля: <code>минута</code> (0–59), <code>час</code> (0–23), <code>день месяца</code> (1–31), <code>месяц</code> (1–12), <code>день недели</code> (0–6, 0=вс).</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    const DOW = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+    const DOW_SHORT = ['вс','пн','вт','ср','чт','пт','сб'];
+
+    function parseField(expr, min, max) {
+        // returns sorted array of allowed values, or throws
+        const out = new Set();
+        for (const part of expr.split(',')) {
+            let step = 1, range = part;
+            if (part.includes('/')) {
+                const [r, s] = part.split('/');
+                step = parseInt(s, 10);
+                if (!step || step < 1) throw new Error('шаг');
+                range = r;
+            }
+            let lo, hi;
+            if (range === '*') { lo = min; hi = max; }
+            else if (range.includes('-')) {
+                const [a, b] = range.split('-').map(n => parseInt(n, 10));
+                lo = a; hi = b;
+            } else {
+                lo = hi = parseInt(range, 10);
+            }
+            if (isNaN(lo) || isNaN(hi) || lo < min || hi > max || lo > hi) throw new Error('диапазон');
+            for (let v = lo; v <= hi; v += step) out.add(v);
+        }
+        return [...out].sort((a, b) => a - b);
+    }
+
+    function describeField(expr, names, everyWord, unitWord) {
+        if (expr === '*') return null;
+        if (/^\*\/\d+$/.test(expr)) {
+            const n = expr.slice(2);
+            return 'каждые ' + n + ' ' + unitWord;
+        }
+        const vals = expr.split(',');
+        const human = vals.map(v => {
+            if (v.includes('-')) {
+                const [a, b] = v.split('-');
+                return (names ? names[+a] : a) + '–' + (names ? names[+b] : b);
+            }
+            return names ? names[+v] : v;
+        });
+        return human.join(', ');
+    }
+
+    function describe(fields) {
+        const [mi, ho, dom, mon, dow] = fields;
+        let timePart;
+        // time
+        if (mi === '*' && ho === '*') timePart = 'каждую минуту';
+        else if (ho === '*' && /^\*\/\d+$/.test(mi)) timePart = 'каждые ' + mi.slice(2) + ' минут';
+        else if (ho === '*' && /^\d+$/.test(mi)) timePart = 'в ' + mi + '-ю минуту каждого часа';
+        else if (/^\d+$/.test(ho) && /^\d+$/.test(mi)) timePart = 'в ' + ho + ':' + String(+mi).padStart(2, '0');
+        else if (/^\*\/\d+$/.test(ho)) timePart = 'каждые ' + ho.slice(2) + ' часов';
+        else timePart = 'минуты [' + mi + '], часы [' + ho + ']';
+
+        const parts = [timePart];
+        const dowD = describeField(dow.replace('7', '0'), DOW, null, 'дней');
+        const domD = (dom === '*') ? null : 'числа: ' + dom;
+        const monD = describeField(mon, ['', ...MONTHS], null, 'месяцев');
+
+        if (dowD && !domD) parts.push('по дням: ' + dowD);
+        else if (domD && !dowD) parts.push(domD);
+        else if (domD && dowD) parts.push(domD + ' и по дням: ' + dowD);
+        if (monD) parts.push('в месяцы: ' + monD);
+        return parts.join(', ');
+    }
+
+    function nextRuns(sets, count) {
+        const [mins, hours, doms, mons, dows] = sets;
+        const runs = [];
+        const d = new Date();
+        d.setSeconds(0, 0);
+        d.setMinutes(d.getMinutes() + 1);
+        let guard = 0;
+        while (runs.length < count && guard < 600000) {
+            guard++;
+            if (mins.includes(d.getMinutes()) &&
+                hours.includes(d.getHours()) &&
+                mons.includes(d.getMonth() + 1) &&
+                (doms.includes(d.getDate()) || dows.includes(d.getDay()))) {
+                // cron rule: if both dom and dow restricted, OR; if one is *, AND
+                runs.push(new Date(d));
+            }
+            d.setMinutes(d.getMinutes() + 1);
+        }
+        return runs;
+    }
+
+    function fmt(d) {
+        const day = DOW_SHORT[d.getDay()];
+        return `${day} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}, ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    }
+
+    const $ = (id) => document.getElementById(id);
+    const input = $('cron-in');
+
+    function run() {
+        const raw = input.value.trim().replace(/\s+/g, ' ');
+        const fields = raw.split(' ');
+        const desc = $('cron-desc'), runsEl = $('cron-runs');
+        if (fields.length !== 5) {
+            desc.className = 'util-result is-error';
+            desc.textContent = 'Нужно ровно 5 полей через пробел. Пример: 0 20 * * 5';
+            runsEl.innerHTML = '';
+            return;
+        }
+        try {
+            const sets = [
+                parseField(fields[0], 0, 59),
+                parseField(fields[1], 0, 23),
+                parseField(fields[2], 1, 31),
+                parseField(fields[3], 1, 12),
+                parseField(fields[4].replace('7', '0'), 0, 6)
+            ];
+            desc.className = 'util-result is-ok';
+            desc.textContent = describe(fields);
+            // dom/dow OR logic: if either is '*', treat that set as "all" so AND works
+            const domAll = fields[2] === '*';
+            const dowAll = fields[4] === '*';
+            const effSets = sets.slice();
+            const runs = [];
+            const d = new Date(); d.setSeconds(0,0); d.setMinutes(d.getMinutes()+1);
+            let guard = 0;
+            while (runs.length < 5 && guard < 800000) {
+                guard++;
+                const okDom = domAll ? true : sets[2].includes(d.getDate());
+                const okDow = dowAll ? true : sets[4].includes(d.getDay());
+                const dayOk = (domAll || dowAll) ? (okDom && okDow) : (okDom || okDow);
+                if (sets[0].includes(d.getMinutes()) && sets[1].includes(d.getHours()) && sets[3].includes(d.getMonth()+1) && dayOk) {
+                    runs.push(new Date(d));
+                }
+                d.setMinutes(d.getMinutes()+1);
+            }
+            runsEl.innerHTML = runs.length
+                ? runs.map(r => '<li>' + fmt(r) + '</li>').join('')
+                : '<li style="color:var(--text-muted)">нет запусков в ближайший год</li>';
+        } catch (e) {
+            desc.className = 'util-result is-error';
+            desc.textContent = 'Не удалось разобрать выражение (' + e.message + '). Проверь поля.';
+            runsEl.innerHTML = '';
+        }
+    }
+
+    input.addEventListener('input', run);
+    $('cron-presets').addEventListener('click', e => {
+        const b = e.target.closest('button[data-cron]');
+        if (b) { input.value = b.dataset.cron; run(); }
+    });
+    run();
+})();
+</script>

@@ -1,0 +1,111 @@
+---
+layout: default
+lang: ru
+title: "JWT-декодер: расшифровать токен онлайн"
+permalink: /utils/jwt/
+description: "Вставь JWT-токен — увидишь header, payload и claims (exp, iat) человеческим временем. Декодирование в браузере, токен никуда не отправляется."
+keywords: "jwt декодер, jwt decode, расшифровать jwt, json web token, jwt payload, jwt exp"
+og_image: /assets/og-tools.png
+translation_of: /en/utils/jwt/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>JWT-декодер</h1>
+        <p class="builder-intro">Вставь JWT — header и payload расшифруются <strong>в браузере</strong>. Токен <strong>никуда не отправляется</strong>.</p>
+    </header>
+
+    <div class="util-tool">
+        <label class="util-label">JWT-токен
+            <textarea id="jwt-in" class="util-textarea-mono" spellcheck="false" style="min-height:90px">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsZXgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTYyMzkwMjIsImV4cCI6MjAzMTU5OTAyMn0.signature</textarea>
+        </label>
+
+        <div class="util-result" id="jwt-status"></div>
+
+        <div class="util-row">
+            <div class="util-block">
+                <span class="util-block-title">Header</span>
+                <div class="util-out-box" id="jwt-header"></div>
+            </div>
+            <div class="util-block">
+                <span class="util-block-title">Payload</span>
+                <div class="util-out-box" id="jwt-payload"></div>
+            </div>
+        </div>
+
+        <div class="util-block" id="jwt-claims-wrap" hidden>
+            <span class="util-block-title">Временные claims</span>
+            <div class="util-out-box" id="jwt-claims"></div>
+        </div>
+
+        <p class="builder-tip">⚠️ Это декодер, а не верификатор — подпись не проверяется (для этого нужен секрет). Никогда не вставляй сюда боевые токены с чужих сервисов. JWT в Claude Code и MCP — в статьях про <a href="/ai/claude-code-mcp/">MCP</a>.</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    const $ = (id) => document.getElementById(id);
+    const input = $('jwt-in');
+
+    function b64urlDecode(str) {
+        str = str.replace(/-/g, '+').replace(/_/g, '/');
+        while (str.length % 4) str += '=';
+        const bin = atob(str);
+        // UTF-8 decode
+        const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+        return new TextDecoder('utf-8').decode(bytes);
+    }
+
+    function pretty(jsonStr) {
+        try { return JSON.stringify(JSON.parse(jsonStr), null, 2); }
+        catch (e) { return jsonStr; }
+    }
+
+    function fmtTime(ts) {
+        const d = new Date(ts * 1000);
+        return d.toLocaleString('ru-RU');
+    }
+
+    function run() {
+        const raw = input.value.trim();
+        const status = $('jwt-status');
+        const claimsWrap = $('jwt-claims-wrap');
+        if (!raw) { status.className = 'util-result'; status.textContent = 'Вставь токен'; $('jwt-header').textContent = ''; $('jwt-payload').textContent = ''; claimsWrap.hidden = true; return; }
+        const parts = raw.split('.');
+        if (parts.length < 2) {
+            status.className = 'util-result is-error';
+            status.textContent = 'Это не похоже на JWT (нужны части через точку: header.payload.signature)';
+            return;
+        }
+        try {
+            const header = b64urlDecode(parts[0]);
+            const payload = b64urlDecode(parts[1]);
+            $('jwt-header').textContent = pretty(header);
+            $('jwt-payload').textContent = pretty(payload);
+
+            const p = JSON.parse(payload);
+            const lines = [];
+            const now = Math.floor(Date.now() / 1000);
+            if (p.iat) lines.push('iat (выдан):     ' + fmtTime(p.iat));
+            if (p.nbf) lines.push('nbf (активен с): ' + fmtTime(p.nbf));
+            if (p.exp) {
+                const expired = p.exp < now;
+                lines.push('exp (истекает):  ' + fmtTime(p.exp) + (expired ? '  ⚠️ ИСТЁК' : '  ✓ действует'));
+            }
+            if (lines.length) { claimsWrap.hidden = false; $('jwt-claims').textContent = lines.join('\n'); }
+            else claimsWrap.hidden = true;
+
+            const expNote = p.exp && p.exp < now ? ' — токен истёк' : '';
+            status.className = 'util-result is-ok';
+            status.textContent = 'Декодировано: алгоритм ' + (JSON.parse(header).alg || '?') + expNote;
+        } catch (e) {
+            status.className = 'util-result is-error';
+            status.textContent = 'Не удалось декодировать: ' + e.message;
+            claimsWrap.hidden = true;
+        }
+    }
+
+    input.addEventListener('input', run);
+    run();
+})();
+</script>

@@ -1,0 +1,114 @@
+---
+layout: default
+lang: ru
+title: "Regex-тестер: проверь регулярное выражение онлайн"
+permalink: /utils/regex/
+description: "Введи регулярное выражение и текст — увидишь подсветку совпадений, группы и количество. Флаги g/i/m/s. Всё в браузере, ничего не уходит на сервер."
+keywords: "regex тестер, регулярные выражения онлайн, regex проверить, regexp tester, regex групп, подсветка совпадений"
+og_image: /assets/og-tools.png
+translation_of: /en/utils/regex/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>Regex-тестер</h1>
+        <p class="builder-intro">Введи регулярное выражение и текст — совпадения подсветятся <strong>сразу</strong>. Ничего не уходит на сервер.</p>
+    </header>
+
+    <div class="util-tool">
+        <div class="util-row">
+            <label class="util-label">Выражение
+                <input type="text" id="rx-pat" class="util-input-mono" value="\b\w+@\w+\.\w+\b" spellcheck="false" autocomplete="off">
+            </label>
+            <label class="util-label">Флаги
+                <input type="text" id="rx-flags" class="util-input-mono" value="gi" spellcheck="false" autocomplete="off" maxlength="6">
+            </label>
+        </div>
+
+        <label class="util-label">Текст
+            <textarea id="rx-text" class="util-textarea-mono" spellcheck="false">Пиши на admin@site.ru или support@example.com.
+Неверное: foo@bar, просто текст.</textarea>
+        </label>
+
+        <div class="util-result" id="rx-status"></div>
+
+        <div class="util-block">
+            <span class="util-block-title">Результат с подсветкой</span>
+            <div class="util-out-box util-highlight" id="rx-out"></div>
+        </div>
+
+        <div class="util-block" id="rx-groups-wrap" hidden>
+            <span class="util-block-title">Группы первого совпадения</span>
+            <div class="util-out-box" id="rx-groups"></div>
+        </div>
+
+        <p class="builder-tip">💡 Флаги: <code>g</code> — все совпадения, <code>i</code> — без регистра, <code>m</code> — многострочный (^$ на каждой строке), <code>s</code> — точка матчит перенос. Синтаксис — JavaScript RegExp.</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    const $ = (id) => document.getElementById(id);
+    const pat = $('rx-pat'), flags = $('rx-flags'), text = $('rx-text');
+    const status = $('rx-status'), out = $('rx-out');
+    const groupsWrap = $('rx-groups-wrap'), groups = $('rx-groups');
+
+    function esc(s) {
+        return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function run() {
+        const p = pat.value;
+        let f = flags.value;
+        if (!p) { status.className = 'util-result'; status.textContent = 'Введи выражение'; out.innerHTML = ''; groupsWrap.hidden = true; return; }
+        let re;
+        try {
+            re = new RegExp(p, f);
+        } catch (e) {
+            status.className = 'util-result is-error';
+            status.textContent = 'Ошибка в выражении: ' + e.message;
+            out.innerHTML = esc(text.value);
+            groupsWrap.hidden = true;
+            return;
+        }
+        const src = text.value;
+        let count = 0, html = '', last = 0, first = null;
+        const global = f.includes('g');
+        const gre = global ? re : new RegExp(p, f + 'g');
+        let m;
+        let guard = 0;
+        while ((m = gre.exec(src)) !== null && guard < 100000) {
+            guard++;
+            if (first === null) first = m;
+            count++;
+            html += esc(src.slice(last, m.index)) + '<mark>' + esc(m[0] || '') + '</mark>';
+            last = m.index + (m[0].length || 0);
+            if (m[0] === '') gre.lastIndex++;     // avoid infinite loop on empty match
+            if (!global) break;
+        }
+        html += esc(src.slice(last));
+        out.innerHTML = html || '<span style="color:var(--text-muted)">(пусто)</span>';
+        status.className = count ? 'util-result is-ok' : 'util-result';
+        status.textContent = count ? ('Совпадений: ' + count) : 'Совпадений нет';
+
+        if (first && first.length > 1) {
+            groupsWrap.hidden = false;
+            let g = '';
+            for (let i = 1; i < first.length; i++) {
+                g += '$' + i + ' = ' + (first[i] === undefined ? '(нет)' : JSON.stringify(first[i])) + '\n';
+            }
+            if (first.groups) {
+                for (const [k, v] of Object.entries(first.groups)) {
+                    g += '(?<' + k + '>) = ' + (v === undefined ? '(нет)' : JSON.stringify(v)) + '\n';
+                }
+            }
+            groups.textContent = g.trimEnd();
+        } else {
+            groupsWrap.hidden = true;
+        }
+    }
+
+    [pat, flags, text].forEach(el => el.addEventListener('input', run));
+    run();
+})();
+</script>

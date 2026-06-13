@@ -90,6 +90,7 @@ nav_extra:
   cheats: "Cheat sheets"
   paths: "Courses"
   builders: "Builders"
+  utils: "Utilities"
 
 newsletter:
   title: "Practical newsletter"

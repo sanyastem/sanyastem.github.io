@@ -2535,3 +2535,105 @@ html[data-theme="light"] .filter-btn.active { color: #fff; }
     color: var(--text-muted);
     white-space: nowrap;
 }
+
+/* ========== Интерактивные утилиты (/utils/) ========== */
+.util-tool { display: flex; flex-direction: column; gap: 18px; max-width: 760px; }
+
+.util-label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.util-input-mono, .util-textarea-mono {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    padding: 12px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    width: 100%;
+}
+
+.util-input-mono:focus, .util-textarea-mono:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.util-textarea-mono { resize: vertical; min-height: 120px; line-height: 1.5; }
+
+.util-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.util-presets button {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.util-presets button:hover { border-color: var(--border-hover); color: var(--text); }
+
+.util-result {
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    font-size: 1.02rem;
+    line-height: 1.5;
+    background: var(--bg-card);
+}
+
+.util-result.is-ok { border-left: 3px solid var(--accent); }
+.util-result.is-error { border-left: 3px solid var(--diff-advanced); color: var(--diff-advanced); }
+
+.util-block { display: flex; flex-direction: column; gap: 10px; }
+.util-block-title { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+
+.util-runs {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.88rem;
+}
+.util-runs li {
+    padding: 8px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-dim);
+}
+
+.util-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .util-row { grid-template-columns: 1fr; } }
+
+.util-out-box {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    padding: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 80px;
+    line-height: 1.5;
+}
+
+/* regex подсветка совпадений */
+.util-highlight mark {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-radius: 3px;
+    padding: 0 1px;
+}

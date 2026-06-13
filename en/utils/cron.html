@@ -1,0 +1,162 @@
+---
+layout: default
+lang: en
+title: "Cron expression: explain and next runs"
+permalink: /en/utils/cron/
+description: "Type a cron expression — get a plain-English explanation and the next run dates. Supports */n, ranges, lists. All in the browser."
+keywords: "cron expression, cron explained, crontab generator, cron parser, cron next runs, what does cron mean"
+og_image: /assets/og-devops.png
+translation_of: /utils/cron/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>Cron expression</h1>
+        <p class="builder-intro">Type a cron expression — get a plain-English explanation and the next runs. Everything is computed <strong>in the browser</strong>.</p>
+    </header>
+
+    <div class="util-tool">
+        <label class="util-label">Cron expression (5 fields: minute hour day month weekday)
+            <input type="text" id="cron-in" class="util-input-mono" value="0 20 * * 5" spellcheck="false" autocomplete="off">
+        </label>
+
+        <div class="util-presets" id="cron-presets">
+            <button type="button" data-cron="* * * * *">every minute</button>
+            <button type="button" data-cron="*/15 * * * *">every 15 min</button>
+            <button type="button" data-cron="0 * * * *">every hour</button>
+            <button type="button" data-cron="0 9 * * *">daily 9:00</button>
+            <button type="button" data-cron="0 20 * * 5">Fridays 20:00</button>
+            <button type="button" data-cron="0 0 1 * *">1st of month</button>
+        </div>
+
+        <div class="util-result" id="cron-desc"></div>
+
+        <div class="util-block">
+            <span class="util-block-title">Next 5 runs <span style="color:var(--text-muted);font-weight:400;">(local time)</span></span>
+            <ol class="util-runs" id="cron-runs"></ol>
+        </div>
+
+        <p class="builder-tip">💡 Cron in GitHub Actions and deploy schedules — in the <a href="/en/devops/github-actions/">GitHub Actions</a> article. Fields: <code>minute</code> (0–59), <code>hour</code> (0–23), <code>day of month</code> (1–31), <code>month</code> (1–12), <code>weekday</code> (0–6, 0=Sun).</p>
+    </div>
+</div>
+
+<script>
+(function() {
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const DOW = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const DOW_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    function parseField(expr, min, max) {
+        const out = new Set();
+        for (const part of expr.split(',')) {
+            let step = 1, range = part;
+            if (part.includes('/')) {
+                const [r, s] = part.split('/');
+                step = parseInt(s, 10);
+                if (!step || step < 1) throw new Error('step');
+                range = r;
+            }
+            let lo, hi;
+            if (range === '*') { lo = min; hi = max; }
+            else if (range.includes('-')) {
+                const [a, b] = range.split('-').map(n => parseInt(n, 10));
+                lo = a; hi = b;
+            } else { lo = hi = parseInt(range, 10); }
+            if (isNaN(lo) || isNaN(hi) || lo < min || hi > max || lo > hi) throw new Error('range');
+            for (let v = lo; v <= hi; v += step) out.add(v);
+        }
+        return [...out].sort((a, b) => a - b);
+    }
+
+    function describeField(expr, names) {
+        const vals = expr.split(',');
+        return vals.map(v => {
+            if (v.includes('-')) {
+                const [a, b] = v.split('-');
+                return (names ? names[+a] : a) + '–' + (names ? names[+b] : b);
+            }
+            return names ? names[+v] : v;
+        }).join(', ');
+    }
+
+    function describe(fields) {
+        const [mi, ho, dom, mon, dow] = fields;
+        let timePart;
+        if (mi === '*' && ho === '*') timePart = 'every minute';
+        else if (ho === '*' && /^\*\/\d+$/.test(mi)) timePart = 'every ' + mi.slice(2) + ' minutes';
+        else if (ho === '*' && /^\d+$/.test(mi)) timePart = 'at minute ' + mi + ' of every hour';
+        else if (/^\d+$/.test(ho) && /^\d+$/.test(mi)) timePart = 'at ' + ho + ':' + String(+mi).padStart(2, '0');
+        else if (/^\*\/\d+$/.test(ho)) timePart = 'every ' + ho.slice(2) + ' hours';
+        else timePart = 'minutes [' + mi + '], hours [' + ho + ']';
+
+        const parts = [timePart];
+        const dowD = dow === '*' ? null : describeField(dow.replace('7','0'), DOW);
+        const domD = dom === '*' ? null : 'on day(s): ' + dom;
+        const monD = mon === '*' ? null : describeField(mon, ['', ...MONTHS]);
+
+        if (dowD && !domD) parts.push('on ' + dowD);
+        else if (domD && !dowD) parts.push(domD);
+        else if (domD && dowD) parts.push(domD + ' and on ' + dowD);
+        if (monD) parts.push('in ' + monD);
+        return parts.join(', ');
+    }
+
+    function fmt(d) {
+        return `${DOW_SHORT[d.getDay()]} ${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}, ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    }
+
+    const $ = (id) => document.getElementById(id);
+    const input = $('cron-in');
+
+    function run() {
+        const raw = input.value.trim().replace(/\s+/g, ' ');
+        const fields = raw.split(' ');
+        const desc = $('cron-desc'), runsEl = $('cron-runs');
+        if (fields.length !== 5) {
+            desc.className = 'util-result is-error';
+            desc.textContent = 'Need exactly 5 space-separated fields. Example: 0 20 * * 5';
+            runsEl.innerHTML = '';
+            return;
+        }
+        try {
+            const sets = [
+                parseField(fields[0], 0, 59),
+                parseField(fields[1], 0, 23),
+                parseField(fields[2], 1, 31),
+                parseField(fields[3], 1, 12),
+                parseField(fields[4].replace('7', '0'), 0, 6)
+            ];
+            desc.className = 'util-result is-ok';
+            desc.textContent = describe(fields);
+            const domAll = fields[2] === '*', dowAll = fields[4] === '*';
+            const runs = [];
+            const d = new Date(); d.setSeconds(0,0); d.setMinutes(d.getMinutes()+1);
+            let guard = 0;
+            while (runs.length < 5 && guard < 800000) {
+                guard++;
+                const okDom = domAll ? true : sets[2].includes(d.getDate());
+                const okDow = dowAll ? true : sets[4].includes(d.getDay());
+                const dayOk = (domAll || dowAll) ? (okDom && okDow) : (okDom || okDow);
+                if (sets[0].includes(d.getMinutes()) && sets[1].includes(d.getHours()) && sets[3].includes(d.getMonth()+1) && dayOk) {
+                    runs.push(new Date(d));
+                }
+                d.setMinutes(d.getMinutes()+1);
+            }
+            runsEl.innerHTML = runs.length
+                ? runs.map(r => '<li>' + fmt(r) + '</li>').join('')
+                : '<li style="color:var(--text-muted)">no runs in the next year</li>';
+        } catch (e) {
+            desc.className = 'util-result is-error';
+            desc.textContent = 'Could not parse the expression (' + e.message + '). Check the fields.';
+            runsEl.innerHTML = '';
+        }
+    }
+
+    input.addEventListener('input', run);
+    $('cron-presets').addEventListener('click', e => {
+        const b = e.target.closest('button[data-cron]');
+        if (b) { input.value = b.dataset.cron; run(); }
+    });
+    run();
+})();
+</script>
