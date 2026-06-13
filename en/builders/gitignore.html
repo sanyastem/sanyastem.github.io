@@ -1,0 +1,119 @@
+---
+layout: default
+lang: en
+title: ".gitignore builder — generate one for your stack"
+permalink: /en/builders/gitignore/
+description: "Tick languages, OS and editors — get a ready .gitignore. Node, Python, .NET, Go, Rust, Java, macOS, Windows, VS Code, JetBrains. All in the browser."
+keywords: "gitignore generator, gitignore builder, gitignore template, node python dotnet gitignore"
+og_image: /assets/og-git.png
+translation_of: /builders/gitignore/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>.gitignore builder</h1>
+        <p class="builder-intro">Tick your stack — <code>.gitignore</code> builds <strong>live on the right</strong> (or below on mobile). When ready, hit “Copy” and drop it into your repo root.</p>
+        <ol class="builder-steps">
+            <li>Pick languages, OS and editors</li>
+            <li>Copy the result → <code>.gitignore</code></li>
+            <li>Already committed junk? <code>git rm -r --cached &lt;path&gt;</code> + commit</li>
+        </ol>
+        <a href="#builder-output-anchor" class="builder-jump-mobile">↓ To the result</a>
+    </header>
+
+    <div class="builder-layout">
+        <form class="builder-form" id="gi-form" autocomplete="off">
+            <fieldset>
+                <legend>Languages & frameworks</legend>
+                <label><input type="checkbox" value="node" checked> Node.js</label>
+                <label><input type="checkbox" value="python"> Python</label>
+                <label><input type="checkbox" value="dotnet"> .NET</label>
+                <label><input type="checkbox" value="go"> Go</label>
+                <label><input type="checkbox" value="rust"> Rust</label>
+                <label><input type="checkbox" value="java"> Java / Gradle / Maven</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Operating system</legend>
+                <label><input type="checkbox" value="macos" checked> macOS</label>
+                <label><input type="checkbox" value="windows"> Windows</label>
+                <label><input type="checkbox" value="linux"> Linux</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Editors</legend>
+                <label><input type="checkbox" value="vscode" checked> VS Code</label>
+                <label><input type="checkbox" value="jetbrains"> JetBrains (IDEA, Rider…)</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Other</legend>
+                <label><input type="checkbox" value="env" checked> .env and secrets</label>
+                <label><input type="checkbox" value="docker"> Docker</label>
+            </fieldset>
+        </form>
+
+        <aside class="builder-output" id="builder-output-anchor">
+            <div class="builder-output-head">
+                <span class="builder-output-title">
+                    .gitignore
+                    <span class="live-badge" title="Updates automatically"><span class="live-dot"></span>LIVE</span>
+                </span>
+                <button type="button" class="copy-btn" id="gi-copy">Copy</button>
+            </div>
+            <pre><code id="gi-output"></code></pre>
+            <p class="builder-tip">💡 What to ignore and why — in the <a href="/en/git/gitignore/">.gitignore</a> article. Git commands — in the <a href="/en/cheats/git/">cheat sheet</a>.</p>
+        </aside>
+    </div>
+</div>
+
+<script>
+(function() {
+    const BLOCKS = {
+        node:    ['Node.js', ['node_modules/', 'npm-debug.log*', 'yarn-error.log', '.pnpm-debug.log*', 'dist/', 'build/', '.next/', '.nuxt/', 'coverage/']],
+        python:  ['Python', ['__pycache__/', '*.py[cod]', '.venv/', 'venv/', 'env/', '.pytest_cache/', '.mypy_cache/', '.ruff_cache/', '*.egg-info/', 'dist/', 'build/']],
+        dotnet:  ['.NET', ['bin/', 'obj/', '*.user', '*.suo', '.vs/', 'TestResults/', 'artifacts/']],
+        go:      ['Go', ['*.exe', '*.test', '*.out', '/bin/', 'vendor/']],
+        rust:    ['Rust', ['/target/', 'Cargo.lock', '**/*.rs.bk']],
+        java:    ['Java', ['*.class', 'target/', '.gradle/', 'build/', '*.jar', '!gradle-wrapper.jar']],
+        macos:   ['macOS', ['.DS_Store', '.AppleDouble', '._*', '.Spotlight-V100', '.Trashes']],
+        windows: ['Windows', ['Thumbs.db', 'ehthumbs.db', 'Desktop.ini', '$RECYCLE.BIN/', '*.lnk']],
+        linux:   ['Linux', ['*~', '.fuse_hidden*', '.directory', '.Trash-*']],
+        vscode:  ['VS Code', ['.vscode/*', '!.vscode/settings.json', '!.vscode/extensions.json', '*.code-workspace']],
+        jetbrains:['JetBrains', ['.idea/', '*.iml', '*.iws', 'out/']],
+        env:     ['Secrets & environment', ['.env', '.env.local', '.env.*.local', '*.pem', '*.key', 'secrets.json']],
+        docker:  ['Docker', ['docker-compose.override.yml', '.docker/']]
+    };
+
+    const form = document.getElementById('gi-form');
+    const output = document.getElementById('gi-output');
+
+    function render() {
+        const checked = [...form.querySelectorAll('input:checked')].map(i => i.value);
+        if (!checked.length) {
+            output.textContent = '# Tick at least one item on the left\n';
+            return;
+        }
+        const parts = [];
+        for (const key of Object.keys(BLOCKS)) {
+            if (!checked.includes(key)) continue;
+            const [title, lines] = BLOCKS[key];
+            parts.push('# ' + title + '\n' + lines.join('\n'));
+        }
+        output.textContent = parts.join('\n\n') + '\n';
+    }
+
+    form.addEventListener('change', render);
+
+    document.getElementById('gi-copy').addEventListener('click', () => {
+        navigator.clipboard.writeText(output.textContent).then(() => {
+            const btn = document.getElementById('gi-copy'), orig = btn.textContent;
+            btn.textContent = 'Copied ✓';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+        });
+    });
+
+    render();
+})();
+</script>

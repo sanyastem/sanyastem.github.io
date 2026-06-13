@@ -1,0 +1,119 @@
+---
+layout: default
+lang: ru
+title: ".gitignore builder — генератор под твой стек"
+permalink: /builders/gitignore/
+description: "Отметь языки, ОС и редакторы — получи готовый .gitignore. Node, Python, .NET, Go, Rust, Java, macOS, Windows, VS Code, JetBrains. Всё в браузере."
+keywords: "gitignore генератор, gitignore builder, gitignore шаблон, node python dotnet gitignore"
+og_image: /assets/og-git.png
+translation_of: /en/builders/gitignore/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>.gitignore builder</h1>
+        <p class="builder-intro">Отметь стек — <code>.gitignore</code> собирается <strong>в реальном времени справа</strong> (или ниже на мобиле). Готов — жми «Скопировать» и положи в корень репо.</p>
+        <ol class="builder-steps">
+            <li>Выбери языки, ОС и редакторы</li>
+            <li>Скопируй результат → <code>.gitignore</code></li>
+            <li>Уже закоммитил лишнее? <code>git rm -r --cached &lt;путь&gt;</code> + коммит</li>
+        </ol>
+        <a href="#builder-output-anchor" class="builder-jump-mobile">↓ К результату</a>
+    </header>
+
+    <div class="builder-layout">
+        <form class="builder-form" id="gi-form" autocomplete="off">
+            <fieldset>
+                <legend>Языки и фреймворки</legend>
+                <label><input type="checkbox" value="node" checked> Node.js</label>
+                <label><input type="checkbox" value="python"> Python</label>
+                <label><input type="checkbox" value="dotnet"> .NET</label>
+                <label><input type="checkbox" value="go"> Go</label>
+                <label><input type="checkbox" value="rust"> Rust</label>
+                <label><input type="checkbox" value="java"> Java / Gradle / Maven</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Операционная система</legend>
+                <label><input type="checkbox" value="macos" checked> macOS</label>
+                <label><input type="checkbox" value="windows"> Windows</label>
+                <label><input type="checkbox" value="linux"> Linux</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Редакторы</legend>
+                <label><input type="checkbox" value="vscode" checked> VS Code</label>
+                <label><input type="checkbox" value="jetbrains"> JetBrains (IDEA, Rider…)</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Прочее</legend>
+                <label><input type="checkbox" value="env" checked> .env и секреты</label>
+                <label><input type="checkbox" value="docker"> Docker</label>
+            </fieldset>
+        </form>
+
+        <aside class="builder-output" id="builder-output-anchor">
+            <div class="builder-output-head">
+                <span class="builder-output-title">
+                    .gitignore
+                    <span class="live-badge" title="Обновляется автоматически"><span class="live-dot"></span>LIVE</span>
+                </span>
+                <button type="button" class="copy-btn" id="gi-copy">Скопировать</button>
+            </div>
+            <pre><code id="gi-output"></code></pre>
+            <p class="builder-tip">💡 Что и почему игнорировать — в статье <a href="/git/gitignore/">.gitignore</a>. Команды git — в <a href="/cheats/git/">шпаргалке</a>.</p>
+        </aside>
+    </div>
+</div>
+
+<script>
+(function() {
+    const BLOCKS = {
+        node:    ['Node.js', ['node_modules/', 'npm-debug.log*', 'yarn-error.log', '.pnpm-debug.log*', 'dist/', 'build/', '.next/', '.nuxt/', 'coverage/']],
+        python:  ['Python', ['__pycache__/', '*.py[cod]', '.venv/', 'venv/', 'env/', '.pytest_cache/', '.mypy_cache/', '.ruff_cache/', '*.egg-info/', 'dist/', 'build/']],
+        dotnet:  ['.NET', ['bin/', 'obj/', '*.user', '*.suo', '.vs/', 'TestResults/', 'artifacts/']],
+        go:      ['Go', ['*.exe', '*.test', '*.out', '/bin/', 'vendor/']],
+        rust:    ['Rust', ['/target/', 'Cargo.lock', '**/*.rs.bk']],
+        java:    ['Java', ['*.class', 'target/', '.gradle/', 'build/', '*.jar', '!gradle-wrapper.jar']],
+        macos:   ['macOS', ['.DS_Store', '.AppleDouble', '._*', '.Spotlight-V100', '.Trashes']],
+        windows: ['Windows', ['Thumbs.db', 'ehthumbs.db', 'Desktop.ini', '$RECYCLE.BIN/', '*.lnk']],
+        linux:   ['Linux', ['*~', '.fuse_hidden*', '.directory', '.Trash-*']],
+        vscode:  ['VS Code', ['.vscode/*', '!.vscode/settings.json', '!.vscode/extensions.json', '*.code-workspace']],
+        jetbrains:['JetBrains', ['.idea/', '*.iml', '*.iws', 'out/']],
+        env:     ['Секреты и окружение', ['.env', '.env.local', '.env.*.local', '*.pem', '*.key', 'secrets.json']],
+        docker:  ['Docker', ['docker-compose.override.yml', '.docker/']]
+    };
+
+    const form = document.getElementById('gi-form');
+    const output = document.getElementById('gi-output');
+
+    function render() {
+        const checked = [...form.querySelectorAll('input:checked')].map(i => i.value);
+        if (!checked.length) {
+            output.textContent = '# Отметь хотя бы один пункт слева\n';
+            return;
+        }
+        const parts = [];
+        for (const key of Object.keys(BLOCKS)) {
+            if (!checked.includes(key)) continue;
+            const [title, lines] = BLOCKS[key];
+            parts.push('# ' + title + '\n' + lines.join('\n'));
+        }
+        output.textContent = parts.join('\n\n') + '\n';
+    }
+
+    form.addEventListener('change', render);
+
+    document.getElementById('gi-copy').addEventListener('click', () => {
+        navigator.clipboard.writeText(output.textContent).then(() => {
+            const btn = document.getElementById('gi-copy'), orig = btn.textContent;
+            btn.textContent = 'Скопировано ✓';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+        });
+    });
+
+    render();
+})();
+</script>

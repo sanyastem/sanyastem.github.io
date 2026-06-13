@@ -1,0 +1,245 @@
+---
+layout: default
+lang: ru
+title: "docker-compose.yml builder — генератор compose-файла"
+permalink: /builders/docker-compose/
+description: "Выбери сервисы (app, PostgreSQL, MySQL, Redis, nginx, Mongo) — получи готовый docker-compose.yml с томами, сетями и healthcheck. Всё в браузере."
+keywords: "docker-compose генератор, docker compose builder, docker-compose.yml шаблон, postgres redis nginx compose"
+og_image: /assets/og-devops.png
+translation_of: /en/builders/docker-compose/
+---
+
+<div class="container builder-wrap">
+    <header class="builder-hero">
+        <h1>docker-compose.yml builder</h1>
+        <p class="builder-intro">Отметь сервисы — <code>docker-compose.yml</code> собирается <strong>в реальном времени справа</strong> (или ниже на мобиле). Готов — жми «Скопировать» и положи в корень проекта.</p>
+        <ol class="builder-steps">
+            <li>Выбери сервисы и поправь порты/версии</li>
+            <li>Скопируй результат → <code>docker-compose.yml</code></li>
+            <li>Запусти <code>docker compose up -d</code></li>
+        </ol>
+        <a href="#builder-output-anchor" class="builder-jump-mobile">↓ К результату</a>
+    </header>
+
+    <div class="builder-layout">
+        <form class="builder-form" id="dc-form" autocomplete="off">
+            <fieldset>
+                <legend>Приложение</legend>
+                <label><input type="checkbox" id="s-app" checked> Сервис app (твой код)</label>
+                <label>Имя сервиса <input type="text" id="f-app-name" value="app"></label>
+                <label>Порт (host:container) <input type="text" id="f-app-port" value="3000:3000"></label>
+                <label>Источник
+                    <select id="f-app-src">
+                        <option value="build">build: . (свой Dockerfile)</option>
+                        <option value="image">image: (готовый образ)</option>
+                    </select>
+                </label>
+                <label id="wrap-app-image" hidden>Образ <input type="text" id="f-app-image" value="myapp:latest"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>База данных</legend>
+                <label><input type="checkbox" id="s-postgres"> PostgreSQL</label>
+                <label><input type="checkbox" id="s-mysql"> MySQL</label>
+                <label><input type="checkbox" id="s-mongo"> MongoDB</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Инфраструктура</legend>
+                <label><input type="checkbox" id="s-redis"> Redis (кэш/очереди)</label>
+                <label><input type="checkbox" id="s-nginx"> nginx (reverse proxy)</label>
+                <label><input type="checkbox" id="s-adminer"> Adminer (UI для БД)</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Опции</legend>
+                <label><input type="checkbox" id="o-healthcheck" checked> Healthcheck у БД</label>
+                <label><input type="checkbox" id="o-restart" checked> restart: unless-stopped</label>
+                <label><input type="checkbox" id="o-env" checked> Переменные из .env</label>
+            </fieldset>
+        </form>
+
+        <aside class="builder-output" id="builder-output-anchor">
+            <div class="builder-output-head">
+                <span class="builder-output-title">
+                    docker-compose.yml
+                    <span class="live-badge" title="Обновляется автоматически"><span class="live-dot"></span>LIVE</span>
+                </span>
+                <button type="button" class="copy-btn" id="dc-copy">Скопировать</button>
+            </div>
+            <pre><code id="dc-output"></code></pre>
+            <p class="builder-tip">💡 Подробно про оркестрацию — в статье <a href="/devops/docker-compose-advanced/">Docker Compose</a>. Команды — в <a href="/cheats/docker/">шпаргалке</a>.</p>
+        </aside>
+    </div>
+</div>
+
+<script>
+(function() {
+    const $ = (id) => document.getElementById(id);
+    const form = $('dc-form');
+
+    function val(id) { return $(id).value.trim(); }
+    function on(id) { return $(id).checked; }
+
+    function render() {
+        const restart = on('o-restart') ? '\n    restart: unless-stopped' : '';
+        const useEnv = on('o-env');
+        const hc = on('o-healthcheck');
+        const services = [];
+        const volumes = [];
+        const depends = [];
+
+        // App
+        if (on('s-app')) {
+            const name = val('f-app-name') || 'app';
+            const port = val('f-app-port') || '3000:3000';
+            const src = val('f-app-src') === 'image'
+                ? '    image: ' + (val('f-app-image') || 'myapp:latest')
+                : '    build: .';
+            let dep = '';
+            const deps = [];
+            if (on('s-postgres')) deps.push('postgres');
+            if (on('s-mysql')) deps.push('mysql');
+            if (on('s-mongo')) deps.push('mongo');
+            if (on('s-redis')) deps.push('redis');
+            if (deps.length) {
+                dep = '\n    depends_on:\n' + deps.map(d => '      ' + d + ':\n        condition: service_' + (hc ? 'healthy' : 'started')).join('\n');
+            }
+            let env = '';
+            if (useEnv) env = '\n    env_file:\n      - .env';
+            services.push(
+`  ${name}:
+${src}${restart}
+    ports:
+      - "${port}"${env}${dep}`);
+        }
+
+        // PostgreSQL
+        if (on('s-postgres')) {
+            const env = useEnv
+                ? '    env_file:\n      - .env'
+                : '    environment:\n      POSTGRES_PASSWORD: secret\n      POSTGRES_DB: app';
+            const health = hc ? `
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5` : '';
+            services.push(
+`  postgres:
+    image: postgres:16-alpine${restart}
+${env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data${health}`);
+            volumes.push('pgdata');
+        }
+
+        // MySQL
+        if (on('s-mysql')) {
+            const env = useEnv
+                ? '    env_file:\n      - .env'
+                : '    environment:\n      MYSQL_ROOT_PASSWORD: secret\n      MYSQL_DATABASE: app';
+            const health = hc ? `
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5` : '';
+            services.push(
+`  mysql:
+    image: mysql:8.4${restart}
+${env}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql${health}`);
+            volumes.push('mysqldata');
+        }
+
+        // MongoDB
+        if (on('s-mongo')) {
+            const health = hc ? `
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5` : '';
+            services.push(
+`  mongo:
+    image: mongo:7${restart}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db${health}`);
+            volumes.push('mongodata');
+        }
+
+        // Redis
+        if (on('s-redis')) {
+            const health = hc ? `
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5` : '';
+            services.push(
+`  redis:
+    image: redis:7-alpine${restart}
+    ports:
+      - "6379:6379"${health}`);
+        }
+
+        // nginx
+        if (on('s-nginx')) {
+            services.push(
+`  nginx:
+    image: nginx:alpine${restart}
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro`);
+        }
+
+        // Adminer
+        if (on('s-adminer')) {
+            services.push(
+`  adminer:
+    image: adminer:latest${restart}
+    ports:
+      - "8080:8080"`);
+        }
+
+        let out = '';
+        if (services.length) {
+            out += 'services:\n' + services.join('\n\n') + '\n';
+        } else {
+            out += '# Отметь хотя бы один сервис слева\n';
+        }
+        if (volumes.length) {
+            out += '\nvolumes:\n' + volumes.map(v => '  ' + v + ':').join('\n') + '\n';
+        }
+
+        $('dc-output').textContent = out.trimEnd() + '\n';
+    }
+
+    $('f-app-src').addEventListener('change', (e) => {
+        $('wrap-app-image').hidden = e.target.value !== 'image';
+        render();
+    });
+    form.addEventListener('input', render);
+    form.addEventListener('change', render);
+
+    $('dc-copy').addEventListener('click', () => {
+        navigator.clipboard.writeText($('dc-output').textContent).then(() => {
+            const btn = $('dc-copy'), orig = btn.textContent;
+            btn.textContent = 'Скопировано ✓';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+        });
+    });
+
+    render();
+})();
+</script>
