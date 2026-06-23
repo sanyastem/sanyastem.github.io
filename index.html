@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sanyastem - the blog has moved</title>
+<meta name="description" content="The blog has moved to sanyastem.dev">
+<link rel="canonical" href="https://sanyastem.dev/">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="4;url=https://sanyastem.dev/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0b0e'/%3E%3Ctext x='16' y='23' font-size='20' font-family='monospace' fill='%23ffb454' text-anchor='middle'%3Es%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0b0b0e;
+    --border: #26262e;
+    --text: #ececf0;
+    --muted: #8c8c97;
+    --accent: #ffb454;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .aurora {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .aurora span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.5;
+    will-change: transform;
+  }
+  .aurora .a1 {
+    width: 480px; height: 480px;
+    top: -140px; left: -100px;
+    background: radial-gradient(circle, rgba(255,180,84,0.42), transparent 65%);
+    animation: drift1 16s ease-in-out infinite;
+  }
+  .aurora .a2 {
+    width: 420px; height: 420px;
+    bottom: -160px; right: -80px;
+    background: radial-gradient(circle, rgba(255,128,64,0.32), transparent 65%);
+    animation: drift2 20s ease-in-out infinite;
+  }
+  .aurora .a3 {
+    width: 300px; height: 300px;
+    top: 40%; left: 55%;
+    background: radial-gradient(circle, rgba(120,90,255,0.18), transparent 65%);
+    animation: drift3 24s ease-in-out infinite;
+  }
+  @keyframes drift1 { 50% { transform: translate(90px, 60px) scale(1.15); } }
+  @keyframes drift2 { 50% { transform: translate(-70px, -50px) scale(1.1); } }
+  @keyframes drift3 { 50% { transform: translate(-60px, 40px) scale(1.2); } }
+
+  .grid-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.25;
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 0%, transparent 75%);
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 0%, transparent 75%);
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 460px;
+    background: linear-gradient(180deg, rgba(25,25,31,0.85), rgba(15,15,19,0.85));
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 44px 36px 38px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: ui-monospace, "Fira Code", SFMono-Regular, Menlo, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 26px;
+    animation: fade 0.6s ease 0.1s both;
+  }
+
+  .ring {
+    width: 92px;
+    height: 92px;
+    margin: 0 auto 26px;
+    position: relative;
+    animation: fade 0.6s ease 0.15s both;
+  }
+  .ring svg { transform: rotate(-90deg); display: block; }
+  .ring circle { fill: none; stroke-width: 5; stroke-linecap: round; }
+  .ring .track { stroke: var(--border); }
+  .ring .bar {
+    stroke: var(--accent);
+    stroke-dasharray: 245;
+    stroke-dashoffset: 245;
+    filter: drop-shadow(0 0 6px rgba(255,180,84,0.6));
+    animation: sweep 4s linear forwards;
+  }
+  @keyframes sweep { to { stroke-dashoffset: 0; } }
+  .ring .count {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 5vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    animation: fade 0.6s ease 0.2s both;
+  }
+  .dot { color: var(--accent); }
+
+  .sub-en {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 22px;
+    animation: fade 0.6s ease 0.25s both;
+  }
+  .sub-en b { color: var(--text); font-weight: 600; }
+
+  .go {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1a1205;
+    background: var(--accent);
+    padding: 13px 26px;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 24px rgba(255,180,84,0.25);
+    animation: fade 0.6s ease 0.3s both;
+  }
+  .go:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,180,84,0.4); }
+  .go .arrow { transition: transform 0.2s ease; }
+  .go:hover .arrow { transform: translateX(4px); }
+
+  .url {
+    margin-top: 18px;
+    font-family: ui-monospace, "Fira Code", monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    animation: fade 0.6s ease 0.35s both;
+  }
+  .url a { color: var(--muted); text-decoration: none; }
+  .url a:hover { color: var(--accent); }
+
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, .card, .eyebrow, .ring, h1, .sub-en, .go, .url, .aurora span { animation: none !important; }
+    .ring .bar { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <main class="card">
+    <span class="eyebrow">sanyastem<span class="dot">.</span>dev</span>
+
+    <div class="ring" aria-hidden="true">
+      <svg width="92" height="92" viewBox="0 0 92 92">
+        <circle class="track" cx="46" cy="46" r="39"></circle>
+        <circle class="bar" cx="46" cy="46" r="39"></circle>
+      </svg>
+      <span class="count" id="count">4</span>
+    </div>
+
+    <h1>The blog has moved<span class="dot">.</span></h1>
+    <p class="sub-en">It now lives at <b>sanyastem.dev</b></p>
+
+    <a class="go" href="https://sanyastem.dev/">Go now <span class="arrow" aria-hidden="true">&rarr;</span></a>
+
+    <p class="url">Redirecting in a few seconds &middot; <a href="https://sanyastem.dev/">sanyastem.dev</a></p>
+  </main>
+
+  <script>
+    (function () {
+      var TARGET = 'https://sanyastem.dev/';
+      var el = document.getElementById('count');
+      var n = 4;
+      var timer = setInterval(function () {
+        n -= 1;
+        if (el) el.textContent = n > 0 ? n : 0;
+        if (n <= 0) clearInterval(timer);
+      }, 1000);
+      setTimeout(function () { window.location.replace(TARGET); }, 4000);
+    })();
+  </script>
+</body>
+</html>

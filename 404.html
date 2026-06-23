@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sanyastem - redirecting</title>
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="1;url=https://sanyastem.dev/">
+<link rel="canonical" href="https://sanyastem.dev/">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #0b0b0e;
+    color: #ececf0;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 24px;
+  }
+  .wrap { animation: fade 0.5s ease both; }
+  .spin {
+    width: 38px; height: 38px;
+    margin: 0 auto 20px;
+    border: 3px solid #26262e;
+    border-top-color: #ffb454;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  p { color: #8c8c97; font-size: 0.95rem; }
+  a { color: #ffb454; text-decoration: none; font-weight: 600; }
+  a:hover { text-decoration: underline; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="spin" aria-hidden="true"></div>
+    <p>Redirecting to <a href="https://sanyastem.dev/">sanyastem.dev</a></p>
+  </div>
+  <script>setTimeout(function () { window.location.replace('https://sanyastem.dev/'); }, 1000);</script>
+</body>
+</html>

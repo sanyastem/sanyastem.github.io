@@ -1,0 +1,57 @@
+# Этот репозиторий теперь только страница-редирект на sanyastem.dev.
+# Старые исходники Jekyll оставлены на диске лишь для разового скрипта импорта
+# (scripts/import-posts читает _posts) и НЕ публикуются / не коммитятся.
+
+# Dependencies
+node_modules/
+vendor/
+.bundle/
+
+# Jekyll build
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Legacy Jekyll source (kept locally for the one-time import only)
+_posts/
+_data/
+_includes/
+_layouts/
+_handoff/
+_config.yml
+Gemfile
+Gemfile.lock
+assets/
+builders/
+cheats/
+en/
+utils/
+Scripts/
+Style/
+about.md
+paths.html
+privacy.md
+ads.txt
+robots.txt
+llms.txt
+llms-full.txt
+site.webmanifest
+.lighthouserc.json
+.lighthouserc.mobile.json
+.github/workflows/lighthouse.yml
+.claude/
+
+# Environment & secrets
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
